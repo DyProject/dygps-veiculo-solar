@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# AvrStudio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "acionamento_motores", "acionamento_motores.cproj", "{749511D0-AEDD-4191-A045-D8C516B2399D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{749511D0-AEDD-4191-A045-D8C516B2399D}.Debug|AVR.ActiveCfg = Debug|AVR
+		{749511D0-AEDD-4191-A045-D8C516B2399D}.Debug|AVR.Build.0 = Debug|AVR
+		{749511D0-AEDD-4191-A045-D8C516B2399D}.Release|AVR.ActiveCfg = Release|AVR
+		{749511D0-AEDD-4191-A045-D8C516B2399D}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
