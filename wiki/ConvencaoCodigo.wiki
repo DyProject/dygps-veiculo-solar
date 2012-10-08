@@ -40,8 +40,9 @@ Só devem ser inseridos no código para descrever algum funcionamento não óbvi
 
 Devem inciar com letra minúscula.Para palavras compostas pode-se usar duas definições. 
 
-#As duas palavras juntas, sendo a segunda iniciada por letra maiúscula; 
-#A separação das palavras é feita por um _underline_. 
+* As duas palavras juntas, sendo a segunda iniciada por letra maiúscula; 
+
+* A separação das palavras é feita por um _underline_. 
 
 Nenhuma variável deve conter todas as letras maiúsculas, sendo esta definição usada para os _#define._
 
@@ -61,8 +62,9 @@ Nenhuma variável deve conter todas as letras maiúsculas, sendo esta definiçã
 
 Devem conter a primeira letra maiúscula. Para palavras compostas pode-se usar duas definições:
 
-#As duas palavras juntas, sendo a segunda iniciada por letra maiúscula; 
-#A separação das palavras é feita por um _underline_. 
+* As duas palavras juntas, sendo a segunda iniciada por letra maiúscula; 
+
+* A separação das palavras é feita por um _underline_. 
 
 Nenhuma função deve conter todas as letras maiúsculas, sendo esta definição usada para os _#define_. 
 
