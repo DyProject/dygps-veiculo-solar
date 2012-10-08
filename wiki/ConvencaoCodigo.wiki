@@ -1,4 +1,4 @@
-#summary Padroniza a organização dos códigos no projeto. EM CONSTRUÇÃO.
+#summary Padroniza a organização dos códigos no projeto.
 #labels convenção,codigo,linguagemC,Organização
 
 = Introdução =
