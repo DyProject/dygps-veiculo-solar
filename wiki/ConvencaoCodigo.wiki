@@ -1,0 +1,139 @@
+#summary Padroniza a organização dos códigos no projeto. EM CONSTRUÇÃO.
+#labels convenção,codigo,linguagemC,Organização
+
+= Introdução =
+
+Para tornar o código legível e organizado foram convencionadas algumas medidas para padronização dos códigos usados neste projeto.
+
+
+= Convenções =
+
+== Cabeçalho ==
+
+Todos os programas devem conter no início um cabeçalho similar ao mostrado a seguir.
+
+{{{
+/****************************************************************
+*                  PROJECT INTEGRATOR II                        *
+*           Title:	                                        *
+*           Students: 	CAMPOS, Dyego de                        *
+*			SOUZA, Gustavo Pereira de               *
+*           Date:			                        *
+*	    Version:	                                        *
+****************************************************************/
+}}}
+
+== Comentários ==
+
+Só devem ser inseridos no código para descrever algum funcionamento não óbvio ou complicado. Comentários descrevendo linhas de código comuns devem ser evitados.
+
+== Separador ==
+
+ Entre as funções, defines deve haver um separador.
+{{{
+
+//--------------------------------------------------------------
+
+}}}
+
+== Variáveis ==
+
+Devem inciar com letra minúscula.Para palavras compostas pode-se usar duas definições. 
+
+#As duas palavras juntas, sendo a segunda iniciada por letra maiúscula; 
+#A separação das palavras é feita por um _underline_. 
+
+Nenhuma variável deve conter todas as letras maiúsculas, sendo esta definição usada para os _#define._
+
+{{{
+   //Modo correto
+   int xCount;
+   int x_Count;
+   int count;
+
+   //Modo incorreto
+   int Xcount;
+   int xCOUNT;
+}}}
+
+
+== Funções ==
+
+Devem conter a primeira letra maiúscula. Para palavras compostas pode-se usar duas definições:
+
+#As duas palavras juntas, sendo a segunda iniciada por letra maiúscula; 
+#A separação das palavras é feita por um _underline_. 
+
+Nenhuma função deve conter todas as letras maiúsculas, sendo esta definição usada para os _#define_. 
+
+A definição das funções devem estar depois da função _main()_.
+
+Os protótipos das funções devem ser localizados abaixo dos _#includes_. 
+
+Para funções com parâmetros, no protótipo deve conter somente o tipo do parâmetro. Funções sem parâmetros o void deve ser omitido. 
+
+Tanto as funções como os protótipos devem estar em ordem alfabética. 
+
+{{{
+   //Protótipo
+   void ValidaTeste(int);
+   .
+   .
+   .
+   //Função
+   void ValidaTeste(int verdadeiro){}
+}}}
+
+== Includes ==
+
+Os _#includes_ devem estar em ordem alfabética. Em caso de arquivos .c, o primeiro _#include_ é o seu respectivo .h. 
+Os primeiros includes são os externos <>, depois os outros "".
+
+== Modelo ==
+
+{{{
+/****************************************************************
+*                  PROJECT INTEGRATOR II                        *
+*           Title:		Drive Motor                     *
+*           Students: 	CAMPOS, Dyego de                        *
+*			SOUZA, Gustavo Pereira de               *
+*           Date: 	October 04th, 2012        	        *
+*	    Version:	1.0                                     *
+****************************************************************/
+//--------------------------------------------------------------
+
+#include <avr/io.h>
+#include <util/delay.h>
+
+#include "..\..\biblioteca\macro_bit.h"
+#include "..\..\biblioteca\L298.h"
+
+//--------------------------------------------------------------
+
+#define B_FORWARD_MD	PD0
+#define B_BACKWARD_MD	PD1
+
+//--------------------------------------------------------------
+
+void Backward ();
+void Forward ();
+void MoveOn();
+void Stop ();
+void TurnRight();
+void TurnLeft();
+
+//--------------------------------------------------------------
+
+int main(void)
+{
+
+}
+
+/--------------------------------------------------------------
+
+}}}
+
+== Referências ==
+R2R Tecnologia Empresa Júnior. Disponível: [http://www.r2rtecnologia.com.br/downloads.html] acesso: 07/10/2012
+
+<g:plusone size="medium"></g:plusone>
