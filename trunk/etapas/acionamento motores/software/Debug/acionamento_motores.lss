@@ -3,27 +3,29 @@ acionamento_motores.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000122  00000000  00000000  00000054  2**1
+  0 .text         000001da  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .stab         000006cc  00000000  00000000  00000178  2**2
+  1 .stab         000006cc  00000000  00000000  00000230  2**2
                   CONTENTS, READONLY, DEBUGGING
-  2 .stabstr      00000090  00000000  00000000  00000844  2**0
+  2 .stabstr      00000090  00000000  00000000  000008fc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  3 .debug_aranges 00000020  00000000  00000000  000008d4  2**0
+  3 .debug_aranges 00000020  00000000  00000000  0000098c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  4 .debug_pubnames 00000074  00000000  00000000  000008f4  2**0
+  4 .debug_pubnames 0000005c  00000000  00000000  000009ac  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000219  00000000  00000000  00000968  2**0
+  5 .debug_info   00000532  00000000  00000000  00000a08  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 00000121  00000000  00000000  00000b81  2**0
+  6 .debug_abbrev 00000147  00000000  00000000  00000f3a  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00000388  00000000  00000000  00000ca2  2**0
+  7 .debug_line   0000047c  00000000  00000000  00001081  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000080  00000000  00000000  0000102c  2**2
+  8 .debug_frame  00000080  00000000  00000000  00001500  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000001aa  00000000  00000000  000010ac  2**0
+  9 .debug_str    00000185  00000000  00000000  00001580  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_pubtypes 00000038  00000000  00000000  00001256  2**0
+ 10 .debug_loc    00000348  00000000  00000000  00001705  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_pubtypes 00000038  00000000  00000000  00001a4d  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -63,198 +65,319 @@ Disassembly of section .text:
   6e:	d8 e0       	ldi	r29, 0x08	; 8
   70:	de bf       	out	0x3e, r29	; 62
   72:	cd bf       	out	0x3d, r28	; 61
-  74:	0e 94 68 00 	call	0xd0	; 0xd0 <main>
-  78:	0c 94 8f 00 	jmp	0x11e	; 0x11e <_exit>
+  74:	0e 94 62 00 	call	0xc4	; 0xc4 <main>
+  78:	0c 94 eb 00 	jmp	0x1d6	; 0x1d6 <_exit>
 
 0000007c <__bad_interrupt>:
   7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
-00000080 <para>:
-	set_bit(PORTB, IN3);
-	clr_bit(PORTB, IN4);
+00000080 <STOP>:
+	set_bit(PORTC, IN3);
+	clr_bit(PORTC, IN4);
 }
-void para (void)
+void STOP()
 {
-	set_bit(PORTB, IN1);
-  80:	28 9a       	sbi	0x05, 0	; 5
-	set_bit(PORTB, IN2);
-  82:	29 9a       	sbi	0x05, 1	; 5
-	set_bit(PORTB, IN3);
-  84:	2a 9a       	sbi	0x05, 2	; 5
-	set_bit(PORTB, IN4);
-  86:	2b 9a       	sbi	0x05, 3	; 5
-}
-  88:	08 95       	ret
-
-0000008a <anda_atras>:
-	clr_bit(PORTB, IN3);
-	set_bit(PORTB, IN4);
-}
-void anda_atras (void)
-{
-	para();
-  8a:	0e 94 40 00 	call	0x80	; 0x80 <para>
+	set_bit(PORTC, IN1);
+  80:	41 9a       	sbi	0x08, 1	; 8
+	set_bit(PORTC, IN2);
+  82:	42 9a       	sbi	0x08, 2	; 8
+	set_bit(PORTC, IN3);
+  84:	44 9a       	sbi	0x08, 4	; 8
+	set_bit(PORTC, IN4);
+  86:	45 9a       	sbi	0x08, 5	; 8
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
-  8e:	87 ea       	ldi	r24, 0xA7	; 167
-  90:	91 e6       	ldi	r25, 0x61	; 97
-  92:	01 97       	sbiw	r24, 0x01	; 1
-  94:	f1 f7       	brne	.-4      	; 0x92 <anda_atras+0x8>
-  96:	00 c0       	rjmp	.+0      	; 0x98 <anda_atras+0xe>
-  98:	00 00       	nop
+  88:	87 ea       	ldi	r24, 0xA7	; 167
+  8a:	91 e6       	ldi	r25, 0x61	; 97
+  8c:	01 97       	sbiw	r24, 0x01	; 1
+  8e:	f1 f7       	brne	.-4      	; 0x8c <STOP+0xc>
+  90:	00 c0       	rjmp	.+0      	; 0x92 <STOP+0x12>
+  92:	00 00       	nop
 	_delay_ms(100);
-	set_bit(PORTB, IN1);
-  9a:	28 9a       	sbi	0x05, 0	; 5
-	clr_bit(PORTB, IN2);
-  9c:	29 98       	cbi	0x05, 1	; 5
-	set_bit(PORTB, IN3);
-  9e:	2a 9a       	sbi	0x05, 2	; 5
-	clr_bit(PORTB, IN4);
-  a0:	2b 98       	cbi	0x05, 3	; 5
+}
+  94:	08 95       	ret
+
+00000096 <BACKWARD>:
+	clr_bit(PORTC, IN3);
+	set_bit(PORTC, IN4);
+}
+void BACKWARD()
+{
+	STOP();	
+  96:	0e 94 40 00 	call	0x80	; 0x80 <STOP>
+	set_bit(PORTC, IN1);
+  9a:	41 9a       	sbi	0x08, 1	; 8
+	clr_bit(PORTC, IN2);
+  9c:	42 98       	cbi	0x08, 2	; 8
+	set_bit(PORTC, IN3);
+  9e:	44 9a       	sbi	0x08, 4	; 8
+	clr_bit(PORTC, IN4);
+  a0:	45 98       	cbi	0x08, 5	; 8
 }
   a2:	08 95       	ret
 
-000000a4 <anda_frente>:
+000000a4 <FORWARD>:
 	}	
-}
+} /*MAIN*/
 
-void anda_frente (void)
+void FORWARD()
 {
-	para();
-  a4:	0e 94 40 00 	call	0x80	; 0x80 <para>
-  a8:	87 ea       	ldi	r24, 0xA7	; 167
-  aa:	91 e6       	ldi	r25, 0x61	; 97
-  ac:	01 97       	sbiw	r24, 0x01	; 1
-  ae:	f1 f7       	brne	.-4      	; 0xac <anda_frente+0x8>
-  b0:	00 c0       	rjmp	.+0      	; 0xb2 <anda_frente+0xe>
-  b2:	00 00       	nop
-	_delay_ms(100);	
-	clr_bit(PORTB, IN1);
-  b4:	28 98       	cbi	0x05, 0	; 5
-	set_bit(PORTB, IN2);
-  b6:	29 9a       	sbi	0x05, 1	; 5
-	clr_bit(PORTB, IN3);
-  b8:	2a 98       	cbi	0x05, 2	; 5
-	set_bit(PORTB, IN4);
-  ba:	2b 9a       	sbi	0x05, 3	; 5
+	STOP();
+  a4:	0e 94 40 00 	call	0x80	; 0x80 <STOP>
+	clr_bit(PORTC, IN1);
+  a8:	41 98       	cbi	0x08, 1	; 8
+	set_bit(PORTC, IN2);
+  aa:	42 9a       	sbi	0x08, 2	; 8
+	clr_bit(PORTC, IN3);
+  ac:	44 98       	cbi	0x08, 4	; 8
+	set_bit(PORTC, IN4);
+  ae:	45 9a       	sbi	0x08, 5	; 8
+}
+  b0:	08 95       	ret
+
+000000b2 <RIGHT>:
+	set_bit(PORTC, IN4);
+	_delay_ms(100);
+}
+void RIGHT()
+{
+	clr_bit(PORTC, ENA);
+  b2:	40 98       	cbi	0x08, 0	; 8
+	set_bit(PORTC, ENB);
+  b4:	43 9a       	sbi	0x08, 3	; 8
+}
+  b6:	08 95       	ret
+
+000000b8 <LEFT>:
+void LEFT()
+{
+	set_bit(PORTC, ENA);
+  b8:	40 9a       	sbi	0x08, 0	; 8
+	clr_bit(PORTC, ENB);
+  ba:	43 98       	cbi	0x08, 3	; 8
 }
   bc:	08 95       	ret
 
-000000be <vira_direita>:
-	set_bit(PORTB, IN3);
-	set_bit(PORTB, IN4);
-}
-void vira_direita(void)
+000000be <MOVE_ON>:
+void MOVE_ON()
 {
-	clr_bit(PORTB, ENA);
-  be:	2c 98       	cbi	0x05, 4	; 5
-	set_bit(PORTB, ENB);
-  c0:	2d 9a       	sbi	0x05, 5	; 5
-}
+	set_bit(PORTC, ENA);
+  be:	40 9a       	sbi	0x08, 0	; 8
+	set_bit(PORTC, ENB);
+  c0:	43 9a       	sbi	0x08, 3	; 8
   c2:	08 95       	ret
 
-000000c4 <vira_esquerda>:
-void vira_esquerda(void)
-{
-	set_bit(PORTB, ENA);
-  c4:	2c 9a       	sbi	0x05, 4	; 5
-	clr_bit(PORTB, ENB);
-  c6:	2d 98       	cbi	0x05, 5	; 5
-}
-  c8:	08 95       	ret
+000000c4 <main>:
+void LEFT();
+void MOVE_ON();
 
-000000ca <anda_reto>:
-void anda_reto(void)
+int main()
 {
-	set_bit(PORTB, ENA);
-  ca:	2c 9a       	sbi	0x05, 4	; 5
-	set_bit(PORTB, ENB);
-  cc:	2d 9a       	sbi	0x05, 5	; 5
-  ce:	08 95       	ret
-
-000000d0 <main>:
-void vira_esquerda(void);
-void anda_reto(void);
-
-int main(void)
-{
-    DDRB	= 0xFF;			//Saídas para acionamento L298
-  d0:	8f ef       	ldi	r24, 0xFF	; 255
-  d2:	84 b9       	out	0x04, r24	; 4
-	PORTB	= 0x00;			//Saídas do PORTB com nível lógico baixo
-  d4:	15 b8       	out	0x05, r1	; 5
-	DDRD	= 0x00;			//Botões de acionamento
-  d6:	1a b8       	out	0x0a, r1	; 10
-	PORTD	= 0xFF;			//Pull-up habilitado
-  d8:	8b b9       	out	0x0b, r24	; 11
-		
+    DDRC	= 0xFF;			
+  c4:	8f ef       	ldi	r24, 0xFF	; 255
+  c6:	87 b9       	out	0x07, r24	; 7
+	PORTC	= 0x00;			
+  c8:	18 b8       	out	0x08, r1	; 8
+	DDRD	= 0x00;			
+  ca:	1a b8       	out	0x0a, r1	; 10
+	PORTD	= 0xFF;	
+  cc:	8b b9       	out	0x0b, r24	; 11
+	
+	UCSR0B	= 0x00;
+  ce:	10 92 c1 00 	sts	0x00C1, r1
+			
 	while(1)
 	{
 		while(tst_bit(PIND, B_ENABLE));
-  da:	4e 99       	sbic	0x09, 6	; 9
-  dc:	fe cf       	rjmp	.-4      	; 0xda <main+0xa>
-		set_bit(PORTB, ENA);
-  de:	2c 9a       	sbi	0x05, 4	; 5
-		set_bit(PORTB, ENB);		
-  e0:	2d 9a       	sbi	0x05, 5	; 5
+  d2:	4e 99       	sbic	0x09, 6	; 9
+  d4:	fe cf       	rjmp	.-4      	; 0xd2 <main+0xe>
+  d6:	83 ec       	ldi	r24, 0xC3	; 195
+  d8:	99 e0       	ldi	r25, 0x09	; 9
+  da:	01 97       	sbiw	r24, 0x01	; 1
+  dc:	f1 f7       	brne	.-4      	; 0xda <main+0x16>
+  de:	00 c0       	rjmp	.+0      	; 0xe0 <main+0x1c>
+  e0:	00 00       	nop
+		_delay_ms(10);
+		set_bit(PORTC, ENA);
+  e2:	40 9a       	sbi	0x08, 0	; 8
+		set_bit(PORTC, ENB);		
+  e4:	43 9a       	sbi	0x08, 3	; 8
 		while(!tst_bit(PIND, B_ENABLE))
-  e2:	18 c0       	rjmp	.+48     	; 0x114 <main+0x44>
+  e6:	6c c0       	rjmp	.+216    	; 0x1c0 <main+0xfc>
 		{
-			if(!tst_bit(PIND, B_FRENTE))
-  e4:	48 99       	sbic	0x09, 0	; 9
-  e6:	02 c0       	rjmp	.+4      	; 0xec <main+0x1c>
-				anda_frente();
-  e8:	0e 94 52 00 	call	0xa4	; 0xa4 <anda_frente>
-			if(!tst_bit(PIND, B_TRAZ))
-  ec:	49 99       	sbic	0x09, 1	; 9
-  ee:	02 c0       	rjmp	.+4      	; 0xf4 <main+0x24>
-				anda_atras();
-  f0:	0e 94 45 00 	call	0x8a	; 0x8a <anda_atras>
-			if(!tst_bit(PIND, B_PARA))
-  f4:	4a 99       	sbic	0x09, 2	; 9
-  f6:	02 c0       	rjmp	.+4      	; 0xfc <main+0x2c>
-				para();
-  f8:	0e 94 40 00 	call	0x80	; 0x80 <para>
-			if(!tst_bit(PIND, B_DIREITA))
-  fc:	4b 99       	sbic	0x09, 3	; 9
-  fe:	02 c0       	rjmp	.+4      	; 0x104 <main+0x34>
-				vira_direita();
- 100:	0e 94 5f 00 	call	0xbe	; 0xbe <vira_direita>
-			if(!tst_bit(PIND, B_ESQUERDA))
- 104:	4c 99       	sbic	0x09, 4	; 9
- 106:	02 c0       	rjmp	.+4      	; 0x10c <main+0x3c>
-				vira_esquerda();
- 108:	0e 94 62 00 	call	0xc4	; 0xc4 <vira_esquerda>
-			if(!tst_bit(PIND, B_RETO))
- 10c:	4d 99       	sbic	0x09, 5	; 9
- 10e:	02 c0       	rjmp	.+4      	; 0x114 <main+0x44>
-				anda_reto();
- 110:	0e 94 65 00 	call	0xca	; 0xca <anda_reto>
-	while(1)
+			if(!tst_bit(PIND, B_FORWARD))
+  e8:	48 99       	sbic	0x09, 0	; 9
+  ea:	10 c0       	rjmp	.+32     	; 0x10c <main+0x48>
+  ec:	83 ec       	ldi	r24, 0xC3	; 195
+  ee:	99 e0       	ldi	r25, 0x09	; 9
+  f0:	01 97       	sbiw	r24, 0x01	; 1
+  f2:	f1 f7       	brne	.-4      	; 0xf0 <main+0x2c>
+  f4:	00 c0       	rjmp	.+0      	; 0xf6 <main+0x32>
+  f6:	00 00       	nop
+			{
+				_delay_ms(10);
+				FORWARD();		
+  f8:	0e 94 52 00 	call	0xa4	; 0xa4 <FORWARD>
+				while(!tst_bit(PIND, B_FORWARD));
+  fc:	48 9b       	sbis	0x09, 0	; 9
+  fe:	fe cf       	rjmp	.-4      	; 0xfc <main+0x38>
+ 100:	83 ec       	ldi	r24, 0xC3	; 195
+ 102:	99 e0       	ldi	r25, 0x09	; 9
+ 104:	01 97       	sbiw	r24, 0x01	; 1
+ 106:	f1 f7       	brne	.-4      	; 0x104 <main+0x40>
+ 108:	00 c0       	rjmp	.+0      	; 0x10a <main+0x46>
+ 10a:	00 00       	nop
+				_delay_ms(10);		
+			}			
+			if(!tst_bit(PIND, B_BACKWARD))
+ 10c:	49 99       	sbic	0x09, 1	; 9
+ 10e:	10 c0       	rjmp	.+32     	; 0x130 <main+0x6c>
+ 110:	83 ec       	ldi	r24, 0xC3	; 195
+ 112:	99 e0       	ldi	r25, 0x09	; 9
+ 114:	01 97       	sbiw	r24, 0x01	; 1
+ 116:	f1 f7       	brne	.-4      	; 0x114 <main+0x50>
+ 118:	00 c0       	rjmp	.+0      	; 0x11a <main+0x56>
+ 11a:	00 00       	nop
+			{
+				_delay_ms(10);
+				BACKWARD();
+ 11c:	0e 94 4b 00 	call	0x96	; 0x96 <BACKWARD>
+				while(!tst_bit(PIND, B_BACKWARD));	
+ 120:	49 9b       	sbis	0x09, 1	; 9
+ 122:	fe cf       	rjmp	.-4      	; 0x120 <main+0x5c>
+ 124:	83 ec       	ldi	r24, 0xC3	; 195
+ 126:	99 e0       	ldi	r25, 0x09	; 9
+ 128:	01 97       	sbiw	r24, 0x01	; 1
+ 12a:	f1 f7       	brne	.-4      	; 0x128 <main+0x64>
+ 12c:	00 c0       	rjmp	.+0      	; 0x12e <main+0x6a>
+ 12e:	00 00       	nop
+				_delay_ms(10);			
+			}				
+			if(!tst_bit(PIND, B_STOP))
+ 130:	4a 99       	sbic	0x09, 2	; 9
+ 132:	10 c0       	rjmp	.+32     	; 0x154 <main+0x90>
+ 134:	83 ec       	ldi	r24, 0xC3	; 195
+ 136:	99 e0       	ldi	r25, 0x09	; 9
+ 138:	01 97       	sbiw	r24, 0x01	; 1
+ 13a:	f1 f7       	brne	.-4      	; 0x138 <main+0x74>
+ 13c:	00 c0       	rjmp	.+0      	; 0x13e <main+0x7a>
+ 13e:	00 00       	nop
+			{
+				_delay_ms(10);
+				STOP();
+ 140:	0e 94 40 00 	call	0x80	; 0x80 <STOP>
+				while(!tst_bit(PIND, B_STOP));		
+ 144:	4a 9b       	sbis	0x09, 2	; 9
+ 146:	fe cf       	rjmp	.-4      	; 0x144 <main+0x80>
+ 148:	83 ec       	ldi	r24, 0xC3	; 195
+ 14a:	99 e0       	ldi	r25, 0x09	; 9
+ 14c:	01 97       	sbiw	r24, 0x01	; 1
+ 14e:	f1 f7       	brne	.-4      	; 0x14c <main+0x88>
+ 150:	00 c0       	rjmp	.+0      	; 0x152 <main+0x8e>
+ 152:	00 00       	nop
+				_delay_ms(10);		
+			}				
+			if(!tst_bit(PIND, B_RIGHT))
+ 154:	4b 99       	sbic	0x09, 3	; 9
+ 156:	10 c0       	rjmp	.+32     	; 0x178 <main+0xb4>
+ 158:	83 ec       	ldi	r24, 0xC3	; 195
+ 15a:	99 e0       	ldi	r25, 0x09	; 9
+ 15c:	01 97       	sbiw	r24, 0x01	; 1
+ 15e:	f1 f7       	brne	.-4      	; 0x15c <main+0x98>
+ 160:	00 c0       	rjmp	.+0      	; 0x162 <main+0x9e>
+ 162:	00 00       	nop
+			{
+				_delay_ms(10);
+				RIGHT();
+ 164:	0e 94 59 00 	call	0xb2	; 0xb2 <RIGHT>
+				while(!tst_bit(PIND, B_RIGHT));		
+ 168:	4b 9b       	sbis	0x09, 3	; 9
+ 16a:	fe cf       	rjmp	.-4      	; 0x168 <main+0xa4>
+ 16c:	83 ec       	ldi	r24, 0xC3	; 195
+ 16e:	99 e0       	ldi	r25, 0x09	; 9
+ 170:	01 97       	sbiw	r24, 0x01	; 1
+ 172:	f1 f7       	brne	.-4      	; 0x170 <main+0xac>
+ 174:	00 c0       	rjmp	.+0      	; 0x176 <main+0xb2>
+ 176:	00 00       	nop
+				_delay_ms(10);		
+			}				
+			if(!tst_bit(PIND, B_LEFT))
+ 178:	4c 99       	sbic	0x09, 4	; 9
+ 17a:	10 c0       	rjmp	.+32     	; 0x19c <main+0xd8>
+ 17c:	83 ec       	ldi	r24, 0xC3	; 195
+ 17e:	99 e0       	ldi	r25, 0x09	; 9
+ 180:	01 97       	sbiw	r24, 0x01	; 1
+ 182:	f1 f7       	brne	.-4      	; 0x180 <main+0xbc>
+ 184:	00 c0       	rjmp	.+0      	; 0x186 <main+0xc2>
+ 186:	00 00       	nop
+			{
+				_delay_ms(10);
+				LEFT();
+ 188:	0e 94 5c 00 	call	0xb8	; 0xb8 <LEFT>
+				while(!tst_bit(PIND, B_LEFT));		
+ 18c:	4c 9b       	sbis	0x09, 4	; 9
+ 18e:	fe cf       	rjmp	.-4      	; 0x18c <main+0xc8>
+ 190:	83 ec       	ldi	r24, 0xC3	; 195
+ 192:	99 e0       	ldi	r25, 0x09	; 9
+ 194:	01 97       	sbiw	r24, 0x01	; 1
+ 196:	f1 f7       	brne	.-4      	; 0x194 <main+0xd0>
+ 198:	00 c0       	rjmp	.+0      	; 0x19a <main+0xd6>
+ 19a:	00 00       	nop
+				_delay_ms(10);		
+			}				
+			if(!tst_bit(PIND, B_MOVE_ON))
+ 19c:	4d 99       	sbic	0x09, 5	; 9
+ 19e:	10 c0       	rjmp	.+32     	; 0x1c0 <main+0xfc>
+ 1a0:	83 ec       	ldi	r24, 0xC3	; 195
+ 1a2:	99 e0       	ldi	r25, 0x09	; 9
+ 1a4:	01 97       	sbiw	r24, 0x01	; 1
+ 1a6:	f1 f7       	brne	.-4      	; 0x1a4 <main+0xe0>
+ 1a8:	00 c0       	rjmp	.+0      	; 0x1aa <main+0xe6>
+ 1aa:	00 00       	nop
+			{
+				_delay_ms(10);
+				MOVE_ON();
+ 1ac:	0e 94 5f 00 	call	0xbe	; 0xbe <MOVE_ON>
+				while(!tst_bit(PIND, B_MOVE_ON));		
+ 1b0:	4d 9b       	sbis	0x09, 5	; 9
+ 1b2:	fe cf       	rjmp	.-4      	; 0x1b0 <main+0xec>
+ 1b4:	83 ec       	ldi	r24, 0xC3	; 195
+ 1b6:	99 e0       	ldi	r25, 0x09	; 9
+ 1b8:	01 97       	sbiw	r24, 0x01	; 1
+ 1ba:	f1 f7       	brne	.-4      	; 0x1b8 <main+0xf4>
+ 1bc:	00 c0       	rjmp	.+0      	; 0x1be <main+0xfa>
+ 1be:	00 00       	nop
 	{
 		while(tst_bit(PIND, B_ENABLE));
-		set_bit(PORTB, ENA);
-		set_bit(PORTB, ENB);		
+		_delay_ms(10);
+		set_bit(PORTC, ENA);
+		set_bit(PORTC, ENB);		
 		while(!tst_bit(PIND, B_ENABLE))
- 114:	4e 9b       	sbis	0x09, 6	; 9
- 116:	e6 cf       	rjmp	.-52     	; 0xe4 <main+0x14>
-			if(!tst_bit(PIND, B_ESQUERDA))
-				vira_esquerda();
-			if(!tst_bit(PIND, B_RETO))
-				anda_reto();
+ 1c0:	4e 9b       	sbis	0x09, 6	; 9
+ 1c2:	92 cf       	rjmp	.-220    	; 0xe8 <main+0x24>
+ 1c4:	83 ec       	ldi	r24, 0xC3	; 195
+ 1c6:	99 e0       	ldi	r25, 0x09	; 9
+ 1c8:	01 97       	sbiw	r24, 0x01	; 1
+ 1ca:	f1 f7       	brne	.-4      	; 0x1c8 <main+0x104>
+ 1cc:	00 c0       	rjmp	.+0      	; 0x1ce <main+0x10a>
+ 1ce:	00 00       	nop
+				while(!tst_bit(PIND, B_MOVE_ON));		
+				_delay_ms(10);		
+			}				
 		}
-		clr_bit(PORTB, ENA);
- 118:	2c 98       	cbi	0x05, 4	; 5
-		clr_bit(PORTB, ENB);		
- 11a:	2d 98       	cbi	0x05, 5	; 5
- 11c:	de cf       	rjmp	.-68     	; 0xda <main+0xa>
+		_delay_ms(10);
+		clr_bit(PORTC, ENA);
+ 1d0:	40 98       	cbi	0x08, 0	; 8
+		clr_bit(PORTC, ENB);		
+ 1d2:	43 98       	cbi	0x08, 3	; 8
+ 1d4:	7e cf       	rjmp	.-260    	; 0xd2 <main+0xe>
 
-0000011e <_exit>:
- 11e:	f8 94       	cli
+000001d6 <_exit>:
+ 1d6:	f8 94       	cli
 
-00000120 <__stop_program>:
- 120:	ff cf       	rjmp	.-2      	; 0x120 <__stop_program>
+000001d8 <__stop_program>:
+ 1d8:	ff cf       	rjmp	.-2      	; 0x1d8 <__stop_program>

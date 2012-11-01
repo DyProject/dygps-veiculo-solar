@@ -7,105 +7,140 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
+#define F_CPU 16000000UL
 
-/* DEFINIÇÕES DE MACROS */
-#define	set_bit(Y, bit_x) (Y |= (1 << bit_x))	//ATIVA O BIT X DA VARIÁVEL Y (COLOCA EM 1)
-#define	clr_bit(Y, bit_x) (Y &=~ (1 << bit_x))	//LIMPA O BIT X DA VARIÁVEL Y (COLOCA EM 0) 
-#define tst_bit(Y, bit_x) (Y & (1 << bit_x))	//TESTA O BIT X DA VARIÁVEL Y (RETORNA 0 OU 1)
-#define cpl_bit(Y, bit_x) (Y ^= (1 << bit_x))	//COMPLEMENTA O BIT X DA VARIÁVEL Y (COLOCA EM 1 SE ESTAVA EM 0 E VICE-VERSA)
 
-#define IN1	PB0
-#define IN2	PB1
-#define IN3	PB2
-#define IN4	PB3
-#define ENA	PB4
-#define ENB	PB5
+#define	set_bit(Y, bit_x) (Y |= (1 << bit_x))
+#define	clr_bit(Y, bit_x) (Y &=~ (1 << bit_x))
+#define tst_bit(Y, bit_x) (Y & (1 << bit_x))
+#define cpl_bit(Y, bit_x) (Y ^= (1 << bit_x))
 
-#define B_FRENTE	PD0
-#define B_TRAZ		PD1
-#define B_PARA		PD2
-#define B_DIREITA	PD3
-#define B_ESQUERDA	PD4
-#define B_RETO		PD5
+#define ENA	PC0
+#define IN1	PC1
+#define	IN2	PC2
+#define ENB	PC3
+#define IN3	PC4
+#define IN4	PC5 
+
+
+#define B_FORWARD	PD0
+#define B_BACKWARD	PD1
+#define B_STOP		PD2
+#define B_RIGHT		PD3
+#define B_LEFT		PD4
+#define B_MOVE_ON	PD5
 #define B_ENABLE	PD6
 
 
-void anda_frente (void);
-void anda_atras (void);
-void para (void);
-void vira_direita(void);
-void vira_esquerda(void);
-void anda_reto(void);
+void FORWARD();
+void BACKWARD();
+void STOP();
+void RIGHT();
+void LEFT();
+void MOVE_ON();
 
-int main(void)
+int main()
 {
-    DDRB	= 0xFF;			//Saídas para acionamento L298
-	PORTB	= 0x00;			//Saídas do PORTB com nível lógico baixo
-	DDRD	= 0x00;			//Botões de acionamento
-	PORTD	= 0xFF;			//Pull-up habilitado
-		
+    DDRC	= 0xFF;			
+	PORTC	= 0x00;			
+	DDRD	= 0x00;			
+	PORTD	= 0xFF;	
+	
+	UCSR0B	= 0x00;
+			
 	while(1)
 	{
 		while(tst_bit(PIND, B_ENABLE));
-		set_bit(PORTB, ENA);
-		set_bit(PORTB, ENB);		
+		_delay_ms(10);
+		set_bit(PORTC, ENA);
+		set_bit(PORTC, ENB);		
 		while(!tst_bit(PIND, B_ENABLE))
 		{
-			if(!tst_bit(PIND, B_FRENTE))
-				anda_frente();
-			if(!tst_bit(PIND, B_TRAZ))
-				anda_atras();
-			if(!tst_bit(PIND, B_PARA))
-				para();
-			if(!tst_bit(PIND, B_DIREITA))
-				vira_direita();
-			if(!tst_bit(PIND, B_ESQUERDA))
-				vira_esquerda();
-			if(!tst_bit(PIND, B_RETO))
-				anda_reto();
+			if(!tst_bit(PIND, B_FORWARD))
+			{
+				_delay_ms(10);
+				FORWARD();		
+				while(!tst_bit(PIND, B_FORWARD));
+				_delay_ms(10);		
+			}			
+			if(!tst_bit(PIND, B_BACKWARD))
+			{
+				_delay_ms(10);
+				BACKWARD();
+				while(!tst_bit(PIND, B_BACKWARD));	
+				_delay_ms(10);			
+			}				
+			if(!tst_bit(PIND, B_STOP))
+			{
+				_delay_ms(10);
+				STOP();
+				while(!tst_bit(PIND, B_STOP));		
+				_delay_ms(10);		
+			}				
+			if(!tst_bit(PIND, B_RIGHT))
+			{
+				_delay_ms(10);
+				RIGHT();
+				while(!tst_bit(PIND, B_RIGHT));		
+				_delay_ms(10);		
+			}				
+			if(!tst_bit(PIND, B_LEFT))
+			{
+				_delay_ms(10);
+				LEFT();
+				while(!tst_bit(PIND, B_LEFT));		
+				_delay_ms(10);		
+			}				
+			if(!tst_bit(PIND, B_MOVE_ON))
+			{
+				_delay_ms(10);
+				MOVE_ON();
+				while(!tst_bit(PIND, B_MOVE_ON));		
+				_delay_ms(10);		
+			}				
 		}
-		clr_bit(PORTB, ENA);
-		clr_bit(PORTB, ENB);		
+		_delay_ms(10);
+		clr_bit(PORTC, ENA);
+		clr_bit(PORTC, ENB);		
 	}	
-}
+} /*MAIN*/
 
-void anda_frente (void)
+void FORWARD()
 {
-	para();
-	_delay_ms(100);	
-	clr_bit(PORTB, IN1);
-	set_bit(PORTB, IN2);
-	clr_bit(PORTB, IN3);
-	set_bit(PORTB, IN4);
+	STOP();
+	clr_bit(PORTC, IN1);
+	set_bit(PORTC, IN2);
+	clr_bit(PORTC, IN3);
+	set_bit(PORTC, IN4);
 }
-void anda_atras (void)
+void BACKWARD()
 {
-	para();
+	STOP();	
+	set_bit(PORTC, IN1);
+	clr_bit(PORTC, IN2);
+	set_bit(PORTC, IN3);
+	clr_bit(PORTC, IN4);
+}
+void STOP()
+{
+	set_bit(PORTC, IN1);
+	set_bit(PORTC, IN2);
+	set_bit(PORTC, IN3);
+	set_bit(PORTC, IN4);
 	_delay_ms(100);
-	set_bit(PORTB, IN1);
-	clr_bit(PORTB, IN2);
-	set_bit(PORTB, IN3);
-	clr_bit(PORTB, IN4);
 }
-void para (void)
+void RIGHT()
 {
-	set_bit(PORTB, IN1);
-	set_bit(PORTB, IN2);
-	set_bit(PORTB, IN3);
-	set_bit(PORTB, IN4);
+	clr_bit(PORTC, ENA);
+	set_bit(PORTC, ENB);
 }
-void vira_direita(void)
+void LEFT()
 {
-	clr_bit(PORTB, ENA);
-	set_bit(PORTB, ENB);
+	set_bit(PORTC, ENA);
+	clr_bit(PORTC, ENB);
 }
-void vira_esquerda(void)
+void MOVE_ON()
 {
-	set_bit(PORTB, ENA);
-	clr_bit(PORTB, ENB);
-}
-void anda_reto(void)
-{
-	set_bit(PORTB, ENA);
-	set_bit(PORTB, ENB);
+	set_bit(PORTC, ENA);
+	set_bit(PORTC, ENB);
 }
