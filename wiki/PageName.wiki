@@ -1,0 +1,169 @@
+#summary One-sentence summary of this page.
+
+= Introdução =
+
+Entendendo o funcionamento do deslocamento de bits e criando macros para facilitar o trabalho com bits.
+
+= Descrição =
+Para deslocarmos um bit usamos os operadores de deslocamento à esquerda [<<] e à direita[>>]:
+ * x << y significa deslocar um bit y vezes à ESQUERDA
+
+ * x << y significa deslocar um bit y vezes à DIREITA.
+
+== Macros de bit ==
+
+No projeto utilizaremos macros para realizar esse deslocamento.
+As seguintes macros serão usadas:
+
+ * #define set_bit(adress,bit) (adress |= (1<<bit)) 
+ * #define clr_bit(adress,bit) (adress &= ~(1<<bit)) 
+ * #define tst_bit(adress,bit) (adress & (1<<bit))  
+ * #define cpl_bit(adress,bit) (adress ^= (1<<bit)) 
+
+=== Setar bit ===
+Para setar determinado bit usamos a macro a seguir:
+
+#define set_bit(adress,bit) (adress |= (1<<bit)) 
+	
+ Abaixo a descrição do funcionamento:
+	
+ Um bit deslocado a zero vez esquerda:
+ *(1 << 0) 		= 0b00000001*
+	O valor binário de adress:
+		adress 			= 0b00001110
+	Lógica OU entre os dois operandos, novo valor de adress:
+		adress			= 0b00001111
+
+Aplicação Exemplo:
+	unsigned char adress = 0x0E;
+	set_bit(adress, 0);
+	
+	Agora o valor de adress é 0x0F;
+	
+Limpar um bit
+Para limpar determinado bit usamos a macro a seguir:	
+	#define clr_bit(adress,bit) (adress &= ~(1<<bit)) 
+	
+	Abaixo a descrição do funcionamento:
+	
+	Um bit deslocado uma vez a esquerda:
+		(1 << 1) 		= 0b000000010
+	Inversão dos bit através do operador complemento de 1:
+		~				= 0b11111101
+	O valor binário de adress:
+		adress 			= 0b00001110
+	Lógica E entre os dois operandos, novo valor de adress:
+		adress			= 0b00001100
+		
+	Aplicação Exemplo:
+	unsigned char adress = 0x0E;
+	clr_bit(adress, 1);
+	
+	Agora o valor de adress é 0x0C.
+
+Testar bit
+Para testar determinado bit usamos a macro a seguir:
+	#define tst_bit(adress,bit) (adress & (1<<bit))      
+	
+	Abaixo a descrição do funcionamento:
+	
+	Um bit deslocado uma vez a esquerda:
+		(1 << 1) 		= 0b00000010
+	O valor binário de adress:
+		adress 			= 0b00001110
+	Lógica E entre os dois operandos, a macro retorna 0 para nível baixo e outro valor para nível alto:
+		retorno			= 0b00000010
+		
+	Aplicação Exemplo:
+	unsigned char adress = 0x0E;
+	tst_bit(adress, 1);
+	
+	O valor de retorno é 0x02 ou 0b00000010.	
+	
+Complementa bit
+	Para complementar um bit, inverter, usamos a macro a seguir:
+		#define cpl_bit(adress,bit) (adress ^= (1<<bit))  
+		
+	Abaixo a descrição do funcionamento:
+	
+	Um bit deslocado uma vez a esquerda:
+		(1 << 1) 		= 0b00000010
+	O valor binário de adress:
+		adress 			= 0b00001110
+	Lógica XOR entre os dois operandos, novo valor de adress é 1 para bits diferentes e 0 para bits iguais, invertendo o bit selecionado:
+		^		= 0b00000010
+		
+	Aplicação Exemplo:
+	unsigned char adress = 0x0E;
+	tst_bit(adress, 1);
+	
+	O valor de retorno é 0x0C.
+
+Dicas
+		As macros a seguir funcionam para apenas um bit. Para setarmos mais de um bit faremos da seguinte forma:
+		Para setar mais de um bit:
+		Var |= (1 << 3) | (1 << 4);
+		Seta os bits 3 e 4 da variável Var.
+		Funcionamento:
+		(1 << 3) = 0b00001000
+		(1 << 4) = 0b00010000
+		Var		 = 0b10000111
+		Novo valor:
+		var 	 = 0b10011111
+		
+		Para limpar mais de um bit:
+		Var &= (~(1 << 3)) & (~(1 << 4));
+		Funcionamento:
+		(~(1 << 3)) = 0b11110111
+		(~(1 << 4)) = 0b11101111
+		Var		 	= 0b10011100
+		Novo valor:
+		var 	 	= 0b10000100
+		
+		Para limpar e setar bit no mesmo comando:
+		Var = ((~(1 << 3)) & (~(1 << 4))) | (Var | (1 << 2));
+		Funcionamento:
+		((~(1 << 3)) & (~(1 << 4))) = 0b11100111
+		Var = 11111011
+		(Var | (1 << 2)) = 0b11111111
+		Novo valor de Var:
+		Var = 0b11100111
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
