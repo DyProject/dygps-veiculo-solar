@@ -91,7 +91,7 @@ tst_bit(adress, 1);
 //O valor de retorno é 0x02 ou 0b00000010.	
 }}}
 	
-=== Complementa bit ===
+=== Complementar bit ===
 Para complementar um bit, inverter, usamos a macro a seguir:
 
 #define cpl_bit(adress,bit) (adress ^= (1<<bit))  
@@ -110,46 +110,52 @@ Lógica XOR entre os dois operandos, novo valor de adress é 1 para bits diferen
 *Exemplo* *Aplicação:*
 {{{
 unsigned char adress = 0x0E;
-tst_bit(adress, 1);
+cpl_bit(adress, 1);
 //O valor de retorno é 0x0C.
 }}}
 
 === Dicas ===
 As macros vistas anteriormente funcionam para apenas um bit. Para setarmos ou limparmos mais de um bit faremos da seguinte forma:
 		
- # Para setar mais de um bit:
+==== Para setar mais de um bit: ====
 
 Seta os bits 3 e 4 da variável Var.
    Var |= (1 << 3) | (1 << 4);
 		
-==== Funcionamento ====:
+===== Funcionamento: =====
    (1 << 3) = 0b00001000
+
    (1 << 4) = 0b00010000
+
    Var      = 0b10000111
    
-   *Novo* *valor:*
+*Novo* *valor:*
    var     = 0b10011111
 		
- # Para limpar mais de um bit:
+==== Para limpar mais de um bit: ====
 Limpa os bits 3 e 4 da variável Var.
    Var &= (~(1 << 3)) & (~(1 << 4));
 		
-==== Funcionamento: =====
+===== Funcionamento: ======
    (~(1 << 3)) = 0b11110111
+
    (~(1 << 4)) = 0b11101111
+
    Var	       = 0b10011100
 		
-   *Novo* *valor:*
+*Novo* *valor:*
    var         = 0b10000100
 		
- # Para limpar e setar bit no mesmo comando:
+==== Para limpar e setar bit no mesmo comando: ====
 Limpa os bits 3 e 4 e seta o bit 2.
    Var = ((~(1 << 3)) & (~(1 << 4))) | (Var | (1 << 2));
 		
-==== Funcionamento: ====
+===== Funcionamento: =====
    ((~(1 << 3)) & (~(1 << 4))) = 0b11100111
+
    Var                         = 11111011
+
    (Var | (1 << 2))            = 0b11111111
 
-   *Novo* *valor:*
+*Novo* *valor:*
    Var                         = 0b11100111
