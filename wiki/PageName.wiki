@@ -21,13 +21,14 @@ As seguintes macros serão usadas:
  * #define cpl_bit(adress,bit) (adress ^= (1<<bit)) 
 
 === Setar bit ===
+
 Para setar determinado bit usamos a macro a seguir:
 
 #define set_bit(adress,bit) (adress |= (1<<bit)) 
 	
  Abaixo a descrição do funcionamento:
 	
- Um bit deslocado a zero vez esquerda:
+Um bit deslocado zero vez esquerda:
    (1 << 0) = 0b00000001
 
 O valor binário de adress:
@@ -44,10 +45,12 @@ Lógica OU entre os dois operandos, novo valor de adress:
 }}}
 	
 === Limpar bit ===
+
 Para limpar determinado bit usamos a macro a seguir:	
+
 #define clr_bit(adress,bit) (adress &= ~(1<<bit)) 
 	
-Abaixo a descrição do funcionamento:
+ Abaixo a descrição do funcionamento:
 	
 Um bit deslocado uma vez a esquerda:
    (1 << 1) = 0b000000010
@@ -69,11 +72,12 @@ clr_bit(adress, 1);
 }}}
 
 === Testar bit ===
+
 Para testar determinado bit usamos a macro a seguir:
 
 #define tst_bit(adress,bit) (adress & (1<<bit))      
 	
-Abaixo a descrição do funcionamento:
+ Abaixo a descrição do funcionamento:
 	
 Um bit deslocado uma vez a esquerda:
    (1 << 1) = 0b00000010
@@ -92,11 +96,12 @@ tst_bit(adress, 1);
 }}}
 	
 === Complementar bit ===
+
 Para complementar um bit, inverter, usamos a macro a seguir:
 
 #define cpl_bit(adress,bit) (adress ^= (1<<bit))  
 		
-Abaixo a descrição do funcionamento:
+ Abaixo a descrição do funcionamento:
 	
 Um bit deslocado uma vez a esquerda:
    (1 << 1) = 0b00000010
