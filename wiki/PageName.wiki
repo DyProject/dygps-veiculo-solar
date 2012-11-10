@@ -28,38 +28,45 @@ Para setar determinado bit usamos a macro a seguir:
  Abaixo a descrição do funcionamento:
 	
  Um bit deslocado a zero vez esquerda:
- *(1 << 0) 		= 0b00000001*
-	O valor binário de adress:
-		adress 			= 0b00001110
-	Lógica OU entre os dois operandos, novo valor de adress:
-		adress			= 0b00001111
+   (1 << 0) = 0b00000001
 
-Aplicação Exemplo:
-	unsigned char adress = 0x0E;
-	set_bit(adress, 0);
+O valor binário de adress:
+   adress = 0b00001110
+
+Lógica OU entre os dois operandos, novo valor de adress:
+   adress = 0b00001111
+
+Exemplo Aplicação:
+{{{
+ unsigned char adress = 0x0E;
+ set_bit(adress, 0);	
+ //Agora o valor de adress é 0x0F;
+}}}
 	
-	Agora o valor de adress é 0x0F;
-	
-Limpar um bit
+=== Limpar um bit ===
 Para limpar determinado bit usamos a macro a seguir:	
-	#define clr_bit(adress,bit) (adress &= ~(1<<bit)) 
+#define clr_bit(adress,bit) (adress &= ~(1<<bit)) 
 	
-	Abaixo a descrição do funcionamento:
+Abaixo a descrição do funcionamento:
 	
-	Um bit deslocado uma vez a esquerda:
-		(1 << 1) 		= 0b000000010
-	Inversão dos bit através do operador complemento de 1:
-		~				= 0b11111101
-	O valor binário de adress:
-		adress 			= 0b00001110
-	Lógica E entre os dois operandos, novo valor de adress:
-		adress			= 0b00001100
+Um bit deslocado uma vez a esquerda:
+   (1 << 1) = 0b000000010
+	
+Inversão dos bit através do operador complemento de 1:
+   ~ = 0b11111101
+
+O valor binário de adress:
+   adress = 0b00001110
+
+Lógica E entre os dois operandos, novo valor de adress:
+   adress = 0b00001100
 		
-	Aplicação Exemplo:
-	unsigned char adress = 0x0E;
-	clr_bit(adress, 1);
-	
-	Agora o valor de adress é 0x0C.
+*Exemplo* *Aplicação:*
+{{{	
+unsigned char adress = 0x0E;
+clr_bit(adress, 1);
+//Agora o valor de adress é 0x0C.
+}}}
 
 Testar bit
 Para testar determinado bit usamos a macro a seguir:
