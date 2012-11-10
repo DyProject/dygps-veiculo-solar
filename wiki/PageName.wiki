@@ -43,7 +43,7 @@ Lógica OU entre os dois operandos, novo valor de adress:
  //Agora o valor de adress é 0x0F;
 }}}
 	
-=== Limpar um bit ===
+=== Limpar bit ===
 Para limpar determinado bit usamos a macro a seguir:	
 #define clr_bit(adress,bit) (adress &= ~(1<<bit)) 
 	
@@ -114,71 +114,42 @@ tst_bit(adress, 1);
 //O valor de retorno é 0x0C.
 }}}
 
-Dicas
-		As macros a seguir funcionam para apenas um bit. Para setarmos mais de um bit faremos da seguinte forma:
-		Para setar mais de um bit:
-		Var |= (1 << 3) | (1 << 4);
-		Seta os bits 3 e 4 da variável Var.
-		Funcionamento:
-		(1 << 3) = 0b00001000
-		(1 << 4) = 0b00010000
-		Var		 = 0b10000111
-		Novo valor:
-		var 	 = 0b10011111
+=== Dicas ===
+As macros vistas anteriormente funcionam para apenas um bit. Para setarmos ou limparmos mais de um bit faremos da seguinte forma:
 		
-		Para limpar mais de um bit:
-		Var &= (~(1 << 3)) & (~(1 << 4));
-		Funcionamento:
-		(~(1 << 3)) = 0b11110111
-		(~(1 << 4)) = 0b11101111
-		Var		 	= 0b10011100
-		Novo valor:
-		var 	 	= 0b10000100
+ # Para setar mais de um bit:
+
+Seta os bits 3 e 4 da variável Var.
+   Var |= (1 << 3) | (1 << 4);
 		
-		Para limpar e setar bit no mesmo comando:
-		Var = ((~(1 << 3)) & (~(1 << 4))) | (Var | (1 << 2));
-		Funcionamento:
-		((~(1 << 3)) & (~(1 << 4))) = 0b11100111
-		Var = 11111011
-		(Var | (1 << 2)) = 0b11111111
-		Novo valor de Var:
-		Var = 0b11100111
-	
+==== Funcionamento ====:
+   (1 << 3) = 0b00001000
+   (1 << 4) = 0b00010000
+   Var      = 0b10000111
+   
+   *Novo* *valor:*
+   var     = 0b10011111
+		
+ # Para limpar mais de um bit:
+Limpa os bits 3 e 4 da variável Var.
+   Var &= (~(1 << 3)) & (~(1 << 4));
+		
+==== Funcionamento: =====
+   (~(1 << 3)) = 0b11110111
+   (~(1 << 4)) = 0b11101111
+   Var	       = 0b10011100
+		
+   *Novo* *valor:*
+   var         = 0b10000100
+		
+ # Para limpar e setar bit no mesmo comando:
+Limpa os bits 3 e 4 e seta o bit 2.
+   Var = ((~(1 << 3)) & (~(1 << 4))) | (Var | (1 << 2));
+		
+==== Funcionamento: ====
+   ((~(1 << 3)) & (~(1 << 4))) = 0b11100111
+   Var                         = 11111011
+   (Var | (1 << 2))            = 0b11111111
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+   *Novo* *valor:*
+   Var                         = 0b11100111
