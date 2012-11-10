@@ -36,7 +36,7 @@ O valor binário de adress:
 Lógica OU entre os dois operandos, novo valor de adress:
    adress = 0b00001111
 
-Exemplo Aplicação:
+*Exemplo* *Aplicação:*
 {{{
  unsigned char adress = 0x0E;
  set_bit(adress, 0);	
@@ -68,43 +68,51 @@ clr_bit(adress, 1);
 //Agora o valor de adress é 0x0C.
 }}}
 
-Testar bit
+=== Testar bit ===
 Para testar determinado bit usamos a macro a seguir:
-	#define tst_bit(adress,bit) (adress & (1<<bit))      
+
+#define tst_bit(adress,bit) (adress & (1<<bit))      
 	
-	Abaixo a descrição do funcionamento:
+Abaixo a descrição do funcionamento:
 	
-	Um bit deslocado uma vez a esquerda:
-		(1 << 1) 		= 0b00000010
-	O valor binário de adress:
-		adress 			= 0b00001110
-	Lógica E entre os dois operandos, a macro retorna 0 para nível baixo e outro valor para nível alto:
-		retorno			= 0b00000010
+Um bit deslocado uma vez a esquerda:
+   (1 << 1) = 0b00000010
+
+O valor binário de adress:
+   adress = 0b00001110
+
+Lógica E entre os dois operandos, a macro retorna 0 para nível baixo e outro valor para nível alto:
+retorno = 0b00000010
 		
-	Aplicação Exemplo:
-	unsigned char adress = 0x0E;
-	tst_bit(adress, 1);
+*Exemplo* *Aplicação:*
+{{{
+unsigned char adress = 0x0E;
+tst_bit(adress, 1);	
+//O valor de retorno é 0x02 ou 0b00000010.	
+}}}
 	
-	O valor de retorno é 0x02 ou 0b00000010.	
-	
-Complementa bit
-	Para complementar um bit, inverter, usamos a macro a seguir:
-		#define cpl_bit(adress,bit) (adress ^= (1<<bit))  
+=== Complementa bit ===
+Para complementar um bit, inverter, usamos a macro a seguir:
+
+#define cpl_bit(adress,bit) (adress ^= (1<<bit))  
 		
-	Abaixo a descrição do funcionamento:
+Abaixo a descrição do funcionamento:
 	
-	Um bit deslocado uma vez a esquerda:
-		(1 << 1) 		= 0b00000010
-	O valor binário de adress:
-		adress 			= 0b00001110
-	Lógica XOR entre os dois operandos, novo valor de adress é 1 para bits diferentes e 0 para bits iguais, invertendo o bit selecionado:
-		^		= 0b00000010
+Um bit deslocado uma vez a esquerda:
+   (1 << 1) = 0b00000010
+
+O valor binário de adress:
+   adress = 0b00001110
+	
+Lógica XOR entre os dois operandos, novo valor de adress é 1 para bits diferentes e 0 para bits iguais, invertendo o bit selecionado:
+   ^ = 0b00000010
 		
-	Aplicação Exemplo:
-	unsigned char adress = 0x0E;
-	tst_bit(adress, 1);
-	
-	O valor de retorno é 0x0C.
+*Exemplo* *Aplicação:*
+{{{
+unsigned char adress = 0x0E;
+tst_bit(adress, 1);
+//O valor de retorno é 0x0C.
+}}}
 
 Dicas
 		As macros a seguir funcionam para apenas um bit. Para setarmos mais de um bit faremos da seguinte forma:
