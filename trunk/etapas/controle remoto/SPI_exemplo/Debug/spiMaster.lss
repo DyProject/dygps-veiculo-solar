@@ -1,0 +1,437 @@
+
+spiMaster.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000256  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .stab         000006cc  00000000  00000000  000002ac  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  2 .stabstr      00000090  00000000  00000000  00000978  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_aranges 00000060  00000000  00000000  00000a08  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_pubnames 000000ba  00000000  00000000  00000a68  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000008b3  00000000  00000000  00000b22  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000002f2  00000000  00000000  000013d5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000769  00000000  00000000  000016c7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000000b0  00000000  00000000  00001e30  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000019f  00000000  00000000  00001ee0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000001ec  00000000  00000000  0000207f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_pubtypes 0000008e  00000000  00000000  0000226b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000090  00000000  00000000  000022f9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   8:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  10:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  14:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  18:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  1c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  20:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  24:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  28:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  2c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  30:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  34:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  38:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  3c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  40:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  44:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  48:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  4c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  50:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  54:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  58:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  5c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  60:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  64:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+  74:	0e 94 11 01 	call	0x222	; 0x222 <main>
+  78:	0c 94 29 01 	jmp	0x252	; 0x252 <_exit>
+
+0000007c <__bad_interrupt>:
+  7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000080 <LCD_comando>:
+  80:	9b b1       	in	r25, 0x0b	; 11
+  82:	28 2f       	mov	r18, r24
+  84:	22 95       	swap	r18
+  86:	2f 70       	andi	r18, 0x0F	; 15
+  88:	90 7f       	andi	r25, 0xF0	; 240
+  8a:	92 2b       	or	r25, r18
+  8c:	9b b9       	out	0x0b, r25	; 11
+  8e:	92 e0       	ldi	r25, 0x02	; 2
+  90:	38 2f       	mov	r19, r24
+  92:	3f 70       	andi	r19, 0x0F	; 15
+  94:	66 23       	and	r22, r22
+  96:	89 f4       	brne	.+34     	; 0xba <LCD_comando+0x3a>
+  98:	5d 98       	cbi	0x0b, 5	; 11
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  9a:	22 e0       	ldi	r18, 0x02	; 2
+  9c:	2a 95       	dec	r18
+  9e:	f1 f7       	brne	.-4      	; 0x9c <LCD_comando+0x1c>
+  a0:	00 c0       	rjmp	.+0      	; 0xa2 <LCD_comando+0x22>
+  a2:	5c 9a       	sbi	0x0b, 4	; 11
+  a4:	e2 e0       	ldi	r30, 0x02	; 2
+  a6:	ea 95       	dec	r30
+  a8:	f1 f7       	brne	.-4      	; 0xa6 <LCD_comando+0x26>
+  aa:	00 c0       	rjmp	.+0      	; 0xac <LCD_comando+0x2c>
+  ac:	5c 98       	cbi	0x0b, 4	; 11
+  ae:	f8 e7       	ldi	r31, 0x78	; 120
+  b0:	fa 95       	dec	r31
+  b2:	f1 f7       	brne	.-4      	; 0xb0 <LCD_comando+0x30>
+  b4:	84 30       	cpi	r24, 0x04	; 4
+  b6:	b0 f4       	brcc	.+44     	; 0xe4 <LCD_comando+0x64>
+  b8:	0f c0       	rjmp	.+30     	; 0xd8 <LCD_comando+0x58>
+  ba:	5d 9a       	sbi	0x0b, 5	; 11
+  bc:	22 e0       	ldi	r18, 0x02	; 2
+  be:	2a 95       	dec	r18
+  c0:	f1 f7       	brne	.-4      	; 0xbe <LCD_comando+0x3e>
+  c2:	00 c0       	rjmp	.+0      	; 0xc4 <LCD_comando+0x44>
+  c4:	5c 9a       	sbi	0x0b, 4	; 11
+  c6:	e2 e0       	ldi	r30, 0x02	; 2
+  c8:	ea 95       	dec	r30
+  ca:	f1 f7       	brne	.-4      	; 0xc8 <LCD_comando+0x48>
+  cc:	00 c0       	rjmp	.+0      	; 0xce <LCD_comando+0x4e>
+  ce:	5c 98       	cbi	0x0b, 4	; 11
+  d0:	f8 e7       	ldi	r31, 0x78	; 120
+  d2:	fa 95       	dec	r31
+  d4:	f1 f7       	brne	.-4      	; 0xd2 <LCD_comando+0x52>
+  d6:	06 c0       	rjmp	.+12     	; 0xe4 <LCD_comando+0x64>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  d8:	ef e9       	ldi	r30, 0x9F	; 159
+  da:	ff e0       	ldi	r31, 0x0F	; 15
+  dc:	31 97       	sbiw	r30, 0x01	; 1
+  de:	f1 f7       	brne	.-4      	; 0xdc <LCD_comando+0x5c>
+  e0:	00 c0       	rjmp	.+0      	; 0xe2 <LCD_comando+0x62>
+  e2:	00 00       	nop
+  e4:	2b b1       	in	r18, 0x0b	; 11
+  e6:	20 7f       	andi	r18, 0xF0	; 240
+  e8:	23 2b       	or	r18, r19
+  ea:	2b b9       	out	0x0b, r18	; 11
+  ec:	91 50       	subi	r25, 0x01	; 1
+  ee:	91 f6       	brne	.-92     	; 0x94 <LCD_comando+0x14>
+  f0:	08 95       	ret
+
+000000f2 <LCD_inicia_4bits>:
+  f2:	8a b1       	in	r24, 0x0a	; 10
+  f4:	8f 63       	ori	r24, 0x3F	; 63
+  f6:	8a b9       	out	0x0a, r24	; 10
+  f8:	5d 98       	cbi	0x0b, 5	; 11
+  fa:	5c 98       	cbi	0x0b, 4	; 11
+  fc:	8f e3       	ldi	r24, 0x3F	; 63
+  fe:	9c e9       	ldi	r25, 0x9C	; 156
+ 100:	01 97       	sbiw	r24, 0x01	; 1
+ 102:	f1 f7       	brne	.-4      	; 0x100 <LCD_inicia_4bits+0xe>
+ 104:	00 c0       	rjmp	.+0      	; 0x106 <LCD_inicia_4bits+0x14>
+ 106:	00 00       	nop
+ 108:	8b b1       	in	r24, 0x0b	; 11
+ 10a:	80 7f       	andi	r24, 0xF0	; 240
+ 10c:	83 60       	ori	r24, 0x03	; 3
+ 10e:	8b b9       	out	0x0b, r24	; 11
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 110:	92 e0       	ldi	r25, 0x02	; 2
+ 112:	9a 95       	dec	r25
+ 114:	f1 f7       	brne	.-4      	; 0x112 <LCD_inicia_4bits+0x20>
+ 116:	00 c0       	rjmp	.+0      	; 0x118 <LCD_inicia_4bits+0x26>
+ 118:	5c 9a       	sbi	0x0b, 4	; 11
+ 11a:	a2 e0       	ldi	r26, 0x02	; 2
+ 11c:	aa 95       	dec	r26
+ 11e:	f1 f7       	brne	.-4      	; 0x11c <LCD_inicia_4bits+0x2a>
+ 120:	00 c0       	rjmp	.+0      	; 0x122 <LCD_inicia_4bits+0x30>
+ 122:	5c 98       	cbi	0x0b, 4	; 11
+ 124:	b8 e7       	ldi	r27, 0x78	; 120
+ 126:	ba 95       	dec	r27
+ 128:	f1 f7       	brne	.-4      	; 0x126 <LCD_inicia_4bits+0x34>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 12a:	8f e0       	ldi	r24, 0x0F	; 15
+ 12c:	97 e2       	ldi	r25, 0x27	; 39
+ 12e:	01 97       	sbiw	r24, 0x01	; 1
+ 130:	f1 f7       	brne	.-4      	; 0x12e <LCD_inicia_4bits+0x3c>
+ 132:	00 c0       	rjmp	.+0      	; 0x134 <LCD_inicia_4bits+0x42>
+ 134:	00 00       	nop
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 136:	92 e0       	ldi	r25, 0x02	; 2
+ 138:	9a 95       	dec	r25
+ 13a:	f1 f7       	brne	.-4      	; 0x138 <LCD_inicia_4bits+0x46>
+ 13c:	00 c0       	rjmp	.+0      	; 0x13e <LCD_inicia_4bits+0x4c>
+ 13e:	5c 9a       	sbi	0x0b, 4	; 11
+ 140:	a2 e0       	ldi	r26, 0x02	; 2
+ 142:	aa 95       	dec	r26
+ 144:	f1 f7       	brne	.-4      	; 0x142 <LCD_inicia_4bits+0x50>
+ 146:	00 c0       	rjmp	.+0      	; 0x148 <LCD_inicia_4bits+0x56>
+ 148:	5c 98       	cbi	0x0b, 4	; 11
+ 14a:	b8 e7       	ldi	r27, 0x78	; 120
+ 14c:	ba 95       	dec	r27
+ 14e:	f1 f7       	brne	.-4      	; 0x14c <LCD_inicia_4bits+0x5a>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 150:	8f ef       	ldi	r24, 0xFF	; 255
+ 152:	91 ee       	ldi	r25, 0xE1	; 225
+ 154:	a4 e0       	ldi	r26, 0x04	; 4
+ 156:	81 50       	subi	r24, 0x01	; 1
+ 158:	90 40       	sbci	r25, 0x00	; 0
+ 15a:	a0 40       	sbci	r26, 0x00	; 0
+ 15c:	e1 f7       	brne	.-8      	; 0x156 <LCD_inicia_4bits+0x64>
+ 15e:	00 c0       	rjmp	.+0      	; 0x160 <LCD_inicia_4bits+0x6e>
+ 160:	00 00       	nop
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 162:	92 e0       	ldi	r25, 0x02	; 2
+ 164:	9a 95       	dec	r25
+ 166:	f1 f7       	brne	.-4      	; 0x164 <LCD_inicia_4bits+0x72>
+ 168:	00 c0       	rjmp	.+0      	; 0x16a <LCD_inicia_4bits+0x78>
+ 16a:	5c 9a       	sbi	0x0b, 4	; 11
+ 16c:	a2 e0       	ldi	r26, 0x02	; 2
+ 16e:	aa 95       	dec	r26
+ 170:	f1 f7       	brne	.-4      	; 0x16e <LCD_inicia_4bits+0x7c>
+ 172:	00 c0       	rjmp	.+0      	; 0x174 <LCD_inicia_4bits+0x82>
+ 174:	5c 98       	cbi	0x0b, 4	; 11
+ 176:	b8 e7       	ldi	r27, 0x78	; 120
+ 178:	ba 95       	dec	r27
+ 17a:	f1 f7       	brne	.-4      	; 0x178 <LCD_inicia_4bits+0x86>
+ 17c:	8b b1       	in	r24, 0x0b	; 11
+ 17e:	80 7f       	andi	r24, 0xF0	; 240
+ 180:	82 60       	ori	r24, 0x02	; 2
+ 182:	8b b9       	out	0x0b, r24	; 11
+ 184:	82 e0       	ldi	r24, 0x02	; 2
+ 186:	8a 95       	dec	r24
+ 188:	f1 f7       	brne	.-4      	; 0x186 <LCD_inicia_4bits+0x94>
+ 18a:	00 c0       	rjmp	.+0      	; 0x18c <LCD_inicia_4bits+0x9a>
+ 18c:	5c 9a       	sbi	0x0b, 4	; 11
+ 18e:	92 e0       	ldi	r25, 0x02	; 2
+ 190:	9a 95       	dec	r25
+ 192:	f1 f7       	brne	.-4      	; 0x190 <LCD_inicia_4bits+0x9e>
+ 194:	00 c0       	rjmp	.+0      	; 0x196 <LCD_inicia_4bits+0xa4>
+ 196:	5c 98       	cbi	0x0b, 4	; 11
+ 198:	a8 e7       	ldi	r26, 0x78	; 120
+ 19a:	aa 95       	dec	r26
+ 19c:	f1 f7       	brne	.-4      	; 0x19a <LCD_inicia_4bits+0xa8>
+ 19e:	88 e2       	ldi	r24, 0x28	; 40
+ 1a0:	60 e0       	ldi	r22, 0x00	; 0
+ 1a2:	0e 94 40 00 	call	0x80	; 0x80 <LCD_comando>
+ 1a6:	88 e0       	ldi	r24, 0x08	; 8
+ 1a8:	60 e0       	ldi	r22, 0x00	; 0
+ 1aa:	0e 94 40 00 	call	0x80	; 0x80 <LCD_comando>
+ 1ae:	81 e0       	ldi	r24, 0x01	; 1
+ 1b0:	60 e0       	ldi	r22, 0x00	; 0
+ 1b2:	0e 94 40 00 	call	0x80	; 0x80 <LCD_comando>
+ 1b6:	8c e0       	ldi	r24, 0x0C	; 12
+ 1b8:	60 e0       	ldi	r22, 0x00	; 0
+ 1ba:	0e 94 40 00 	call	0x80	; 0x80 <LCD_comando>
+ 1be:	80 e8       	ldi	r24, 0x80	; 128
+ 1c0:	60 e0       	ldi	r22, 0x00	; 0
+ 1c2:	0e 94 40 00 	call	0x80	; 0x80 <LCD_comando>
+ 1c6:	08 95       	ret
+
+000001c8 <LCD_escreve>:
+ 1c8:	cf 93       	push	r28
+ 1ca:	df 93       	push	r29
+ 1cc:	ec 01       	movw	r28, r24
+ 1ce:	88 81       	ld	r24, Y
+ 1d0:	88 23       	and	r24, r24
+ 1d2:	39 f0       	breq	.+14     	; 0x1e2 <LCD_escreve+0x1a>
+ 1d4:	21 96       	adiw	r28, 0x01	; 1
+ 1d6:	61 e0       	ldi	r22, 0x01	; 1
+ 1d8:	0e 94 40 00 	call	0x80	; 0x80 <LCD_comando>
+ 1dc:	89 91       	ld	r24, Y+
+ 1de:	88 23       	and	r24, r24
+ 1e0:	d1 f7       	brne	.-12     	; 0x1d6 <LCD_escreve+0xe>
+ 1e2:	df 91       	pop	r29
+ 1e4:	cf 91       	pop	r28
+ 1e6:	08 95       	ret
+
+000001e8 <SPI_MasterInit>:
+
+void SPI_MasterInit()
+{
+	/*	Seta MOSI, SCK e SS como saída. SS como saída se torna um poino de uso 
+		geral. MISO automaticamente como entrada */
+	SPI_DDR |= (1 << SPI_DD_MOSI) | (1 << SPI_DD_SCK) | (1 << SPI_DD_SS);
+ 1e8:	84 b1       	in	r24, 0x04	; 4
+ 1ea:	8c 62       	ori	r24, 0x2C	; 44
+ 1ec:	84 b9       	out	0x04, r24	; 4
+	
+	SPI_DESABILITA_SLAVE();
+ 1ee:	2a 9a       	sbi	0x05, 2	; 5
+	
+	/* Enable SPI, Master, set clock rate fck/16 */
+	SPCR = (1 << SPE) | (1 << MSTR);
+ 1f0:	80 e5       	ldi	r24, 0x50	; 80
+ 1f2:	8c bd       	out	0x2c, r24	; 44
+	
+	SPI_SCK_FOSC_DIV_16();
+ 1f4:	9c b5       	in	r25, 0x2c	; 44
+ 1f6:	8c b5       	in	r24, 0x2c	; 44
+ 1f8:	8c 7f       	andi	r24, 0xFC	; 252
+ 1fa:	81 60       	ori	r24, 0x01	; 1
+ 1fc:	89 23       	and	r24, r25
+ 1fe:	8c bd       	out	0x2c, r24	; 44
+}
+ 200:	08 95       	ret
+
+00000202 <SPI_Transmit>:
+//--------------------------------------------------------------
+
+void SPI_Transmit(char cData)
+{
+	/* Inicia transmissão. Clock gerado automaticamente */
+	SPDR = cData;
+ 202:	8e bd       	out	0x2e, r24	; 46
+	
+	/* Wait for transmission complete */
+	while(!(SPSR & (1 << SPIF)));
+ 204:	0d b4       	in	r0, 0x2d	; 45
+ 206:	07 fe       	sbrs	r0, 7
+ 208:	fd cf       	rjmp	.-6      	; 0x204 <SPI_Transmit+0x2>
+}
+ 20a:	08 95       	ret
+
+0000020c <SPI_SlaveInit>:
+//--------------------------------------------------------------
+
+void SPI_SlaveInit()
+{
+	/* Seta MISO como saída, todos os outros como entrada automaticamente */
+	SPI_DDR = (1 << SPI_DD_MISO);
+ 20c:	80 e1       	ldi	r24, 0x10	; 16
+ 20e:	84 b9       	out	0x04, r24	; 4
+		
+	/*SS deve ser mantido em baixo para ativar SPI no modo slave*/
+	SPI_PORT &= (~(1 << SPI_DD_SS));
+ 210:	2a 98       	cbi	0x05, 2	; 5
+	
+	/* Habilita SPI */
+	SPCR = (1 << SPE);
+ 212:	80 e4       	ldi	r24, 0x40	; 64
+ 214:	8c bd       	out	0x2c, r24	; 44
+}
+ 216:	08 95       	ret
+
+00000218 <SPI_Receive>:
+//--------------------------------------------------------------
+
+char SPI_Receive()
+{
+	/* Wait for reception complete */
+	while(!(SPSR & (1 << SPIF)));
+ 218:	0d b4       	in	r0, 0x2d	; 45
+ 21a:	07 fe       	sbrs	r0, 7
+ 21c:	fd cf       	rjmp	.-6      	; 0x218 <SPI_Receive>
+	
+	/* Return Data Register */
+	return SPDR;
+ 21e:	8e b5       	in	r24, 0x2e	; 46
+}
+ 220:	08 95       	ret
+
+00000222 <main>:
+//--------------------------------------------------------------
+
+int main(void)
+{
+	/* desabilita os pinos de RX e TX */
+	UCSR0B=0x00;
+ 222:	10 92 c1 00 	sts	0x00C1, r1
+				
+	/* Para uso do botão */
+	DDRB &= (~(1 << PB0));
+ 226:	20 98       	cbi	0x04, 0	; 4
+	PORTB |= (1 << PB0);
+ 228:	28 9a       	sbi	0x05, 0	; 5
+	
+	LCD_inicia_4bits();
+ 22a:	0e 94 79 00 	call	0xf2	; 0xf2 <LCD_inicia_4bits>
+	
+	SPI_MasterInit();
+ 22e:	0e 94 f4 00 	call	0x1e8	; 0x1e8 <SPI_MasterInit>
+		
+    while(1)
+    {
+		if(!tst_bit(PINB, PB0)) {
+ 232:	18 99       	sbic	0x03, 0	; 3
+ 234:	fe cf       	rjmp	.-4      	; 0x232 <main+0x10>
+			SPI_HABILITA_SLAVE();	
+ 236:	2a 98       	cbi	0x05, 2	; 5
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 238:	87 e8       	ldi	r24, 0x87	; 135
+ 23a:	93 e1       	ldi	r25, 0x13	; 19
+ 23c:	01 97       	sbiw	r24, 0x01	; 1
+ 23e:	f1 f7       	brne	.-4      	; 0x23c <main+0x1a>
+ 240:	00 c0       	rjmp	.+0      	; 0x242 <main+0x20>
+ 242:	00 00       	nop
+			_delay_ms(20);
+			SPI_Transmit('A');
+ 244:	81 e4       	ldi	r24, 0x41	; 65
+ 246:	0e 94 01 01 	call	0x202	; 0x202 <SPI_Transmit>
+			SPI_DESABILITA_SLAVE();
+ 24a:	2a 9a       	sbi	0x05, 2	; 5
+			while(!tst_bit(PINB, PB0));
+ 24c:	18 9b       	sbis	0x03, 0	; 3
+ 24e:	fe cf       	rjmp	.-4      	; 0x24c <main+0x2a>
+ 250:	f0 cf       	rjmp	.-32     	; 0x232 <main+0x10>
+
+00000252 <_exit>:
+ 252:	f8 94       	cli
+
+00000254 <__stop_program>:
+ 254:	ff cf       	rjmp	.-2      	; 0x254 <__stop_program>
