@@ -1,0 +1,12 @@
+As cores são: roxo = ENA, cinza = IN1+IN3, branco = IN2+IN4, preto = ENB.
+
+Os pinos do barra pino são:
+
+8 - GND - Usar como referência (olhar embaixo da placa para identificar) - Fio marrom;
+7 - VCC - Fio vermelho;
+6 - IN4 - Fio branco;
+5 - IN3 - Fio cinza;
+4 - ENB - Fio preto;
+3 - IN2 - Fio branco;
+2 - IN1 - Fio cinza;
+1 - ENA - Fio roxo;
