@@ -41,21 +41,18 @@ ISR(ADC_vect)
 	/*Envia o valor lido do ADC a cada 1s aproximadamente*/
 	if(contador == 64) {	
 		unsigned char direcao;
-		unsigned char sentido;
-		uint16_t dutyLadoEsq;
-		uint16_t dutyLadoDir;
-					
-		CalculaDutyCycle(&dutyLadoEsq, &dutyLadoEsq);
+		unsigned char sentido;	
+		uint16_t dutyLadorEsq;
+		uint16_t dutyLadorDir;
+		
+		dutyLadorEsq = CalculaDutyCycleLadoEsq();
+		dutyLadorDir= CalculaDutyCycleLadoDir();
 		
 		sentido = CalculaSentido();
-		
 		direcao = DirecaoCarro(sentido);
 		
-		if (direcao != 'z') 
-			TransmitiBuffer(dutyLadoEsq, dutyLadoDir, direcao);
-		else
-			Usart_Transmit('Q');
-				
+		TransmitiBuffer(dutyLadorEsq, dutyLadorDir, direcao);
+						
 		contador = 0;
 	}		
 	
