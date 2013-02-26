@@ -69,44 +69,63 @@ unsigned char CalculaSentido()
 
 //---------------------------------------------------------------------------
 
-void CalculaDutyCycle(
-	uint16_t* dutyLadoEsq, 
-	uint16_t* dutyLadoDir
-)
+uint16_t CalculaDutyCycleLadoDir()
 {
 	uint16_t valorLidoADEixoX = ValorLidoADEixoX(); 
 	uint16_t valorLidoADEixoY = ValorLidoADEixoY();
 	uint8_t valorPorCentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
 	
+	uint16_t duty = 0;
 	/*Andando Reverse*/
-	if (valorLidoADEixoY < limInfPontoInicY_g) {
-		*dutyLadoDir = valorPorCentoEixoY;
-		*dutyLadoEsq = valorPorCentoEixoY;	
-		Usart_Transmit('x');
-	}		
+	if (valorLidoADEixoY < limInfPontoInicY_g) 
+		duty = 100;
 		
 	/*Andando reto frente*/
-	else if (PontoXNaPosInic() && !PontoYNaPosInic()) {
-		*dutyLadoDir = valorPorCentoEixoY;
-		*dutyLadoEsq = valorPorCentoEixoY;
-	}	
+	else if (PontoXNaPosInic() && !PontoYNaPosInic())
+		duty = 100;
 			
 	/*Andando para direita*/
-	else if ((valorLidoADEixoX > limSupPontoInicX_g)) {
-		*dutyLadoDir = ceil(valorPorCentoEixoY * (100 - valorPorCentoEixoY)  / 100);
-		*dutyLadoEsq = valorPorCentoEixoY;	
-	}
+	else if ((valorLidoADEixoX > limSupPontoInicX_g)) 
+		duty = 0;
 	
 	/*Andando para esquerda*/
-	else if ((valorLidoADEixoX < limInfPontoInicX_g)) {
-		*dutyLadoDir = valorPorCentoEixoY;
-		*dutyLadoEsq = ceil(valorPorCentoEixoY * (100 - valorPorCentoEixoY)  / 100);
-	}		
+	else if ((valorLidoADEixoX < limInfPontoInicX_g)) 
+		duty = 100;
+		
+	return duty;
 }
 
 //---------------------------------------------------------------------------
 
-uint8_t CalculaPorcentoPosicaoEixoY(
+uint16_t CalculaDutyCycleLadoEsq()
+{
+	uint16_t valorLidoADEixoX = ValorLidoADEixoX(); 
+	uint16_t valorLidoADEixoY = ValorLidoADEixoY();
+	uint8_t valorPorCentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
+	
+	uint16_t duty = 0;
+	/*Andando Reverse*/
+	if (valorLidoADEixoY < limInfPontoInicY_g) 
+		duty = 100;
+		
+	/*Andando reto frente*/
+	else if (PontoXNaPosInic() && !PontoYNaPosInic())
+		duty = 100;
+			
+	/*Andando para direita*/
+	else if ((valorLidoADEixoX > limSupPontoInicX_g)) 
+		duty = 100;
+	
+	/*Andando para esquerda*/
+	else if ((valorLidoADEixoX < limInfPontoInicX_g)) 
+		duty = 0;
+		
+	return duty;
+}
+
+//---------------------------------------------------------------------------
+
+uint16_t CalculaPorcentoPosicaoEixoY(
 	uint16_t valorLidoADEixoY
 ) 
 {
@@ -117,7 +136,7 @@ uint8_t CalculaPorcentoPosicaoEixoY(
 			 posYFrente25PorCento = 650,
 			 posYFrente0PorCento = 522;
 		 
-	uint8_t valorPorCentoEixoY; 
+	uint16_t valorPorCentoEixoY; 
 	
 	if (ValorLidoADEixoY() > posYFrente75PorCento) 
 		valorPorCentoEixoY = 100;

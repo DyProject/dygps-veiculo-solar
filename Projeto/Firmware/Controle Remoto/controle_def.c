@@ -15,13 +15,8 @@ unsigned char caracterConvertido_g[5];
 unsigned char DirecaoCarro(
 	unsigned char sentido
 )
-{
-	Usart_Transmit('{');
-	Usart_Transmit(estadoCarro + 0x30);
-	Usart_Transmit(sentido);
-	Usart_Transmit('}');
-	/*caso deve manter mesma direção envia 'z'*/
-	unsigned char direcao = 'z';
+{	
+	unsigned char direcao ;
 	switch (estadoCarro) {
 		case PARADO:
 					if(sentido == 'F') {
@@ -31,66 +26,33 @@ unsigned char DirecaoCarro(
 					else if(sentido == 'R') {
 						estadoCarro = ANDANDO_TRAS;		
 						direcao = 'R';
-					}								
+					}				
+					else direcao = 'P';				
+					
 					break;	
 			
 		case ANDANDO_FRENTE:		
-					if(sentido == 'D') {
-						estadoCarro = ANDANDO_DIREITA;
-						direcao = 'D';
-					}					
-				
-					else if(sentido == 'E') {
-						estadoCarro = ANDANDO_ESQUERDA;		
-						direcao = 'E';
-					}
-					
-					else if(sentido != 'F') {
+					if(sentido != 'F') {
 						estadoCarro = PARADO;
 						direcao = 'P';
-					}						
+					}		
+					else direcao = 'F';				
+					
 					break;
 			
 		case ANDANDO_TRAS:
 					if(sentido != 'R') {
 						estadoCarro = PARADO;
 						direcao = 'P';	
-					}						
-					break;
-			
-		case ANDANDO_DIREITA:							
-					if(sentido == 'F') {
-						estadoCarro = ANDANDO_FRENTE;
-						direcao = 'C';
-					}
+					}	
+					else direcao = 'R';		
 					
-					if(sentido != 'D') {
-						estadoCarro = PARADO;
-						direcao = 'P';	
-					}			
-					break;
-		
-		case ANDANDO_ESQUERDA:
-					if(sentido == 'F') {
-						estadoCarro = ANDANDO_FRENTE;
-						direcao = 'C';
-					}
-					
-					if(sentido != 'E') {
-						estadoCarro = PARADO;
-						direcao = 'P';
-					}			
-							
 					break;
 		
 		default:
 					estadoCarro = PARADO;
 					direcao = 'P';
 	}		
-	
-	Usart_Transmit('[');
-	Usart_Transmit(direcao);
-	Usart_Transmit(']');
 	
 	return direcao;
 }		
@@ -125,10 +87,7 @@ void TransmitiBuffer(
 	buffer[11] = '\0';
 	Usart_Write(buffer);
 	
-	Usart_Transmit(']');
-		
-	Usart_Transmit(' ');
-	Usart_Transmit(' ');
+	Usart_Transmit(']');	
 }
 
 //----------------------------------------------------------------------------
