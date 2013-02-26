@@ -35,8 +35,10 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../adc_def.c \
 ../ControleRemoto.c \
 ../controle_def.c \
+../joystick.c \
 ../usart_def.c
 
 
@@ -47,26 +49,34 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+adc_def.o \
 ControleRemoto.o \
 controle_def.o \
+joystick.o \
 usart_def.o
 
 
 OBJS_AS_ARGS +=  \
+adc_def.o \
 ControleRemoto.o \
 controle_def.o \
+joystick.o \
 usart_def.o
 
 
 C_DEPS +=  \
+adc_def.d \
 ControleRemoto.d \
 controle_def.d \
+joystick.d \
 usart_def.d
 
 
 C_DEPS_AS_ARGS +=  \
+adc_def.d \
 ControleRemoto.d \
 controle_def.d \
+joystick.d \
 usart_def.d
 
 
@@ -79,6 +89,10 @@ ADDITIONAL_DEPENDENCIES:=
 OUTPUT_FILE_DEP:= ./makedep.mk
 
 # AVR32/GNU C Compiler
+
+
+
+
 
 
 

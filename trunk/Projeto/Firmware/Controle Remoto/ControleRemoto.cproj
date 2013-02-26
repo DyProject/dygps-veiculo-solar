@@ -56,10 +56,16 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="adc_def.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="ControleRemoto.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="controle_def.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="joystick.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="macros_def.h">

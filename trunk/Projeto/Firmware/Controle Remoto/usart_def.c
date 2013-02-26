@@ -47,7 +47,7 @@ void Usart_Init(unsigned int ubrr)
 	* bit 1		0:	  R:	RXB8n:		9° bit RX quando frame 9 bits
 	* bit 0		0:	R/W:	TXB8n:		9° bit TX quando frame 9 bits
 	*/				
-	UCSR0B = 0b00011000;
+	UCSR0B = 0b10011000;
 	//		   ||||||||
 	//		   76543210	
 	 

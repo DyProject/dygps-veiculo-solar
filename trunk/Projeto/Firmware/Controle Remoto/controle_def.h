@@ -29,12 +29,20 @@
 //----------------------------------------------------------------------------
 
 typedef enum {
-	PARADO = 1, ANDANDO_FRENTE = 2, ANDANDO_TRAS = 3, ANDANDO_DIREITA = 4, ANDANDO_ESQUERDA = 5
+	PARADO = 1, ANDANDO_FRENTE, ANDANDO_TRAS, ANDANDO_DIREITA, ANDANDO_ESQUERDA
 	}TEstadoCarro;
 	
 //----------------------------------------------------------------------------
 	
-void EnviaDirecaoCarro();
+unsigned char DirecaoCarro(
+	unsigned char sentido
+);
+
+void TransmitiBuffer(
+	uint16_t dutyLadoEsq, 
+	uint16_t dutyLadoDir, 
+	unsigned char direcao
+);
  
  //----------------------------------------------------------------------------
  

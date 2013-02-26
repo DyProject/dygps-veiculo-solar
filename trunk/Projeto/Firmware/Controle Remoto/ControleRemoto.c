@@ -21,42 +21,62 @@
 
 //----------------------------------------------------------------------------
 
-extern volatile TEstadoCarro estadoCarro;
-
-//----------------------------------------------------------------------------
- 
- ISR(PCINT0_vect)
-{
-	//Desabilita interrupção PCINT[7..0]
-	PCICR	&= (~(1 << PCIE0));
-	PCMSK0 = 0x00;
-	
-	EnviaDirecaoCarro();
-	
-	_delay_ms(50);
-	PCMSK0	|= (1 << BT_FRENTE) | (1 << BT_RE)  | (1 << BT_DIREITA) | (1 << BT_ESQUERDA);
-	PCICR	|= (1 << PCIE0);
-}
+void Inicializacoes();
 
 //----------------------------------------------------------------------------
 
 int main()
 {	
-	DDRB	= 0x00;			
-	PORTB	= 0x0F;	
+	Inicializacoes();
 	
-	//Habilita interrupção PCINT[7..0]
-	PCICR	|= (1 << PCIE0);
-	//Habilita interrupção nos pino PCINT
-	PCMSK0	|= (1 << BT_FRENTE) | (1 << BT_RE)  | (1 << BT_DIREITA) | (1 << BT_ESQUERDA);		
+	while(1){}
+}
+
+//----------------------------------------------------------------------------
+
+ISR(ADC_vect)			
+{
+	static uint8_t contador = 0;
 		
+	/*Envia o valor lido do ADC a cada 1s aproximadamente*/
+	if(contador == 64) {	
+		unsigned char direcao;
+		unsigned char sentido;
+		uint16_t dutyLadoEsq;
+		uint16_t dutyLadoDir;
+					
+		CalculaDutyCycle(&dutyLadoEsq, &dutyLadoEsq);
+		
+		sentido = CalculaSentido();
+		
+		direcao = DirecaoCarro(sentido);
+		
+		if (direcao != 'z') 
+			TransmitiBuffer(dutyLadoEsq, dutyLadoDir, direcao);
+		else
+			Usart_Transmit('Q');
+				
+		contador = 0;
+	}		
+	
+	contador++;
+	
+	/*Limpa o flag de overflow do Timer0. Esse flag indica que houve um estouro do timer.
+	limpar para habilitar um novo estouro para gerar a interrupção do ADC.*/
+	TIFR0 |= TOV0;
+}	
+
+//----------------------------------------------------------------------------
+
+void Inicializacoes()
+{
 	Usart_Init(MYUBRR);
-	//Para garantir que o carro sempre inicie parado.
-	Usart_Transmit('P');
+	
+	//Prescaler do Timer0, usado para fazer uma leitura do ADC.
+	TCCR0B = (1<<CS02) | (1<<CS00);
+	ADC_Init();
+	
 	sei();
-		
-	while(1){		
-	}
 }
 
 //----------------------------------------------------------------------------

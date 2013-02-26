@@ -10,7 +10,7 @@ controle_def.d controle_def.o: .././controle_def.c .././controle_def.h \
  c:\program\ files\atmel\avr\ studio\ 5.1\extensions\atmel\avrgcc\3.3.1.27\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/version.h \
  c:\program\ files\atmel\avr\ studio\ 5.1\extensions\atmel\avrgcc\3.3.1.27\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/fuse.h \
  c:\program\ files\atmel\avr\ studio\ 5.1\extensions\atmel\avrgcc\3.3.1.27\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/lock.h \
- .././macros_def.h
+ .././macros_def.h .././usart_def.h
 
 .././controle_def.h:
 
@@ -37,3 +37,5 @@ c:\program\ files\atmel\avr\ studio\ 5.1\extensions\atmel\avrgcc\3.3.1.27\avrtoo
 c:\program\ files\atmel\avr\ studio\ 5.1\extensions\atmel\avrgcc\3.3.1.27\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/lock.h:
 
 .././macros_def.h:
+
+.././usart_def.h:
