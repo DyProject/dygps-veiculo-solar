@@ -29,7 +29,7 @@
 //----------------------------------------------------------------------------
 
 typedef enum {
-	PARADO = 1, ANDANDO_FRENTE, ANDANDO_TRAS, ANDANDO_DIREITA, ANDANDO_ESQUERDA
+	PARADO = 1, ANDANDO_FRENTE, ANDANDO_TRAS, ANDANDO_DIREITA, ANDANDO_ESQUERDA 
 	}TEstadoCarro;
 	
 //----------------------------------------------------------------------------

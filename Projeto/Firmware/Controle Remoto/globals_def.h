@@ -7,12 +7,21 @@
 *           Version:  1.0                                       *
 ****************************************************************/
 
-#ifndef _MACROS_DEF_H_
-#define _MACROS_DEF_H_
+#ifndef _GLOBALS_DEF_H_
+#define _GLOBALS_DEF_H_
+
+#include <stdint.h>
 
 //----------------------------------------------------------------------------
 
 #define tst_bit(Y, bit_x) (Y & (1 << bit_x))
+
+//----------------------------------------------------------------------------
+
+void CvrtNum2CaracterIndividual(
+	uint16_t valor, 
+	unsigned char* caracterConvertido
+);
 
 //----------------------------------------------------------------------------
 

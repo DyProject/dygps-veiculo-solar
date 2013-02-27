@@ -65,10 +65,10 @@
     <Compile Include="controle_def.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="joystick.c">
+    <Compile Include="globals.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="macros_def.h">
+    <Compile Include="joystick.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="usart_def.c">

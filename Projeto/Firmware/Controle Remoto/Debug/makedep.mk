@@ -8,6 +8,8 @@ ControleRemoto.c
 
 controle_def.c
 
+globals.c
+
 joystick.c
 
 usart_def.c
