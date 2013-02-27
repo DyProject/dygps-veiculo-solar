@@ -38,6 +38,7 @@ C_SRCS +=  \
 ../adc_def.c \
 ../ControleRemoto.c \
 ../controle_def.c \
+../globals.c \
 ../joystick.c \
 ../usart_def.c
 
@@ -52,6 +53,7 @@ OBJS +=  \
 adc_def.o \
 ControleRemoto.o \
 controle_def.o \
+globals.o \
 joystick.o \
 usart_def.o
 
@@ -60,6 +62,7 @@ OBJS_AS_ARGS +=  \
 adc_def.o \
 ControleRemoto.o \
 controle_def.o \
+globals.o \
 joystick.o \
 usart_def.o
 
@@ -68,6 +71,7 @@ C_DEPS +=  \
 adc_def.d \
 ControleRemoto.d \
 controle_def.d \
+globals.d \
 joystick.d \
 usart_def.d
 
@@ -76,6 +80,7 @@ C_DEPS_AS_ARGS +=  \
 adc_def.d \
 ControleRemoto.d \
 controle_def.d \
+globals.d \
 joystick.d \
 usart_def.d
 
@@ -89,6 +94,8 @@ ADDITIONAL_DEPENDENCIES:=
 OUTPUT_FILE_DEP:= ./makedep.mk
 
 # AVR32/GNU C Compiler
+
+
 
 
 

@@ -7,11 +7,11 @@
 //---------------------------------------------------------------------------
 
 uint16_t pontoInicX_g = 522,
-		 limInfPontoInicX_g = 512,
-		 limSupPontoInicX_g = 532;	
+		 limInfPontoInicX_g = 502,
+		 limSupPontoInicX_g = 542;	
 uint16_t pontoInicY_g = 498,
-		 limInfPontoInicY_g = 488,
-		 limSupPontoInicY_g = 508;
+		 limInfPontoInicY_g = 478,
+		 limSupPontoInicY_g = 518;
 
 //---------------------------------------------------------------------------
 
@@ -74,6 +74,15 @@ uint16_t CalculaDutyCycleLadoDir()
 	uint16_t valorLidoADEixoX = ValorLidoADEixoX(); 
 	uint16_t valorLidoADEixoY = ValorLidoADEixoY();
 	uint8_t valorPorCentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
+	
+	unsigned char convertido[5];
+	Usart_Transmit('[');
+	CvrtNum2CaracterIndividual(valorLidoADEixoX, convertido);
+	Usart_Write(convertido);
+	Usart_Transmit(',');
+	CvrtNum2CaracterIndividual(valorLidoADEixoY, convertido);
+	Usart_Write(convertido);
+	Usart_Transmit(']');
 	
 	uint16_t duty = 0;
 	/*Andando Reverse*/

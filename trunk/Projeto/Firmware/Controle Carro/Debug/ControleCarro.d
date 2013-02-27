@@ -1,4 +1,5 @@
 ControleCarro.d ControleCarro.o: .././ControleCarro.c \
+ c:\program\ files\atmel\avr\ studio\ 5.1\extensions\atmel\avrgcc\3.3.1.27\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/interrupt.h \
  c:\program\ files\atmel\avr\ studio\ 5.1\extensions\atmel\avrgcc\3.3.1.27\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/io.h \
  c:\program\ files\atmel\avr\ studio\ 5.1\extensions\atmel\avrgcc\3.3.1.27\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/sfr_defs.h \
  c:\program\ files\atmel\avr\ studio\ 5.1\extensions\atmel\avrgcc\3.3.1.27\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/inttypes.h \
@@ -14,6 +15,8 @@ ControleCarro.d ControleCarro.o: .././ControleCarro.c \
  c:\program\ files\atmel\avr\ studio\ 5.1\extensions\atmel\avrgcc\3.3.1.27\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h \
  c:\program\ files\atmel\avr\ studio\ 5.1\extensions\atmel\avrgcc\3.3.1.27\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h \
  .././usart_def.h
+
+c:\program\ files\atmel\avr\ studio\ 5.1\extensions\atmel\avrgcc\3.3.1.27\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/interrupt.h:
 
 c:\program\ files\atmel\avr\ studio\ 5.1\extensions\atmel\avrgcc\3.3.1.27\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/io.h:
 

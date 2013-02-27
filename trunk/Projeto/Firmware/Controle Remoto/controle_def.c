@@ -1,6 +1,6 @@
 #include "controle_def.h"
 
-#include "macros_def.h"
+#include "globals_def.h"
 #include "usart_def.h"
 
 //----------------------------------------------------------------------------
@@ -65,50 +65,29 @@ void TransmitiBuffer(
 	unsigned char direcao
 )
 {
-	unsigned char buffer[12];
+	unsigned char buffer[10];
 		
 	Usart_Transmit('[');
 	buffer[0] = direcao;
 	
-	CvrtNum2CaracterIndividual(dutyLadoEsq);
+	CvrtNum2CaracterIndividual(dutyLadoEsq, caracterConvertido_g);
 	buffer[1] = 'M';
-	buffer[2] = caracterConvertido_g[0];
-	buffer[3] = caracterConvertido_g[1];
-	buffer[4] = caracterConvertido_g[2];
-	buffer[5] = caracterConvertido_g[3];
+	//tracebuffer[2] = caracterConvertido_g[0];
+	buffer[2] = caracterConvertido_g[1];
+	buffer[3] = caracterConvertido_g[2];
+	buffer[4] = caracterConvertido_g[3];
 	
-	CvrtNum2CaracterIndividual(dutyLadoDir);
-	buffer[6] = 'M';
-	buffer[7] = caracterConvertido_g[0];
-	buffer[8] = caracterConvertido_g[1];
-	buffer[9] = caracterConvertido_g[2];
-	buffer[10] = caracterConvertido_g[3];
+	CvrtNum2CaracterIndividual(dutyLadoDir, caracterConvertido_g);
+	buffer[5] = 'M';
+	//tracebuffer[6] = caracterConvertido_g[0];
+	buffer[6] = caracterConvertido_g[1];
+	buffer[7] = caracterConvertido_g[2];
+	buffer[8] = caracterConvertido_g[3];
 		
-	buffer[11] = '\0';
+	buffer[9] = '\0';
 	Usart_Write(buffer);
 	
 	Usart_Transmit(']');	
 }
 
 //----------------------------------------------------------------------------
-
-void CvrtNum2CaracterIndividual(
-	uint16_t valor
-)		
-{											
-	unsigned char cont = 3;
-  
-	caracterConvertido_g[0] = 0x30; 
-	caracterConvertido_g[1] = 0x30; 
-	caracterConvertido_g[2] = 0x30; 
-	caracterConvertido_g[3] = 0x30;
-
-	do{
-		/*+0x30 para converter de caracter para número*/
-		caracterConvertido_g[cont--] = (valor % 10) + 0x30;											
-		valor /= 10;								
-	}while (valor != 0);
-}
-
-//----------------------------------------------------------------------------
-	
