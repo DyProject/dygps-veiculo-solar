@@ -13,7 +13,7 @@ ControleRemoto.d ControleRemoto.o: .././ControleRemoto.c \
  c:\program\ files\atmel\avr\ studio\ 5.1\extensions\atmel\avrgcc\3.3.1.27\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h \
  c:\program\ files\atmel\avr\ studio\ 5.1\extensions\atmel\avrgcc\3.3.1.27\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h \
  c:\program\ files\atmel\avr\ studio\ 5.1\extensions\atmel\avrgcc\3.3.1.27\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/interrupt.h \
- .././controle_def.h .././globals_def.h .././usart_def.h
+ .././controle_def.h .././globals_def.h .././LCD4b.h .././usart_def.h
 
 c:\program\ files\atmel\avr\ studio\ 5.1\extensions\atmel\avrgcc\3.3.1.27\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/io.h:
 
@@ -46,5 +46,7 @@ c:\program\ files\atmel\avr\ studio\ 5.1\extensions\atmel\avrgcc\3.3.1.27\avrtoo
 .././controle_def.h:
 
 .././globals_def.h:
+
+.././LCD4b.h:
 
 .././usart_def.h:

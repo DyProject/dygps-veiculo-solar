@@ -18,8 +18,8 @@ uint8_t PontoYNaPosInic();
 
 unsigned char CalculaSentido();
 
-uint16_t CalculaDutyCycleLadoEsq();
-uint16_t CalculaDutyCycleLadoDir();
+uint8_t CalculaDutyCycleLadoEsq();
+uint8_t CalculaDutyCycleLadoDir();
 
 uint16_t CalculaPorcentoPosicaoEixoY(
 	uint16_t valorLidoADEixoY

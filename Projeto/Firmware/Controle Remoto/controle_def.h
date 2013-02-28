@@ -29,7 +29,8 @@
 //----------------------------------------------------------------------------
 
 typedef enum {
-	PARADO = 1, ANDANDO_FRENTE, ANDANDO_TRAS, ANDANDO_DIREITA, ANDANDO_ESQUERDA 
+	PARADO = 1, ANDANDO_FRENTE,  ANDANDO_FRENTE_DIREITA, ANDANDO_FRENTE_ESQUERDA, 
+	ANDANDO_TRAS, ANDANDO_TRAS_DIREITA, ANDANDO_TRAS_ESQUERDA,
 	}TEstadoCarro;
 	
 //----------------------------------------------------------------------------
@@ -39,8 +40,8 @@ unsigned char DirecaoCarro(
 );
 
 void TransmitiBuffer(
-	uint16_t dutyLadoEsq, 
-	uint16_t dutyLadoDir, 
+	uint8_t dutyLadoEsq, 
+	uint8_t dutyLadoDir, 
 	unsigned char direcao
 );
  

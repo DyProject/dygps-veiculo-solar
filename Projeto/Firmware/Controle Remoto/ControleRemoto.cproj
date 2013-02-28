@@ -71,6 +71,9 @@
     <Compile Include="joystick.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="LCD4b.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="usart_def.c">
       <SubType>compile</SubType>
     </Compile>
