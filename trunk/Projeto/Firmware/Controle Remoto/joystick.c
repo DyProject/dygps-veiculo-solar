@@ -49,17 +49,31 @@ unsigned char CalculaSentido()
 	uint16_t valorLidoADEixoX = ValorLidoADEixoX(); 
 	uint16_t valorLidoADEixoY = ValorLidoADEixoY();
 	
-	if(valorLidoADEixoY > limSupPontoInicY_g)
+	/*Andando Frente*/		
+	if((valorLidoADEixoY > limSupPontoInicY_g) && PontoXNaPosInic())
 		direcao = 'F';
-		
-	else if(valorLidoADEixoY < limInfPontoInicY_g)
-		direcao = 'R';
 	
-	else if(valorLidoADEixoX > limSupPontoInicX_g)
+	/*Andando Frente Direita*/
+	else if((valorLidoADEixoX > limSupPontoInicX_g) && 
+			((valorLidoADEixoY > limSupPontoInicY_g) || PontoYNaPosInic()))
 		direcao = 'D';
 		
-	else if(valorLidoADEixoX < limInfPontoInicX_g)
+	/*Andando Frente Esquerda*/	
+	else if((valorLidoADEixoX < limInfPontoInicX_g) && 
+			((valorLidoADEixoY > limSupPontoInicY_g) ||  PontoYNaPosInic()))
 		direcao = 'E';	
+		
+	/*Andando Tras*/
+	else if((valorLidoADEixoY < limInfPontoInicY_g) && PontoXNaPosInic())
+		direcao = 'T';
+		
+	/*Andando Tras Direita*/
+	else if((valorLidoADEixoX > limSupPontoInicX_g) && (valorLidoADEixoY < limInfPontoInicY_g))
+		direcao = 'R';
+		
+	/*Andando Tras Esquerda*/	
+	else if((valorLidoADEixoX < limInfPontoInicX_g) && (valorLidoADEixoY < limInfPontoInicY_g))
+		direcao = 'L';	
 		
 	else 
 		direcao = 'P';
@@ -69,66 +83,56 @@ unsigned char CalculaSentido()
 
 //---------------------------------------------------------------------------
 
-uint16_t CalculaDutyCycleLadoDir()
+uint8_t CalculaDutyCycleLadoDir()
 {
 	uint16_t valorLidoADEixoX = ValorLidoADEixoX(); 
 	uint16_t valorLidoADEixoY = ValorLidoADEixoY();
 	uint8_t valorPorCentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
-	
-	unsigned char convertido[5];
-	Usart_Transmit('[');
-	CvrtNum2CaracterIndividual(valorLidoADEixoX, convertido);
-	Usart_Write(convertido);
-	Usart_Transmit(',');
-	CvrtNum2CaracterIndividual(valorLidoADEixoY, convertido);
-	Usart_Write(convertido);
-	Usart_Transmit(']');
-	
-	uint16_t duty = 0;
-	/*Andando Reverse*/
-	if (valorLidoADEixoY < limInfPontoInicY_g) 
-		duty = 100;
 		
-	/*Andando reto frente*/
-	else if (PontoXNaPosInic() && !PontoYNaPosInic())
-		duty = 100;
-			
-	/*Andando para direita*/
-	else if ((valorLidoADEixoX > limSupPontoInicX_g)) 
-		duty = 0;
-	
-	/*Andando para esquerda*/
-	else if ((valorLidoADEixoX < limInfPontoInicX_g)) 
-		duty = 100;
+	uint8_t duty = 0;
+	unsigned char sentido = CalculaSentido();
+	switch(sentido) {
+		case 'F'://Andando Frente
+		case 'E'://Andando Frente Esquerda
+		case 'T'://Andando Tras
+		case 'L'://Andando Tras Esquerda
+			duty = 100;
+			break;
+		
+		case 'D'://Andando Frente Direita
+		case 'R': //Andando Tras Direita
+		case 'P'://Parado
+			duty = 0;
+			break;
+	}
 		
 	return duty;
 }
 
 //---------------------------------------------------------------------------
 
-uint16_t CalculaDutyCycleLadoEsq()
+uint8_t CalculaDutyCycleLadoEsq()
 {
 	uint16_t valorLidoADEixoX = ValorLidoADEixoX(); 
 	uint16_t valorLidoADEixoY = ValorLidoADEixoY();
 	uint8_t valorPorCentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
 	
-	uint16_t duty = 0;
-	/*Andando Reverse*/
-	if (valorLidoADEixoY < limInfPontoInicY_g) 
-		duty = 100;
+	uint8_t duty = 0;
+	unsigned char sentido = CalculaSentido();
+	switch(sentido) {
+		case 'F'://Andando Frente
+		case 'D'://Andando Frente Direita
+		case 'T'://Andando Tras
+		case 'R'://Andando Tras Direita
+			duty = 100;
+			break;
 		
-	/*Andando reto frente*/
-	else if (PontoXNaPosInic() && !PontoYNaPosInic())
-		duty = 100;
-			
-	/*Andando para direita*/
-	else if ((valorLidoADEixoX > limSupPontoInicX_g)) 
-		duty = 100;
-	
-	/*Andando para esquerda*/
-	else if ((valorLidoADEixoX < limInfPontoInicX_g)) 
-		duty = 0;
-		
+		case 'E'://Andando Frente Esquerda
+		case 'L': //Andando Tras Esquerda
+		case 'P'://Parado
+			duty = 0;
+			break;
+	}
 	return duty;
 }
 

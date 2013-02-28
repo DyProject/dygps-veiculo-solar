@@ -3,35 +3,35 @@ ControleRemoto.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         0000000e  00800100  000005e2  00000676  2**0
+  0 .data         0000000e  00800100  0000074c  000007e0  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000005e2  00000000  00000000  00000094  2**1
+  1 .text         0000074c  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000006  0080010e  0080010e  00000684  2**0
+  2 .bss          00000006  0080010e  0080010e  000007ee  2**0
                   ALLOC
-  3 .stab         000006cc  00000000  00000000  00000684  2**2
+  3 .stab         000006cc  00000000  00000000  000007f0  2**2
                   CONTENTS, READONLY, DEBUGGING
-  4 .stabstr      00000090  00000000  00000000  00000d50  2**0
+  4 .stabstr      00000090  00000000  00000000  00000ebc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_aranges 000000c0  00000000  00000000  00000de0  2**0
+  5 .debug_aranges 000000c0  00000000  00000000  00000f4c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_pubnames 000002b4  00000000  00000000  00000ea0  2**0
+  6 .debug_pubnames 00000320  00000000  00000000  0000100c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_info   0000092d  00000000  00000000  00001154  2**0
+  7 .debug_info   00000ff8  00000000  00000000  0000132c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_abbrev 00000464  00000000  00000000  00001a81  2**0
+  8 .debug_abbrev 00000558  00000000  00000000  00002324  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_line   00000b39  00000000  00000000  00001ee5  2**0
+  9 .debug_line   00000e6c  00000000  00000000  0000287c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_frame  000001b0  00000000  00000000  00002a20  2**2
+ 10 .debug_frame  00000210  00000000  00000000  000036e8  2**2
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_str    00000479  00000000  00000000  00002bd0  2**0
+ 11 .debug_str    0000059a  00000000  00000000  000038f8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_loc    000004d2  00000000  00000000  00003049  2**0
+ 12 .debug_loc    00000711  00000000  00000000  00003e92  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_pubtypes 000000fb  00000000  00000000  0000351b  2**0
+ 13 .debug_pubtypes 00000107  00000000  00000000  000045a3  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_ranges 00000018  00000000  00000000  00003616  2**0
+ 14 .debug_ranges 000000a8  00000000  00000000  000046aa  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -58,7 +58,7 @@ Disassembly of section .text:
   48:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   4c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   50:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  54:	0c 94 76 00 	jmp	0xec	; 0xec <__vector_21>
+  54:	0c 94 c4 01 	jmp	0x388	; 0x388 <__vector_21>
   58:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   5c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   60:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
@@ -76,8 +76,8 @@ Disassembly of section .text:
   74:	11 e0       	ldi	r17, 0x01	; 1
   76:	a0 e0       	ldi	r26, 0x00	; 0
   78:	b1 e0       	ldi	r27, 0x01	; 1
-  7a:	e2 ee       	ldi	r30, 0xE2	; 226
-  7c:	f5 e0       	ldi	r31, 0x05	; 5
+  7a:	ec e4       	ldi	r30, 0x4C	; 76
+  7c:	f7 e0       	ldi	r31, 0x07	; 7
   7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
   80:	05 90       	lpm	r0, Z+
   82:	0d 92       	st	X+, r0
@@ -98,8 +98,8 @@ Disassembly of section .text:
   94:	a4 31       	cpi	r26, 0x14	; 20
   96:	b1 07       	cpc	r27, r17
   98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
-  9a:	0e 94 c6 00 	call	0x18c	; 0x18c <main>
-  9e:	0c 94 ef 02 	jmp	0x5de	; 0x5de <_exit>
+  9a:	0e 94 7f 01 	call	0x2fe	; 0x2fe <main>
+  9e:	0c 94 a4 03 	jmp	0x748	; 0x748 <_exit>
 
 000000a2 <__bad_interrupt>:
   a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -179,1054 +179,1372 @@ uint16_t ADC_Read(
   e8:	93 2f       	mov	r25, r19
   ea:	08 95       	ret
 
-000000ec <__vector_21>:
-}
-
-//----------------------------------------------------------------------------
-
-ISR(ADC_vect)			
+000000ec <cmd_LCD>:
+//----------------------------------------------------------------------------------------------------------
+void cmd_LCD(unsigned char c, char cd)		//c é o dado  e cd indica se é instrução ou caractere
 {
-  ec:	1f 92       	push	r1
-  ee:	0f 92       	push	r0
-  f0:	0f b6       	in	r0, 0x3f	; 63
-  f2:	0f 92       	push	r0
-  f4:	11 24       	eor	r1, r1
-  f6:	0f 93       	push	r16
-  f8:	1f 93       	push	r17
-  fa:	2f 93       	push	r18
-  fc:	3f 93       	push	r19
-  fe:	4f 93       	push	r20
- 100:	5f 93       	push	r21
- 102:	6f 93       	push	r22
- 104:	7f 93       	push	r23
- 106:	8f 93       	push	r24
- 108:	9f 93       	push	r25
- 10a:	af 93       	push	r26
- 10c:	bf 93       	push	r27
- 10e:	cf 93       	push	r28
- 110:	df 93       	push	r29
- 112:	ef 93       	push	r30
- 114:	ff 93       	push	r31
-	static uint8_t contador = 0;
-		
-	/*Envia o valor lido do ADC a cada 1s aproximadamente*/
-	if(contador == 64) {	
- 116:	80 91 0e 01 	lds	r24, 0x010E
- 11a:	80 34       	cpi	r24, 0x40	; 64
- 11c:	89 f4       	brne	.+34     	; 0x140 <__vector_21+0x54>
-		unsigned char direcao;
-		unsigned char sentido;	
-		uint16_t dutyLadorEsq;
-		uint16_t dutyLadorDir;
-		
-		dutyLadorEsq = CalculaDutyCycleLadoEsq();
- 11e:	0e 94 fa 01 	call	0x3f4	; 0x3f4 <CalculaDutyCycleLadoEsq>
- 122:	ec 01       	movw	r28, r24
-		dutyLadorDir= CalculaDutyCycleLadoDir();
- 124:	0e 94 2e 02 	call	0x45c	; 0x45c <CalculaDutyCycleLadoDir>
- 128:	8c 01       	movw	r16, r24
-		
-		sentido = CalculaSentido();
- 12a:	0e 94 a2 01 	call	0x344	; 0x344 <CalculaSentido>
-		direcao = DirecaoCarro(sentido);
- 12e:	0e 94 c9 00 	call	0x192	; 0x192 <DirecaoCarro>
- 132:	48 2f       	mov	r20, r24
-		
-		TransmitiBuffer(dutyLadorEsq, dutyLadorDir, direcao);
- 134:	ce 01       	movw	r24, r28
- 136:	b8 01       	movw	r22, r16
- 138:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <TransmitiBuffer>
-						
-		contador = 0;
- 13c:	10 92 0e 01 	sts	0x010E, r1
-	}		
-	
-	contador++;
- 140:	80 91 0e 01 	lds	r24, 0x010E
- 144:	8f 5f       	subi	r24, 0xFF	; 255
- 146:	80 93 0e 01 	sts	0x010E, r24
-	
-	/*Limpa o flag de overflow do Timer0. Esse flag indica que houve um estouro do timer.
-	limpar para habilitar um novo estouro para gerar a interrupção do ADC.*/
-	TIFR0 |= TOV0;
- 14a:	85 b3       	in	r24, 0x15	; 21
- 14c:	85 bb       	out	0x15, r24	; 21
-}	
- 14e:	ff 91       	pop	r31
- 150:	ef 91       	pop	r30
- 152:	df 91       	pop	r29
- 154:	cf 91       	pop	r28
- 156:	bf 91       	pop	r27
- 158:	af 91       	pop	r26
- 15a:	9f 91       	pop	r25
- 15c:	8f 91       	pop	r24
- 15e:	7f 91       	pop	r23
- 160:	6f 91       	pop	r22
- 162:	5f 91       	pop	r21
- 164:	4f 91       	pop	r20
- 166:	3f 91       	pop	r19
- 168:	2f 91       	pop	r18
- 16a:	1f 91       	pop	r17
- 16c:	0f 91       	pop	r16
- 16e:	0f 90       	pop	r0
- 170:	0f be       	out	0x3f, r0	; 63
- 172:	0f 90       	pop	r0
- 174:	1f 90       	pop	r1
- 176:	18 95       	reti
+	unsigned char i=2;
 
-00000178 <Inicializacoes>:
+	DADOS_LCD = (DADOS_LCD & 0xF0)|(c>>4);	//primeiro os 4 MSB. (PA0 - PA1 - PA2 - PA3) -> (D4 - D5 - D6 - D7 LCD)
+  ec:	95 b1       	in	r25, 0x05	; 5
+  ee:	28 2f       	mov	r18, r24
+  f0:	22 95       	swap	r18
+  f2:	2f 70       	andi	r18, 0x0F	; 15
+  f4:	90 7f       	andi	r25, 0xF0	; 240
+  f6:	92 2b       	or	r25, r18
+  f8:	95 b9       	out	0x05, r25	; 5
+//----------------------------------------------------------------------------------------------------------
+// Sub-rotina para enviar caracteres e comandos ao LCD com via de dados de 4 bits
+//----------------------------------------------------------------------------------------------------------
+void cmd_LCD(unsigned char c, char cd)		//c é o dado  e cd indica se é instrução ou caractere
+{
+	unsigned char i=2;
+  fa:	92 e0       	ldi	r25, 0x02	; 2
+		pulso_enable;
+
+		if((cd==0) && (c<4))				//se for instrução de retorno ou limpeza, gasta mais tempo
+		  	_delay_ms(2);
+	
+		DADOS_LCD = (DADOS_LCD & 0xF0) | (c & 0x0F);//segundo nibble, 4 LSB
+  fc:	38 2f       	mov	r19, r24
+  fe:	3f 70       	andi	r19, 0x0F	; 15
+	unsigned char i=2;
+
+	DADOS_LCD = (DADOS_LCD & 0xF0)|(c>>4);	//primeiro os 4 MSB. (PA0 - PA1 - PA2 - PA3) -> (D4 - D5 - D6 - D7 LCD)
+											//como a outra metade da porta pode ser utilizada para outros fins, não 
+	do										//se pode alterar o seu conteúdo
+	{	if(cd==0)
+ 100:	66 23       	and	r22, r22
+ 102:	89 f4       	brne	.+34     	; 0x126 <cmd_LCD+0x3a>
+			clr_bit(CONTR_LCD,RS);
+ 104:	2c 98       	cbi	0x05, 4	; 5
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 106:	25 e0       	ldi	r18, 0x05	; 5
+ 108:	2a 95       	dec	r18
+ 10a:	f1 f7       	brne	.-4      	; 0x108 <cmd_LCD+0x1c>
+ 10c:	00 00       	nop
+		else
+			set_bit(CONTR_LCD,RS);
+
+		pulso_enable;
+ 10e:	2d 9a       	sbi	0x05, 5	; 5
+ 110:	e5 e0       	ldi	r30, 0x05	; 5
+ 112:	ea 95       	dec	r30
+ 114:	f1 f7       	brne	.-4      	; 0x112 <cmd_LCD+0x26>
+ 116:	00 00       	nop
+ 118:	2d 98       	cbi	0x05, 5	; 5
+ 11a:	f0 ef       	ldi	r31, 0xF0	; 240
+ 11c:	fa 95       	dec	r31
+ 11e:	f1 f7       	brne	.-4      	; 0x11c <cmd_LCD+0x30>
+
+		if((cd==0) && (c<4))				//se for instrução de retorno ou limpeza, gasta mais tempo
+ 120:	84 30       	cpi	r24, 0x04	; 4
+ 122:	b0 f4       	brcc	.+44     	; 0x150 <cmd_LCD+0x64>
+ 124:	0f c0       	rjmp	.+30     	; 0x144 <cmd_LCD+0x58>
+											//como a outra metade da porta pode ser utilizada para outros fins, não 
+	do										//se pode alterar o seu conteúdo
+	{	if(cd==0)
+			clr_bit(CONTR_LCD,RS);
+		else
+			set_bit(CONTR_LCD,RS);
+ 126:	2c 9a       	sbi	0x05, 4	; 5
+ 128:	25 e0       	ldi	r18, 0x05	; 5
+ 12a:	2a 95       	dec	r18
+ 12c:	f1 f7       	brne	.-4      	; 0x12a <cmd_LCD+0x3e>
+ 12e:	00 00       	nop
+
+		pulso_enable;
+ 130:	2d 9a       	sbi	0x05, 5	; 5
+ 132:	e5 e0       	ldi	r30, 0x05	; 5
+ 134:	ea 95       	dec	r30
+ 136:	f1 f7       	brne	.-4      	; 0x134 <cmd_LCD+0x48>
+ 138:	00 00       	nop
+ 13a:	2d 98       	cbi	0x05, 5	; 5
+ 13c:	f0 ef       	ldi	r31, 0xF0	; 240
+ 13e:	fa 95       	dec	r31
+ 140:	f1 f7       	brne	.-4      	; 0x13e <cmd_LCD+0x52>
+ 142:	06 c0       	rjmp	.+12     	; 0x150 <cmd_LCD+0x64>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 144:	ef e3       	ldi	r30, 0x3F	; 63
+ 146:	ff e1       	ldi	r31, 0x1F	; 31
+ 148:	31 97       	sbiw	r30, 0x01	; 1
+ 14a:	f1 f7       	brne	.-4      	; 0x148 <cmd_LCD+0x5c>
+ 14c:	00 c0       	rjmp	.+0      	; 0x14e <cmd_LCD+0x62>
+ 14e:	00 00       	nop
+
+		if((cd==0) && (c<4))				//se for instrução de retorno ou limpeza, gasta mais tempo
+		  	_delay_ms(2);
+	
+		DADOS_LCD = (DADOS_LCD & 0xF0) | (c & 0x0F);//segundo nibble, 4 LSB
+ 150:	25 b1       	in	r18, 0x05	; 5
+ 152:	20 7f       	andi	r18, 0xF0	; 240
+ 154:	23 2b       	or	r18, r19
+ 156:	25 b9       	out	0x05, r18	; 5
+		
+		i--;
+ 158:	91 50       	subi	r25, 0x01	; 1
+	
+	}while(i>0);
+ 15a:	91 f6       	brne	.-92     	; 0x100 <cmd_LCD+0x14>
+}
+ 15c:	08 95       	ret
+
+0000015e <inic_LCD_4bits>:
+//-----------------------------------------------------------------------------------------------------------
+void inic_LCD_4bits()		//sequência ditada pelo fabricando do circuito integrado HD44780
+{							//o LCD será só escrito. Então, R/W é sempre zero.
+
+	//configuração a direção de dados das portas
+	DDR_DADOS_LCD = 0x0F;	//configura 4 bits menos significativos da DDR como saida
+ 15e:	8f e0       	ldi	r24, 0x0F	; 15
+ 160:	84 b9       	out	0x04, r24	; 4
+	DDR_CONTR_LCD = (DDR_CONTR_LCD|(1<<E)|(1<<RS)); //Configura pinos de controle como saida
+ 162:	84 b1       	in	r24, 0x04	; 4
+ 164:	80 63       	ori	r24, 0x30	; 48
+ 166:	84 b9       	out	0x04, r24	; 4
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 168:	85 e0       	ldi	r24, 0x05	; 5
+ 16a:	8a 95       	dec	r24
+ 16c:	f1 f7       	brne	.-4      	; 0x16a <inic_LCD_4bits+0xc>
+ 16e:	00 00       	nop
+	_delay_us(1);						//ajuste dos pinos
+
+	clr_bit(CONTR_LCD,RS);	//RS em zero indicando que o dado para o LCD será uma instrução	
+ 170:	2c 98       	cbi	0x05, 4	; 5
+	clr_bit(CONTR_LCD,E);	//pino de habilitação em zero
+ 172:	2d 98       	cbi	0x05, 5	; 5
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 174:	8f ef       	ldi	r24, 0xFF	; 255
+ 176:	99 ef       	ldi	r25, 0xF9	; 249
+ 178:	a0 e0       	ldi	r26, 0x00	; 0
+ 17a:	81 50       	subi	r24, 0x01	; 1
+ 17c:	90 40       	sbci	r25, 0x00	; 0
+ 17e:	a0 40       	sbci	r26, 0x00	; 0
+ 180:	e1 f7       	brne	.-8      	; 0x17a <inic_LCD_4bits+0x1c>
+ 182:	00 c0       	rjmp	.+0      	; 0x184 <inic_LCD_4bits+0x26>
+ 184:	00 00       	nop
+	
+	_delay_ms(20);	 		//tempo para estabilizar a tensão do LCD, após VCC ultrapassar 4.5 V (na prática pode
+							//ser maior). 
+	DADOS_LCD = (DADOS_LCD & 0xF0) | 0x03;//interface de 8 bits (é importante utilizar este comando para não
+ 186:	85 b1       	in	r24, 0x05	; 5
+ 188:	80 7f       	andi	r24, 0xF0	; 240
+ 18a:	83 60       	ori	r24, 0x03	; 3
+ 18c:	85 b9       	out	0x05, r24	; 5
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 18e:	95 e0       	ldi	r25, 0x05	; 5
+ 190:	9a 95       	dec	r25
+ 192:	f1 f7       	brne	.-4      	; 0x190 <inic_LCD_4bits+0x32>
+ 194:	00 00       	nop
+							//haver problemas na inicialização seguida do LCD (reset do microcontrolador)
+	pulso_enable;			//enable respeitando os tempos de resposta do LCD
+ 196:	2d 9a       	sbi	0x05, 5	; 5
+ 198:	a5 e0       	ldi	r26, 0x05	; 5
+ 19a:	aa 95       	dec	r26
+ 19c:	f1 f7       	brne	.-4      	; 0x19a <inic_LCD_4bits+0x3c>
+ 19e:	00 00       	nop
+ 1a0:	2d 98       	cbi	0x05, 5	; 5
+ 1a2:	b0 ef       	ldi	r27, 0xF0	; 240
+ 1a4:	ba 95       	dec	r27
+ 1a6:	f1 f7       	brne	.-4      	; 0x1a4 <inic_LCD_4bits+0x46>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 1a8:	8f e1       	ldi	r24, 0x1F	; 31
+ 1aa:	9e e4       	ldi	r25, 0x4E	; 78
+ 1ac:	01 97       	sbiw	r24, 0x01	; 1
+ 1ae:	f1 f7       	brne	.-4      	; 0x1ac <inic_LCD_4bits+0x4e>
+ 1b0:	00 c0       	rjmp	.+0      	; 0x1b2 <inic_LCD_4bits+0x54>
+ 1b2:	00 00       	nop
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 1b4:	95 e0       	ldi	r25, 0x05	; 5
+ 1b6:	9a 95       	dec	r25
+ 1b8:	f1 f7       	brne	.-4      	; 0x1b6 <inic_LCD_4bits+0x58>
+ 1ba:	00 00       	nop
+	_delay_ms(5);		
+	pulso_enable;
+ 1bc:	2d 9a       	sbi	0x05, 5	; 5
+ 1be:	a5 e0       	ldi	r26, 0x05	; 5
+ 1c0:	aa 95       	dec	r26
+ 1c2:	f1 f7       	brne	.-4      	; 0x1c0 <inic_LCD_4bits+0x62>
+ 1c4:	00 00       	nop
+ 1c6:	2d 98       	cbi	0x05, 5	; 5
+ 1c8:	b0 ef       	ldi	r27, 0xF0	; 240
+ 1ca:	ba 95       	dec	r27
+ 1cc:	f1 f7       	brne	.-4      	; 0x1ca <inic_LCD_4bits+0x6c>
+ 1ce:	8f e1       	ldi	r24, 0x1F	; 31
+ 1d0:	93 e0       	ldi	r25, 0x03	; 3
+ 1d2:	01 97       	sbiw	r24, 0x01	; 1
+ 1d4:	f1 f7       	brne	.-4      	; 0x1d2 <inic_LCD_4bits+0x74>
+ 1d6:	00 c0       	rjmp	.+0      	; 0x1d8 <inic_LCD_4bits+0x7a>
+ 1d8:	00 00       	nop
+ 1da:	95 e0       	ldi	r25, 0x05	; 5
+ 1dc:	9a 95       	dec	r25
+ 1de:	f1 f7       	brne	.-4      	; 0x1dc <inic_LCD_4bits+0x7e>
+ 1e0:	00 00       	nop
+	_delay_us(200);
+	pulso_enable;			//até aqui ainda é uma interface de 8 bits.
+ 1e2:	2d 9a       	sbi	0x05, 5	; 5
+ 1e4:	a5 e0       	ldi	r26, 0x05	; 5
+ 1e6:	aa 95       	dec	r26
+ 1e8:	f1 f7       	brne	.-4      	; 0x1e6 <inic_LCD_4bits+0x88>
+ 1ea:	00 00       	nop
+ 1ec:	2d 98       	cbi	0x05, 5	; 5
+ 1ee:	b0 ef       	ldi	r27, 0xF0	; 240
+ 1f0:	ba 95       	dec	r27
+ 1f2:	f1 f7       	brne	.-4      	; 0x1f0 <inic_LCD_4bits+0x92>
+							//Muitos programadores desprezam os comandos acima, respeitando apenas o tempo de
+							//estabilização da tensão (geralmente funciona). Se o LCD não for inicializado primeiro no 
+							//modo de 8 bits, haverá problemas se o microcontrolador for inicializado e o display já o //tiver sido.
+
+	DADOS_LCD = (DADOS_LCD & 0xF0) | 0x02;//interface de 4 bits, deve ser enviado duas vezes (a outra esta abaixo)
+ 1f4:	85 b1       	in	r24, 0x05	; 5
+ 1f6:	80 7f       	andi	r24, 0xF0	; 240
+ 1f8:	82 60       	ori	r24, 0x02	; 2
+ 1fa:	85 b9       	out	0x05, r24	; 5
+ 1fc:	85 e0       	ldi	r24, 0x05	; 5
+ 1fe:	8a 95       	dec	r24
+ 200:	f1 f7       	brne	.-4      	; 0x1fe <inic_LCD_4bits+0xa0>
+ 202:	00 00       	nop
+	
+	pulso_enable;		
+ 204:	2d 9a       	sbi	0x05, 5	; 5
+ 206:	95 e0       	ldi	r25, 0x05	; 5
+ 208:	9a 95       	dec	r25
+ 20a:	f1 f7       	brne	.-4      	; 0x208 <inic_LCD_4bits+0xaa>
+ 20c:	00 00       	nop
+ 20e:	2d 98       	cbi	0x05, 5	; 5
+ 210:	a0 ef       	ldi	r26, 0xF0	; 240
+ 212:	aa 95       	dec	r26
+ 214:	f1 f7       	brne	.-4      	; 0x212 <inic_LCD_4bits+0xb4>
+
+   	cmd_LCD(LCD_4BIT,0); 	//interface de 4 bits 2 linhas (aqui se habilita as 2 linhas) 
+ 216:	88 e2       	ldi	r24, 0x28	; 40
+ 218:	60 e0       	ldi	r22, 0x00	; 0
+ 21a:	0e 94 76 00 	call	0xec	; 0xec <cmd_LCD>
+						//são enviados os 2 nibbles (0x2 e 0x8)
+   	cmd_LCD(LCD_OFF_DISPLAY,0);	//desliga o display
+ 21e:	88 e0       	ldi	r24, 0x08	; 8
+ 220:	60 e0       	ldi	r22, 0x00	; 0
+ 222:	0e 94 76 00 	call	0xec	; 0xec <cmd_LCD>
+   	cmd_LCD(LCD_CLR,0);	//limpa todo o display
+ 226:	81 e0       	ldi	r24, 0x01	; 1
+ 228:	60 e0       	ldi	r22, 0x00	; 0
+ 22a:	0e 94 76 00 	call	0xec	; 0xec <cmd_LCD>
+   	cmd_LCD(LCD_OFF_CURSOR,0);	//mensagem aparente cursor ativo não piscando   
+ 22e:	8c e0       	ldi	r24, 0x0C	; 12
+ 230:	60 e0       	ldi	r22, 0x00	; 0
+ 232:	0e 94 76 00 	call	0xec	; 0xec <cmd_LCD>
+   	cmd_LCD(LCD_LINHA1,0);	//escreve na primeira posição a esquerda - 1a linha
+ 236:	80 e8       	ldi	r24, 0x80	; 128
+ 238:	60 e0       	ldi	r22, 0x00	; 0
+ 23a:	0e 94 76 00 	call	0xec	; 0xec <cmd_LCD>
+}
+ 23e:	08 95       	ret
+
+00000240 <escreve_LCD>:
+//-----------------------------------------------------------------------------------------------------------
+//Sub-rotina de escrita no LCD
+//-----------------------------------------------------------------------------------------------------------
+void escreve_LCD(char *c)
+{
+ 240:	cf 93       	push	r28
+ 242:	df 93       	push	r29
+ 244:	ec 01       	movw	r28, r24
+   for (; *c!=0;c++) cmd_LCD(*c,1);
+ 246:	88 81       	ld	r24, Y
+ 248:	88 23       	and	r24, r24
+ 24a:	39 f0       	breq	.+14     	; 0x25a <escreve_LCD+0x1a>
+   	cmd_LCD(LCD_LINHA1,0);	//escreve na primeira posição a esquerda - 1a linha
+}
+//-----------------------------------------------------------------------------------------------------------
+//Sub-rotina de escrita no LCD
+//-----------------------------------------------------------------------------------------------------------
+void escreve_LCD(char *c)
+ 24c:	21 96       	adiw	r28, 0x01	; 1
+{
+   for (; *c!=0;c++) cmd_LCD(*c,1);
+ 24e:	61 e0       	ldi	r22, 0x01	; 1
+ 250:	0e 94 76 00 	call	0xec	; 0xec <cmd_LCD>
+ 254:	89 91       	ld	r24, Y+
+ 256:	88 23       	and	r24, r24
+ 258:	d1 f7       	brne	.-12     	; 0x24e <escreve_LCD+0xe>
+}
+ 25a:	df 91       	pop	r29
+ 25c:	cf 91       	pop	r28
+ 25e:	08 95       	ret
+
+00000260 <EscreveCaracterLCD>:
+
+//-----------------------------------------------------------------------------------------------
+
+void EscreveCaracterLCD(char caracter)
+{
+	cmd_LCD(caracter, 1);
+ 260:	61 e0       	ldi	r22, 0x01	; 1
+ 262:	0e 94 76 00 	call	0xec	; 0xec <cmd_LCD>
+}
+ 266:	08 95       	ret
+
+00000268 <LCD_setPos>:
+//-----------------------------------------------------------------------------------------------
+//FUNCIONA APENAS PARA DUAS LINHAS
+void LCD_setPos(int posx, int posy) {
+	int posiciona=0;
+
+	if(posx==1) posiciona=LCD_LINHA1+posy;
+ 268:	81 30       	cpi	r24, 0x01	; 1
+ 26a:	91 05       	cpc	r25, r1
+ 26c:	21 f4       	brne	.+8      	; 0x276 <LCD_setPos+0xe>
+ 26e:	cb 01       	movw	r24, r22
+ 270:	80 58       	subi	r24, 0x80	; 128
+ 272:	9f 4f       	sbci	r25, 0xFF	; 255
+ 274:	09 c0       	rjmp	.+18     	; 0x288 <LCD_setPos+0x20>
+	if(posx==2) posiciona=LCD_LINHA2+posy;
+ 276:	82 30       	cpi	r24, 0x02	; 2
+ 278:	91 05       	cpc	r25, r1
+ 27a:	21 f4       	brne	.+8      	; 0x284 <LCD_setPos+0x1c>
+ 27c:	cb 01       	movw	r24, r22
+ 27e:	80 54       	subi	r24, 0x40	; 64
+ 280:	9f 4f       	sbci	r25, 0xFF	; 255
+ 282:	02 c0       	rjmp	.+4      	; 0x288 <LCD_setPos+0x20>
+//-----------------------------------------------------------------------------------------------
+//Sub-rotina de posicionar LCD
+//-----------------------------------------------------------------------------------------------
+//FUNCIONA APENAS PARA DUAS LINHAS
+void LCD_setPos(int posx, int posy) {
+	int posiciona=0;
+ 284:	80 e0       	ldi	r24, 0x00	; 0
+ 286:	90 e0       	ldi	r25, 0x00	; 0
+
+	if(posx==1) posiciona=LCD_LINHA1+posy;
+	if(posx==2) posiciona=LCD_LINHA2+posy;
+
+	cmd_LCD(posiciona,0);
+ 288:	60 e0       	ldi	r22, 0x00	; 0
+ 28a:	0e 94 76 00 	call	0xec	; 0xec <cmd_LCD>
+}
+ 28e:	08 95       	ret
+
+00000290 <Limpa_matriz_LCD>:
+//-----------------------------------------------------------------------------------------------
+//Sub-rotina de limpeza de matriz selecionável LCD
+//-----------------------------------------------------------------------------------------------
+void Limpa_matriz_LCD(int posx,int posy,int limpa) {
+ 290:	ef 92       	push	r14
+ 292:	ff 92       	push	r15
+ 294:	0f 93       	push	r16
+ 296:	1f 93       	push	r17
+ 298:	cf 93       	push	r28
+ 29a:	df 93       	push	r29
+ 29c:	8c 01       	movw	r16, r24
+ 29e:	7b 01       	movw	r14, r22
+ 2a0:	ea 01       	movw	r28, r20
+	unsigned char x;
+	if(limpa==0)	cmd_LCD(LCD_CLR,0);
+ 2a2:	20 97       	sbiw	r28, 0x00	; 0
+ 2a4:	49 f4       	brne	.+18     	; 0x2b8 <Limpa_matriz_LCD+0x28>
+ 2a6:	81 e0       	ldi	r24, 0x01	; 1
+ 2a8:	60 e0       	ldi	r22, 0x00	; 0
+ 2aa:	0e 94 76 00 	call	0xec	; 0xec <cmd_LCD>
+	LCD_setPos(posx,posy);
+ 2ae:	c8 01       	movw	r24, r16
+ 2b0:	b7 01       	movw	r22, r14
+ 2b2:	0e 94 34 01 	call	0x268	; 0x268 <LCD_setPos>
+ 2b6:	10 c0       	rjmp	.+32     	; 0x2d8 <Limpa_matriz_LCD+0x48>
+ 2b8:	0e 94 34 01 	call	0x268	; 0x268 <LCD_setPos>
+	for(x=0;x<limpa;x++){
+ 2bc:	1c 16       	cp	r1, r28
+ 2be:	1d 06       	cpc	r1, r29
+ 2c0:	5c f4       	brge	.+22     	; 0x2d8 <Limpa_matriz_LCD+0x48>
+ 2c2:	00 e0       	ldi	r16, 0x00	; 0
+		cmd_LCD(0x20,1);
+ 2c4:	80 e2       	ldi	r24, 0x20	; 32
+ 2c6:	61 e0       	ldi	r22, 0x01	; 1
+ 2c8:	0e 94 76 00 	call	0xec	; 0xec <cmd_LCD>
+//-----------------------------------------------------------------------------------------------
+void Limpa_matriz_LCD(int posx,int posy,int limpa) {
+	unsigned char x;
+	if(limpa==0)	cmd_LCD(LCD_CLR,0);
+	LCD_setPos(posx,posy);
+	for(x=0;x<limpa;x++){
+ 2cc:	0f 5f       	subi	r16, 0xFF	; 255
+ 2ce:	80 2f       	mov	r24, r16
+ 2d0:	90 e0       	ldi	r25, 0x00	; 0
+ 2d2:	8c 17       	cp	r24, r28
+ 2d4:	9d 07       	cpc	r25, r29
+ 2d6:	b4 f3       	brlt	.-20     	; 0x2c4 <Limpa_matriz_LCD+0x34>
+		cmd_LCD(0x20,1);
+	}
+	
+}
+ 2d8:	df 91       	pop	r29
+ 2da:	cf 91       	pop	r28
+ 2dc:	1f 91       	pop	r17
+ 2de:	0f 91       	pop	r16
+ 2e0:	ff 90       	pop	r15
+ 2e2:	ef 90       	pop	r14
+ 2e4:	08 95       	ret
+
+000002e6 <Inicializacoes>:
 
 //----------------------------------------------------------------------------
 
 void Inicializacoes()
 {
 	Usart_Init(MYUBRR);
- 178:	87 e6       	ldi	r24, 0x67	; 103
- 17a:	90 e0       	ldi	r25, 0x00	; 0
- 17c:	0e 94 9b 02 	call	0x536	; 0x536 <Usart_Init>
+ 2e6:	87 e6       	ldi	r24, 0x67	; 103
+ 2e8:	90 e0       	ldi	r25, 0x00	; 0
+ 2ea:	0e 94 50 03 	call	0x6a0	; 0x6a0 <Usart_Init>
 	
 	//Prescaler do Timer0, usado para fazer uma leitura do ADC.
 	TCCR0B = (1<<CS02) | (1<<CS00);
- 180:	85 e0       	ldi	r24, 0x05	; 5
- 182:	85 bd       	out	0x25, r24	; 37
-	ADC_Init();
- 184:	0e 94 53 00 	call	0xa6	; 0xa6 <ADC_Init>
+ 2ee:	85 e0       	ldi	r24, 0x05	; 5
+ 2f0:	85 bd       	out	0x25, r24	; 37
 	
+	
+	inic_LCD_4bits();					
+ 2f2:	0e 94 af 00 	call	0x15e	; 0x15e <inic_LCD_4bits>
+	ADC_Init();
+ 2f6:	0e 94 53 00 	call	0xa6	; 0xa6 <ADC_Init>
 	sei();
- 188:	78 94       	sei
+ 2fa:	78 94       	sei
 }
- 18a:	08 95       	ret
+ 2fc:	08 95       	ret
 
-0000018c <main>:
-
+000002fe <main>:
+);
 //----------------------------------------------------------------------------
 
 int main()
 {	
 	Inicializacoes();
- 18c:	0e 94 bc 00 	call	0x178	; 0x178 <Inicializacoes>
- 190:	ff cf       	rjmp	.-2      	; 0x190 <main+0x4>
+ 2fe:	0e 94 73 01 	call	0x2e6	; 0x2e6 <Inicializacoes>
+ 302:	ff cf       	rjmp	.-2      	; 0x302 <main+0x4>
 
-00000192 <DirecaoCarro>:
-unsigned char DirecaoCarro(
-	unsigned char sentido
-)
-{	
-	unsigned char direcao ;
-	switch (estadoCarro) {
- 192:	90 91 00 01 	lds	r25, 0x0100
- 196:	92 30       	cpi	r25, 0x02	; 2
- 198:	91 f0       	breq	.+36     	; 0x1be <DirecaoCarro+0x2c>
- 19a:	93 30       	cpi	r25, 0x03	; 3
- 19c:	b9 f0       	breq	.+46     	; 0x1cc <DirecaoCarro+0x3a>
- 19e:	91 30       	cpi	r25, 0x01	; 1
- 1a0:	e1 f4       	brne	.+56     	; 0x1da <DirecaoCarro+0x48>
-		case PARADO:
-					if(sentido == 'F') {
- 1a2:	86 34       	cpi	r24, 0x46	; 70
- 1a4:	29 f4       	brne	.+10     	; 0x1b0 <DirecaoCarro+0x1e>
-						estadoCarro = ANDANDO_FRENTE;
- 1a6:	82 e0       	ldi	r24, 0x02	; 2
- 1a8:	80 93 00 01 	sts	0x0100, r24
-						direcao = 'F';
- 1ac:	86 e4       	ldi	r24, 0x46	; 70
- 1ae:	08 95       	ret
-					}					
-					else if(sentido == 'R') {
- 1b0:	82 35       	cpi	r24, 0x52	; 82
- 1b2:	c1 f4       	brne	.+48     	; 0x1e4 <DirecaoCarro+0x52>
-						estadoCarro = ANDANDO_TRAS;		
- 1b4:	83 e0       	ldi	r24, 0x03	; 3
- 1b6:	80 93 00 01 	sts	0x0100, r24
-						direcao = 'R';
- 1ba:	82 e5       	ldi	r24, 0x52	; 82
- 1bc:	08 95       	ret
-					else direcao = 'P';				
-					
-					break;	
-			
-		case ANDANDO_FRENTE:		
-					if(sentido != 'F') {
- 1be:	86 34       	cpi	r24, 0x46	; 70
- 1c0:	99 f0       	breq	.+38     	; 0x1e8 <DirecaoCarro+0x56>
-						estadoCarro = PARADO;
- 1c2:	81 e0       	ldi	r24, 0x01	; 1
- 1c4:	80 93 00 01 	sts	0x0100, r24
-						direcao = 'P';
- 1c8:	80 e5       	ldi	r24, 0x50	; 80
- 1ca:	08 95       	ret
-					else direcao = 'F';				
-					
-					break;
-			
-		case ANDANDO_TRAS:
-					if(sentido != 'R') {
- 1cc:	82 35       	cpi	r24, 0x52	; 82
- 1ce:	71 f0       	breq	.+28     	; 0x1ec <DirecaoCarro+0x5a>
-						estadoCarro = PARADO;
- 1d0:	81 e0       	ldi	r24, 0x01	; 1
- 1d2:	80 93 00 01 	sts	0x0100, r24
-						direcao = 'P';	
- 1d6:	80 e5       	ldi	r24, 0x50	; 80
- 1d8:	08 95       	ret
-					else direcao = 'R';		
-					
-					break;
-		
-		default:
-					estadoCarro = PARADO;
- 1da:	81 e0       	ldi	r24, 0x01	; 1
- 1dc:	80 93 00 01 	sts	0x0100, r24
-					direcao = 'P';
- 1e0:	80 e5       	ldi	r24, 0x50	; 80
- 1e2:	08 95       	ret
-					}					
-					else if(sentido == 'R') {
-						estadoCarro = ANDANDO_TRAS;		
-						direcao = 'R';
-					}				
-					else direcao = 'P';				
- 1e4:	80 e5       	ldi	r24, 0x50	; 80
- 1e6:	08 95       	ret
-		case ANDANDO_FRENTE:		
-					if(sentido != 'F') {
-						estadoCarro = PARADO;
-						direcao = 'P';
-					}		
-					else direcao = 'F';				
- 1e8:	86 e4       	ldi	r24, 0x46	; 70
- 1ea:	08 95       	ret
-		case ANDANDO_TRAS:
-					if(sentido != 'R') {
-						estadoCarro = PARADO;
-						direcao = 'P';	
-					}	
-					else direcao = 'R';		
- 1ec:	82 e5       	ldi	r24, 0x52	; 82
-					estadoCarro = PARADO;
-					direcao = 'P';
-	}		
-	
-	return direcao;
-}		
- 1ee:	08 95       	ret
-
-000001f0 <TransmitiBuffer>:
-void TransmitiBuffer(
+00000304 <MostraDadosLCD>:
+void MostraDadosLCD(
 	uint16_t dutyLadoEsq, 
 	uint16_t dutyLadoDir, 
 	unsigned char direcao
 )
 {
- 1f0:	cf 92       	push	r12
- 1f2:	df 92       	push	r13
- 1f4:	ef 92       	push	r14
- 1f6:	ff 92       	push	r15
- 1f8:	0f 93       	push	r16
- 1fa:	1f 93       	push	r17
- 1fc:	df 93       	push	r29
- 1fe:	cf 93       	push	r28
- 200:	cd b7       	in	r28, 0x3d	; 61
- 202:	de b7       	in	r29, 0x3e	; 62
- 204:	2a 97       	sbiw	r28, 0x0a	; 10
- 206:	0f b6       	in	r0, 0x3f	; 63
- 208:	f8 94       	cli
- 20a:	de bf       	out	0x3e, r29	; 62
- 20c:	0f be       	out	0x3f, r0	; 63
- 20e:	cd bf       	out	0x3d, r28	; 61
- 210:	7c 01       	movw	r14, r24
- 212:	6b 01       	movw	r12, r22
- 214:	04 2f       	mov	r16, r20
-	unsigned char buffer[10];
-		
-	Usart_Transmit('[');
- 216:	8b e5       	ldi	r24, 0x5B	; 91
- 218:	0e 94 a8 02 	call	0x550	; 0x550 <Usart_Transmit>
-	buffer[0] = direcao;
- 21c:	09 83       	std	Y+1, r16	; 0x01
+ 304:	cf 92       	push	r12
+ 306:	df 92       	push	r13
+ 308:	ff 92       	push	r15
+ 30a:	0f 93       	push	r16
+ 30c:	1f 93       	push	r17
+ 30e:	df 93       	push	r29
+ 310:	cf 93       	push	r28
+ 312:	00 d0       	rcall	.+0      	; 0x314 <MostraDadosLCD+0x10>
+ 314:	00 d0       	rcall	.+0      	; 0x316 <MostraDadosLCD+0x12>
+ 316:	0f 92       	push	r0
+ 318:	cd b7       	in	r28, 0x3d	; 61
+ 31a:	de b7       	in	r29, 0x3e	; 62
+ 31c:	8c 01       	movw	r16, r24
+ 31e:	6b 01       	movw	r12, r22
+ 320:	f4 2e       	mov	r15, r20
+	LCD_setPos(1,1);
+ 322:	81 e0       	ldi	r24, 0x01	; 1
+ 324:	90 e0       	ldi	r25, 0x00	; 0
+ 326:	61 e0       	ldi	r22, 0x01	; 1
+ 328:	70 e0       	ldi	r23, 0x00	; 0
+ 32a:	0e 94 34 01 	call	0x268	; 0x268 <LCD_setPos>
+	EscreveCaracterLCD('[');	
+ 32e:	8b e5       	ldi	r24, 0x5B	; 91
+ 330:	0e 94 30 01 	call	0x260	; 0x260 <EscreveCaracterLCD>
+	EscreveCaracterLCD(direcao);
+ 334:	8f 2d       	mov	r24, r15
+ 336:	0e 94 30 01 	call	0x260	; 0x260 <EscreveCaracterLCD>
+	EscreveCaracterLCD(']');	
+ 33a:	8d e5       	ldi	r24, 0x5D	; 93
+ 33c:	0e 94 30 01 	call	0x260	; 0x260 <EscreveCaracterLCD>
 	
-	CvrtNum2CaracterIndividual(dutyLadoEsq, caracterConvertido_g);
- 21e:	0f e0       	ldi	r16, 0x0F	; 15
- 220:	11 e0       	ldi	r17, 0x01	; 1
- 222:	c7 01       	movw	r24, r14
- 224:	b8 01       	movw	r22, r16
- 226:	0e 94 48 01 	call	0x290	; 0x290 <CvrtNum2CaracterIndividual>
-	buffer[1] = 'M';
- 22a:	0f 2e       	mov	r0, r31
- 22c:	fd e4       	ldi	r31, 0x4D	; 77
- 22e:	ef 2e       	mov	r14, r31
- 230:	f0 2d       	mov	r31, r0
- 232:	ea 82       	std	Y+2, r14	; 0x02
-	//tracebuffer[2] = caracterConvertido_g[0];
-	buffer[2] = caracterConvertido_g[1];
- 234:	80 91 10 01 	lds	r24, 0x0110
- 238:	8b 83       	std	Y+3, r24	; 0x03
-	buffer[3] = caracterConvertido_g[2];
- 23a:	80 91 11 01 	lds	r24, 0x0111
- 23e:	8c 83       	std	Y+4, r24	; 0x04
-	buffer[4] = caracterConvertido_g[3];
- 240:	80 91 12 01 	lds	r24, 0x0112
- 244:	8d 83       	std	Y+5, r24	; 0x05
+	EscreveCaracterLCD('[');
+ 340:	8b e5       	ldi	r24, 0x5B	; 91
+ 342:	0e 94 30 01 	call	0x260	; 0x260 <EscreveCaracterLCD>
+	unsigned char caracConvertido[5];
+	CvrtNum2CaracterIndividual(dutyLadoEsq, caracConvertido);
+ 346:	c8 01       	movw	r24, r16
+ 348:	8e 01       	movw	r16, r28
+ 34a:	0f 5f       	subi	r16, 0xFF	; 255
+ 34c:	1f 4f       	sbci	r17, 0xFF	; 255
+ 34e:	b8 01       	movw	r22, r16
+ 350:	0e 94 27 02 	call	0x44e	; 0x44e <CvrtNum2CaracterIndividual>
+	escreve_LCD(caracConvertido);
+ 354:	c8 01       	movw	r24, r16
+ 356:	0e 94 20 01 	call	0x240	; 0x240 <escreve_LCD>
 	
-	CvrtNum2CaracterIndividual(dutyLadoDir, caracterConvertido_g);
- 246:	c6 01       	movw	r24, r12
- 248:	b8 01       	movw	r22, r16
- 24a:	0e 94 48 01 	call	0x290	; 0x290 <CvrtNum2CaracterIndividual>
-	buffer[5] = 'M';
- 24e:	ee 82       	std	Y+6, r14	; 0x06
-	//tracebuffer[6] = caracterConvertido_g[0];
-	buffer[6] = caracterConvertido_g[1];
- 250:	80 91 10 01 	lds	r24, 0x0110
- 254:	8f 83       	std	Y+7, r24	; 0x07
-	buffer[7] = caracterConvertido_g[2];
- 256:	80 91 11 01 	lds	r24, 0x0111
- 25a:	88 87       	std	Y+8, r24	; 0x08
-	buffer[8] = caracterConvertido_g[3];
- 25c:	80 91 12 01 	lds	r24, 0x0112
- 260:	89 87       	std	Y+9, r24	; 0x09
-		
-	buffer[9] = '\0';
- 262:	1a 86       	std	Y+10, r1	; 0x0a
-	Usart_Write(buffer);
- 264:	ce 01       	movw	r24, r28
- 266:	01 96       	adiw	r24, 0x01	; 1
- 268:	0e 94 b8 02 	call	0x570	; 0x570 <Usart_Write>
+	CvrtNum2CaracterIndividual(dutyLadoDir, caracConvertido);
+ 35a:	c6 01       	movw	r24, r12
+ 35c:	b8 01       	movw	r22, r16
+ 35e:	0e 94 27 02 	call	0x44e	; 0x44e <CvrtNum2CaracterIndividual>
+	escreve_LCD(caracConvertido);
+ 362:	c8 01       	movw	r24, r16
+ 364:	0e 94 20 01 	call	0x240	; 0x240 <escreve_LCD>
 	
-	Usart_Transmit(']');	
- 26c:	8d e5       	ldi	r24, 0x5D	; 93
- 26e:	0e 94 a8 02 	call	0x550	; 0x550 <Usart_Transmit>
+	EscreveCaracterLCD(']');
+ 368:	8d e5       	ldi	r24, 0x5D	; 93
+ 36a:	0e 94 30 01 	call	0x260	; 0x260 <EscreveCaracterLCD>
 }
- 272:	2a 96       	adiw	r28, 0x0a	; 10
- 274:	0f b6       	in	r0, 0x3f	; 63
- 276:	f8 94       	cli
- 278:	de bf       	out	0x3e, r29	; 62
- 27a:	0f be       	out	0x3f, r0	; 63
- 27c:	cd bf       	out	0x3d, r28	; 61
- 27e:	cf 91       	pop	r28
- 280:	df 91       	pop	r29
- 282:	1f 91       	pop	r17
- 284:	0f 91       	pop	r16
- 286:	ff 90       	pop	r15
- 288:	ef 90       	pop	r14
- 28a:	df 90       	pop	r13
- 28c:	cf 90       	pop	r12
- 28e:	08 95       	ret
+ 36e:	0f 90       	pop	r0
+ 370:	0f 90       	pop	r0
+ 372:	0f 90       	pop	r0
+ 374:	0f 90       	pop	r0
+ 376:	0f 90       	pop	r0
+ 378:	cf 91       	pop	r28
+ 37a:	df 91       	pop	r29
+ 37c:	1f 91       	pop	r17
+ 37e:	0f 91       	pop	r16
+ 380:	ff 90       	pop	r15
+ 382:	df 90       	pop	r13
+ 384:	cf 90       	pop	r12
+ 386:	08 95       	ret
 
-00000290 <CvrtNum2CaracterIndividual>:
+00000388 <__vector_21>:
+}
+
+//----------------------------------------------------------------------------
+
+ISR(ADC_vect)			
+{
+ 388:	1f 92       	push	r1
+ 38a:	0f 92       	push	r0
+ 38c:	0f b6       	in	r0, 0x3f	; 63
+ 38e:	0f 92       	push	r0
+ 390:	11 24       	eor	r1, r1
+ 392:	ff 92       	push	r15
+ 394:	0f 93       	push	r16
+ 396:	1f 93       	push	r17
+ 398:	2f 93       	push	r18
+ 39a:	3f 93       	push	r19
+ 39c:	4f 93       	push	r20
+ 39e:	5f 93       	push	r21
+ 3a0:	6f 93       	push	r22
+ 3a2:	7f 93       	push	r23
+ 3a4:	8f 93       	push	r24
+ 3a6:	9f 93       	push	r25
+ 3a8:	af 93       	push	r26
+ 3aa:	bf 93       	push	r27
+ 3ac:	ef 93       	push	r30
+ 3ae:	ff 93       	push	r31
+	static uint8_t contador = 0;
+		
+	/*Envia o valor lido do ADC a cada 1s aproximadamente*/
+	if(contador == 32) {	
+ 3b0:	80 91 0e 01 	lds	r24, 0x010E
+ 3b4:	80 32       	cpi	r24, 0x20	; 32
+ 3b6:	b9 f4       	brne	.+46     	; 0x3e6 <__vector_21+0x5e>
+		unsigned char sentido;	
+		uint8_t dutyLadorEsq;
+		uint8_t dutyLadorDir;
+		
+		dutyLadorEsq = CalculaDutyCycleLadoEsq();
+ 3b8:	0e 94 25 03 	call	0x64a	; 0x64a <CalculaDutyCycleLadoEsq>
+ 3bc:	f8 2e       	mov	r15, r24
+		dutyLadorDir= CalculaDutyCycleLadoDir();
+ 3be:	0e 94 3c 03 	call	0x678	; 0x678 <CalculaDutyCycleLadoDir>
+ 3c2:	08 2f       	mov	r16, r24
+		
+		sentido = CalculaSentido();
+ 3c4:	0e 94 81 02 	call	0x502	; 0x502 <CalculaSentido>
+ 3c8:	18 2f       	mov	r17, r24
+		
+		TransmitiBuffer(dutyLadorEsq, dutyLadorDir, sentido);
+ 3ca:	8f 2d       	mov	r24, r15
+ 3cc:	60 2f       	mov	r22, r16
+ 3ce:	41 2f       	mov	r20, r17
+ 3d0:	0e 94 0e 02 	call	0x41c	; 0x41c <TransmitiBuffer>
+		MostraDadosLCD(dutyLadorEsq, dutyLadorDir, sentido);
+ 3d4:	8f 2d       	mov	r24, r15
+ 3d6:	90 e0       	ldi	r25, 0x00	; 0
+ 3d8:	60 2f       	mov	r22, r16
+ 3da:	70 e0       	ldi	r23, 0x00	; 0
+ 3dc:	41 2f       	mov	r20, r17
+ 3de:	0e 94 82 01 	call	0x304	; 0x304 <MostraDadosLCD>
+						
+		contador = 0;
+ 3e2:	10 92 0e 01 	sts	0x010E, r1
+	}		
+	
+	contador++;
+ 3e6:	80 91 0e 01 	lds	r24, 0x010E
+ 3ea:	8f 5f       	subi	r24, 0xFF	; 255
+ 3ec:	80 93 0e 01 	sts	0x010E, r24
+	
+	/*Limpa o flag de overflow do Timer0. Esse flag indica que houve um estouro do timer.
+	limpar para habilitar um novo estouro para gerar a interrupção do ADC.*/
+	TIFR0 |= TOV0;
+ 3f0:	85 b3       	in	r24, 0x15	; 21
+ 3f2:	85 bb       	out	0x15, r24	; 21
+}	
+ 3f4:	ff 91       	pop	r31
+ 3f6:	ef 91       	pop	r30
+ 3f8:	bf 91       	pop	r27
+ 3fa:	af 91       	pop	r26
+ 3fc:	9f 91       	pop	r25
+ 3fe:	8f 91       	pop	r24
+ 400:	7f 91       	pop	r23
+ 402:	6f 91       	pop	r22
+ 404:	5f 91       	pop	r21
+ 406:	4f 91       	pop	r20
+ 408:	3f 91       	pop	r19
+ 40a:	2f 91       	pop	r18
+ 40c:	1f 91       	pop	r17
+ 40e:	0f 91       	pop	r16
+ 410:	ff 90       	pop	r15
+ 412:	0f 90       	pop	r0
+ 414:	0f be       	out	0x3f, r0	; 63
+ 416:	0f 90       	pop	r0
+ 418:	1f 90       	pop	r1
+ 41a:	18 95       	reti
+
+0000041c <TransmitiBuffer>:
+void TransmitiBuffer(
+	uint8_t dutyLadoEsq, 
+	uint8_t dutyLadoDir, 
+	unsigned char direcao
+)
+{
+ 41c:	df 93       	push	r29
+ 41e:	cf 93       	push	r28
+ 420:	00 d0       	rcall	.+0      	; 0x422 <TransmitiBuffer+0x6>
+ 422:	00 d0       	rcall	.+0      	; 0x424 <TransmitiBuffer+0x8>
+ 424:	0f 92       	push	r0
+ 426:	cd b7       	in	r28, 0x3d	; 61
+ 428:	de b7       	in	r29, 0x3e	; 62
+	unsigned char buffer[5];
+	
+	buffer[0] = 'S';	
+ 42a:	93 e5       	ldi	r25, 0x53	; 83
+ 42c:	99 83       	std	Y+1, r25	; 0x01
+	buffer[1] = direcao;
+ 42e:	4a 83       	std	Y+2, r20	; 0x02
+	buffer[2] = dutyLadoEsq;
+ 430:	8b 83       	std	Y+3, r24	; 0x03
+	buffer[3] = dutyLadoDir;
+ 432:	6c 83       	std	Y+4, r22	; 0x04
+	buffer[4] = '\0';
+ 434:	1d 82       	std	Y+5, r1	; 0x05
+	Usart_Write(buffer);
+ 436:	ce 01       	movw	r24, r28
+ 438:	01 96       	adiw	r24, 0x01	; 1
+ 43a:	0e 94 6d 03 	call	0x6da	; 0x6da <Usart_Write>
+}
+ 43e:	0f 90       	pop	r0
+ 440:	0f 90       	pop	r0
+ 442:	0f 90       	pop	r0
+ 444:	0f 90       	pop	r0
+ 446:	0f 90       	pop	r0
+ 448:	cf 91       	pop	r28
+ 44a:	df 91       	pop	r29
+ 44c:	08 95       	ret
+
+0000044e <CvrtNum2CaracterIndividual>:
 
 void CvrtNum2CaracterIndividual(
 	uint16_t valor, 
 	unsigned char* caracterConvertido
 )		
 {											
- 290:	cf 93       	push	r28
- 292:	df 93       	push	r29
- 294:	eb 01       	movw	r28, r22
+ 44e:	cf 93       	push	r28
+ 450:	df 93       	push	r29
+ 452:	eb 01       	movw	r28, r22
 	unsigned char cont = 3;
   
 	caracterConvertido[0] = 0x30; 
- 296:	20 e3       	ldi	r18, 0x30	; 48
- 298:	28 83       	st	Y, r18
+ 454:	20 e3       	ldi	r18, 0x30	; 48
+ 456:	28 83       	st	Y, r18
 	caracterConvertido[1] = 0x30; 
- 29a:	29 83       	std	Y+1, r18	; 0x01
+ 458:	29 83       	std	Y+1, r18	; 0x01
 	caracterConvertido[2] = 0x30; 
- 29c:	2a 83       	std	Y+2, r18	; 0x02
+ 45a:	2a 83       	std	Y+2, r18	; 0x02
 	caracterConvertido[3] = 0x30;
- 29e:	2b 83       	std	Y+3, r18	; 0x03
+ 45c:	2b 83       	std	Y+3, r18	; 0x03
 	caracterConvertido[4] = '\0';
- 2a0:	1c 82       	std	Y+4, r1	; 0x04
+ 45e:	1c 82       	std	Y+4, r1	; 0x04
 void CvrtNum2CaracterIndividual(
 	uint16_t valor, 
 	unsigned char* caracterConvertido
 )		
 {											
 	unsigned char cont = 3;
- 2a2:	43 e0       	ldi	r20, 0x03	; 3
+ 460:	43 e0       	ldi	r20, 0x03	; 3
 	caracterConvertido[3] = 0x30;
 	caracterConvertido[4] = '\0';
 
 	do{
 		/*+0x30 para converter de caracter para número*/
 		caracterConvertido[cont--] = (valor % 10) + 0x30;											
- 2a4:	2a e0       	ldi	r18, 0x0A	; 10
- 2a6:	30 e0       	ldi	r19, 0x00	; 0
- 2a8:	fe 01       	movw	r30, r28
- 2aa:	e4 0f       	add	r30, r20
- 2ac:	f1 1d       	adc	r31, r1
- 2ae:	b9 01       	movw	r22, r18
- 2b0:	0e 94 db 02 	call	0x5b6	; 0x5b6 <__udivmodhi4>
- 2b4:	80 5d       	subi	r24, 0xD0	; 208
- 2b6:	80 83       	st	Z, r24
- 2b8:	41 50       	subi	r20, 0x01	; 1
+ 462:	2a e0       	ldi	r18, 0x0A	; 10
+ 464:	30 e0       	ldi	r19, 0x00	; 0
+ 466:	fe 01       	movw	r30, r28
+ 468:	e4 0f       	add	r30, r20
+ 46a:	f1 1d       	adc	r31, r1
+ 46c:	b9 01       	movw	r22, r18
+ 46e:	0e 94 90 03 	call	0x720	; 0x720 <__udivmodhi4>
+ 472:	80 5d       	subi	r24, 0xD0	; 208
+ 474:	80 83       	st	Z, r24
+ 476:	41 50       	subi	r20, 0x01	; 1
 		valor /= 10;								
- 2ba:	86 2f       	mov	r24, r22
- 2bc:	97 2f       	mov	r25, r23
+ 478:	86 2f       	mov	r24, r22
+ 47a:	97 2f       	mov	r25, r23
 	}while (valor != 0);
- 2be:	00 97       	sbiw	r24, 0x00	; 0
- 2c0:	99 f7       	brne	.-26     	; 0x2a8 <CvrtNum2CaracterIndividual+0x18>
- 2c2:	df 91       	pop	r29
- 2c4:	cf 91       	pop	r28
- 2c6:	08 95       	ret
+ 47c:	00 97       	sbiw	r24, 0x00	; 0
+ 47e:	99 f7       	brne	.-26     	; 0x466 <CvrtNum2CaracterIndividual+0x18>
+ 480:	df 91       	pop	r29
+ 482:	cf 91       	pop	r28
+ 484:	08 95       	ret
 
-000002c8 <ValorLidoADEixoX>:
+00000486 <ValorLidoADEixoX>:
 
 //---------------------------------------------------------------------------
 
 uint16_t ValorLidoADEixoX()
 {
 	return ADC_Read(AD_EIXO_X);	
- 2c8:	80 e0       	ldi	r24, 0x00	; 0
- 2ca:	0e 94 60 00 	call	0xc0	; 0xc0 <ADC_Read>
+ 486:	80 e0       	ldi	r24, 0x00	; 0
+ 488:	0e 94 60 00 	call	0xc0	; 0xc0 <ADC_Read>
 }
- 2ce:	08 95       	ret
+ 48c:	08 95       	ret
 
-000002d0 <ValorLidoADEixoY>:
+0000048e <ValorLidoADEixoY>:
 
 //---------------------------------------------------------------------------
 
 uint16_t ValorLidoADEixoY()
 {
 	return ADC_Read(AD_EIXO_Y);	
- 2d0:	81 e0       	ldi	r24, 0x01	; 1
- 2d2:	0e 94 60 00 	call	0xc0	; 0xc0 <ADC_Read>
+ 48e:	81 e0       	ldi	r24, 0x01	; 1
+ 490:	0e 94 60 00 	call	0xc0	; 0xc0 <ADC_Read>
 }
- 2d6:	08 95       	ret
+ 494:	08 95       	ret
 
-000002d8 <PontoXNaPosInic>:
+00000496 <PontoXNaPosInic>:
 
 //---------------------------------------------------------------------------
 
 uint8_t PontoXNaPosInic()
 {
 	return ((ValorLidoADEixoX() >= limInfPontoInicX_g ) && (ValorLidoADEixoX() <= limSupPontoInicX_g));
- 2d8:	0e 94 64 01 	call	0x2c8	; 0x2c8 <ValorLidoADEixoX>
- 2dc:	20 91 03 01 	lds	r18, 0x0103
- 2e0:	30 91 04 01 	lds	r19, 0x0104
- 2e4:	82 17       	cp	r24, r18
- 2e6:	93 07       	cpc	r25, r19
- 2e8:	78 f0       	brcs	.+30     	; 0x308 <PontoXNaPosInic+0x30>
- 2ea:	0e 94 64 01 	call	0x2c8	; 0x2c8 <ValorLidoADEixoX>
+ 496:	0e 94 43 02 	call	0x486	; 0x486 <ValorLidoADEixoX>
+ 49a:	20 91 03 01 	lds	r18, 0x0103
+ 49e:	30 91 04 01 	lds	r19, 0x0104
+ 4a2:	82 17       	cp	r24, r18
+ 4a4:	93 07       	cpc	r25, r19
+ 4a6:	78 f0       	brcs	.+30     	; 0x4c6 <PontoXNaPosInic+0x30>
+ 4a8:	0e 94 43 02 	call	0x486	; 0x486 <ValorLidoADEixoX>
 	return ADC_Read(AD_EIXO_Y);	
 }
 
 //---------------------------------------------------------------------------
 
 uint8_t PontoXNaPosInic()
- 2ee:	21 e0       	ldi	r18, 0x01	; 1
- 2f0:	30 e0       	ldi	r19, 0x00	; 0
- 2f2:	40 91 05 01 	lds	r20, 0x0105
- 2f6:	50 91 06 01 	lds	r21, 0x0106
- 2fa:	48 17       	cp	r20, r24
- 2fc:	59 07       	cpc	r21, r25
- 2fe:	10 f4       	brcc	.+4      	; 0x304 <PontoXNaPosInic+0x2c>
- 300:	20 e0       	ldi	r18, 0x00	; 0
- 302:	30 e0       	ldi	r19, 0x00	; 0
+ 4ac:	21 e0       	ldi	r18, 0x01	; 1
+ 4ae:	30 e0       	ldi	r19, 0x00	; 0
+ 4b0:	40 91 05 01 	lds	r20, 0x0105
+ 4b4:	50 91 06 01 	lds	r21, 0x0106
+ 4b8:	48 17       	cp	r20, r24
+ 4ba:	59 07       	cpc	r21, r25
+ 4bc:	10 f4       	brcc	.+4      	; 0x4c2 <PontoXNaPosInic+0x2c>
+ 4be:	20 e0       	ldi	r18, 0x00	; 0
+ 4c0:	30 e0       	ldi	r19, 0x00	; 0
 {
 	return ((ValorLidoADEixoX() >= limInfPontoInicX_g ) && (ValorLidoADEixoX() <= limSupPontoInicX_g));
- 304:	c9 01       	movw	r24, r18
- 306:	08 95       	ret
- 308:	80 e0       	ldi	r24, 0x00	; 0
- 30a:	90 e0       	ldi	r25, 0x00	; 0
+ 4c2:	c9 01       	movw	r24, r18
+ 4c4:	08 95       	ret
+ 4c6:	80 e0       	ldi	r24, 0x00	; 0
+ 4c8:	90 e0       	ldi	r25, 0x00	; 0
 }
- 30c:	08 95       	ret
+ 4ca:	08 95       	ret
 
-0000030e <PontoYNaPosInic>:
+000004cc <PontoYNaPosInic>:
 
 //---------------------------------------------------------------------------
 
 uint8_t PontoYNaPosInic()
 {
 	return ((ValorLidoADEixoY() >= limInfPontoInicY_g ) && (ValorLidoADEixoY() <= limSupPontoInicY_g));	
- 30e:	0e 94 68 01 	call	0x2d0	; 0x2d0 <ValorLidoADEixoY>
- 312:	20 91 09 01 	lds	r18, 0x0109
- 316:	30 91 0a 01 	lds	r19, 0x010A
- 31a:	82 17       	cp	r24, r18
- 31c:	93 07       	cpc	r25, r19
- 31e:	78 f0       	brcs	.+30     	; 0x33e <PontoYNaPosInic+0x30>
- 320:	0e 94 68 01 	call	0x2d0	; 0x2d0 <ValorLidoADEixoY>
+ 4cc:	0e 94 47 02 	call	0x48e	; 0x48e <ValorLidoADEixoY>
+ 4d0:	20 91 09 01 	lds	r18, 0x0109
+ 4d4:	30 91 0a 01 	lds	r19, 0x010A
+ 4d8:	82 17       	cp	r24, r18
+ 4da:	93 07       	cpc	r25, r19
+ 4dc:	78 f0       	brcs	.+30     	; 0x4fc <PontoYNaPosInic+0x30>
+ 4de:	0e 94 47 02 	call	0x48e	; 0x48e <ValorLidoADEixoY>
 	return ((ValorLidoADEixoX() >= limInfPontoInicX_g ) && (ValorLidoADEixoX() <= limSupPontoInicX_g));
 }
 
 //---------------------------------------------------------------------------
 
 uint8_t PontoYNaPosInic()
- 324:	21 e0       	ldi	r18, 0x01	; 1
- 326:	30 e0       	ldi	r19, 0x00	; 0
- 328:	40 91 0b 01 	lds	r20, 0x010B
- 32c:	50 91 0c 01 	lds	r21, 0x010C
- 330:	48 17       	cp	r20, r24
- 332:	59 07       	cpc	r21, r25
- 334:	10 f4       	brcc	.+4      	; 0x33a <PontoYNaPosInic+0x2c>
- 336:	20 e0       	ldi	r18, 0x00	; 0
- 338:	30 e0       	ldi	r19, 0x00	; 0
+ 4e2:	21 e0       	ldi	r18, 0x01	; 1
+ 4e4:	30 e0       	ldi	r19, 0x00	; 0
+ 4e6:	40 91 0b 01 	lds	r20, 0x010B
+ 4ea:	50 91 0c 01 	lds	r21, 0x010C
+ 4ee:	48 17       	cp	r20, r24
+ 4f0:	59 07       	cpc	r21, r25
+ 4f2:	10 f4       	brcc	.+4      	; 0x4f8 <PontoYNaPosInic+0x2c>
+ 4f4:	20 e0       	ldi	r18, 0x00	; 0
+ 4f6:	30 e0       	ldi	r19, 0x00	; 0
 {
 	return ((ValorLidoADEixoY() >= limInfPontoInicY_g ) && (ValorLidoADEixoY() <= limSupPontoInicY_g));	
- 33a:	c9 01       	movw	r24, r18
- 33c:	08 95       	ret
- 33e:	80 e0       	ldi	r24, 0x00	; 0
- 340:	90 e0       	ldi	r25, 0x00	; 0
+ 4f8:	c9 01       	movw	r24, r18
+ 4fa:	08 95       	ret
+ 4fc:	80 e0       	ldi	r24, 0x00	; 0
+ 4fe:	90 e0       	ldi	r25, 0x00	; 0
 }
- 342:	08 95       	ret
+ 500:	08 95       	ret
 
-00000344 <CalculaSentido>:
+00000502 <CalculaSentido>:
 
 //---------------------------------------------------------------------------
 
 unsigned char CalculaSentido()
 {
- 344:	cf 93       	push	r28
- 346:	df 93       	push	r29
+ 502:	0f 93       	push	r16
+ 504:	1f 93       	push	r17
+ 506:	cf 93       	push	r28
+ 508:	df 93       	push	r29
 	unsigned char direcao;
 	uint16_t valorLidoADEixoX = ValorLidoADEixoX(); 
- 348:	0e 94 64 01 	call	0x2c8	; 0x2c8 <ValorLidoADEixoX>
- 34c:	ec 01       	movw	r28, r24
+ 50a:	0e 94 43 02 	call	0x486	; 0x486 <ValorLidoADEixoX>
+ 50e:	8c 01       	movw	r16, r24
 	uint16_t valorLidoADEixoY = ValorLidoADEixoY();
- 34e:	0e 94 68 01 	call	0x2d0	; 0x2d0 <ValorLidoADEixoY>
+ 510:	0e 94 47 02 	call	0x48e	; 0x48e <ValorLidoADEixoY>
+ 514:	ec 01       	movw	r28, r24
 	
-	if(valorLidoADEixoY > limSupPontoInicY_g)
- 352:	20 91 0b 01 	lds	r18, 0x010B
- 356:	30 91 0c 01 	lds	r19, 0x010C
- 35a:	28 17       	cp	r18, r24
- 35c:	39 07       	cpc	r19, r25
- 35e:	b8 f0       	brcs	.+46     	; 0x38e <CalculaSentido+0x4a>
+	/*Andando Frente*/		
+	if((valorLidoADEixoY > limSupPontoInicY_g) && PontoXNaPosInic())
+ 516:	80 91 0b 01 	lds	r24, 0x010B
+ 51a:	90 91 0c 01 	lds	r25, 0x010C
+ 51e:	8c 17       	cp	r24, r28
+ 520:	9d 07       	cpc	r25, r29
+ 522:	28 f4       	brcc	.+10     	; 0x52e <CalculaSentido+0x2c>
+ 524:	0e 94 4b 02 	call	0x496	; 0x496 <PontoXNaPosInic>
+ 528:	88 23       	and	r24, r24
+ 52a:	09 f0       	breq	.+2      	; 0x52e <CalculaSentido+0x2c>
+ 52c:	4f c0       	rjmp	.+158    	; 0x5cc <CalculaSentido+0xca>
 		direcao = 'F';
-		
-	else if(valorLidoADEixoY < limInfPontoInicY_g)
- 360:	20 91 09 01 	lds	r18, 0x0109
- 364:	30 91 0a 01 	lds	r19, 0x010A
- 368:	82 17       	cp	r24, r18
- 36a:	93 07       	cpc	r25, r19
- 36c:	90 f0       	brcs	.+36     	; 0x392 <CalculaSentido+0x4e>
-		direcao = 'R';
 	
-	else if(valorLidoADEixoX > limSupPontoInicX_g)
- 36e:	80 91 05 01 	lds	r24, 0x0105
- 372:	90 91 06 01 	lds	r25, 0x0106
- 376:	8c 17       	cp	r24, r28
- 378:	9d 07       	cpc	r25, r29
- 37a:	68 f0       	brcs	.+26     	; 0x396 <CalculaSentido+0x52>
+	/*Andando Frente Direita*/
+	else if((valorLidoADEixoX > limSupPontoInicX_g) && 
+ 52e:	80 91 05 01 	lds	r24, 0x0105
+ 532:	90 91 06 01 	lds	r25, 0x0106
+ 536:	80 17       	cp	r24, r16
+ 538:	91 07       	cpc	r25, r17
+ 53a:	68 f4       	brcc	.+26     	; 0x556 <CalculaSentido+0x54>
+ 53c:	80 91 0b 01 	lds	r24, 0x010B
+ 540:	90 91 0c 01 	lds	r25, 0x010C
+ 544:	8c 17       	cp	r24, r28
+ 546:	9d 07       	cpc	r25, r29
+ 548:	08 f4       	brcc	.+2      	; 0x54c <CalculaSentido+0x4a>
+ 54a:	42 c0       	rjmp	.+132    	; 0x5d0 <CalculaSentido+0xce>
+			((valorLidoADEixoY > limSupPontoInicY_g) || PontoYNaPosInic()))
+ 54c:	0e 94 66 02 	call	0x4cc	; 0x4cc <PontoYNaPosInic>
+ 550:	88 23       	and	r24, r24
+ 552:	09 f0       	breq	.+2      	; 0x556 <CalculaSentido+0x54>
+ 554:	3f c0       	rjmp	.+126    	; 0x5d4 <CalculaSentido+0xd2>
 		direcao = 'D';
 		
-	else if(valorLidoADEixoX < limInfPontoInicX_g)
- 37c:	80 91 03 01 	lds	r24, 0x0103
- 380:	90 91 04 01 	lds	r25, 0x0104
- 384:	c8 17       	cp	r28, r24
- 386:	d9 07       	cpc	r29, r25
- 388:	40 f4       	brcc	.+16     	; 0x39a <CalculaSentido+0x56>
+	/*Andando Frente Esquerda*/	
+	else if((valorLidoADEixoX < limInfPontoInicX_g) && 
+ 556:	80 91 03 01 	lds	r24, 0x0103
+ 55a:	90 91 04 01 	lds	r25, 0x0104
+ 55e:	08 17       	cp	r16, r24
+ 560:	19 07       	cpc	r17, r25
+ 562:	58 f4       	brcc	.+22     	; 0x57a <CalculaSentido+0x78>
+ 564:	80 91 0b 01 	lds	r24, 0x010B
+ 568:	90 91 0c 01 	lds	r25, 0x010C
+ 56c:	8c 17       	cp	r24, r28
+ 56e:	9d 07       	cpc	r25, r29
+ 570:	98 f1       	brcs	.+102    	; 0x5d8 <CalculaSentido+0xd6>
+			((valorLidoADEixoY > limSupPontoInicY_g) ||  PontoYNaPosInic()))
+ 572:	0e 94 66 02 	call	0x4cc	; 0x4cc <PontoYNaPosInic>
+ 576:	88 23       	and	r24, r24
+ 578:	89 f5       	brne	.+98     	; 0x5dc <CalculaSentido+0xda>
 		direcao = 'E';	
- 38a:	85 e4       	ldi	r24, 0x45	; 69
- 38c:	07 c0       	rjmp	.+14     	; 0x39c <CalculaSentido+0x58>
-	unsigned char direcao;
-	uint16_t valorLidoADEixoX = ValorLidoADEixoX(); 
-	uint16_t valorLidoADEixoY = ValorLidoADEixoY();
-	
-	if(valorLidoADEixoY > limSupPontoInicY_g)
-		direcao = 'F';
- 38e:	86 e4       	ldi	r24, 0x46	; 70
- 390:	05 c0       	rjmp	.+10     	; 0x39c <CalculaSentido+0x58>
 		
-	else if(valorLidoADEixoY < limInfPontoInicY_g)
+	/*Andando Tras*/
+	else if((valorLidoADEixoY < limInfPontoInicY_g) && PontoXNaPosInic())
+ 57a:	80 91 09 01 	lds	r24, 0x0109
+ 57e:	90 91 0a 01 	lds	r25, 0x010A
+ 582:	c8 17       	cp	r28, r24
+ 584:	d9 07       	cpc	r29, r25
+ 586:	20 f4       	brcc	.+8      	; 0x590 <CalculaSentido+0x8e>
+ 588:	0e 94 4b 02 	call	0x496	; 0x496 <PontoXNaPosInic>
+ 58c:	88 23       	and	r24, r24
+ 58e:	41 f5       	brne	.+80     	; 0x5e0 <CalculaSentido+0xde>
+		direcao = 'T';
+		
+	/*Andando Tras Direita*/
+	else if((valorLidoADEixoX > limSupPontoInicX_g) && (valorLidoADEixoY < limInfPontoInicY_g))
+ 590:	80 91 05 01 	lds	r24, 0x0105
+ 594:	90 91 06 01 	lds	r25, 0x0106
+ 598:	80 17       	cp	r24, r16
+ 59a:	91 07       	cpc	r25, r17
+ 59c:	38 f4       	brcc	.+14     	; 0x5ac <CalculaSentido+0xaa>
+ 59e:	80 91 09 01 	lds	r24, 0x0109
+ 5a2:	90 91 0a 01 	lds	r25, 0x010A
+ 5a6:	c8 17       	cp	r28, r24
+ 5a8:	d9 07       	cpc	r29, r25
+ 5aa:	e0 f0       	brcs	.+56     	; 0x5e4 <CalculaSentido+0xe2>
 		direcao = 'R';
- 392:	82 e5       	ldi	r24, 0x52	; 82
- 394:	03 c0       	rjmp	.+6      	; 0x39c <CalculaSentido+0x58>
-	
-	else if(valorLidoADEixoX > limSupPontoInicX_g)
-		direcao = 'D';
- 396:	84 e4       	ldi	r24, 0x44	; 68
- 398:	01 c0       	rjmp	.+2      	; 0x39c <CalculaSentido+0x58>
 		
-	else if(valorLidoADEixoX < limInfPontoInicX_g)
-		direcao = 'E';	
+	/*Andando Tras Esquerda*/	
+	else if((valorLidoADEixoX < limInfPontoInicX_g) && (valorLidoADEixoY < limInfPontoInicY_g))
+ 5ac:	80 91 03 01 	lds	r24, 0x0103
+ 5b0:	90 91 04 01 	lds	r25, 0x0104
+ 5b4:	08 17       	cp	r16, r24
+ 5b6:	19 07       	cpc	r17, r25
+ 5b8:	b8 f4       	brcc	.+46     	; 0x5e8 <CalculaSentido+0xe6>
+ 5ba:	80 91 09 01 	lds	r24, 0x0109
+ 5be:	90 91 0a 01 	lds	r25, 0x010A
+ 5c2:	c8 17       	cp	r28, r24
+ 5c4:	d9 07       	cpc	r29, r25
+ 5c6:	90 f0       	brcs	.+36     	; 0x5ec <CalculaSentido+0xea>
+		direcao = 'L';	
 		
 	else 
 		direcao = 'P';
- 39a:	80 e5       	ldi	r24, 0x50	; 80
+ 5c8:	80 e5       	ldi	r24, 0x50	; 80
+ 5ca:	11 c0       	rjmp	.+34     	; 0x5ee <CalculaSentido+0xec>
+	uint16_t valorLidoADEixoX = ValorLidoADEixoX(); 
+	uint16_t valorLidoADEixoY = ValorLidoADEixoY();
+	
+	/*Andando Frente*/		
+	if((valorLidoADEixoY > limSupPontoInicY_g) && PontoXNaPosInic())
+		direcao = 'F';
+ 5cc:	86 e4       	ldi	r24, 0x46	; 70
+ 5ce:	0f c0       	rjmp	.+30     	; 0x5ee <CalculaSentido+0xec>
+	
+	/*Andando Frente Direita*/
+	else if((valorLidoADEixoX > limSupPontoInicX_g) && 
+			((valorLidoADEixoY > limSupPontoInicY_g) || PontoYNaPosInic()))
+		direcao = 'D';
+ 5d0:	84 e4       	ldi	r24, 0x44	; 68
+ 5d2:	0d c0       	rjmp	.+26     	; 0x5ee <CalculaSentido+0xec>
+ 5d4:	84 e4       	ldi	r24, 0x44	; 68
+ 5d6:	0b c0       	rjmp	.+22     	; 0x5ee <CalculaSentido+0xec>
+		
+	/*Andando Frente Esquerda*/	
+	else if((valorLidoADEixoX < limInfPontoInicX_g) && 
+			((valorLidoADEixoY > limSupPontoInicY_g) ||  PontoYNaPosInic()))
+		direcao = 'E';	
+ 5d8:	85 e4       	ldi	r24, 0x45	; 69
+ 5da:	09 c0       	rjmp	.+18     	; 0x5ee <CalculaSentido+0xec>
+ 5dc:	85 e4       	ldi	r24, 0x45	; 69
+ 5de:	07 c0       	rjmp	.+14     	; 0x5ee <CalculaSentido+0xec>
+		
+	/*Andando Tras*/
+	else if((valorLidoADEixoY < limInfPontoInicY_g) && PontoXNaPosInic())
+		direcao = 'T';
+ 5e0:	84 e5       	ldi	r24, 0x54	; 84
+ 5e2:	05 c0       	rjmp	.+10     	; 0x5ee <CalculaSentido+0xec>
+		
+	/*Andando Tras Direita*/
+	else if((valorLidoADEixoX > limSupPontoInicX_g) && (valorLidoADEixoY < limInfPontoInicY_g))
+		direcao = 'R';
+ 5e4:	82 e5       	ldi	r24, 0x52	; 82
+ 5e6:	03 c0       	rjmp	.+6      	; 0x5ee <CalculaSentido+0xec>
+	/*Andando Tras Esquerda*/	
+	else if((valorLidoADEixoX < limInfPontoInicX_g) && (valorLidoADEixoY < limInfPontoInicY_g))
+		direcao = 'L';	
+		
+	else 
+		direcao = 'P';
+ 5e8:	80 e5       	ldi	r24, 0x50	; 80
+ 5ea:	01 c0       	rjmp	.+2      	; 0x5ee <CalculaSentido+0xec>
+	else if((valorLidoADEixoX > limSupPontoInicX_g) && (valorLidoADEixoY < limInfPontoInicY_g))
+		direcao = 'R';
+		
+	/*Andando Tras Esquerda*/	
+	else if((valorLidoADEixoX < limInfPontoInicX_g) && (valorLidoADEixoY < limInfPontoInicY_g))
+		direcao = 'L';	
+ 5ec:	8c e4       	ldi	r24, 0x4C	; 76
+		
+	else 
+		direcao = 'P';
 			
 	return direcao;
 }
- 39c:	df 91       	pop	r29
- 39e:	cf 91       	pop	r28
- 3a0:	08 95       	ret
+ 5ee:	df 91       	pop	r29
+ 5f0:	cf 91       	pop	r28
+ 5f2:	1f 91       	pop	r17
+ 5f4:	0f 91       	pop	r16
+ 5f6:	08 95       	ret
 
-000003a2 <CalculaPorcentoPosicaoEixoY>:
+000005f8 <CalculaPorcentoPosicaoEixoY>:
 			 posYFrente25PorCento = 650,
 			 posYFrente0PorCento = 522;
 		 
 	uint16_t valorPorCentoEixoY; 
 	
 	if (ValorLidoADEixoY() > posYFrente75PorCento) 
- 3a2:	0e 94 68 01 	call	0x2d0	; 0x2d0 <ValorLidoADEixoY>
- 3a6:	23 e0       	ldi	r18, 0x03	; 3
- 3a8:	85 38       	cpi	r24, 0x85	; 133
- 3aa:	92 07       	cpc	r25, r18
- 3ac:	a8 f4       	brcc	.+42     	; 0x3d8 <CalculaPorcentoPosicaoEixoY+0x36>
+ 5f8:	0e 94 47 02 	call	0x48e	; 0x48e <ValorLidoADEixoY>
+ 5fc:	23 e0       	ldi	r18, 0x03	; 3
+ 5fe:	85 38       	cpi	r24, 0x85	; 133
+ 600:	92 07       	cpc	r25, r18
+ 602:	a8 f4       	brcc	.+42     	; 0x62e <CalculaPorcentoPosicaoEixoY+0x36>
 		valorPorCentoEixoY = 100;
 				
 	else if(ValorLidoADEixoY() > posYFrente50PorCento) 
- 3ae:	0e 94 68 01 	call	0x2d0	; 0x2d0 <ValorLidoADEixoY>
- 3b2:	23 e0       	ldi	r18, 0x03	; 3
- 3b4:	88 30       	cpi	r24, 0x08	; 8
- 3b6:	92 07       	cpc	r25, r18
- 3b8:	90 f4       	brcc	.+36     	; 0x3de <CalculaPorcentoPosicaoEixoY+0x3c>
+ 604:	0e 94 47 02 	call	0x48e	; 0x48e <ValorLidoADEixoY>
+ 608:	23 e0       	ldi	r18, 0x03	; 3
+ 60a:	88 30       	cpi	r24, 0x08	; 8
+ 60c:	92 07       	cpc	r25, r18
+ 60e:	90 f4       	brcc	.+36     	; 0x634 <CalculaPorcentoPosicaoEixoY+0x3c>
 		valorPorCentoEixoY = 75;
 		
 	else if(ValorLidoADEixoY() > posYFrente25PorCento) 
- 3ba:	0e 94 68 01 	call	0x2d0	; 0x2d0 <ValorLidoADEixoY>
- 3be:	22 e0       	ldi	r18, 0x02	; 2
- 3c0:	8b 38       	cpi	r24, 0x8B	; 139
- 3c2:	92 07       	cpc	r25, r18
- 3c4:	78 f4       	brcc	.+30     	; 0x3e4 <CalculaPorcentoPosicaoEixoY+0x42>
+ 610:	0e 94 47 02 	call	0x48e	; 0x48e <ValorLidoADEixoY>
+ 614:	22 e0       	ldi	r18, 0x02	; 2
+ 616:	8b 38       	cpi	r24, 0x8B	; 139
+ 618:	92 07       	cpc	r25, r18
+ 61a:	78 f4       	brcc	.+30     	; 0x63a <CalculaPorcentoPosicaoEixoY+0x42>
 		valorPorCentoEixoY = 50;
 		
 	else if(ValorLidoADEixoY() > posYFrente0PorCento) 
- 3c6:	0e 94 68 01 	call	0x2d0	; 0x2d0 <ValorLidoADEixoY>
- 3ca:	22 e0       	ldi	r18, 0x02	; 2
- 3cc:	8b 30       	cpi	r24, 0x0B	; 11
- 3ce:	92 07       	cpc	r25, r18
- 3d0:	60 f0       	brcs	.+24     	; 0x3ea <CalculaPorcentoPosicaoEixoY+0x48>
+ 61c:	0e 94 47 02 	call	0x48e	; 0x48e <ValorLidoADEixoY>
+ 620:	22 e0       	ldi	r18, 0x02	; 2
+ 622:	8b 30       	cpi	r24, 0x0B	; 11
+ 624:	92 07       	cpc	r25, r18
+ 626:	60 f0       	brcs	.+24     	; 0x640 <CalculaPorcentoPosicaoEixoY+0x48>
 		valorPorCentoEixoY = 25;
- 3d2:	29 e1       	ldi	r18, 0x19	; 25
- 3d4:	30 e0       	ldi	r19, 0x00	; 0
- 3d6:	0b c0       	rjmp	.+22     	; 0x3ee <CalculaPorcentoPosicaoEixoY+0x4c>
+ 628:	29 e1       	ldi	r18, 0x19	; 25
+ 62a:	30 e0       	ldi	r19, 0x00	; 0
+ 62c:	0b c0       	rjmp	.+22     	; 0x644 <CalculaPorcentoPosicaoEixoY+0x4c>
 			 posYFrente0PorCento = 522;
 		 
 	uint16_t valorPorCentoEixoY; 
 	
 	if (ValorLidoADEixoY() > posYFrente75PorCento) 
 		valorPorCentoEixoY = 100;
- 3d8:	24 e6       	ldi	r18, 0x64	; 100
- 3da:	30 e0       	ldi	r19, 0x00	; 0
- 3dc:	08 c0       	rjmp	.+16     	; 0x3ee <CalculaPorcentoPosicaoEixoY+0x4c>
+ 62e:	24 e6       	ldi	r18, 0x64	; 100
+ 630:	30 e0       	ldi	r19, 0x00	; 0
+ 632:	08 c0       	rjmp	.+16     	; 0x644 <CalculaPorcentoPosicaoEixoY+0x4c>
 				
 	else if(ValorLidoADEixoY() > posYFrente50PorCento) 
 		valorPorCentoEixoY = 75;
- 3de:	2b e4       	ldi	r18, 0x4B	; 75
- 3e0:	30 e0       	ldi	r19, 0x00	; 0
- 3e2:	05 c0       	rjmp	.+10     	; 0x3ee <CalculaPorcentoPosicaoEixoY+0x4c>
+ 634:	2b e4       	ldi	r18, 0x4B	; 75
+ 636:	30 e0       	ldi	r19, 0x00	; 0
+ 638:	05 c0       	rjmp	.+10     	; 0x644 <CalculaPorcentoPosicaoEixoY+0x4c>
 		
 	else if(ValorLidoADEixoY() > posYFrente25PorCento) 
 		valorPorCentoEixoY = 50;
- 3e4:	22 e3       	ldi	r18, 0x32	; 50
- 3e6:	30 e0       	ldi	r19, 0x00	; 0
- 3e8:	02 c0       	rjmp	.+4      	; 0x3ee <CalculaPorcentoPosicaoEixoY+0x4c>
+ 63a:	22 e3       	ldi	r18, 0x32	; 50
+ 63c:	30 e0       	ldi	r19, 0x00	; 0
+ 63e:	02 c0       	rjmp	.+4      	; 0x644 <CalculaPorcentoPosicaoEixoY+0x4c>
 		
 	else if(ValorLidoADEixoY() > posYFrente0PorCento) 
 		valorPorCentoEixoY = 25;
 	
 	else 
 		valorPorCentoEixoY = 0;
- 3ea:	20 e0       	ldi	r18, 0x00	; 0
- 3ec:	30 e0       	ldi	r19, 0x00	; 0
+ 640:	20 e0       	ldi	r18, 0x00	; 0
+ 642:	30 e0       	ldi	r19, 0x00	; 0
 	
 	return valorPorCentoEixoY;
 }
- 3ee:	82 2f       	mov	r24, r18
- 3f0:	93 2f       	mov	r25, r19
- 3f2:	08 95       	ret
+ 644:	82 2f       	mov	r24, r18
+ 646:	93 2f       	mov	r25, r19
+ 648:	08 95       	ret
 
-000003f4 <CalculaDutyCycleLadoEsq>:
-}
-
-//---------------------------------------------------------------------------
-
-uint16_t CalculaDutyCycleLadoEsq()
-{
- 3f4:	0f 93       	push	r16
- 3f6:	1f 93       	push	r17
- 3f8:	cf 93       	push	r28
- 3fa:	df 93       	push	r29
-	uint16_t valorLidoADEixoX = ValorLidoADEixoX(); 
- 3fc:	0e 94 64 01 	call	0x2c8	; 0x2c8 <ValorLidoADEixoX>
- 400:	8c 01       	movw	r16, r24
-	uint16_t valorLidoADEixoY = ValorLidoADEixoY();
- 402:	0e 94 68 01 	call	0x2d0	; 0x2d0 <ValorLidoADEixoY>
- 406:	ec 01       	movw	r28, r24
-	uint8_t valorPorCentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
- 408:	0e 94 d1 01 	call	0x3a2	; 0x3a2 <CalculaPorcentoPosicaoEixoY>
-	
-	uint16_t duty = 0;
-	/*Andando Reverse*/
-	if (valorLidoADEixoY < limInfPontoInicY_g) 
- 40c:	80 91 09 01 	lds	r24, 0x0109
- 410:	90 91 0a 01 	lds	r25, 0x010A
- 414:	c8 17       	cp	r28, r24
- 416:	d9 07       	cpc	r29, r25
- 418:	90 f0       	brcs	.+36     	; 0x43e <CalculaDutyCycleLadoEsq+0x4a>
-		duty = 100;
-		
-	/*Andando reto frente*/
-	else if (PontoXNaPosInic() && !PontoYNaPosInic())
- 41a:	0e 94 6c 01 	call	0x2d8	; 0x2d8 <PontoXNaPosInic>
- 41e:	88 23       	and	r24, r24
- 420:	21 f0       	breq	.+8      	; 0x42a <CalculaDutyCycleLadoEsq+0x36>
- 422:	0e 94 87 01 	call	0x30e	; 0x30e <PontoYNaPosInic>
- 426:	88 23       	and	r24, r24
- 428:	69 f0       	breq	.+26     	; 0x444 <CalculaDutyCycleLadoEsq+0x50>
-		duty = 100;
-			
-	/*Andando para direita*/
-	else if ((valorLidoADEixoX > limSupPontoInicX_g)) 
- 42a:	80 91 05 01 	lds	r24, 0x0105
- 42e:	90 91 06 01 	lds	r25, 0x0106
- 432:	80 17       	cp	r24, r16
- 434:	91 07       	cpc	r25, r17
- 436:	48 f4       	brcc	.+18     	; 0x44a <CalculaDutyCycleLadoEsq+0x56>
-		duty = 100;
- 438:	24 e6       	ldi	r18, 0x64	; 100
- 43a:	30 e0       	ldi	r19, 0x00	; 0
- 43c:	08 c0       	rjmp	.+16     	; 0x44e <CalculaDutyCycleLadoEsq+0x5a>
-	uint8_t valorPorCentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
-	
-	uint16_t duty = 0;
-	/*Andando Reverse*/
-	if (valorLidoADEixoY < limInfPontoInicY_g) 
-		duty = 100;
- 43e:	24 e6       	ldi	r18, 0x64	; 100
- 440:	30 e0       	ldi	r19, 0x00	; 0
- 442:	05 c0       	rjmp	.+10     	; 0x44e <CalculaDutyCycleLadoEsq+0x5a>
-		
-	/*Andando reto frente*/
-	else if (PontoXNaPosInic() && !PontoYNaPosInic())
-		duty = 100;
- 444:	24 e6       	ldi	r18, 0x64	; 100
- 446:	30 e0       	ldi	r19, 0x00	; 0
- 448:	02 c0       	rjmp	.+4      	; 0x44e <CalculaDutyCycleLadoEsq+0x5a>
-{
-	uint16_t valorLidoADEixoX = ValorLidoADEixoX(); 
-	uint16_t valorLidoADEixoY = ValorLidoADEixoY();
-	uint8_t valorPorCentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
-	
-	uint16_t duty = 0;
- 44a:	20 e0       	ldi	r18, 0x00	; 0
- 44c:	30 e0       	ldi	r19, 0x00	; 0
-	/*Andando para esquerda*/
-	else if ((valorLidoADEixoX < limInfPontoInicX_g)) 
-		duty = 0;
-		
-	return duty;
-}
- 44e:	82 2f       	mov	r24, r18
- 450:	93 2f       	mov	r25, r19
- 452:	df 91       	pop	r29
- 454:	cf 91       	pop	r28
- 456:	1f 91       	pop	r17
- 458:	0f 91       	pop	r16
- 45a:	08 95       	ret
-
-0000045c <CalculaDutyCycleLadoDir>:
-}
+0000064a <CalculaDutyCycleLadoEsq>:
 
 //---------------------------------------------------------------------------
 
-uint16_t CalculaDutyCycleLadoDir()
+uint8_t CalculaDutyCycleLadoEsq()
 {
- 45c:	cf 92       	push	r12
- 45e:	df 92       	push	r13
- 460:	ef 92       	push	r14
- 462:	ff 92       	push	r15
- 464:	0f 93       	push	r16
- 466:	1f 93       	push	r17
- 468:	df 93       	push	r29
- 46a:	cf 93       	push	r28
- 46c:	00 d0       	rcall	.+0      	; 0x46e <CalculaDutyCycleLadoDir+0x12>
- 46e:	00 d0       	rcall	.+0      	; 0x470 <CalculaDutyCycleLadoDir+0x14>
- 470:	0f 92       	push	r0
- 472:	cd b7       	in	r28, 0x3d	; 61
- 474:	de b7       	in	r29, 0x3e	; 62
 	uint16_t valorLidoADEixoX = ValorLidoADEixoX(); 
- 476:	0e 94 64 01 	call	0x2c8	; 0x2c8 <ValorLidoADEixoX>
- 47a:	6c 01       	movw	r12, r24
+ 64a:	0e 94 43 02 	call	0x486	; 0x486 <ValorLidoADEixoX>
 	uint16_t valorLidoADEixoY = ValorLidoADEixoY();
- 47c:	0e 94 68 01 	call	0x2d0	; 0x2d0 <ValorLidoADEixoY>
- 480:	7c 01       	movw	r14, r24
+ 64e:	0e 94 47 02 	call	0x48e	; 0x48e <ValorLidoADEixoY>
 	uint8_t valorPorCentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
- 482:	0e 94 d1 01 	call	0x3a2	; 0x3a2 <CalculaPorcentoPosicaoEixoY>
+ 652:	0e 94 fc 02 	call	0x5f8	; 0x5f8 <CalculaPorcentoPosicaoEixoY>
 	
-	unsigned char convertido[5];
-	Usart_Transmit('[');
- 486:	8b e5       	ldi	r24, 0x5B	; 91
- 488:	90 e0       	ldi	r25, 0x00	; 0
- 48a:	0e 94 a8 02 	call	0x550	; 0x550 <Usart_Transmit>
-	CvrtNum2CaracterIndividual(valorLidoADEixoX, convertido);
- 48e:	c6 01       	movw	r24, r12
- 490:	8e 01       	movw	r16, r28
- 492:	0f 5f       	subi	r16, 0xFF	; 255
- 494:	1f 4f       	sbci	r17, 0xFF	; 255
- 496:	b8 01       	movw	r22, r16
- 498:	0e 94 48 01 	call	0x290	; 0x290 <CvrtNum2CaracterIndividual>
-	Usart_Write(convertido);
- 49c:	c8 01       	movw	r24, r16
- 49e:	0e 94 b8 02 	call	0x570	; 0x570 <Usart_Write>
-	Usart_Transmit(',');
- 4a2:	8c e2       	ldi	r24, 0x2C	; 44
- 4a4:	90 e0       	ldi	r25, 0x00	; 0
- 4a6:	0e 94 a8 02 	call	0x550	; 0x550 <Usart_Transmit>
-	CvrtNum2CaracterIndividual(valorLidoADEixoY, convertido);
- 4aa:	c7 01       	movw	r24, r14
- 4ac:	b8 01       	movw	r22, r16
- 4ae:	0e 94 48 01 	call	0x290	; 0x290 <CvrtNum2CaracterIndividual>
-	Usart_Write(convertido);
- 4b2:	c8 01       	movw	r24, r16
- 4b4:	0e 94 b8 02 	call	0x570	; 0x570 <Usart_Write>
-	Usart_Transmit(']');
- 4b8:	8d e5       	ldi	r24, 0x5D	; 93
- 4ba:	90 e0       	ldi	r25, 0x00	; 0
- 4bc:	0e 94 a8 02 	call	0x550	; 0x550 <Usart_Transmit>
+	uint8_t duty = 0;
+	unsigned char sentido = CalculaSentido();
+ 656:	0e 94 81 02 	call	0x502	; 0x502 <CalculaSentido>
+	switch(sentido) {
+ 65a:	86 34       	cpi	r24, 0x46	; 70
+ 65c:	59 f0       	breq	.+22     	; 0x674 <CalculaDutyCycleLadoEsq+0x2a>
+ 65e:	87 34       	cpi	r24, 0x47	; 71
+ 660:	18 f4       	brcc	.+6      	; 0x668 <CalculaDutyCycleLadoEsq+0x1e>
+ 662:	84 34       	cpi	r24, 0x44	; 68
+ 664:	29 f4       	brne	.+10     	; 0x670 <CalculaDutyCycleLadoEsq+0x26>
+ 666:	06 c0       	rjmp	.+12     	; 0x674 <CalculaDutyCycleLadoEsq+0x2a>
+ 668:	82 35       	cpi	r24, 0x52	; 82
+ 66a:	21 f0       	breq	.+8      	; 0x674 <CalculaDutyCycleLadoEsq+0x2a>
+ 66c:	84 35       	cpi	r24, 0x54	; 84
+ 66e:	11 f0       	breq	.+4      	; 0x674 <CalculaDutyCycleLadoEsq+0x2a>
+{
+	uint16_t valorLidoADEixoX = ValorLidoADEixoX(); 
+	uint16_t valorLidoADEixoY = ValorLidoADEixoY();
+	uint8_t valorPorCentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
 	
-	uint16_t duty = 0;
-	/*Andando Reverse*/
-	if (valorLidoADEixoY < limInfPontoInicY_g) 
- 4c0:	80 91 09 01 	lds	r24, 0x0109
- 4c4:	90 91 0a 01 	lds	r25, 0x010A
- 4c8:	e8 16       	cp	r14, r24
- 4ca:	f9 06       	cpc	r15, r25
- 4cc:	c8 f0       	brcs	.+50     	; 0x500 <CalculaDutyCycleLadoDir+0xa4>
-		duty = 100;
+	uint8_t duty = 0;
+ 670:	80 e0       	ldi	r24, 0x00	; 0
+ 672:	08 95       	ret
+	switch(sentido) {
+		case 'F'://Andando Frente
+		case 'D'://Andando Frente Direita
+		case 'T'://Andando Tras
+		case 'R'://Andando Tras Direita
+			duty = 100;
+ 674:	84 e6       	ldi	r24, 0x64	; 100
+		case 'P'://Parado
+			duty = 0;
+			break;
+	}
+	return duty;
+}
+ 676:	08 95       	ret
+
+00000678 <CalculaDutyCycleLadoDir>:
+
+//---------------------------------------------------------------------------
+
+uint8_t CalculaDutyCycleLadoDir()
+{
+	uint16_t valorLidoADEixoX = ValorLidoADEixoX(); 
+ 678:	0e 94 43 02 	call	0x486	; 0x486 <ValorLidoADEixoX>
+	uint16_t valorLidoADEixoY = ValorLidoADEixoY();
+ 67c:	0e 94 47 02 	call	0x48e	; 0x48e <ValorLidoADEixoY>
+	uint8_t valorPorCentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
+ 680:	0e 94 fc 02 	call	0x5f8	; 0x5f8 <CalculaPorcentoPosicaoEixoY>
 		
-	/*Andando reto frente*/
-	else if (PontoXNaPosInic() && !PontoYNaPosInic())
- 4ce:	0e 94 6c 01 	call	0x2d8	; 0x2d8 <PontoXNaPosInic>
- 4d2:	88 23       	and	r24, r24
- 4d4:	21 f0       	breq	.+8      	; 0x4de <CalculaDutyCycleLadoDir+0x82>
- 4d6:	0e 94 87 01 	call	0x30e	; 0x30e <PontoYNaPosInic>
- 4da:	88 23       	and	r24, r24
- 4dc:	a1 f0       	breq	.+40     	; 0x506 <CalculaDutyCycleLadoDir+0xaa>
-		duty = 100;
-			
-	/*Andando para direita*/
-	else if ((valorLidoADEixoX > limSupPontoInicX_g)) 
- 4de:	80 91 05 01 	lds	r24, 0x0105
- 4e2:	90 91 06 01 	lds	r25, 0x0106
- 4e6:	8c 15       	cp	r24, r12
- 4e8:	9d 05       	cpc	r25, r13
- 4ea:	80 f0       	brcs	.+32     	; 0x50c <CalculaDutyCycleLadoDir+0xb0>
-		duty = 0;
-	
-	/*Andando para esquerda*/
-	else if ((valorLidoADEixoX < limInfPontoInicX_g)) 
- 4ec:	80 91 03 01 	lds	r24, 0x0103
- 4f0:	90 91 04 01 	lds	r25, 0x0104
- 4f4:	c8 16       	cp	r12, r24
- 4f6:	d9 06       	cpc	r13, r25
- 4f8:	60 f0       	brcs	.+24     	; 0x512 <CalculaDutyCycleLadoDir+0xb6>
-	Usart_Transmit(',');
-	CvrtNum2CaracterIndividual(valorLidoADEixoY, convertido);
-	Usart_Write(convertido);
-	Usart_Transmit(']');
-	
-	uint16_t duty = 0;
- 4fa:	20 e0       	ldi	r18, 0x00	; 0
- 4fc:	30 e0       	ldi	r19, 0x00	; 0
- 4fe:	0b c0       	rjmp	.+22     	; 0x516 <CalculaDutyCycleLadoDir+0xba>
-	/*Andando Reverse*/
-	if (valorLidoADEixoY < limInfPontoInicY_g) 
-		duty = 100;
- 500:	24 e6       	ldi	r18, 0x64	; 100
- 502:	30 e0       	ldi	r19, 0x00	; 0
- 504:	08 c0       	rjmp	.+16     	; 0x516 <CalculaDutyCycleLadoDir+0xba>
+	uint8_t duty = 0;
+	unsigned char sentido = CalculaSentido();
+ 684:	0e 94 81 02 	call	0x502	; 0x502 <CalculaSentido>
+	switch(sentido) {
+ 688:	85 34       	cpi	r24, 0x45	; 69
+ 68a:	30 f0       	brcs	.+12     	; 0x698 <CalculaDutyCycleLadoDir+0x20>
+ 68c:	87 34       	cpi	r24, 0x47	; 71
+ 68e:	30 f0       	brcs	.+12     	; 0x69c <CalculaDutyCycleLadoDir+0x24>
+ 690:	8c 34       	cpi	r24, 0x4C	; 76
+ 692:	21 f0       	breq	.+8      	; 0x69c <CalculaDutyCycleLadoDir+0x24>
+ 694:	84 35       	cpi	r24, 0x54	; 84
+ 696:	11 f0       	breq	.+4      	; 0x69c <CalculaDutyCycleLadoDir+0x24>
+{
+	uint16_t valorLidoADEixoX = ValorLidoADEixoX(); 
+	uint16_t valorLidoADEixoY = ValorLidoADEixoY();
+	uint8_t valorPorCentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
 		
-	/*Andando reto frente*/
-	else if (PontoXNaPosInic() && !PontoYNaPosInic())
-		duty = 100;
- 506:	24 e6       	ldi	r18, 0x64	; 100
- 508:	30 e0       	ldi	r19, 0x00	; 0
- 50a:	05 c0       	rjmp	.+10     	; 0x516 <CalculaDutyCycleLadoDir+0xba>
-			
-	/*Andando para direita*/
-	else if ((valorLidoADEixoX > limSupPontoInicX_g)) 
-		duty = 0;
- 50c:	20 e0       	ldi	r18, 0x00	; 0
- 50e:	30 e0       	ldi	r19, 0x00	; 0
- 510:	02 c0       	rjmp	.+4      	; 0x516 <CalculaDutyCycleLadoDir+0xba>
-	
-	/*Andando para esquerda*/
-	else if ((valorLidoADEixoX < limInfPontoInicX_g)) 
-		duty = 100;
- 512:	24 e6       	ldi	r18, 0x64	; 100
- 514:	30 e0       	ldi	r19, 0x00	; 0
+	uint8_t duty = 0;
+ 698:	80 e0       	ldi	r24, 0x00	; 0
+ 69a:	08 95       	ret
+	switch(sentido) {
+		case 'F'://Andando Frente
+		case 'E'://Andando Frente Esquerda
+		case 'T'://Andando Tras
+		case 'L'://Andando Tras Esquerda
+			duty = 100;
+ 69c:	84 e6       	ldi	r24, 0x64	; 100
+			duty = 0;
+			break;
+	}
 		
 	return duty;
 }
- 516:	82 2f       	mov	r24, r18
- 518:	93 2f       	mov	r25, r19
- 51a:	0f 90       	pop	r0
- 51c:	0f 90       	pop	r0
- 51e:	0f 90       	pop	r0
- 520:	0f 90       	pop	r0
- 522:	0f 90       	pop	r0
- 524:	cf 91       	pop	r28
- 526:	df 91       	pop	r29
- 528:	1f 91       	pop	r17
- 52a:	0f 91       	pop	r16
- 52c:	ff 90       	pop	r15
- 52e:	ef 90       	pop	r14
- 530:	df 90       	pop	r13
- 532:	cf 90       	pop	r12
- 534:	08 95       	ret
+ 69e:	08 95       	ret
 
-00000536 <Usart_Init>:
+000006a0 <Usart_Init>:
 {
 	/*UBRR - Usart Baud Rate Register[UBRR] 12 bits
 	* Bit 15:12		Reservado	Para uso futuro. Deve ser escrito 0. 
 	* Bit 11:0		UBRR		Baud Rate
 	*/
 	UBRR0H = (unsigned char) (ubrr >> 8);        
- 536:	90 93 c5 00 	sts	0x00C5, r25
+ 6a0:	90 93 c5 00 	sts	0x00C5, r25
 	UBRR0L = (unsigned char) ubrr;
- 53a:	80 93 c4 00 	sts	0x00C4, r24
+ 6a4:	80 93 c4 00 	sts	0x00C4, r24
 	* bit 2		0:	  R:	UPEn:	0=Sem erro, 1=Erro de paridade
 	* bit 1		0:	R/W:	U2Xn:	0=desabilita, 1=Dobra velocidade TX (apenas modo assincrono)	
 	* bit 0		0:	  R:	MPCMn:	0=Desabilita, 1=Modo comunicação multi processo
 	*OBS: sempre zerar bit 4:2 quando escrever no UCSR0A.
 	*/
 	UCSR0A = 0b00000000;
- 53e:	10 92 c0 00 	sts	0x00C0, r1
+ 6a8:	10 92 c0 00 	sts	0x00C0, r1
 	* bit 3		0:	R/W:	TXENn:		0=Des. TX, 1=Habilita
 	* bit 2		0:	R/W:	UCSZn2:		Seta bits tamanho do frame. Combinado com UCSZn1 e UCSZn0
 	* bit 1		0:	  R:	RXB8n:		9° bit RX quando frame 9 bits
 	* bit 0		0:	R/W:	TXB8n:		9° bit TX quando frame 9 bits
 	*/				
 	UCSR0B = 0b10011000;
- 542:	88 e9       	ldi	r24, 0x98	; 152
- 544:	80 93 c1 00 	sts	0x00C1, r24
+ 6ac:	88 e9       	ldi	r24, 0x98	; 152
+ 6ae:	80 93 c1 00 	sts	0x00C1, r24
 	* bit 2-1	0:	R/W:	UCSZn1:0:	Combinado com UCSZn2:0.	100, 101, 110= Reservados.
 	*									000=Frame Cinco bits, 001=Seis, 010= Sete, 011=Oito, 111=Nove
 	* bit 0		0:	R/W:	UCPOLn:		Somento modo Sincrono. 0=TX borda subido e RX descida.
 															   1=TX borda descida e RX subida.
 	*/
 	UCSR0C = 0b00000110;
- 548:	86 e0       	ldi	r24, 0x06	; 6
- 54a:	80 93 c2 00 	sts	0x00C2, r24
+ 6b2:	86 e0       	ldi	r24, 0x06	; 6
+ 6b4:	80 93 c2 00 	sts	0x00C2, r24
 	//		   ||||||||
 	//		   76543210		
 }
- 54e:	08 95       	ret
+ 6b8:	08 95       	ret
 
-00000550 <Usart_Transmit>:
+000006ba <Usart_Transmit>:
 //---------------------------------------------------------------------------
 
 void Usart_Transmit(unsigned char dado)
 {
 	/*wait for empty transmit buffer*/
 	while (!( UCSR0A & (1<<UDRE0)) );	
- 550:	e0 ec       	ldi	r30, 0xC0	; 192
- 552:	f0 e0       	ldi	r31, 0x00	; 0
- 554:	90 81       	ld	r25, Z
- 556:	95 ff       	sbrs	r25, 5
- 558:	fd cf       	rjmp	.-6      	; 0x554 <Usart_Transmit+0x4>
+ 6ba:	e0 ec       	ldi	r30, 0xC0	; 192
+ 6bc:	f0 e0       	ldi	r31, 0x00	; 0
+ 6be:	90 81       	ld	r25, Z
+ 6c0:	95 ff       	sbrs	r25, 5
+ 6c2:	fd cf       	rjmp	.-6      	; 0x6be <Usart_Transmit+0x4>
 	
 	/*put data into buffer, sends the data*/
 	UDR0 = dado; 				
- 55a:	80 93 c6 00 	sts	0x00C6, r24
+ 6c4:	80 93 c6 00 	sts	0x00C6, r24
 }
- 55e:	08 95       	ret
+ 6c8:	08 95       	ret
 
-00000560 <Usart_Receive>:
+000006ca <Usart_Receive>:
 //---------------------------------------------------------------------------
 
 unsigned char Usart_Receive()
 {
 	/*wait for data to be receive*/
 	while (!(UCSR0A & (1<<RXC0)));	
- 560:	e0 ec       	ldi	r30, 0xC0	; 192
- 562:	f0 e0       	ldi	r31, 0x00	; 0
- 564:	80 81       	ld	r24, Z
- 566:	88 23       	and	r24, r24
- 568:	ec f7       	brge	.-6      	; 0x564 <Usart_Receive+0x4>
+ 6ca:	e0 ec       	ldi	r30, 0xC0	; 192
+ 6cc:	f0 e0       	ldi	r31, 0x00	; 0
+ 6ce:	80 81       	ld	r24, Z
+ 6d0:	88 23       	and	r24, r24
+ 6d2:	ec f7       	brge	.-6      	; 0x6ce <Usart_Receive+0x4>
 	
 	/*read data into buffer, receive the data*/
 	return UDR0; 				
- 56a:	80 91 c6 00 	lds	r24, 0x00C6
+ 6d4:	80 91 c6 00 	lds	r24, 0x00C6
 }
- 56e:	08 95       	ret
+ 6d8:	08 95       	ret
 
-00000570 <Usart_Write>:
+000006da <Usart_Write>:
 
 //---------------------------------------------------------------------------
 
 void Usart_Write(char *c)		
 {
- 570:	cf 93       	push	r28
- 572:	df 93       	push	r29
- 574:	ec 01       	movw	r28, r24
+ 6da:	cf 93       	push	r28
+ 6dc:	df 93       	push	r29
+ 6de:	ec 01       	movw	r28, r24
    for (; *c!=0;c++) Usart_Transmit(*c);
- 576:	88 81       	ld	r24, Y
- 578:	88 23       	and	r24, r24
- 57a:	31 f0       	breq	.+12     	; 0x588 <Usart_Write+0x18>
+ 6e0:	88 81       	ld	r24, Y
+ 6e2:	88 23       	and	r24, r24
+ 6e4:	31 f0       	breq	.+12     	; 0x6f2 <Usart_Write+0x18>
 	return UDR0; 				
 }
 
 //---------------------------------------------------------------------------
 
 void Usart_Write(char *c)		
- 57c:	21 96       	adiw	r28, 0x01	; 1
+ 6e6:	21 96       	adiw	r28, 0x01	; 1
 {
    for (; *c!=0;c++) Usart_Transmit(*c);
- 57e:	0e 94 a8 02 	call	0x550	; 0x550 <Usart_Transmit>
- 582:	89 91       	ld	r24, Y+
- 584:	88 23       	and	r24, r24
- 586:	d9 f7       	brne	.-10     	; 0x57e <Usart_Write+0xe>
+ 6e8:	0e 94 5d 03 	call	0x6ba	; 0x6ba <Usart_Transmit>
+ 6ec:	89 91       	ld	r24, Y+
+ 6ee:	88 23       	and	r24, r24
+ 6f0:	d9 f7       	brne	.-10     	; 0x6e8 <Usart_Write+0xe>
 }
- 588:	df 91       	pop	r29
- 58a:	cf 91       	pop	r28
- 58c:	08 95       	ret
+ 6f2:	df 91       	pop	r29
+ 6f4:	cf 91       	pop	r28
+ 6f6:	08 95       	ret
 
-0000058e <Usart_Write_Flash>:
+000006f8 <Usart_Write_Flash>:
 
 //---------------------------------------------------------------------------
 
 void Usart_Write_Flash(const char *c)	
 {
- 58e:	cf 93       	push	r28
- 590:	df 93       	push	r29
- 592:	ec 01       	movw	r28, r24
+ 6f8:	cf 93       	push	r28
+ 6fa:	df 93       	push	r29
+ 6fc:	ec 01       	movw	r28, r24
    for (;pgm_read_byte(&(*c))!=0;c++) Usart_Transmit(pgm_read_byte(&(*c)));
- 594:	fe 01       	movw	r30, r28
- 596:	24 91       	lpm	r18, Z+
- 598:	22 23       	and	r18, r18
- 59a:	51 f0       	breq	.+20     	; 0x5b0 <Usart_Write_Flash+0x22>
- 59c:	fc 01       	movw	r30, r24
- 59e:	84 91       	lpm	r24, Z+
- 5a0:	0e 94 a8 02 	call	0x550	; 0x550 <Usart_Transmit>
- 5a4:	21 96       	adiw	r28, 0x01	; 1
- 5a6:	ce 01       	movw	r24, r28
- 5a8:	fe 01       	movw	r30, r28
- 5aa:	24 91       	lpm	r18, Z+
- 5ac:	22 23       	and	r18, r18
- 5ae:	b1 f7       	brne	.-20     	; 0x59c <Usart_Write_Flash+0xe>
+ 6fe:	fe 01       	movw	r30, r28
+ 700:	24 91       	lpm	r18, Z+
+ 702:	22 23       	and	r18, r18
+ 704:	51 f0       	breq	.+20     	; 0x71a <Usart_Write_Flash+0x22>
+ 706:	fc 01       	movw	r30, r24
+ 708:	84 91       	lpm	r24, Z+
+ 70a:	0e 94 5d 03 	call	0x6ba	; 0x6ba <Usart_Transmit>
+ 70e:	21 96       	adiw	r28, 0x01	; 1
+ 710:	ce 01       	movw	r24, r28
+ 712:	fe 01       	movw	r30, r28
+ 714:	24 91       	lpm	r18, Z+
+ 716:	22 23       	and	r18, r18
+ 718:	b1 f7       	brne	.-20     	; 0x706 <Usart_Write_Flash+0xe>
 }
- 5b0:	df 91       	pop	r29
- 5b2:	cf 91       	pop	r28
- 5b4:	08 95       	ret
+ 71a:	df 91       	pop	r29
+ 71c:	cf 91       	pop	r28
+ 71e:	08 95       	ret
 
-000005b6 <__udivmodhi4>:
- 5b6:	aa 1b       	sub	r26, r26
- 5b8:	bb 1b       	sub	r27, r27
- 5ba:	51 e1       	ldi	r21, 0x11	; 17
- 5bc:	07 c0       	rjmp	.+14     	; 0x5cc <__udivmodhi4_ep>
+00000720 <__udivmodhi4>:
+ 720:	aa 1b       	sub	r26, r26
+ 722:	bb 1b       	sub	r27, r27
+ 724:	51 e1       	ldi	r21, 0x11	; 17
+ 726:	07 c0       	rjmp	.+14     	; 0x736 <__udivmodhi4_ep>
 
-000005be <__udivmodhi4_loop>:
- 5be:	aa 1f       	adc	r26, r26
- 5c0:	bb 1f       	adc	r27, r27
- 5c2:	a6 17       	cp	r26, r22
- 5c4:	b7 07       	cpc	r27, r23
- 5c6:	10 f0       	brcs	.+4      	; 0x5cc <__udivmodhi4_ep>
- 5c8:	a6 1b       	sub	r26, r22
- 5ca:	b7 0b       	sbc	r27, r23
+00000728 <__udivmodhi4_loop>:
+ 728:	aa 1f       	adc	r26, r26
+ 72a:	bb 1f       	adc	r27, r27
+ 72c:	a6 17       	cp	r26, r22
+ 72e:	b7 07       	cpc	r27, r23
+ 730:	10 f0       	brcs	.+4      	; 0x736 <__udivmodhi4_ep>
+ 732:	a6 1b       	sub	r26, r22
+ 734:	b7 0b       	sbc	r27, r23
 
-000005cc <__udivmodhi4_ep>:
- 5cc:	88 1f       	adc	r24, r24
- 5ce:	99 1f       	adc	r25, r25
- 5d0:	5a 95       	dec	r21
- 5d2:	a9 f7       	brne	.-22     	; 0x5be <__udivmodhi4_loop>
- 5d4:	80 95       	com	r24
- 5d6:	90 95       	com	r25
- 5d8:	bc 01       	movw	r22, r24
- 5da:	cd 01       	movw	r24, r26
- 5dc:	08 95       	ret
+00000736 <__udivmodhi4_ep>:
+ 736:	88 1f       	adc	r24, r24
+ 738:	99 1f       	adc	r25, r25
+ 73a:	5a 95       	dec	r21
+ 73c:	a9 f7       	brne	.-22     	; 0x728 <__udivmodhi4_loop>
+ 73e:	80 95       	com	r24
+ 740:	90 95       	com	r25
+ 742:	bc 01       	movw	r22, r24
+ 744:	cd 01       	movw	r24, r26
+ 746:	08 95       	ret
 
-000005de <_exit>:
- 5de:	f8 94       	cli
+00000748 <_exit>:
+ 748:	f8 94       	cli
 
-000005e0 <__stop_program>:
- 5e0:	ff cf       	rjmp	.-2      	; 0x5e0 <__stop_program>
+0000074a <__stop_program>:
+ 74a:	ff cf       	rjmp	.-2      	; 0x74a <__stop_program>
