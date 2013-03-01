@@ -17,14 +17,30 @@ uint16_t pontoInicY_g = 498,
 
 uint16_t ValorLidoADEixoX()
 {
-	return ADC_Read(AD_EIXO_X);	
+	uint16_t adcX = ADC_Read(AD_EIXO_X);
+	
+	unsigned char caracConvertido[5];
+	CvrtNum2CaracterIndividual(adcX, caracConvertido);
+	LCD_setPos(2,0);
+	escreve_LCD("X: ");
+	escreve_LCD(caracConvertido);
+		
+	return adcX;	
 }
 
 //---------------------------------------------------------------------------
 
 uint16_t ValorLidoADEixoY()
 {
-	return ADC_Read(AD_EIXO_Y);	
+	uint16_t adcY = ADC_Read(AD_EIXO_Y);
+	
+	unsigned char caracConvertido[5];
+	CvrtNum2CaracterIndividual(adcY, caracConvertido);
+	LCD_setPos(2,8);
+	escreve_LCD("Y: ");
+	escreve_LCD(caracConvertido);
+	
+	return adcY;	
 }
 
 //---------------------------------------------------------------------------
@@ -93,14 +109,18 @@ uint8_t CalculaDutyCycleLadoDir()
 	unsigned char sentido = CalculaSentido();
 	switch(sentido) {
 		case 'F'://Andando Frente
-		case 'E'://Andando Frente Esquerda
 		case 'T'://Andando Tras
+			duty = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
+			break;
+				
+		case 'E'://Andando Frente Esquerda
 		case 'L'://Andando Tras Esquerda
 			duty = 100;
 			break;
-		
-		case 'D'://Andando Frente Direita
 		case 'R': //Andando Tras Direita
+		case 'D'://Andando Frente Direita
+			duty = 100 - CalculaPorcentoPosicaoEixoX(valorLidoADEixoX);
+			break;
 		case 'P'://Parado
 			duty = 0;
 			break;
@@ -121,14 +141,17 @@ uint8_t CalculaDutyCycleLadoEsq()
 	unsigned char sentido = CalculaSentido();
 	switch(sentido) {
 		case 'F'://Andando Frente
-		case 'D'://Andando Frente Direita
 		case 'T'://Andando Tras
+			duty = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
+			break;
+		case 'D'://Andando Frente Direita
 		case 'R'://Andando Tras Direita
 			duty = 100;
 			break;
-		
 		case 'E'://Andando Frente Esquerda
 		case 'L': //Andando Tras Esquerda
+			duty = 100 - CalculaPorcentoPosicaoEixoX(valorLidoADEixoX);
+			break;
 		case 'P'://Parado
 			duty = 0;
 			break;
@@ -138,7 +161,7 @@ uint8_t CalculaDutyCycleLadoEsq()
 
 //---------------------------------------------------------------------------
 
-uint16_t CalculaPorcentoPosicaoEixoY(
+uint8_t CalculaPorcentoPosicaoEixoY(
 	uint16_t valorLidoADEixoY
 ) 
 {
@@ -149,24 +172,63 @@ uint16_t CalculaPorcentoPosicaoEixoY(
 			 posYFrente25PorCento = 650,
 			 posYFrente0PorCento = 522;
 		 
-	uint16_t valorPorCentoEixoY; 
+	uint8_t valorPorCentoEixoY; 
 	
-	if (ValorLidoADEixoY() > posYFrente75PorCento) 
+	if (valorLidoADEixoY > posYFrente75PorCento) 
 		valorPorCentoEixoY = 100;
 				
-	else if(ValorLidoADEixoY() > posYFrente50PorCento) 
+	else if(valorLidoADEixoY > posYFrente50PorCento) 
 		valorPorCentoEixoY = 75;
 		
-	else if(ValorLidoADEixoY() > posYFrente25PorCento) 
+	else if(valorLidoADEixoY > posYFrente25PorCento) 
 		valorPorCentoEixoY = 50;
 		
-	else if(ValorLidoADEixoY() > posYFrente0PorCento) 
+	else if(valorLidoADEixoY > posYFrente0PorCento) 
 		valorPorCentoEixoY = 25;
 	
-	else 
+	else if(PontoYNaPosInic())
 		valorPorCentoEixoY = 0;
+		
+	/*Ré*/
+	else 
+		valorPorCentoEixoY = 100;
 	
 	return valorPorCentoEixoY;
 }
 
 //---------------------------------------------------------------------------
+
+uint8_t CalculaPorcentoPosicaoEixoX(
+	uint16_t valorLidoADEixoX
+) 
+{
+	/*Valores Empíricos*/
+	uint16_t posXFrente100PorCento = 1023,
+			 posXFrente75PorCento = 900,
+			 posXFrente50PorCento = 775,
+			 posXFrente25PorCento = 650,
+			 posXFrente0PorCento = 498;
+		 
+	uint16_t valorPorCentoEixoX; 
+	
+	if (valorLidoADEixoX > posXFrente75PorCento) 
+		valorPorCentoEixoX = 100;
+				
+	else if(valorLidoADEixoX > posXFrente50PorCento) 
+		valorPorCentoEixoX = 75;
+		
+	else if(valorLidoADEixoX > posXFrente25PorCento) 
+		valorPorCentoEixoX = 50;
+		
+	else if(valorLidoADEixoX > posXFrente0PorCento) 
+		valorPorCentoEixoX = 25;
+		
+	else if(PontoXNaPosInic())
+		valorPorCentoEixoX = 0;
+		
+	/*Ré*/
+	else 
+		valorPorCentoEixoX = 100;
+	
+	return valorPorCentoEixoX;
+}
