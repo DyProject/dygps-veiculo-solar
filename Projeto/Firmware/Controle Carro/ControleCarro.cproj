@@ -59,6 +59,12 @@
     <Compile Include="ControleCarro.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="direcao_def.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="globals_def.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="usart_def.c">
       <SubType>compile</SubType>
     </Compile>

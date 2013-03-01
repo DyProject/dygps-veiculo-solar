@@ -13,27 +13,6 @@
 #include <avr/io.h>
 
 //----------------------------------------------------------------------------
-
-#define BT_FRENTE			PB0
-#define BT_RE				PB1
-#define BT_DIREITA          PB2
-#define BT_ESQUERDA			PB3
-
-#define PINO_BOTOES			PINB
-
-#define BT_FRENTE_ISPRESSED()		(!tst_bit(PINO_BOTOES, BT_FRENTE))
-#define BT_RE_ISPRESSED()			(!tst_bit(PINO_BOTOES, BT_RE))
-#define BT_DIREITA_ISPRESSED()		(!tst_bit(PINO_BOTOES, BT_DIREITA))
-#define BT_ESQUERDA_ISPRESSED()		(!tst_bit(PINO_BOTOES, BT_ESQUERDA))
- 
-//----------------------------------------------------------------------------
-
-typedef enum {
-	PARADO = 1, ANDANDO_FRENTE,  ANDANDO_FRENTE_DIREITA, ANDANDO_FRENTE_ESQUERDA, 
-	ANDANDO_TRAS, ANDANDO_TRAS_DIREITA, ANDANDO_TRAS_ESQUERDA,
-	}TEstadoCarro;
-	
-//----------------------------------------------------------------------------
 	
 unsigned char DirecaoCarro(
 	unsigned char sentido
@@ -45,6 +24,16 @@ void TransmitiBuffer(
 	unsigned char direcao
 );
  
+void Inicializacoes();
+
+void MostraDadosLCD(
+	uint16_t dutyLadoEsq, 
+	uint16_t dutyLadoDir, 
+	unsigned char direcao
+);
+
+void Protocolo();
+
  //----------------------------------------------------------------------------
  
 #endif 
