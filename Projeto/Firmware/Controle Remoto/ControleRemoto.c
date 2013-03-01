@@ -91,7 +91,7 @@ void MostraDadosLCD(
 	unsigned char direcao
 )
 {
-	LCD_setPos(1,1);
+	LCD_setPos(1,0);
 	EscreveCaracterLCD('[');	
 	EscreveCaracterLCD(direcao);
 	EscreveCaracterLCD(']');	
