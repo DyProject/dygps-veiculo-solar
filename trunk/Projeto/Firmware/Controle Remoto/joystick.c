@@ -1,10 +1,17 @@
 #include "joyStick.h"
 
-#include "adc_def.h"
-
 #include <math.h>
 
+#include "adc_def.h"
+
 //---------------------------------------------------------------------------
+
+typedef enum {
+	PARADO = 1, ANDANDO_FRENTE, ANDANDO_TRAS, ANDANDO_FRENTE_DIREITA, ANDANDO_FRENTE_ESQUERDA,
+	ANDANDO_TRAS_DIREITA, ANDANDO_TRAS_ESQUERDA 
+	}TEstadoCarro;
+	
+volatile TEstadoCarro estadoCarro_g = PARADO;
 
 uint16_t pontoInicX_g = 522,
 		 limInfPontoInicX_g = 502,
@@ -55,6 +62,40 @@ uint8_t PontoXNaPosInic()
 uint8_t PontoYNaPosInic()
 {
 	return ((ValorLidoADEixoY() >= limInfPontoInicY_g ) && (ValorLidoADEixoY() <= limSupPontoInicY_g));	
+}
+
+//---------------------------------------------------------------------------
+
+unsigned char DirecaoCarro()
+{
+	unsigned char sentido = CalculaSentido();
+	unsigned char direcao;
+	switch(estadoCarro_g) {
+		case PARADO:
+			if((sentido == 'F') || (sentido == 'D') || (sentido == 'E')) {
+				direcao = 'F';
+				estadoCarro_g = ANDANDO_FRENTE;
+			}				
+			else if((sentido == 'T') || (sentido == 'R') || (sentido == 'L')) {
+				direcao = 'T';
+				estadoCarro_g = ANDANDO_TRAS;
+			}else direcao = 'P';
+			break;	
+		
+		case ANDANDO_FRENTE:
+			if ((sentido == 'T') || (sentido == 'R') || (sentido == 'L') || (sentido == 'P')) {
+				direcao = 'P';
+				estadoCarro_g = PARADO;
+			}else direcao = 'F';	
+			break;			
+		
+		case ANDANDO_TRAS:
+			if ((sentido == 'F') || (sentido == 'D') || (sentido == 'E') || (sentido == 'P')) {
+				direcao = 'P';
+				estadoCarro_g = PARADO;
+			}else direcao = 'T';	
+			break;			
+	}
 }
 
 //---------------------------------------------------------------------------
@@ -170,29 +211,29 @@ uint8_t CalculaPorcentoPosicaoEixoY(
 			 posYFrente75PorCento = 900,
 			 posYFrente50PorCento = 775,
 			 posYFrente25PorCento = 650,
-			 posYFrente0PorCento = 522;
+			 posYTras100PorCento = 0,
+			 posYTras75PorCento = 300,
+			 posYTras50PorCento = 390,
+			 posYTras25PorCento = 480,
+			 posY0PorCento = 522;		
 		 
 	uint8_t valorPorCentoEixoY; 
 	
-	if (valorLidoADEixoY > posYFrente75PorCento) 
+	if ((valorLidoADEixoY > posYFrente75PorCento) || (valorLidoADEixoY < posYTras75PorCento)) 
 		valorPorCentoEixoY = 100;
 				
-	else if(valorLidoADEixoY > posYFrente50PorCento) 
+	else if((valorLidoADEixoY > posYFrente50PorCento) || (valorLidoADEixoY < posYTras50PorCento)) 
 		valorPorCentoEixoY = 75;
 		
-	else if(valorLidoADEixoY > posYFrente25PorCento) 
+	else if((valorLidoADEixoY > posYFrente25PorCento) || (valorLidoADEixoY < posYTras25PorCento)) 
 		valorPorCentoEixoY = 50;
-		
-	else if(valorLidoADEixoY > posYFrente0PorCento) 
-		valorPorCentoEixoY = 25;
 	
 	else if(PontoYNaPosInic())
 		valorPorCentoEixoY = 0;
-		
-	/*Ré*/
-	else 
-		valorPorCentoEixoY = 100;
-	
+			
+	else  
+		valorPorCentoEixoY = 25;
+				
 	return valorPorCentoEixoY;
 }
 
@@ -207,28 +248,30 @@ uint8_t CalculaPorcentoPosicaoEixoX(
 			 posXFrente75PorCento = 900,
 			 posXFrente50PorCento = 775,
 			 posXFrente25PorCento = 650,
-			 posXFrente0PorCento = 498;
+			 posXTras100PorCento = 0,
+			 posXTras75PorCento = 300,
+			 posXTras50PorCento = 390,
+			 posXTras25PorCento = 480,
+			 posX0PorCento = 498;
 		 
 	uint16_t valorPorCentoEixoX; 
 	
-	if (valorLidoADEixoX > posXFrente75PorCento) 
+	if ((valorLidoADEixoX > posXFrente75PorCento) ||  (valorLidoADEixoX < posXTras75PorCento) ) 
 		valorPorCentoEixoX = 100;
 				
-	else if(valorLidoADEixoX > posXFrente50PorCento) 
+	else if((valorLidoADEixoX > posXFrente50PorCento) || (valorLidoADEixoX < posXTras50PorCento)) 
 		valorPorCentoEixoX = 75;
 		
-	else if(valorLidoADEixoX > posXFrente25PorCento) 
+	else if((valorLidoADEixoX > posXFrente25PorCento) || (valorLidoADEixoX < posXTras25PorCento) ) 
 		valorPorCentoEixoX = 50;
-		
-	else if(valorLidoADEixoX > posXFrente0PorCento) 
-		valorPorCentoEixoX = 25;
-		
+				
 	else if(PontoXNaPosInic())
 		valorPorCentoEixoX = 0;
-		
-	/*Ré*/
+	
 	else 
-		valorPorCentoEixoX = 100;
+		valorPorCentoEixoX = 25;
 	
 	return valorPorCentoEixoX;
 }
+
+//---------------------------------------------------------------------------

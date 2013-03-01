@@ -36,6 +36,8 @@ SUBDIRS :=
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../ControleCarro.c \
+../direcao_def.c \
+../globals_def.c \
 ../usart_def.c
 
 
@@ -47,21 +49,29 @@ ASM_SRCS +=
 
 OBJS +=  \
 ControleCarro.o \
+direcao_def.o \
+globals_def.o \
 usart_def.o
 
 
 OBJS_AS_ARGS +=  \
 ControleCarro.o \
+direcao_def.o \
+globals_def.o \
 usart_def.o
 
 
 C_DEPS +=  \
 ControleCarro.d \
+direcao_def.d \
+globals_def.d \
 usart_def.d
 
 
 C_DEPS_AS_ARGS +=  \
 ControleCarro.d \
+direcao_def.d \
+globals_def.d \
 usart_def.d
 
 
@@ -74,6 +84,10 @@ ADDITIONAL_DEPENDENCIES:=
 OUTPUT_FILE_DEP:= ./makedep.mk
 
 # AVR32/GNU C Compiler
+
+
+
+
 
 
 

@@ -29,6 +29,8 @@ uint8_t CalculaPorcentoPosicaoEixoX(
 	uint16_t valorLidoADEixoY
 );
 
+unsigned char DirecaoCarro();
+
 //---------------------------------------------------------------------------
 
 #endif

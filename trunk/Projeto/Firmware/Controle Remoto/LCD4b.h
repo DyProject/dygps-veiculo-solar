@@ -1,3 +1,6 @@
+#ifndef _LCD4BITS_H_
+#define _LCD4BITS_H_
+
 #include <avr/io.h> 	    //definições do componente especificado
 #include <util/delay.h>		//biblioteca para o uso das rotinas de _delay_ms e _delay_us()
 
@@ -127,5 +130,6 @@ void Limpa_matriz_LCD(int posx,int posy,int limpa) {
 	for(x=0;x<limpa;x++){
 		cmd_LCD(0x20,1);
 	}
-	
 }
+
+#endif

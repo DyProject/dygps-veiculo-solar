@@ -4,5 +4,9 @@
 
 ControleCarro.c
 
+direcao_def.c
+
+globals_def.c
+
 usart_def.c
 
