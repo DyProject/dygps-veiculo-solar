@@ -4,6 +4,12 @@
 
 //----------------------------------------------------------------------------
 
+#define AJUSTE_AD			0.0493
+#define ATIVA_RELE()		(PORTB |= (1 << PB0))
+#define DESATIVA_RELE()		(PORTB &= ~(1 << PB0))	
+
+//----------------------------------------------------------------------------
+
 volatile TEstadoCarro estadoCarro_g;
 BufferRecep bufferRecepcao_g;
 
@@ -64,6 +70,10 @@ void ConfiguracoesDirecaoInit()
 	DDRB  |= (1 << IN1) | (1 << IN3);		
 	PORTB &= (~(1 << IN1)) & (~(1 << IN3)); 
 	
+	/*Pino relé*/	
+	DDRB |= (1 << PB0);
+	DESATIVA_RELE();
+	
 	TCCR1A = 0b10100010;		//PWM não invertido nos pinos OC1A e OC1B
 	TCCR1B = 0b00011001;		//liga TC1, prescaler = 1
 	ICR1 = 35000;				//valor máximo para contagem
@@ -73,6 +83,11 @@ void ConfiguracoesDirecaoInit()
 	/*Configurações de inicialização d do buffer*/
 	bufferRecepcao_g.qntdDadosLido = 0;
 	bufferRecepcao_g.iniciado = 0;
+	
+	//Prescaler do Timer0, usado para fazer uma leitura do ADC.
+	TCCR0B = (1<<CS02) | (1<<CS00);
+					
+	ADC_Init();
 	
 	CarroParado();
 };
@@ -147,9 +162,10 @@ void AndandoTras()
 void CarroParado()
 {
 	_delay_us(10);
-	set_bit(PORTB,ENA_ENB);	
-	OCR1A = CalculaDutyCicleM1(100);
-	OCR1B = CalculaDutyCicleM2(100);
+	clr_bit(PORTB,ENA_ENB);	
+	set_bit(PORTB,IN1);	
+	set_bit(PORTB,IN3);	
+	set_bit(PORTB,IN2_IN4);	
 	estadoCarro_g = PARADO;
 }
 
@@ -175,6 +191,9 @@ void RecebeProtocolo()
 			
 			DirecaoCarro(bufferRecepcao_g);
 			
+			/*Indica recebimento do protocolo*/
+			Usart_Transmit('z');
+	
 			break;
 		}
 	}		

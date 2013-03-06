@@ -127,7 +127,7 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x472
+.text           0x00000000      0x462
  *(.vectors)
  .vectors       0x00000000       0x68 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328.o
                 0x00000000                __vector_default
@@ -209,37 +209,37 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
  .text          0x00000090       0x58 ControleCarro.o
                 0x00000090                __vector_18
                 0x000000d8                main
- .text          0x000000e8      0x27e direcao_def.o
+ .text          0x000000e8      0x26e direcao_def.o
                 0x000000e8                CalculaDutyCicleM1
                 0x0000012e                CalculaDutyCicleM2
                 0x00000174                AndandoFrente
                 0x000001a8                AndandoTras
                 0x000001dc                CarroParado
-                0x0000020a                DirecaoCarro
-                0x000002bc                ConfiguracoesDirecaoInit
-                0x0000030a                RecebeProtocolo
- .text          0x00000366       0x60 globals_def.o
-                0x00000366                CvrtNum2CaracterIndividual
- .text          0x000003c6       0x80 usart_def.o
-                0x000003c6                Usart_Init
-                0x000003e0                Usart_Transmit
-                0x000003f0                Usart_Receive
-                0x00000400                Usart_Write
-                0x0000041e                Usart_Write_Flash
- .text          0x00000446        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
- .text          0x00000446        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
- .text          0x00000446        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
-                0x00000446                . = ALIGN (0x2)
+                0x000001f4                DirecaoCarro
+                0x000002a6                ConfiguracoesDirecaoInit
+                0x000002f4                RecebeProtocolo
+ .text          0x00000356       0x60 globals_def.o
+                0x00000356                CvrtNum2CaracterIndividual
+ .text          0x000003b6       0x80 usart_def.o
+                0x000003b6                Usart_Init
+                0x000003d0                Usart_Transmit
+                0x000003e0                Usart_Receive
+                0x000003f0                Usart_Write
+                0x0000040e                Usart_Write_Flash
+ .text          0x00000436        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
+ .text          0x00000436        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
+ .text          0x00000436        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
+                0x00000436                . = ALIGN (0x2)
  *(.text.*)
- .text.libgcc   0x00000446       0x28 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
-                0x00000446                __udivmodhi4
- .text.libgcc   0x0000046e        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
- .text.libgcc   0x0000046e        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
-                0x0000046e                . = ALIGN (0x2)
+ .text.libgcc   0x00000436       0x28 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
+                0x00000436                __udivmodhi4
+ .text.libgcc   0x0000045e        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x0000045e        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
+                0x0000045e                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000046e        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
-                0x0000046e                _exit
-                0x0000046e                exit
+ .fini9         0x0000045e        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
+                0x0000045e                _exit
+                0x0000045e                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -258,11 +258,11 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000046e        0x4 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
+ .fini0         0x0000045e        0x4 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000472                _etext = .
+                0x00000462                _etext = .
 
-.data           0x00800100        0x0 load address 0x00000472
+.data           0x00800100        0x0 load address 0x00000462
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800100        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328.o
@@ -298,8 +298,8 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
                 0x00800100                estadoCarro_g
                 0x00800101                bufferRecepcao_g
                 0x00800106                PROVIDE (__bss_end, .)
-                0x00000472                __data_load_start = LOADADDR (.data)
-                0x00000472                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000462                __data_load_start = LOADADDR (.data)
+                0x00000462                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800106        0x0
                 0x00800106                PROVIDE (__noinit_start, .)
@@ -397,12 +397,12 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
  .debug_abbrev  0x000001ec       0x75 globals_def.o
  .debug_abbrev  0x00000261       0xc1 usart_def.o
 
-.debug_line     0x00000000      0x877
+.debug_line     0x00000000      0x887
  *(.debug_line)
  .debug_line    0x00000000       0x8e ControleCarro.o
- .debug_line    0x0000008e      0x4e9 direcao_def.o
- .debug_line    0x00000577      0x14d globals_def.o
- .debug_line    0x000006c4      0x1b3 usart_def.o
+ .debug_line    0x0000008e      0x4f9 direcao_def.o
+ .debug_line    0x00000587      0x14d globals_def.o
+ .debug_line    0x000006d4      0x1b3 usart_def.o
 
 .debug_frame    0x00000000      0x140
  *(.debug_frame)

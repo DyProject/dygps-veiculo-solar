@@ -3,15 +3,9 @@
 #include <math.h>
 
 #include "adc_def.h"
+#include "globals_def.h"
 
 //---------------------------------------------------------------------------
-
-typedef enum {
-	PARADO = 1, ANDANDO_FRENTE, ANDANDO_TRAS, ANDANDO_FRENTE_DIREITA, ANDANDO_FRENTE_ESQUERDA,
-	ANDANDO_TRAS_DIREITA, ANDANDO_TRAS_ESQUERDA 
-	}TEstadoCarro;
-	
-volatile TEstadoCarro estadoCarro_g = PARADO;
 
 uint16_t pontoInicX_g = 522,
 		 limInfPontoInicX_g = 502,
@@ -27,7 +21,7 @@ uint16_t ValorLidoADEixoX()
 	uint16_t adcX = ADC_Read(AD_EIXO_X);
 	
 	unsigned char caracConvertido[5];
-	CvrtNum2CaracterIndividual(adcX, caracConvertido);
+	CvrtNum2CaracterIndividual(adcX, caracConvertido, 5);
 	LCD_setPos(2,0);
 	escreve_LCD("X: ");
 	escreve_LCD(caracConvertido);
@@ -42,7 +36,7 @@ uint16_t ValorLidoADEixoY()
 	uint16_t adcY = ADC_Read(AD_EIXO_Y);
 	
 	unsigned char caracConvertido[5];
-	CvrtNum2CaracterIndividual(adcY, caracConvertido);
+	CvrtNum2CaracterIndividual(adcY, caracConvertido, 5);
 	LCD_setPos(2,8);
 	escreve_LCD("Y: ");
 	escreve_LCD(caracConvertido);
@@ -68,8 +62,10 @@ uint8_t PontoYNaPosInic()
 
 unsigned char DirecaoCarro()
 {
+	static TEstadoCarro estadoCarro_g = PARADO;
 	unsigned char sentido = CalculaSentido();
-	unsigned char direcao;
+		
+	unsigned char direcao = 'P';
 	switch(estadoCarro_g) {
 		case PARADO:
 			if((sentido == 'F') || (sentido == 'D') || (sentido == 'E')) {
@@ -94,15 +90,20 @@ unsigned char DirecaoCarro()
 				direcao = 'P';
 				estadoCarro_g = PARADO;
 			}else direcao = 'T';	
-			break;			
+			break;		
+			
+		default:
+			direcao = 'P';
 	}
+	
+	return direcao;
 }
 
 //---------------------------------------------------------------------------
 
 unsigned char CalculaSentido()
 {
-	unsigned char direcao;
+	unsigned char direcao = 'P';
 	uint16_t valorLidoADEixoX = ValorLidoADEixoX(); 
 	uint16_t valorLidoADEixoY = ValorLidoADEixoY();
 	
@@ -134,7 +135,7 @@ unsigned char CalculaSentido()
 		
 	else 
 		direcao = 'P';
-			
+		
 	return direcao;
 }
 
