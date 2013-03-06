@@ -25,7 +25,13 @@ void TransmitiBuffer(
 	buffer[2] = dutyLadoEsq;
 	buffer[3] = dutyLadoDir;
 	buffer[4] = '\0';
-	Usart_Write(buffer);
+	
+	Usart_Transmit(buffer[0]);
+	Usart_Transmit(buffer[1]);
+	Usart_Transmit(buffer[2]);
+	Usart_Transmit(buffer[3]);
+	
+	//Usart_Write(buffer);
 }
 
 //----------------------------------------------------------------------------
@@ -70,32 +76,19 @@ void MostraDadosLCD(
 
 void Protocolo()
 {
-	static uint8_t contador = 0;
+	unsigned char direcao;
+	unsigned char sentido;		
+	uint8_t dutyLadorEsq;
+	uint8_t dutyLadorDir;
 		
-	/*Envia o valor lido do ADC a cada 1s aproximadamente*/
-	if(contador == 32) {	
-		unsigned char direcao;
-		unsigned char sentido;		
-		uint8_t dutyLadorEsq;
-		uint8_t dutyLadorDir;
+	dutyLadorEsq = CalculaDutyCycleLadoEsq();
+	dutyLadorDir= CalculaDutyCycleLadoDir();
 		
-		dutyLadorEsq = CalculaDutyCycleLadoEsq();
-		dutyLadorDir= CalculaDutyCycleLadoDir();
+	sentido = CalculaSentido();
+	direcao = DirecaoCarro(sentido);
 		
-		sentido = CalculaSentido();
-		direcao = DirecaoCarro(sentido);
-		
-		TransmitiBuffer(dutyLadorEsq, dutyLadorDir, direcao);
-		MostraDadosLCD(dutyLadorEsq, dutyLadorDir, sentido);
-						
-		contador = 0;
-	}		
-	
-	contador++;
-	
-	/*Limpa o flag de overflow do Timer0. Esse flag indica que houve um estouro do timer.
-	limpar para habilitar um novo estouro para gerar a interrupção do ADC.*/
-	TIFR0 |= TOV0;
+	TransmitiBuffer(dutyLadorEsq, dutyLadorDir, direcao);
+	MostraDadosLCD(dutyLadorEsq, dutyLadorDir, sentido);
 }	
 
 //----------------------------------------------------------------------------
