@@ -13,26 +13,40 @@
 #include <avr/io.h>
 
 //----------------------------------------------------------------------------
+
+typedef struct{
+	unsigned char fonteAlimentacao;//painel 'P' ou bateria 'B'
+	uint8_t tensaoBateria;
+	uint8_t tensaoPainel;
+	uint8_t qntdDadosLido;
+	uint8_t iniciado;
+	uint8_t completo;
+}BufferRecep;
+
+typedef struct{
+	unsigned char fonteAlimentacao;//painel 'P' ou bateria 'B'
+	uint8_t tensaoBateria;
+	uint8_t tensaoPainel;
+	unsigned char direcao;
+	unsigned char sentido;		
+	uint8_t dutyLadoEsq;
+	uint8_t dutyLadoDir;
+}DadosLCD;	
+	
+//----------------------------------------------------------------------------
 	
 unsigned char DirecaoCarro(
 	unsigned char sentido
 );
 
-void TransmitiBuffer(
-	uint8_t dutyLadoEsq, 
-	uint8_t dutyLadoDir, 
-	unsigned char direcao
-);
+void TransmitiBuffer();
  
 void Inicializacoes();
 
-void MostraDadosLCD(
-	uint16_t dutyLadoEsq, 
-	uint16_t dutyLadoDir, 
-	unsigned char direcao
-);
+void MostraDadosLCD();
 
 void Protocolo();
+uint8_t RecebeProtocolo();
 
  //----------------------------------------------------------------------------
  

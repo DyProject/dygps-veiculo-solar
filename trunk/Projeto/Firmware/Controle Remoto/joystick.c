@@ -20,11 +20,11 @@ uint16_t ValorLidoADEixoX()
 {
 	uint16_t adcX = ADC_Read(AD_EIXO_X);
 	
-	unsigned char caracConvertido[5];
+	/*unsigned char caracConvertido[5];
 	CvrtNum2CaracterIndividual(adcX, caracConvertido, 5);
 	LCD_setPos(2,0);
 	escreve_LCD("X: ");
-	escreve_LCD(caracConvertido);
+	escreve_LCD(caracConvertido);*/
 		
 	return adcX;	
 }
@@ -35,11 +35,11 @@ uint16_t ValorLidoADEixoY()
 {
 	uint16_t adcY = ADC_Read(AD_EIXO_Y);
 	
-	unsigned char caracConvertido[5];
+	/*unsigned char caracConvertido[5];
 	CvrtNum2CaracterIndividual(adcY, caracConvertido, 5);
 	LCD_setPos(2,8);
 	escreve_LCD("Y: ");
-	escreve_LCD(caracConvertido);
+	escreve_LCD(caracConvertido);*/
 	
 	return adcY;	
 }
