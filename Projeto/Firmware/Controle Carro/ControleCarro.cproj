@@ -56,6 +56,9 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="adc_def.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="ControleCarro.c">
       <SubType>compile</SubType>
     </Compile>

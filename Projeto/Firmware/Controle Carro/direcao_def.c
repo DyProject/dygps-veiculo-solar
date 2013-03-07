@@ -1,12 +1,7 @@
 #include "direcao_def.h"
 
+#include "adc_def.h"
 #include "usart_def.h"
-
-//----------------------------------------------------------------------------
-
-#define AJUSTE_AD			0.0493
-#define ATIVA_RELE()		(PORTB |= (1 << PB0))
-#define DESATIVA_RELE()		(PORTB &= ~(1 << PB0))	
 
 //----------------------------------------------------------------------------
 
@@ -71,8 +66,9 @@ void ConfiguracoesDirecaoInit()
 	PORTB &= (~(1 << IN1)) & (~(1 << IN3)); 
 	
 	/*Pino relé*/	
-	DDRB |= (1 << PB0);
-	DESATIVA_RELE();
+	RELE_PORT |= (1 << RELE_PAINEL_MOTOR) | (1 << RELE_TENSAO_PAINEL);
+	DESATIVA_RELE(RELE_PAINEL_MOTOR);
+	DESATIVA_RELE(RELE_TENSAO_PAINEL);
 	
 	TCCR1A = 0b10100010;		//PWM não invertido nos pinos OC1A e OC1B
 	TCCR1B = 0b00011001;		//liga TC1, prescaler = 1
@@ -83,6 +79,7 @@ void ConfiguracoesDirecaoInit()
 	/*Configurações de inicialização d do buffer*/
 	bufferRecepcao_g.qntdDadosLido = 0;
 	bufferRecepcao_g.iniciado = 0;
+	bufferRecepcao_g.completo = 0;
 	
 	//Prescaler do Timer0, usado para fazer uma leitura do ADC.
 	TCCR0B = (1<<CS02) | (1<<CS00);
@@ -171,7 +168,7 @@ void CarroParado()
 
 //----------------------------------------------------------------------------
 
-void RecebeProtocolo()
+uint8_t RecebeProtocolo()
 {	
 	uint16_t valorLidoAD = UDR0;
 	if(bufferRecepcao_g.iniciado) {
@@ -188,19 +185,68 @@ void RecebeProtocolo()
 			bufferRecepcao_g.dutyCicleM2 = valorLidoAD;
 			bufferRecepcao_g.iniciado = 0;
 			bufferRecepcao_g.qntdDadosLido = 0;
+			bufferRecepcao_g.completo = 1;
 			
 			DirecaoCarro(bufferRecepcao_g);
-			
-			/*Indica recebimento do protocolo*/
-			Usart_Transmit('z');
-	
+				
 			break;
 		}
 	}		
 	
 	/*Inicia transmissão*/
-	if(valorLidoAD == 'S')
+	if(valorLidoAD == 'S') {
 		bufferRecepcao_g.iniciado = 1;			
+		bufferRecepcao_g.completo = 0;
+	}		
+	
+	return bufferRecepcao_g.completo;
 }	
 
 //----------------------------------------------------------------------------
+
+void TrasmitiBuffer()
+{	
+	uint8_t buffer[5];
+	uint8_t tensaoBat = TensaoBateria();
+	uint8_t tensaoPain = TensaoPainel();
+				
+	buffer[0] = 'z';
+	/*B indica a bateria conectada*/
+	buffer[1] = (RELE_HABILITADO(RELE_PAINEL_MOTOR)) ? 'P' : 'B';;
+	buffer[2] = tensaoBat;
+	buffer[3] = tensaoPain;
+	buffer[4] = '\0';
+	
+	Usart_Transmit(buffer[0]);
+	Usart_Transmit(buffer[1]);
+	Usart_Transmit(buffer[2]);
+	Usart_Transmit(buffer[3]);
+}
+
+//----------------------------------------------------------------------------
+
+uint8_t TensaoBateria()
+{
+	uint16_t lido16 = ADC_Read(AD_BATERIA);
+	lido16  = (uint16_t)(AJUSTE_AD * lido16) ;
+	uint8_t lidoAd = (uint8_t)(lido16 & 0x00FF);
+	
+	return lidoAd;
+	//return lidoAd;
+}
+
+//----------------------------------------------------------------------------
+
+uint8_t TensaoPainel()
+{		
+	uint16_t lido16 = ADC_Read(AD_PAINEL);
+	lido16  = (uint16_t)(AJUSTE_AD * lido16) ;
+	uint8_t lidoAd = (uint8_t)(lido16 & 0x00FF);
+	
+	return lidoAd;
+}
+
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
+

@@ -12,6 +12,7 @@
 #include <stdint.h>
 
 #include "direcao_def.h"
+#include "direcao_def.h"
 #include "globals_def.h"
 #include "usart_def.h"
 
@@ -21,7 +22,8 @@
 
 ISR(USART_RX_vect)							
 {
-	RecebeProtocolo();
+	if(RecebeProtocolo())
+		TrasmitiBuffer();
 }	
 
 //----------------------------------------------------------------------------

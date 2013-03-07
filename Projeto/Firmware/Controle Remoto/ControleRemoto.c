@@ -17,6 +17,7 @@
 #include <util/delay.h>
 
 volatile uint8_t podeIniciarNovaTrasmissao = 1;
+
 //----------------------------------------------------------------------------
 
 ISR(ADC_vect)			
@@ -29,6 +30,7 @@ ISR(ADC_vect)
 			
 		Protocolo();
 		podeIniciarNovaTrasmissao = 0;
+		
 		contador = 0;
 		
 		ADMUX |= (1 << ADIE);
@@ -43,12 +45,15 @@ ISR(ADC_vect)
 //----------------------------------------------------------------------------
 
 ISR(USART_RX_vect)							
-{
-	uint16_t recebido = UDR0;
-	
-	/*Recebe a letra 'z' indicando que o controle carro recebeu os dados*/
-	if (recebido == 'z')
+{	
+	uint8_t mostrarLcd = RecebeProtocolo();
+	if(mostrarLcd) {
+		/*Desabilita AD*/
+		ADMUX &= ~(1 << ADIE);
 		podeIniciarNovaTrasmissao = 1;
+		MostraDadosLCD();
+		ADMUX |= (1 << ADIE);
+	}	
 }	
 
 //----------------------------------------------------------------------------
@@ -56,6 +61,10 @@ ISR(USART_RX_vect)
 int main()
 {	
 	Inicializacoes();
+	Limpa_matriz_LCD(1, 0, 16);
+	Limpa_matriz_LCD(2, 0, 16);
+	LCD_setPos(1, 2);
+	escreve_LCD("DYGPS - 2013");
 	sei();
 	while(1){}
 }
