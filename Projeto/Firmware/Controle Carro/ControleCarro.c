@@ -6,6 +6,7 @@
 *           Date:  10/02/2013                                   *
 *           Version:  1.2                                       *
 ****************************************************************/
+#define F_CPU 16000000UL
 
 #include <avr/interrupt.h>
 #include <avr/io.h>
@@ -19,31 +20,46 @@
 
 //----------------------------------------------------------------------------
 
-volatile BufferRecep* bufferRX_g;
+BufferRecep bufferRX_g;
 
 //----------------------------------------------------------------------------
 
-int recebido = 0;
+void ValoresIniciaisBuffer();
+
+//----------------------------------------------------------------------------
 
 ISR(USART_RX_vect)							
 {
-	UCSR0B &= ~(1 << RXCIE0);
-	RecebeProtocolo(bufferRX_g);
-	if(bufferRX_g->completo == 'y') {
-		TrasmitiBuffer(bufferRX_g);	
-	}				
-	UCSR0B |= (1 << RXCIE0);
+	RecebeProtocolo(&bufferRX_g);
+	if(bufferRX_g.completo == 'y') {
+		DirecaoCarro(&bufferRX_g);
+		TransmitiBuffer(&bufferRX_g.fonteAlimentacao);
+	}	
 }	
-
+	
 //----------------------------------------------------------------------------
-
 int main()
 {
-	ConfiguracoesDirecaoInit(bufferRX_g);
 	Usart_Init(MYUBRR);
 	ADC_Init();
-	sei();
-			
+	ValoresIniciaisBuffer();
+	ConfiguracoesDirecaoInit();
+	sei();	
 	while(1){}		
 } 
 
+//----------------------------------------------------------------------------
+
+void ValoresIniciaisBuffer()
+{
+	bufferRX_g.dutyCicleM1 = 0;
+	bufferRX_g.dutyCicleM2 = 0;
+	bufferRX_g.qntdDadosLido = 0;
+	bufferRX_g.iniciado = 'n';
+	bufferRX_g.completo = 'n';
+	bufferRX_g.fonteAlimentacao = 'B';
+	bufferRX_g.direcao = 'P';
+	bufferRX_g.estadoCarro = PARADO;
+}	
+
+//----------------------------------------------------------------------------
