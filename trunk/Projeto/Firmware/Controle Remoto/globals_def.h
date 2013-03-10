@@ -29,6 +29,23 @@ typedef enum {
 }TEstadoCarro;
 	
 //----------------------------------------------------------------------------
+
+typedef struct{
+	volatile uint8_t fonteAlimentacao;//'B' bateria ou 'P' painel
+	volatile int qntdDadosLido;
+	volatile uint8_t iniciado;//'y' yes ou 'n' no
+	volatile uint8_t completo;//'y' yes ou 'n' no
+	volatile uint16_t tensaoBateria;
+	volatile uint16_t tensaoPainel;
+	volatile int dutyLadoEsq;
+	volatile int dutyLadoDir;
+	volatile uint8_t direcao;
+	volatile uint8_t sentido;	
+	volatile TEstadoCarro estadoCarro;
+	volatile uint8_t podeIniciarTransmissao;
+}BufferDados;
+
+//----------------------------------------------------------------------------
 	
 void CvrtNum2CaracterIndividual(
 	uint16_t valor, 
