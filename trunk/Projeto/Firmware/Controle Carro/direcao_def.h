@@ -15,11 +15,12 @@
 #define	IN2_IN4							PB3
 #define ENA_ENB							PB4
 
+#define RELE_DDR						DDRB
+#define RELE_PIN						PINB
 #define RELE_PORT						PORTD
-#define RELE_PAINEL_MOTOR				PD3
+#define RELE_CHAVE_PAINEL_BATERIA		PD3
 #define RELE_TENSAO_PAINEL				PD4
 
-#define AJUSTE_AD						0.0369
 #define AD_PAINEL						0
 #define AD_BATERIA						1
 
@@ -33,35 +34,52 @@
 //----------------------------------------------------------------------------
 
 typedef struct{
-	uint8_t direcao;
-	uint8_t dutyCicleM1;
-	uint8_t dutyCicleM2;
-	uint8_t qntdDadosLido;
-	uint8_t iniciado;
-	uint8_t completo;
+	volatile uint8_t fonteAlimentacao;//'B' bateria ou 'P' painel
+	volatile uint8_t direcao;
+	volatile int dutyCicleM1;
+	volatile int dutyCicleM2;
+	volatile int qntdDadosLido;
+	volatile uint8_t iniciado;//'y' yes ou 'n' no
+	volatile uint8_t completo;//'y' yes ou 'n' no
 }BufferRecep;
 
 //----------------------------------------------------------------------------
 
-void ConfiguracoesDirecaoInit();
+void SetaFonteAlimentacao(
+	BufferRecep* bufferRecepcao
+);
+
+void ConfiguracoesDirecaoInit(
+	BufferRecep* bufferRecepcao
+);
 
 uint16_t CalculaDutyCicleM1(
-	uint8_t porCentagem
+	uint16_t porCentagem
 );
 
 uint16_t CalculaDutyCicleM2(
-	uint8_t porCentagem
+	uint16_t porCentagem
 );
 
-void DirecaoCarro();
+void DirecaoCarro(
+	BufferRecep* bufferRecepcao
+);
 
 void CarroParado();
-void AndandoFrente();
-void AndandoTras();
+void AndandoFrente(
+	BufferRecep* bufferRecepcao
+);
+void AndandoTras(
+	BufferRecep* bufferRecepcao
+);
 
-uint8_t RecebeProtocolo();
+uint8_t RecebeProtocolo(
+	BufferRecep* bufferRecepcao
+);
 
-void TrasmitiBuffer();
+void TrasmitiBuffer(
+	BufferRecep* bufferRecepcao
+);
 
 uint8_t TensaoBateria();
 uint8_t TensaoPainel();

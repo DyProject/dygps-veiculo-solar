@@ -6,13 +6,12 @@
 //----------------------------------------------------------------------------
 
 volatile TEstadoCarro estadoCarro_g;
-BufferRecep bufferRecepcao_g;
 
 //----------------------------------------------------------------------------
 	
 /*Irá receber sempre os duty cicle definidos 25, 50, 75 e 100*/
 uint16_t CalculaDutyCicleM1(
-	uint8_t porCentagem
+	uint16_t porCentagem
 )
 {
 	uint16_t valor = 0;
@@ -35,7 +34,7 @@ uint16_t CalculaDutyCicleM1(
 
 /*Irá receber sempre os duty cicle definidos 25, 50, 75 e 100*/
 uint16_t CalculaDutyCicleM2(
-	uint8_t porCentagem
+	uint16_t porCentagem
 )
 {
 	uint16_t valor = 0;
@@ -56,20 +55,24 @@ uint16_t CalculaDutyCicleM2(
 
 //----------------------------------------------------------------------------
 
-void ConfiguracoesDirecaoInit()
+void ConfiguracoesDirecaoInit(
+	BufferRecep* bufferRecepcao
+)
 {	
-	DDRB|= (1 << IN2_IN4) | (1 << ENA_ENB);	
-	PORTB |= (1 << IN2_IN4) | (1 << ENA_ENB);		
-		
 	/*pinos OC1B e OC1A como saída*/
-	DDRB  |= (1 << IN1) | (1 << IN3);		
+	DDRB |= (1 << IN2_IN4) | (1 << ENA_ENB) | (1 << IN1) | (1 << IN3);	
+	PORTB |= (1 << IN2_IN4) | (1 << ENA_ENB);		
 	PORTB &= (~(1 << IN1)) & (~(1 << IN3)); 
 	
-	/*Pino relé*/	
-	RELE_PORT |= (1 << RELE_PAINEL_MOTOR) | (1 << RELE_TENSAO_PAINEL);
-	DESATIVA_RELE(RELE_PAINEL_MOTOR);
-	DESATIVA_RELE(RELE_TENSAO_PAINEL);
+	/*Pino relé como saída*/	
+	RELE_DDR |= (1 << RELE_CHAVE_PAINEL_BATERIA) | (1 << RELE_TENSAO_PAINEL);
 	
+	/*Seleciona a fonte de alimentação da bateria*/
+	DESATIVA_RELE(RELE_CHAVE_PAINEL_BATERIA);
+	
+	/*Desliga o painel*/
+	DESATIVA_RELE(RELE_TENSAO_PAINEL);
+		
 	TCCR1A = 0b10100010;		//PWM não invertido nos pinos OC1A e OC1B
 	TCCR1B = 0b00011001;		//liga TC1, prescaler = 1
 	ICR1 = 35000;				//valor máximo para contagem
@@ -77,54 +80,74 @@ void ConfiguracoesDirecaoInit()
 	OCR1B = 0;
 	
 	/*Configurações de inicialização d do buffer*/
-	bufferRecepcao_g.qntdDadosLido = 0;
-	bufferRecepcao_g.iniciado = 0;
-	bufferRecepcao_g.completo = 0;
-	
+	bufferRecepcao->dutyCicleM1 = 0;
+	bufferRecepcao->dutyCicleM2 = 0;
+	bufferRecepcao->qntdDadosLido = 0;
+	bufferRecepcao->iniciado = 'n';
+	bufferRecepcao->completo = 'n';
+	bufferRecepcao->fonteAlimentacao = 'B';
+	bufferRecepcao->direcao = 'P';
+		
 	//Prescaler do Timer0, usado para fazer uma leitura do ADC.
 	TCCR0B = (1<<CS02) | (1<<CS00);
 					
-	ADC_Init();
-	
 	CarroParado();
 };
 
 //----------------------------------------------------------------------------
 
-void DirecaoCarro()
+void SetaFonteAlimentacao(
+	BufferRecep* bufferRecepcao
+)
+{	
+	if(bufferRecepcao->fonteAlimentacao == 'P') {
+		DESATIVA_RELE(RELE_CHAVE_PAINEL_BATERIA);
+		bufferRecepcao->fonteAlimentacao = 'B';
+	}			
+	else  if(bufferRecepcao->fonteAlimentacao == 'B'){
+		ATIVA_RELE(RELE_CHAVE_PAINEL_BATERIA);
+		bufferRecepcao->fonteAlimentacao = 'P';
+	}				
+}	
+	
+//----------------------------------------------------------------------------
+
+void DirecaoCarro(
+	BufferRecep* bufferRecepcao
+)
 {		
 	switch (estadoCarro_g) {
 		case PARADO:
-			if ( bufferRecepcao_g.direcao == 'F') {
+			if ( bufferRecepcao->direcao == 'F') {
 				estadoCarro_g = ANDANDO_FRENTE;
-				AndandoFrente();
+				AndandoFrente(bufferRecepcao);
 			}				
-			else if ( bufferRecepcao_g.direcao == 'T') {
+			else if ( bufferRecepcao->direcao == 'T') {
 				estadoCarro_g = ANDANDO_TRAS;
-				AndandoTras();		
+				AndandoTras(bufferRecepcao);		
 			}			
-			else bufferRecepcao_g.direcao = 'P';
+			else bufferRecepcao->direcao = 'P';
 			break;
 		
 		case ANDANDO_FRENTE:	
-			if(bufferRecepcao_g.direcao == 'P') {
+			if(bufferRecepcao->direcao == 'P') {
 				estadoCarro_g = PARADO;
 				CarroParado();
 			}				
-			else if(bufferRecepcao_g.direcao == 'F'){
-				OCR1A = CalculaDutyCicleM1(bufferRecepcao_g.dutyCicleM1);
-				OCR1B = CalculaDutyCicleM2(bufferRecepcao_g.dutyCicleM2);
+			else if(bufferRecepcao->direcao == 'F'){
+				OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1);
+				OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2);
 			}			
 			break;
 			
 		case ANDANDO_TRAS:
-			if(bufferRecepcao_g.direcao == 'P') {
+			if(bufferRecepcao->direcao == 'P') {
 				estadoCarro_g = PARADO;
 				CarroParado();
 			}				
-			else if(bufferRecepcao_g.direcao == 'T'){
-				OCR1A = CalculaDutyCicleM1(bufferRecepcao_g.dutyCicleM1);
-				OCR1B = CalculaDutyCicleM2(bufferRecepcao_g.dutyCicleM2);
+			else if(bufferRecepcao->direcao == 'T'){
+				OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1);
+				OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2);
 			}			
 			break;			
 	}		
@@ -132,25 +155,29 @@ void DirecaoCarro()
 
 //----------------------------------------------------------------------------
 
-void AndandoFrente()
+void AndandoFrente(
+	BufferRecep* bufferRecepcao
+)
 {
 	_delay_us(10);
 	set_bit(PORTB,ENA_ENB);	
 	clr_bit(PORTB,IN2_IN4);
-	OCR1A = CalculaDutyCicleM1(bufferRecepcao_g.dutyCicleM1);
-	OCR1B = CalculaDutyCicleM2(bufferRecepcao_g.dutyCicleM2);
+	OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1);
+	OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2);
 	estadoCarro_g = ANDANDO_FRENTE;
 }
 
 //----------------------------------------------------------------------------
 
-void AndandoTras()
+void AndandoTras(
+	BufferRecep* bufferRecepcao
+)
 {
 	_delay_us(10);
 	set_bit(PORTB,ENA_ENB);	
 	set_bit(PORTB,IN2_IN4);
-	OCR1A = CalculaDutyCicleM1(bufferRecepcao_g.dutyCicleM1);
-	OCR1B = CalculaDutyCicleM2(bufferRecepcao_g.dutyCicleM2);
+	OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1);
+	OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2);
 	estadoCarro_g = ANDANDO_TRAS;
 }
 
@@ -168,59 +195,71 @@ void CarroParado()
 
 //----------------------------------------------------------------------------
 
-uint8_t RecebeProtocolo()
+uint8_t RecebeProtocolo(
+	BufferRecep* bufferRecepcao
+)
 {	
-	uint16_t valorLidoAD = UDR0;
-	if(bufferRecepcao_g.iniciado) {
-		bufferRecepcao_g.qntdDadosLido++;
+	uint8_t dadoRecebido = UDR0;
 		
-		switch(bufferRecepcao_g.qntdDadosLido){
+	bufferRecepcao->completo = 0;
+	/*Inicia transmissão*/
+	if(dadoRecebido == 'S') 
+		bufferRecepcao->iniciado = 'y';		
+	else if(bufferRecepcao->iniciado == 'y') {
+		bufferRecepcao->qntdDadosLido++;				
+		switch(bufferRecepcao->qntdDadosLido){
 		case 1:
-			bufferRecepcao_g.direcao = valorLidoAD;
+			bufferRecepcao->direcao = dadoRecebido;
 			break;
 		case 2:
-			bufferRecepcao_g.dutyCicleM1 = valorLidoAD;
+			bufferRecepcao->dutyCicleM1 = dadoRecebido;
 			break;
-		case 3:
-			bufferRecepcao_g.dutyCicleM2 = valorLidoAD;
-			bufferRecepcao_g.iniciado = 0;
-			bufferRecepcao_g.qntdDadosLido = 0;
-			bufferRecepcao_g.completo = 1;
+		case 3:		
+			bufferRecepcao->dutyCicleM2 = dadoRecebido;
+			break;
+		case 4:
+			if(dadoRecebido == '1') {
+				//SetaFonteAlimentacao(bufferRecepcao);	
+				bufferRecepcao->fonteAlimentacao = 'P';
+				Usart_Transmit('[');
+				Usart_Transmit('w');
+				Usart_Transmit(']');	
+			}				
 			
-			DirecaoCarro(bufferRecepcao_g);
+			bufferRecepcao->iniciado = 'n';
+			bufferRecepcao->completo = 'y';
+			
+			DirecaoCarro(bufferRecepcao);
 				
 			break;
 		}
 	}		
-	
-	/*Inicia transmissão*/
-	if(valorLidoAD == 'S') {
-		bufferRecepcao_g.iniciado = 1;			
-		bufferRecepcao_g.completo = 0;
-	}		
-	
-	return bufferRecepcao_g.completo;
+			
+	return bufferRecepcao->completo;
 }	
 
 //----------------------------------------------------------------------------
 
-void TrasmitiBuffer()
+void TrasmitiBuffer(
+	BufferRecep* bufferRecepcao
+)
 {	
-	uint8_t buffer[5];
-	uint8_t tensaoBat = TensaoBateria();
-	uint8_t tensaoPain = TensaoPainel();
-				
-	buffer[0] = 'z';
-	/*B indica a bateria conectada*/
-	buffer[1] = (RELE_HABILITADO(RELE_PAINEL_MOTOR)) ? 'P' : 'B';;
-	buffer[2] = tensaoBat;
-	buffer[3] = tensaoPain;
-	buffer[4] = '\0';
+	uint8_t indicaInicioTransmissao = 'z';
+	volatile uint8_t fonte = bufferRecepcao->fonteAlimentacao;
+	volatile uint8_t tensaoBat = TensaoBateria();
+	volatile uint8_t tensaoPainel = TensaoPainel();
+					
+	/*Indica o recebimento do protocolo e o inicio do envio do novo protocolo*/			
+	Usart_Transmit(indicaInicioTransmissao);
 	
-	Usart_Transmit(buffer[0]);
-	Usart_Transmit(buffer[1]);
-	Usart_Transmit(buffer[2]);
-	Usart_Transmit(buffer[3]);
+	/*Indica qual fonte está selecionada 'B' bateria ou 'P' painel*/
+	Usart_Transmit(fonte);
+	
+	/*Tensão na bateria*/	
+	Usart_Transmit(tensaoBat);
+	
+	/*Tensão no Painel*/
+	Usart_Transmit(tensaoPainel);
 }
 
 //----------------------------------------------------------------------------
@@ -228,11 +267,9 @@ void TrasmitiBuffer()
 uint8_t TensaoBateria()
 {
 	uint16_t lido16 = ADC_Read(AD_BATERIA);
-	lido16  = (uint16_t)(AJUSTE_AD * lido16) ;
-	uint8_t lidoAd = (uint8_t)(lido16 & 0x00FF);
-	
-	return lidoAd;
-	//return lidoAd;
+	uint8_t tensao = (uint8_t)(lido16 * AJUSTE_AD);
+		
+	return tensao;
 }
 
 //----------------------------------------------------------------------------
@@ -240,10 +277,10 @@ uint8_t TensaoBateria()
 uint8_t TensaoPainel()
 {		
 	uint16_t lido16 = ADC_Read(AD_PAINEL);
-	lido16  = (uint16_t)(AJUSTE_AD * lido16) ;
-	uint8_t lidoAd = (uint8_t)(lido16 & 0x00FF);
+	uint8_t tensao = (uint8_t)(lido16 * AJUSTE_AD);
 	
-	return lidoAd;
+	return tensao;
+	//return lidoAd;
 }
 
 //----------------------------------------------------------------------------
