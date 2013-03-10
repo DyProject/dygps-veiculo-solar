@@ -17,6 +17,11 @@
 #include <util/delay.h>
 
 volatile uint8_t podeIniciarNovaTrasmissao = 1;
+BufferDados bufferDados_g;
+
+//----------------------------------------------------------------------------
+
+void ValoresIniciaisBuffer();
 
 //----------------------------------------------------------------------------
 
@@ -25,12 +30,14 @@ ISR(ADC_vect)
 	static uint8_t contador = 0;
 		
 	/*Envia o valor lido do ADC a cada 1s aproximadamente*/
-	if(contador > 16 && podeIniciarNovaTrasmissao) {
+	if(contador > 16 && (bufferDados_g.podeIniciarTransmissao == 'y')) {
 		ADMUX &= ~(1 << ADIE);
 			
-		Protocolo();
-		podeIniciarNovaTrasmissao = 0;
-		
+		TransmitiBuffer(&bufferDados_g);
+		//Limpa_matriz_LCD(1, 6, 1);
+		//Limpa_matriz_LCD(2, 6, 1);
+		MostraDadosLCD(&bufferDados_g);
+		bufferDados_g.podeIniciarTransmissao = 'n';
 		contador = 0;
 		
 		ADMUX |= (1 << ADIE);
@@ -46,29 +53,47 @@ ISR(ADC_vect)
 
 ISR(USART_RX_vect)							
 {	
-	uint8_t mostrarLcd = RecebeProtocolo();
-	if(mostrarLcd) {
-		/*Desabilita AD*/
-		ADMUX &= ~(1 << ADIE);
-		podeIniciarNovaTrasmissao = 1;
-		MostraDadosLCD();
-		ADMUX |= (1 << ADIE);
-	}	
+	RecebeProtocolo(&bufferDados_g);
+	if(bufferDados_g.completo == 'y') 
+		bufferDados_g.podeIniciarTransmissao = 'y';
+	
+	/*uint16_t recebido = UDR0;
+	
+	/*Recebe a letra 'z' indicando que o controle carro recebeu os dados*//*
+	if (recebido == 'z')
+		podeIniciarNovaTrasmissao = 1;*/
 }	
 
 //----------------------------------------------------------------------------
 
 int main()
 {	
-	Inicializacoes();
-	Limpa_matriz_LCD(1, 0, 16);
-	Limpa_matriz_LCD(2, 0, 16);
-	LCD_setPos(1, 2);
-	escreve_LCD("DYGPS - 2013");
+	ValoresIniciaisBuffer();
+	Usart_Init(MYUBRR);
+	/*Prescaler do Timer0, usado para fazer uma leitura do ADC.*/
+	TCCR0B = (1<<CS02) | (1<<CS00);
+	inic_LCD_4bits();					
+	ADC_Init();
 	sei();
+	
+	/*Para teste*/		
+	TransmitiBuffer(&bufferDados_g);
+	//Limpa_matriz_LCD(1, 6, 1);
+	//Limpa_matriz_LCD(2, 6, 1);
+	//MostraDadosLCD(&bufferDados_g);
+	
 	while(1){}
 }
 
 //----------------------------------------------------------------------------
 
+void ValoresIniciaisBuffer()
+{
+	bufferDados_g.qntdDadosLido = 0;
+	bufferDados_g.iniciado = 'n';
+	bufferDados_g.completo = 'n';
+	bufferDados_g.podeIniciarTransmissao = 'y';
+	bufferDados_g.fonteAlimentacao = 'B';
+}	
 
+//----------------------------------------------------------------------------
