@@ -12,7 +12,6 @@
 #include <stdint.h>
 
 #include "direcao_def.h"
-#include "direcao_def.h"
 #include "globals_def.h"
 #include "usart_def.h"
 
@@ -20,18 +19,29 @@
 
 //----------------------------------------------------------------------------
 
+volatile BufferRecep* bufferRX_g;
+
+//----------------------------------------------------------------------------
+
+int recebido = 0;
+
 ISR(USART_RX_vect)							
 {
-	if(RecebeProtocolo())
-		TrasmitiBuffer();
+	UCSR0B &= ~(1 << RXCIE0);
+	RecebeProtocolo(bufferRX_g);
+	if(bufferRX_g->completo == 'y') {
+		TrasmitiBuffer(bufferRX_g);	
+	}				
+	UCSR0B |= (1 << RXCIE0);
 }	
 
 //----------------------------------------------------------------------------
 
 int main()
 {
+	ConfiguracoesDirecaoInit(bufferRX_g);
 	Usart_Init(MYUBRR);
-	ConfiguracoesDirecaoInit();
+	ADC_Init();
 	sei();
 			
 	while(1){}		
