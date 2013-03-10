@@ -33,7 +33,7 @@ void ADC_Init ()
 		não é atualizado até ADCH ser lido. Se ADLAR for setado(ajuste a esquerda) e a precisão
 		não for maior que 8bits apenas a leitura do ADCH é o suficiente.
 	*/	
-	ADCSRA = 0b10101111;  
+	ADCSRA = 0b10000111;  
 	//         ||||||||
 	//		   76543210
 
@@ -47,7 +47,7 @@ void ADC_Init ()
 										100=Timer/Counter0 Overflow, 101=Timer/Counter1 Compare Match B
 										110=Timer/Counter1 Overflow, 111=Timer/Counter1 Capture Even
 	*/	
-	ADCSRB = 0b00000100;  
+	ADCSRB = 0b00000000;  
 	//         ||||||||
 	//		   76543210
 
@@ -76,7 +76,7 @@ uint16_t ADC_Read(
 	
 	/*Aguarda conversão ser concluída*/
 	while(ADCSRA & (1<<ADSC));
-	
+		
 	return (ADC);
 }
 

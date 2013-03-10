@@ -12,8 +12,6 @@
 
 #include <stdint.h>
 
-#define F_CPU 16000000UL
-
 //----------------------------------------------------------------------------
 
 #define	set_bit(Y, bit_x) (Y |= (1 << bit_x))
@@ -26,7 +24,20 @@
 typedef enum {
 	PARADO = 1, ANDANDO_FRENTE, ANDANDO_TRAS
 }TEstadoCarro;
-	
+
+//----------------------------------------------------------------------------
+
+typedef struct{
+	volatile uint8_t fonteAlimentacao;//'B' bateria ou 'P' painel
+	volatile uint8_t direcao;
+	volatile int dutyCicleM1;
+	volatile int dutyCicleM2;
+	volatile int qntdDadosLido;
+	volatile uint8_t iniciado;//'y' yes ou 'n' no
+	volatile uint8_t completo;//'y' yes ou 'n' no
+	volatile TEstadoCarro estadoCarro;
+}BufferRecep;
+
 //----------------------------------------------------------------------------
 	
 void CvrtNum2CaracterIndividual(

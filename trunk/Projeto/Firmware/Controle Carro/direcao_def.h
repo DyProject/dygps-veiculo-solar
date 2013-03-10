@@ -33,32 +33,20 @@
 
 //----------------------------------------------------------------------------
 
-typedef struct{
-	volatile uint8_t fonteAlimentacao;//'B' bateria ou 'P' painel
-	volatile uint8_t direcao;
-	volatile int dutyCicleM1;
-	volatile int dutyCicleM2;
-	volatile int qntdDadosLido;
-	volatile uint8_t iniciado;//'y' yes ou 'n' no
-	volatile uint8_t completo;//'y' yes ou 'n' no
-}BufferRecep;
-
-//----------------------------------------------------------------------------
-
 void SetaFonteAlimentacao(
-	BufferRecep* bufferRecepcao
+	volatile uint8_t* fonteAlimentacao
 );
 
-void ConfiguracoesDirecaoInit(
-	BufferRecep* bufferRecepcao
-);
+void ConfiguracoesDirecaoInit();
 
 uint16_t CalculaDutyCicleM1(
-	uint16_t porCentagem
+	uint16_t porCentagem,
+	TEstadoCarro estadoCarro
 );
 
 uint16_t CalculaDutyCicleM2(
-	uint16_t porCentagem
+	uint16_t porCentagem,
+	TEstadoCarro estadoCarro
 );
 
 void DirecaoCarro(
@@ -77,8 +65,8 @@ uint8_t RecebeProtocolo(
 	BufferRecep* bufferRecepcao
 );
 
-void TrasmitiBuffer(
-	BufferRecep* bufferRecepcao
+void TransmitiBuffer(
+	volatile uint8_t* fonteAlimentacao
 );
 
 uint8_t TensaoBateria();

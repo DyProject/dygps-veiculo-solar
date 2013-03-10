@@ -4,14 +4,11 @@
 #include "usart_def.h"
 
 //----------------------------------------------------------------------------
-
-volatile TEstadoCarro estadoCarro_g;
-
-//----------------------------------------------------------------------------
 	
 /*Irá receber sempre os duty cicle definidos 25, 50, 75 e 100*/
 uint16_t CalculaDutyCicleM1(
-	uint16_t porCentagem
+	uint16_t porCentagem,
+	TEstadoCarro estadoCarro
 )
 {
 	uint16_t valor = 0;
@@ -24,7 +21,7 @@ uint16_t CalculaDutyCicleM1(
 	else if (porCentagem == 25)
 		valor = 8750;
 		
-	if(estadoCarro_g == ANDANDO_TRAS)
+	if(estadoCarro == ANDANDO_TRAS)
 		valor = 35000 - valor;
 		
 	return valor;
@@ -34,7 +31,8 @@ uint16_t CalculaDutyCicleM1(
 
 /*Irá receber sempre os duty cicle definidos 25, 50, 75 e 100*/
 uint16_t CalculaDutyCicleM2(
-	uint16_t porCentagem
+	uint16_t porCentagem,
+	TEstadoCarro estadoCarro
 )
 {
 	uint16_t valor = 0;
@@ -47,7 +45,7 @@ uint16_t CalculaDutyCicleM2(
 	else if (porCentagem == 25)
 		valor = 8750;
 		
-	if(estadoCarro_g == ANDANDO_TRAS)
+	if(estadoCarro == ANDANDO_TRAS)
 		valor = 35000 - valor;
 			
 	return valor;
@@ -78,16 +76,7 @@ void ConfiguracoesDirecaoInit(
 	ICR1 = 35000;				//valor máximo para contagem
 	OCR1A = 0;				//controle do ciclo ativo do PWM 0C1A
 	OCR1B = 0;
-	
-	/*Configurações de inicialização d do buffer*/
-	bufferRecepcao->dutyCicleM1 = 0;
-	bufferRecepcao->dutyCicleM2 = 0;
-	bufferRecepcao->qntdDadosLido = 0;
-	bufferRecepcao->iniciado = 'n';
-	bufferRecepcao->completo = 'n';
-	bufferRecepcao->fonteAlimentacao = 'B';
-	bufferRecepcao->direcao = 'P';
-		
+			
 	//Prescaler do Timer0, usado para fazer uma leitura do ADC.
 	TCCR0B = (1<<CS02) | (1<<CS00);
 					
@@ -97,16 +86,16 @@ void ConfiguracoesDirecaoInit(
 //----------------------------------------------------------------------------
 
 void SetaFonteAlimentacao(
-	BufferRecep* bufferRecepcao
+	volatile uint8_t* fonteAlimentacao
 )
 {	
-	if(bufferRecepcao->fonteAlimentacao == 'P') {
+	if(*fonteAlimentacao == 'P') {
 		DESATIVA_RELE(RELE_CHAVE_PAINEL_BATERIA);
-		bufferRecepcao->fonteAlimentacao = 'B';
+		*fonteAlimentacao = 'B';
 	}			
-	else  if(bufferRecepcao->fonteAlimentacao == 'B'){
+	else  if(*fonteAlimentacao == 'B'){
 		ATIVA_RELE(RELE_CHAVE_PAINEL_BATERIA);
-		bufferRecepcao->fonteAlimentacao = 'P';
+		*fonteAlimentacao = 'P';
 	}				
 }	
 	
@@ -116,14 +105,14 @@ void DirecaoCarro(
 	BufferRecep* bufferRecepcao
 )
 {		
-	switch (estadoCarro_g) {
+	switch (bufferRecepcao->estadoCarro) {
 		case PARADO:
 			if ( bufferRecepcao->direcao == 'F') {
-				estadoCarro_g = ANDANDO_FRENTE;
+				bufferRecepcao->estadoCarro = ANDANDO_FRENTE;
 				AndandoFrente(bufferRecepcao);
 			}				
 			else if ( bufferRecepcao->direcao == 'T') {
-				estadoCarro_g = ANDANDO_TRAS;
+				bufferRecepcao->estadoCarro = ANDANDO_TRAS;
 				AndandoTras(bufferRecepcao);		
 			}			
 			else bufferRecepcao->direcao = 'P';
@@ -131,23 +120,23 @@ void DirecaoCarro(
 		
 		case ANDANDO_FRENTE:	
 			if(bufferRecepcao->direcao == 'P') {
-				estadoCarro_g = PARADO;
+				bufferRecepcao->estadoCarro = PARADO;
 				CarroParado();
 			}				
 			else if(bufferRecepcao->direcao == 'F'){
-				OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1);
-				OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2);
+				OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
+				OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
 			}			
 			break;
 			
 		case ANDANDO_TRAS:
 			if(bufferRecepcao->direcao == 'P') {
-				estadoCarro_g = PARADO;
+				bufferRecepcao->estadoCarro = PARADO;
 				CarroParado();
 			}				
 			else if(bufferRecepcao->direcao == 'T'){
-				OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1);
-				OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2);
+				OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
+				OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
 			}			
 			break;			
 	}		
@@ -162,9 +151,8 @@ void AndandoFrente(
 	_delay_us(10);
 	set_bit(PORTB,ENA_ENB);	
 	clr_bit(PORTB,IN2_IN4);
-	OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1);
-	OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2);
-	estadoCarro_g = ANDANDO_FRENTE;
+	OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
+	OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
 }
 
 //----------------------------------------------------------------------------
@@ -176,9 +164,8 @@ void AndandoTras(
 	_delay_us(10);
 	set_bit(PORTB,ENA_ENB);	
 	set_bit(PORTB,IN2_IN4);
-	OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1);
-	OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2);
-	estadoCarro_g = ANDANDO_TRAS;
+	OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
+	OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
 }
 
 //----------------------------------------------------------------------------
@@ -190,7 +177,6 @@ void CarroParado()
 	set_bit(PORTB,IN1);	
 	set_bit(PORTB,IN3);	
 	set_bit(PORTB,IN2_IN4);	
-	estadoCarro_g = PARADO;
 }
 
 //----------------------------------------------------------------------------
@@ -199,39 +185,34 @@ uint8_t RecebeProtocolo(
 	BufferRecep* bufferRecepcao
 )
 {	
-	uint8_t dadoRecebido = UDR0;
-		
-	bufferRecepcao->completo = 0;
+	uint8_t dadoRecebido = UDR0;	
+	bufferRecepcao->completo = 'n';
 	/*Inicia transmissão*/
-	if(dadoRecebido == 'S') 
+	if(dadoRecebido == 'S') {
 		bufferRecepcao->iniciado = 'y';		
+		bufferRecepcao->qntdDadosLido++;
+	}		
 	else if(bufferRecepcao->iniciado == 'y') {
-		bufferRecepcao->qntdDadosLido++;				
-		switch(bufferRecepcao->qntdDadosLido){
-		case 1:
+						
+		if(bufferRecepcao->qntdDadosLido == 1) {
 			bufferRecepcao->direcao = dadoRecebido;
-			break;
-		case 2:
+			bufferRecepcao->qntdDadosLido++;
+		}
+		else if(bufferRecepcao->qntdDadosLido == 2) {		
 			bufferRecepcao->dutyCicleM1 = dadoRecebido;
-			break;
-		case 3:		
+			bufferRecepcao->qntdDadosLido++;
+		}			
+		else if(bufferRecepcao->qntdDadosLido == 3) {
 			bufferRecepcao->dutyCicleM2 = dadoRecebido;
-			break;
-		case 4:
-			if(dadoRecebido == '1') {
-				//SetaFonteAlimentacao(bufferRecepcao);	
-				bufferRecepcao->fonteAlimentacao = 'P';
-				Usart_Transmit('[');
-				Usart_Transmit('w');
-				Usart_Transmit(']');	
-			}				
+			bufferRecepcao->qntdDadosLido++;	
+		}			
+		else {
+			if(dadoRecebido == '1')
+				SetaFonteAlimentacao(&bufferRecepcao->fonteAlimentacao);		
 			
 			bufferRecepcao->iniciado = 'n';
 			bufferRecepcao->completo = 'y';
-			
-			DirecaoCarro(bufferRecepcao);
-				
-			break;
+			bufferRecepcao->qntdDadosLido = 0;
 		}
 	}		
 			
@@ -240,20 +221,29 @@ uint8_t RecebeProtocolo(
 
 //----------------------------------------------------------------------------
 
-void TrasmitiBuffer(
-	BufferRecep* bufferRecepcao
+void TransmitiBuffer(
+	volatile uint8_t* fonteAlimentacao
 )
 {	
-	uint8_t indicaInicioTransmissao = 'z';
-	volatile uint8_t fonte = bufferRecepcao->fonteAlimentacao;
-	volatile uint8_t tensaoBat = TensaoBateria();
-	volatile uint8_t tensaoPainel = TensaoPainel();
-					
+	volatile uint8_t indicaInicioTransmissao = 'z';
+	volatile uint8_t tensaoBat ;
+	volatile uint8_t tensaoPainel;
+	volatile uint16_t lidoADBat;
+	volatile uint16_t lidoADPain;	
+	
+	//lidoADBat = ADC_Read(AD_BATERIA);
+	//lidoADPain = ADC_Read(AD_PAINEL);
+	//tensaoBat = (uint8_t)((lidoADBat * 30)/640);
+	//tensaoPainel = (uint8_t)((lidoADPain * 30)/640);
+						
+	tensaoBat = TensaoBateria();
+	tensaoPainel = TensaoPainel();
+						
 	/*Indica o recebimento do protocolo e o inicio do envio do novo protocolo*/			
 	Usart_Transmit(indicaInicioTransmissao);
 	
 	/*Indica qual fonte está selecionada 'B' bateria ou 'P' painel*/
-	Usart_Transmit(fonte);
+	Usart_Transmit(*fonteAlimentacao);
 	
 	/*Tensão na bateria*/	
 	Usart_Transmit(tensaoBat);
@@ -266,8 +256,11 @@ void TrasmitiBuffer(
 
 uint8_t TensaoBateria()
 {
-	uint16_t lido16 = ADC_Read(AD_BATERIA);
-	uint8_t tensao = (uint8_t)(lido16 * AJUSTE_AD);
+	volatile uint16_t lido16;
+	volatile uint8_t tensao;
+	
+	lido16 = ADC_Read(AD_BATERIA);
+	tensao = (uint8_t)((lido16 * 30)/640);
 		
 	return tensao;
 }
@@ -276,14 +269,24 @@ uint8_t TensaoBateria()
 
 uint8_t TensaoPainel()
 {		
-	uint16_t lido16 = ADC_Read(AD_PAINEL);
-	uint8_t tensao = (uint8_t)(lido16 * AJUSTE_AD);
+	volatile uint16_t lido16;
+	volatile uint8_t tensao;
+	
+	lido16 = ADC_Read(AD_PAINEL);
+	tensao = (uint8_t)((lido16 * 30)/640);
+	
+	/*Se a tensão do painel for menor que 13 volts o painel não conseguirá 
+	fornecer a corrente necessária para os motores. Então foi colocado um
+	relé para selecionar entre a tensão da bateria ou a tensão do painel*/
+	if(tensao >= 13) 
+		ATIVA_RELE(RELE_TENSAO_PAINEL);
+	else 
+		DESATIVA_RELE(RELE_TENSAO_PAINEL);
+		
 	
 	return tensao;
 	//return lidoAd;
 }
 
-//----------------------------------------------------------------------------
-
-//----------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
 
