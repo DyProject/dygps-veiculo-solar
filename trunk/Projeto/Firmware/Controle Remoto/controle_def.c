@@ -56,6 +56,7 @@ void TransmitiBuffer(
 	volatile uint8_t dutyLadoEsq;
 	volatile uint8_t dutyLadoDir;
 	volatile uint8_t sentido;
+	volatile uint8_t fonte;
 	
 	sentido = CalculaSentido();
 	bufferDados->sentido = sentido;
@@ -76,7 +77,11 @@ void TransmitiBuffer(
 	/*Indica o duty cicle motor 1*/
 	Usart_Transmit(dutyLadoDir);
 	/*Indica se deve alterar a fonte de alimentacao*/
-	Usart_Transmit('0');//falta ajustar para enviar 1 quando o botão for pressionado
+	if(bufferDados->botaoSelFontePress == 'y')
+		fonte = '1';//deve inverter a fonte de alimentação
+	else fonte = '0';
+	bufferDados->botaoSelFontePress = 'n';	
+	Usart_Transmit(fonte);//falta ajustar para enviar 1 quando o botão for pressionado
 }
 
 //----------------------------------------------------------------------------
@@ -125,7 +130,7 @@ void MostraDadosLCD(
 		LCD_setPos(2,13);
 		EscreveCaracterLCD('F');
 		EscreveCaracterLCD(':');
-		EscreveCaracterLCD(bufferDados->fonteAlimentacao);	
+		EscreveCaracterLCD(bufferDados->fonteAlimentacao);
 	}
 		
 	contador++;

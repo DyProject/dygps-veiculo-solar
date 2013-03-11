@@ -15,8 +15,8 @@
 #define	IN2_IN4							PB3
 #define ENA_ENB							PB4
 
-#define RELE_DDR						DDRB
-#define RELE_PIN						PINB
+#define RELE_DDR						DDRD
+#define RELE_PIN						PIND
 #define RELE_PORT						PORTD
 #define RELE_CHAVE_PAINEL_BATERIA		PD3
 #define RELE_TENSAO_PAINEL				PD4
