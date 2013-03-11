@@ -43,6 +43,7 @@ typedef struct{
 	volatile uint8_t sentido;	
 	volatile TEstadoCarro estadoCarro;
 	volatile uint8_t podeIniciarTransmissao;
+	volatile uint8_t botaoSelFontePress;
 }BufferDados;
 
 //----------------------------------------------------------------------------

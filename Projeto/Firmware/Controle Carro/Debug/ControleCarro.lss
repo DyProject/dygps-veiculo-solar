@@ -699,9 +699,9 @@ void ConfiguracoesDirecaoInit(
 	
 	/*Pino relé como saída*/	
 	RELE_DDR |= (1 << RELE_CHAVE_PAINEL_BATERIA) | (1 << RELE_TENSAO_PAINEL);
- 396:	84 b1       	in	r24, 0x04	; 4
+ 396:	8a b1       	in	r24, 0x0a	; 10
  398:	88 61       	ori	r24, 0x18	; 24
- 39a:	84 b9       	out	0x04, r24	; 4
+ 39a:	8a b9       	out	0x0a, r24	; 10
 	
 	/*Seleciona a fonte de alimentação da bateria*/
 	DESATIVA_RELE(RELE_CHAVE_PAINEL_BATERIA);
