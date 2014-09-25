@@ -18,6 +18,13 @@ uint8_t PontoYNaPosInic();
 
 unsigned char CalculaSentido();
 
+uint8_t SoftStarterLadoEsq(
+	uint8_t
+);
+uint8_t SoftStarterLadoDir(
+	uint8_t
+);
+
 uint8_t CalculaDutyCycleLadoEsq();
 uint8_t CalculaDutyCycleLadoDir();
 

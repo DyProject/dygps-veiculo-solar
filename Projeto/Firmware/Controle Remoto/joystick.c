@@ -13,6 +13,9 @@ uint16_t pontoInicX_g = 522,
 uint16_t pontoInicY_g = 498,
 		 limInfPontoInicY_g = 478,
 		 limSupPontoInicY_g = 518;
+		 
+uint8_t dutyAnteriorLadoEsq_g = 0;
+uint8_t dutyAnteriorLadoDir_g = 0;
 
 //---------------------------------------------------------------------------
 
@@ -133,30 +136,60 @@ uint8_t CalculaDutyCycleLadoDir()
 {
 	uint16_t valorLidoADEixoX = ValorLidoADEixoX(); 
 	uint16_t valorLidoADEixoY = ValorLidoADEixoY();
-	uint8_t valorPorCentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
+	//uint8_t valorPorCentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
 		
 	uint8_t duty = 0;
 	unsigned char sentido = CalculaSentido();
 	switch(sentido) {
 		case 'F'://Andando Frente
 		case 'T'://Andando Tras
-			duty = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
+			duty = SoftStarterLadoDir(CalculaPorcentoPosicaoEixoY(valorLidoADEixoY));
 			break;
 				
 		case 'E'://Andando Frente Esquerda
 		case 'L'://Andando Tras Esquerda
-			duty = 100;
+			duty = SoftStarterLadoDir(100);
 			break;
 		case 'R': //Andando Tras Direita
 		case 'D'://Andando Frente Direita
-			duty = 100 - CalculaPorcentoPosicaoEixoX(valorLidoADEixoX);
+			duty = SoftStarterLadoDir(100 - CalculaPorcentoPosicaoEixoX(valorLidoADEixoX));
 			break;
 		case 'P'://Parado
 			duty = 0;
 			break;
 	}
+	
+	dutyAnteriorLadoDir_g = duty;
 		
 	return duty;
+}
+
+//---------------------------------------------------------------------------
+
+uint8_t SoftStarterLadoEsq(
+	uint8_t dutyAtual
+)
+{
+	if(dutyAnteriorLadoEsq_g < dutyAtual)
+	dutyAtual = dutyAnteriorLadoEsq_g + 25;
+	else if(dutyAnteriorLadoEsq_g > dutyAtual)
+	dutyAtual = dutyAnteriorLadoEsq_g - 25;
+		
+	return dutyAtual;
+}
+
+//---------------------------------------------------------------------------
+
+uint8_t SoftStarterLadoDir(
+uint8_t dutyAtual
+)
+{
+	if(dutyAnteriorLadoDir_g < dutyAtual)
+	dutyAtual = dutyAnteriorLadoDir_g + 25;
+	else if(dutyAnteriorLadoDir_g > dutyAtual)
+	dutyAtual =dutyAnteriorLadoDir_g - 25;
+	
+	return dutyAtual;
 }
 
 //---------------------------------------------------------------------------
@@ -165,27 +198,30 @@ uint8_t CalculaDutyCycleLadoEsq()
 {
 	uint16_t valorLidoADEixoX = ValorLidoADEixoX(); 
 	uint16_t valorLidoADEixoY = ValorLidoADEixoY();
-	uint8_t valorPorCentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
+	//uint8_t valorPorCentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
 	
 	uint8_t duty = 0;
 	unsigned char sentido = CalculaSentido();
 	switch(sentido) {
 		case 'F'://Andando Frente
 		case 'T'://Andando Tras
-			duty = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
+			duty = SoftStarterLadoEsq(CalculaPorcentoPosicaoEixoY(valorLidoADEixoY));
 			break;
 		case 'D'://Andando Frente Direita
 		case 'R'://Andando Tras Direita
-			duty = 100;
+			duty = SoftStarterLadoEsq(100);
 			break;
 		case 'E'://Andando Frente Esquerda
 		case 'L': //Andando Tras Esquerda
-			duty = 100 - CalculaPorcentoPosicaoEixoX(valorLidoADEixoX);
+			duty = SoftStarterLadoEsq(100 - CalculaPorcentoPosicaoEixoX(valorLidoADEixoX));
 			break;
 		case 'P'://Parado
 			duty = 0;
 			break;
 	}
+	
+	dutyAnteriorLadoEsq_g = duty;
+	
 	return duty;
 }
 
@@ -196,15 +232,15 @@ uint8_t CalculaPorcentoPosicaoEixoY(
 ) 
 {
 	/*Valores Empíricos*/
-	uint16_t posYFrente100PorCento = 1023,
+	uint16_t //posYFrente100PorCento = 1023,
 			 posYFrente75PorCento = 900,
 			 posYFrente50PorCento = 775,
 			 posYFrente25PorCento = 650,
-			 posYTras100PorCento = 0,
+			 //posYTras100PorCento = 0,
 			 posYTras75PorCento = 300,
 			 posYTras50PorCento = 390,
-			 posYTras25PorCento = 480,
-			 posY0PorCento = 522;		
+			 posYTras25PorCento = 480;
+			 //posY0PorCento = 522;		
 		 
 	uint8_t valorPorCentoEixoY; 
 	
@@ -233,15 +269,15 @@ uint8_t CalculaPorcentoPosicaoEixoX(
 ) 
 {
 	/*Valores Empíricos*/
-	uint16_t posXFrente100PorCento = 1023,
+	uint16_t //posXFrente100PorCento = 1023,
 			 posXFrente75PorCento = 900,
 			 posXFrente50PorCento = 775,
 			 posXFrente25PorCento = 650,
-			 posXTras100PorCento = 0,
+			 //posXTras100PorCento = 0,
 			 posXTras75PorCento = 300,
 			 posXTras50PorCento = 390,
-			 posXTras25PorCento = 480,
-			 posX0PorCento = 498;
+			 posXTras25PorCento = 480;
+			 //posX0PorCento = 498;
 		 
 	uint16_t valorPorCentoEixoX; 
 	

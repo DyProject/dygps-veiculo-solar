@@ -63,7 +63,13 @@ ISR(ADC_vect)
 		contador = 0;
 		
 		ADMUX |= (1 << ADIE);
-	}		
+	} else if(contador > 100) {
+		ADMUX &= ~(1 << ADIE);
+		TransmitiBuffer(&bufferDados_g);
+		MostraDadosLCD(&bufferDados_g);
+		ADMUX |= (1 << ADIE);
+		contador = 0;
+	}
 	
 	contador++;
 	/*Limpa o flag de overflow do Timer0. Esse flag indica que houve um estouro do timer.
@@ -106,7 +112,7 @@ void ValoresIniciaisBuffer()
 {
 	bufferDados_g.qntdDadosLido = 0;
 	bufferDados_g.iniciado = 'n';
-	bufferDados_g.completo = 'n';
+	bufferDados_g.completo = 'y';
 	bufferDados_g.podeIniciarTransmissao = 'y';
 	bufferDados_g.fonteAlimentacao = 'B';
 	bufferDados_g.botaoSelFontePress = 'n';

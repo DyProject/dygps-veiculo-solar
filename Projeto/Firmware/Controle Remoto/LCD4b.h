@@ -24,10 +24,6 @@
 #define LCD_LINHA1	0x80		//define primeiro endereço da memória, linha 1
 #define LCD_LINHA2	0xC0		//define segundo endereço endereço de memória, linha 2
 
-//Definições de macros - empregadas para o trabalho com os bits de uma variável
-#define	set_bit(Y,bit_x) (Y|=(1<<bit_x))	//ativa o bit x da variável Y (coloca em 1)
-#define	clr_bit(Y,bit_x) (Y&=~(1<<bit_x))	//limpa o bit x da variável Y (coloca em 0) 
-
 //sinal de habilitação para o LCD
 #define pulso_enable 	_delay_us(1); set_bit(CONTR_LCD,E); _delay_us(1); clr_bit(CONTR_LCD,E); _delay_us(45)
 //----------------------------------------------------------------------------------------------------------

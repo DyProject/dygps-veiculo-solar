@@ -7,6 +7,8 @@
 *           Version:  1.0                                       *
 ****************************************************************/
 
+#define F_CPU 16000000UL
+
 #ifndef _GLOBALS_DEF_H_
 #define _GLOBALS_DEF_H_
 
