@@ -28,6 +28,7 @@ AVR_APP_PATH :=$$$AVR_APP_PATH$$$
 QUOTE := "
 ADDITIONAL_DEPENDENCIES:=
 OUTPUT_FILE_DEP:=
+LIB_DEP:=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := 
@@ -55,14 +56,12 @@ direcao_def.o \
 globals_def.o \
 usart_def.o
 
-
 OBJS_AS_ARGS +=  \
 adc_def.o \
 ControleCarro.o \
 direcao_def.o \
 globals_def.o \
 usart_def.o
-
 
 C_DEPS +=  \
 adc_def.d \
@@ -71,14 +70,12 @@ direcao_def.d \
 globals_def.d \
 usart_def.d
 
-
 C_DEPS_AS_ARGS +=  \
 adc_def.d \
 ControleCarro.d \
 direcao_def.d \
 globals_def.d \
 usart_def.d
-
 
 OUTPUT_FILE_PATH +=ControleCarro.elf
 
@@ -87,6 +84,8 @@ OUTPUT_FILE_PATH_AS_ARGS +=ControleCarro.elf
 ADDITIONAL_DEPENDENCIES:=
 
 OUTPUT_FILE_DEP:= ./makedep.mk
+
+LIB_DEP+= 
 
 # AVR32/GNU C Compiler
 
@@ -102,9 +101,10 @@ OUTPUT_FILE_DEP:= ./makedep.mk
 
 ./%.o: .././%.c
 	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler
-	$(QUOTE)C:\Program Files\Atmel\AVR Studio 5.1\extensions\Atmel\AVRGCC\3.3.1.27\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -O1 -fpack-struct -fshort-enums -g2 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega328  -o"$@" "$<" 
+	@echo Invoking: AVR/GNU C Compiler : 3.4.4
+	$(QUOTE)C:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<"
 	@echo Finished building: $<
+	
 
 
 
@@ -128,22 +128,26 @@ endif
 # All Target
 all: $(OUTPUT_FILE_PATH) $(ADDITIONAL_DEPENDENCIES)
 
-$(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP)
+$(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP) $(LIB_DEP)
 	@echo Building target: $@
-	@echo Invoking: AVR/GNU C Linker
-	$(QUOTE)C:\Program Files\Atmel\AVR Studio 5.1\extensions\Atmel\AVRGCC\3.3.1.27\AVRToolchain\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="ControleCarro.map" -Wl,-lm   -mmcu=atmega328  
+	@echo Invoking: AVR/GNU Linker : 3.4.4
+	$(QUOTE)C:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="ControleCarro.map" -Wl,--start-group -Wl,-lm  -Wl,--end-group -Wl,--gc-sections -mmcu=atmega328 
 	@echo Finished building target: $@
-	"C:\Program Files\Atmel\AVR Studio 5.1\extensions\Atmel\AVRGCC\3.3.1.27\AVRToolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature  "ControleCarro.elf" "ControleCarro.hex"
-	"C:\Program Files\Atmel\AVR Studio 5.1\extensions\Atmel\AVRGCC\3.3.1.27\AVRToolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "ControleCarro.elf" "ControleCarro.eep" || exit 0
-	"C:\Program Files\Atmel\AVR Studio 5.1\extensions\Atmel\AVRGCC\3.3.1.27\AVRToolchain\bin\avr-objdump.exe" -h -S "ControleCarro.elf" > "ControleCarro.lss"
-	"C:\Program Files\Atmel\AVR Studio 5.1\extensions\Atmel\AVRGCC\3.3.1.27\AVRToolchain\bin\avr-size.exe" -C --mcu=atmega328  "ControleCarro.elf"
+	"C:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature  "ControleCarro.elf" "ControleCarro.hex"
+	"C:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "ControleCarro.elf" "ControleCarro.eep" || exit 0
+	"C:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-objdump.exe" -h -S "ControleCarro.elf" > "ControleCarro.lss"
+	"C:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature  "ControleCarro.elf" "ControleCarro.srec"
+	"C:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-size.exe" "ControleCarro.elf"
 	
+	
+
 
 
 
 
 # Other Targets
 clean:
-	-$(RM) $(OBJS_AS_ARGS)$(C_DEPS_AS_ARGS) $(EXECUTABLES) 
-	rm -rf "ControleCarro.hex" "ControleCarro.lss" "ControleCarro.eep" "ControleCarro.map"
+	-$(RM) $(OBJS_AS_ARGS) $(EXECUTABLES)  
+	-$(RM) $(C_DEPS_AS_ARGS)   
+	rm -rf "ControleCarro.elf" "ControleCarro.a" "ControleCarro.hex" "ControleCarro.lss" "ControleCarro.eep" "ControleCarro.map" "ControleCarro.srec"
 	

@@ -1,13 +1,13 @@
 Archive member included because of file (symbol)
 
-c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
-                              globals.o (__udivmodhi4)
-c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
-                              c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328p.o (exit)
-c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_copy_data.o)
+c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+                              c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o (exit)
+c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
                               ControleRemoto.o (__do_copy_data)
-c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
+c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
                               ControleRemoto.o (__do_clear_bss)
+c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
+                              globals.o (__umulhisi3)
 
 Allocating common symbols
 Common symbol       size              file
@@ -15,6 +15,97 @@ Common symbol       size              file
 caracterConvertido_g
                     0x5               controle_def.o
 bufferDados_g       0x12              ControleRemoto.o
+
+Discarded input sections
+
+ .bss           0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
+ .text          0x00000000        0x0 adc_def.o
+ .bss           0x00000000        0x0 adc_def.o
+ .text          0x00000000        0x0 ControleRemoto.o
+ .bss           0x00000000        0x0 ControleRemoto.o
+ .data.podeIniciarNovaTrasmissao
+                0x00000000        0x1 ControleRemoto.o
+ .text          0x00000000        0x0 controle_def.o
+ .bss           0x00000000        0x0 controle_def.o
+ .text.Limpa_matriz_LCD
+                0x00000000       0x56 controle_def.o
+ .data.estadoCarro
+                0x00000000        0x1 controle_def.o
+ COMMON         0x00000000        0x5 controle_def.o
+ .text          0x00000000        0x0 globals.o
+ .bss           0x00000000        0x0 globals.o
+ .text          0x00000000        0x0 joystick.o
+ .bss           0x00000000        0x0 joystick.o
+ .data.pontoInicY_g
+                0x00000000        0x2 joystick.o
+ .data.pontoInicX_g
+                0x00000000        0x2 joystick.o
+ .text          0x00000000        0x0 usart_def.o
+ .bss           0x00000000        0x0 usart_def.o
+ .text.Usart_Receive
+                0x00000000       0x10 usart_def.o
+ .text.Usart_Write
+                0x00000000       0x1e usart_def.o
+ .text.Usart_Write_Flash
+                0x00000000       0x28 usart_def.o
+ .text          0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .bss           0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .text.libgcc.mul
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .text.libgcc.div
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .text.libgcc.prologue
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .text.libgcc.builtins
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .text.libgcc.fmul
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .text.libgcc.fixed
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .text          0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
+ .bss           0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.mul
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.div
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.prologue
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.builtins
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.fmul
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.fixed
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
+ .text          0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
+ .bss           0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.mul
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.div
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.prologue
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.builtins
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.fmul
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.fixed
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
+ .text          0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
+ .bss           0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.div
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc   0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.prologue
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.builtins
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.fmul
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.fixed
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
 
 Memory Configuration
 
@@ -25,22 +116,27 @@ eeprom           0x00810000         0x00010000         rw !x
 fuse             0x00820000         0x00000400         rw !x
 lock             0x00830000         0x00000400         rw !x
 signature        0x00840000         0x00000400         rw !x
+user_signatures  0x00850000         0x00000400         rw !x
 *default*        0x00000000         0xffffffff
 
 Linker script and memory map
 
 Address of section .data set to 0x800100
-LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328p.o
+LOAD c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
 LOAD adc_def.o
 LOAD ControleRemoto.o
 LOAD controle_def.o
 LOAD globals.o
 LOAD joystick.o
 LOAD usart_def.o
-LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5\libm.a
-LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a
-LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5\libc.a
-LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a
+START GROUP
+LOAD c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libm.a
+END GROUP
+START GROUP
+LOAD c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a
+LOAD c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libm.a
+LOAD c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a
+END GROUP
 
 .hash
  *(.hash)
@@ -132,20 +228,21 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xb66
+.text           0x00000000      0xb08
  *(.vectors)
- .vectors       0x00000000       0x68 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328p.o
+ .vectors       0x00000000       0x68 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
                 0x00000000                __vector_default
                 0x00000000                __vectors
  *(.vectors)
  *(.progmem.gcc*)
- *(.progmem*)
                 0x00000068                . = ALIGN (0x2)
                 0x00000068                __trampolines_start = .
  *(.trampolines)
  .trampolines   0x00000068        0x0 linker stubs
  *(.trampolines*)
                 0x00000068                __trampolines_end = .
+ *(.progmem*)
+                0x00000068                . = ALIGN (0x2)
  *(.jumptables)
  *(.jumptables*)
  *(.lowtext)
@@ -159,20 +256,20 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
  SORT(*)(.ctors)
  SORT(*)(.dtors)
  *(.init0)
- .init0         0x00000068        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328p.o
+ .init0         0x00000068        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
                 0x00000068                __init
  *(.init0)
  *(.init1)
  *(.init1)
  *(.init2)
- .init2         0x00000068        0xc c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328p.o
+ .init2         0x00000068        0xc c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
  *(.init2)
  *(.init3)
  *(.init3)
  *(.init4)
- .init4         0x00000074       0x16 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_copy_data.o)
+ .init4         0x00000074       0x16 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
                 0x00000074                __do_copy_data
- .init4         0x0000008a       0x10 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
+ .init4         0x0000008a       0x10 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
                 0x0000008a                __do_clear_bss
  *(.init4)
  *(.init5)
@@ -184,10 +281,10 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
  *(.init8)
  *(.init8)
  *(.init9)
- .init9         0x0000009a        0x8 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328p.o
+ .init9         0x0000009a        0x8 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
  *(.init9)
  *(.text)
- .text          0x000000a2        0x4 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328p.o
+ .text          0x000000a2        0x4 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
                 0x000000a2                __vector_22
                 0x000000a2                __vector_24
                 0x000000a2                __vector_12
@@ -211,60 +308,104 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
                 0x000000a2                __vector_10
                 0x000000a2                __vector_16
                 0x000000a2                __vector_20
- .text          0x000000a6       0x46 adc_def.o
-                0x000000a6                ADC_Init
-                0x000000c0                ADC_Read
- .text          0x000000ec      0x18c ControleRemoto.o
-                0x000000ec                __vector_1
-                0x00000110                __vector_21
-                0x000001d6                __vector_18
-                0x0000022e                ValoresIniciaisBuffer
-                0x00000252                main
- .text          0x00000278      0x46c controle_def.o
-                0x00000278                cmd_LCD
-                0x000002ea                inic_LCD_4bits
-                0x000003cc                escreve_LCD
-                0x000003ec                EscreveCaracterLCD
-                0x000003f4                LCD_setPos
-                0x0000041c                Limpa_matriz_LCD
-                0x00000472                RecebeProtocolo
-                0x000004f8                TransmitiBuffer
-                0x00000596                MostraDadosLCD
- .text          0x000006e4       0x60 globals.o
-                0x000006e4                CvrtNum2CaracterIndividual
- .text          0x00000744      0x376 joystick.o
-                0x00000744                ValorLidoADEixoX
-                0x0000074c                ValorLidoADEixoY
-                0x00000754                PontoXNaPosInic
-                0x0000078a                PontoYNaPosInic
-                0x000007c0                CalculaSentido
-                0x000008b6                DirecaoCarro
-                0x0000093a                CalculaPorcentoPosicaoEixoY
-                0x00000992                CalculaPorcentoPosicaoEixoX
-                0x000009fa                CalculaDutyCycleLadoEsq
-                0x00000a5a                CalculaDutyCycleLadoDir
- .text          0x00000aba       0x80 usart_def.o
-                0x00000aba                Usart_Init
-                0x00000ad4                Usart_Transmit
-                0x00000ae4                Usart_Receive
-                0x00000af4                Usart_Write
-                0x00000b12                Usart_Write_Flash
- .text          0x00000b3a        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
- .text          0x00000b3a        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
- .text          0x00000b3a        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_copy_data.o)
- .text          0x00000b3a        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
-                0x00000b3a                . = ALIGN (0x2)
+                0x000000a6                . = ALIGN (0x2)
  *(.text.*)
- .text.libgcc   0x00000b3a       0x28 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
-                0x00000b3a                __udivmodhi4
- .text.libgcc   0x00000b62        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
- .text.libgcc   0x00000b62        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_copy_data.o)
- .text.libgcc   0x00000b62        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
-                0x00000b62                . = ALIGN (0x2)
+ .text.ADC_Init
+                0x000000a6       0x1a adc_def.o
+                0x000000a6                ADC_Init
+ .text.ADC_Read
+                0x000000c0       0x28 adc_def.o
+                0x000000c0                ADC_Read
+ .text.__vector_1
+                0x000000e8       0x24 ControleRemoto.o
+                0x000000e8                __vector_1
+ .text.__vector_21
+                0x0000010c       0xee ControleRemoto.o
+                0x0000010c                __vector_21
+ .text.__vector_18
+                0x000001fa       0x58 ControleRemoto.o
+                0x000001fa                __vector_18
+ .text.ValoresIniciaisBuffer
+                0x00000252       0x24 ControleRemoto.o
+                0x00000252                ValoresIniciaisBuffer
+ .text.main     0x00000276       0x26 ControleRemoto.o
+                0x00000276                main
+ .text.cmd_LCD  0x0000029c       0x72 controle_def.o
+                0x0000029c                cmd_LCD
+ .text.inic_LCD_4bits
+                0x0000030e       0xe2 controle_def.o
+                0x0000030e                inic_LCD_4bits
+ .text.escreve_LCD
+                0x000003f0       0x20 controle_def.o
+                0x000003f0                escreve_LCD
+ .text.EscreveCaracterLCD
+                0x00000410        0x8 controle_def.o
+                0x00000410                EscreveCaracterLCD
+ .text.LCD_setPos
+                0x00000418       0x26 controle_def.o
+                0x00000418                LCD_setPos
+ .text.RecebeProtocolo
+                0x0000043e       0x80 controle_def.o
+                0x0000043e                RecebeProtocolo
+ .text.TransmitiBuffer
+                0x000004be       0x9e controle_def.o
+                0x000004be                TransmitiBuffer
+ .text.MostraDadosLCD
+                0x0000055c      0x152 controle_def.o
+                0x0000055c                MostraDadosLCD
+ .text.CvrtNum2CaracterIndividual
+                0x000006ae       0xae globals.o
+                0x000006ae                CvrtNum2CaracterIndividual
+ .text.ValorLidoADEixoX
+                0x0000075c        0x8 joystick.o
+                0x0000075c                ValorLidoADEixoX
+ .text.ValorLidoADEixoY
+                0x00000764        0x8 joystick.o
+                0x00000764                ValorLidoADEixoY
+ .text.PontoXNaPosInic
+                0x0000076c       0x30 joystick.o
+                0x0000076c                PontoXNaPosInic
+ .text.PontoYNaPosInic
+                0x0000079c       0x30 joystick.o
+                0x0000079c                PontoYNaPosInic
+ .text.CalculaSentido
+                0x000007cc       0xf2 joystick.o
+                0x000007cc                CalculaSentido
+ .text.DirecaoCarro
+                0x000008be       0x7a joystick.o
+                0x000008be                DirecaoCarro
+ .text.SoftStarterLadoEsq
+                0x00000938       0x18 joystick.o
+                0x00000938                SoftStarterLadoEsq
+ .text.SoftStarterLadoDir
+                0x00000950       0x18 joystick.o
+                0x00000950                SoftStarterLadoDir
+ .text.CalculaPorcentoPosicaoEixoY
+                0x00000968       0x3e joystick.o
+                0x00000968                CalculaPorcentoPosicaoEixoY
+ .text.CalculaPorcentoPosicaoEixoX
+                0x000009a6       0x3e joystick.o
+                0x000009a6                CalculaPorcentoPosicaoEixoX
+ .text.CalculaDutyCycleLadoDir
+                0x000009e4       0x6c joystick.o
+                0x000009e4                CalculaDutyCycleLadoDir
+ .text.CalculaDutyCycleLadoEsq
+                0x00000a50       0x6c joystick.o
+                0x00000a50                CalculaDutyCycleLadoEsq
+ .text.Usart_Init
+                0x00000abc       0x1a usart_def.o
+                0x00000abc                Usart_Init
+ .text.Usart_Transmit
+                0x00000ad6       0x10 usart_def.o
+                0x00000ad6                Usart_Transmit
+ .text.libgcc.mul
+                0x00000ae6       0x1e c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
+                0x00000ae6                __umulhisi3
+                0x00000b04                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000b62        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
-                0x00000b62                _exit
-                0x00000b62                exit
+ .fini9         0x00000b04        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+                0x00000b04                _exit
+                0x00000b04                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -283,70 +424,77 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000b62        0x4 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000b04        0x4 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000b66                _etext = .
+                0x00000b08                _etext = .
 
-.data           0x00800100       0x1e load address 0x00000b66
+.data           0x00800100       0x18 load address 0x00000b08
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
- .data          0x00800100        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328p.o
+ .data          0x00800100        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328p.o
  .data          0x00800100        0x0 adc_def.o
- .data          0x00800100        0x1 ControleRemoto.o
-                0x00800100                podeIniciarNovaTrasmissao
- .data          0x00800101       0x10 controle_def.o
-                0x0080010f                estadoCarro
- .data          0x00800111        0x0 globals.o
- .data          0x00800111        0xd joystick.o
-                0x00800111                pontoInicX_g
-                0x00800113                limInfPontoInicX_g
-                0x00800115                limSupPontoInicX_g
-                0x00800117                pontoInicY_g
-                0x00800119                limInfPontoInicY_g
-                0x0080011b                limSupPontoInicY_g
- .data          0x0080011e        0x0 usart_def.o
- .data          0x0080011e        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
- .data          0x0080011e        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
- .data          0x0080011e        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_copy_data.o)
- .data          0x0080011e        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
+ .data          0x00800100        0x0 ControleRemoto.o
+ .data          0x00800100        0x0 controle_def.o
+ .data          0x00800100        0x0 globals.o
+ .data          0x00800100        0x0 joystick.o
+ .data          0x00800100        0x0 usart_def.o
+ .data          0x00800100        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .data          0x00800100        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
+ .data          0x00800100        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
+ .data          0x00800100        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
  *(.data*)
+ .data.contador.1690
+                0x00800100        0x1 controle_def.o
+ .data.estadoCarro_g.1626
+                0x00800101        0x1 joystick.o
+ .data.limSupPontoInicY_g
+                0x00800102        0x2 joystick.o
+                0x00800102                limSupPontoInicY_g
+ .data.limInfPontoInicY_g
+                0x00800104        0x2 joystick.o
+                0x00800104                limInfPontoInicY_g
+ .data.limSupPontoInicX_g
+                0x00800106        0x2 joystick.o
+                0x00800106                limSupPontoInicX_g
+ .data.limInfPontoInicX_g
+                0x00800108        0x2 joystick.o
+                0x00800108                limInfPontoInicX_g
  *(.rodata)
  *(.rodata*)
+ .rodata.str1.1
+                0x0080010a        0xe controle_def.o
  *(.gnu.linkonce.d*)
-                0x0080011e                . = ALIGN (0x2)
-                0x0080011e                _edata = .
-                0x0080011e                PROVIDE (__data_end, .)
+                0x00800118                . = ALIGN (0x2)
+                0x00800118                _edata = .
+                0x00800118                PROVIDE (__data_end, .)
 
-.bss            0x0080011e       0x1a
-                0x0080011e                PROVIDE (__bss_start, .)
+.bss            0x00800118       0x17
+                0x00800118                PROVIDE (__bss_start, .)
  *(.bss)
- .bss           0x0080011e        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328p.o
- .bss           0x0080011e        0x0 adc_def.o
- .bss           0x0080011e        0x3 ControleRemoto.o
- .bss           0x00800121        0x0 controle_def.o
- .bss           0x00800121        0x0 globals.o
- .bss           0x00800121        0x0 joystick.o
- .bss           0x00800121        0x0 usart_def.o
- .bss           0x00800121        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
- .bss           0x00800121        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
- .bss           0x00800121        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_copy_data.o)
- .bss           0x00800121        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
  *(.bss*)
+ .bss.contBounce.1648
+                0x00800118        0x2 ControleRemoto.o
+ .bss.contador.1647
+                0x0080011a        0x1 ControleRemoto.o
+ .bss.dutyAnteriorLadoDir_g
+                0x0080011b        0x1 joystick.o
+                0x0080011b                dutyAnteriorLadoDir_g
+ .bss.dutyAnteriorLadoEsq_g
+                0x0080011c        0x1 joystick.o
+                0x0080011c                dutyAnteriorLadoEsq_g
  *(COMMON)
- COMMON         0x00800121       0x12 ControleRemoto.o
-                0x00800121                bufferDados_g
- COMMON         0x00800133        0x5 controle_def.o
-                0x00800133                caracterConvertido_g
-                0x00800138                PROVIDE (__bss_end, .)
-                0x00000b66                __data_load_start = LOADADDR (.data)
-                0x00000b84                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x0080011d       0x12 ControleRemoto.o
+                0x0080011d                bufferDados_g
+                0x0080012f                PROVIDE (__bss_end, .)
+                0x00000b08                __data_load_start = LOADADDR (.data)
+                0x00000b20                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800138        0x0
-                0x00800138                PROVIDE (__noinit_start, .)
+.noinit         0x0080012f        0x0
+                0x0080012f                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x00800138                PROVIDE (__noinit_end, .)
-                0x00800138                _end = .
-                0x00800138                PROVIDE (__heap_start, .)
+                0x0080012f                PROVIDE (__noinit_end, .)
+                0x0080012f                _end = .
+                0x0080012f                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -364,13 +512,14 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
 .signature
  *(.signature*)
 
-.stab           0x00000000      0x6cc
- *(.stab)
- .stab          0x00000000      0x6cc c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328p.o
+.user_signatures
+ *(.user_signatures*)
 
-.stabstr        0x00000000       0x90
+.stab
+ *(.stab)
+
+.stabstr
  *(.stabstr)
- .stabstr       0x00000000       0x90 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328p.o
 
 .stab.excl
  *(.stab.excl)
@@ -384,8 +533,18 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
 .stab.indexstr
  *(.stab.indexstr)
 
-.comment
+.comment        0x00000000       0x30
  *(.comment)
+ .comment       0x00000000       0x30 adc_def.o
+                                 0x31 (size before relaxing)
+ .comment       0x00000000       0x31 ControleRemoto.o
+ .comment       0x00000000       0x31 controle_def.o
+ .comment       0x00000000       0x31 globals.o
+ .comment       0x00000000       0x31 joystick.o
+ .comment       0x00000000       0x31 usart_def.o
+
+.note.gnu.build-id
+ *(.note.gnu.build-id)
 
 .debug
  *(.debug)
@@ -399,117 +558,112 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000       0xc0
+.debug_aranges  0x00000000      0x1a0
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0x20 adc_def.o
+                0x00000000       0x28 adc_def.o
  .debug_aranges
-                0x00000020       0x20 ControleRemoto.o
+                0x00000028       0x40 ControleRemoto.o
  .debug_aranges
-                0x00000040       0x20 controle_def.o
+                0x00000068       0x60 controle_def.o
  .debug_aranges
-                0x00000060       0x20 globals.o
+                0x000000c8       0x20 globals.o
  .debug_aranges
-                0x00000080       0x20 joystick.o
+                0x000000e8       0x78 joystick.o
  .debug_aranges
-                0x000000a0       0x20 usart_def.o
+                0x00000160       0x40 usart_def.o
 
 .debug_pubnames
-                0x00000000      0x3bb
  *(.debug_pubnames)
- .debug_pubnames
-                0x00000000       0x2c adc_def.o
- .debug_pubnames
-                0x0000002c       0x94 ControleRemoto.o
- .debug_pubnames
-                0x000000c0       0xe0 controle_def.o
- .debug_pubnames
-                0x000001a0       0x31 globals.o
- .debug_pubnames
-                0x000001d1      0x17e joystick.o
- .debug_pubnames
-                0x0000034f       0x6c usart_def.o
 
-.debug_info     0x00000000     0x1477
- *(.debug_info)
- .debug_info    0x00000000       0xb1 adc_def.o
- .debug_info    0x000000b1      0x284 ControleRemoto.o
- .debug_info    0x00000335      0xa24 controle_def.o
- .debug_info    0x00000d59       0xdf globals.o
- .debug_info    0x00000e38      0x49f joystick.o
- .debug_info    0x000012d7      0x1a0 usart_def.o
- *(.gnu.linkonce.wi.*)
+.debug_info     0x00000000     0x1b55
+ *(.debug_info .gnu.linkonce.wi.*)
+ .debug_info    0x00000000       0xb7 adc_def.o
+ .debug_info    0x000000b7      0x3bd ControleRemoto.o
+ .debug_info    0x00000474      0xe1c controle_def.o
+ .debug_info    0x00001290       0xe4 globals.o
+ .debug_info    0x00001374      0x630 joystick.o
+ .debug_info    0x000019a4      0x1b1 usart_def.o
 
-.debug_abbrev   0x00000000      0x633
+.debug_abbrev   0x00000000      0x77f
  *(.debug_abbrev)
- .debug_abbrev  0x00000000       0x70 adc_def.o
- .debug_abbrev  0x00000070      0x129 ControleRemoto.o
- .debug_abbrev  0x00000199      0x258 controle_def.o
- .debug_abbrev  0x000003f1       0x75 globals.o
- .debug_abbrev  0x00000466      0x10c joystick.o
- .debug_abbrev  0x00000572       0xc1 usart_def.o
+ .debug_abbrev  0x00000000       0x78 adc_def.o
+ .debug_abbrev  0x00000078      0x18f ControleRemoto.o
+ .debug_abbrev  0x00000207      0x292 controle_def.o
+ .debug_abbrev  0x00000499       0x7a globals.o
+ .debug_abbrev  0x00000513      0x17c joystick.o
+ .debug_abbrev  0x0000068f       0xf0 usart_def.o
 
-.debug_line     0x00000000     0x12b2
- *(.debug_line)
- .debug_line    0x00000000      0x141 adc_def.o
- .debug_line    0x00000141      0x263 ControleRemoto.o
- .debug_line    0x000003a4      0x713 controle_def.o
- .debug_line    0x00000ab7      0x149 globals.o
- .debug_line    0x00000c00      0x4ff joystick.o
- .debug_line    0x000010ff      0x1b3 usart_def.o
+.debug_line     0x00000000      0x9a0
+ *(.debug_line .debug_line.* .debug_line_end)
+ .debug_line    0x00000000       0xc9 adc_def.o
+ .debug_line    0x000000c9      0x156 ControleRemoto.o
+ .debug_line    0x0000021f      0x34e controle_def.o
+ .debug_line    0x0000056d       0xcc globals.o
+ .debug_line    0x00000639      0x24f joystick.o
+ .debug_line    0x00000888      0x118 usart_def.o
 
-.debug_frame    0x00000000      0x260
+.debug_frame    0x00000000      0x408
  *(.debug_frame)
- .debug_frame   0x00000000       0x30 adc_def.o
- .debug_frame   0x00000030       0x60 ControleRemoto.o
- .debug_frame   0x00000090       0xa0 controle_def.o
- .debug_frame   0x00000130       0x20 globals.o
- .debug_frame   0x00000150       0xb0 joystick.o
- .debug_frame   0x00000200       0x60 usart_def.o
+ .debug_frame   0x00000000       0x34 adc_def.o
+ .debug_frame   0x00000034      0x10c ControleRemoto.o
+ .debug_frame   0x00000140      0x108 controle_def.o
+ .debug_frame   0x00000248       0x34 globals.o
+ .debug_frame   0x0000027c      0x110 joystick.o
+ .debug_frame   0x0000038c       0x7c usart_def.o
 
-.debug_str      0x00000000      0x7fd
+.debug_str      0x00000000      0x88a
  *(.debug_str)
- .debug_str     0x00000000       0xc6 adc_def.o
-                                 0xfa (size before relaxing)
- .debug_str     0x000000c6      0x1df ControleRemoto.o
-                                0x2bb (size before relaxing)
- .debug_str     0x000002a5      0x1bf controle_def.o
-                                0x3ef (size before relaxing)
- .debug_str     0x00000464       0x58 globals.o
-                                0x12b (size before relaxing)
- .debug_str     0x000004bc      0x2c2 joystick.o
-                                0x46e (size before relaxing)
- .debug_str     0x0000077e       0x7f usart_def.o
-                                0x157 (size before relaxing)
+ .debug_str     0x00000000      0x17c adc_def.o
+                                0x1b0 (size before relaxing)
+ .debug_str     0x0000017c      0x219 ControleRemoto.o
+                                0x3ab (size before relaxing)
+ .debug_str     0x00000395      0x1be controle_def.o
+                                0x4d3 (size before relaxing)
+ .debug_str     0x00000553       0x3d globals.o
+                                0x1e1 (size before relaxing)
+ .debug_str     0x00000590      0x2a1 joystick.o
+                                0x519 (size before relaxing)
+ .debug_str     0x00000831       0x59 usart_def.o
+                                0x201 (size before relaxing)
 
-.debug_loc      0x00000000      0x98d
+.debug_loc      0x00000000     0x1043
  *(.debug_loc)
- .debug_loc     0x00000000       0x13 adc_def.o
- .debug_loc     0x00000013      0x3d5 controle_def.o
- .debug_loc     0x000003e8       0xb9 globals.o
- .debug_loc     0x000004a1      0x3b6 joystick.o
- .debug_loc     0x00000857      0x136 usart_def.o
+ .debug_loc     0x00000000       0x21 adc_def.o
+ .debug_loc     0x00000021      0x1ec ControleRemoto.o
+ .debug_loc     0x0000020d      0x5cf controle_def.o
+ .debug_loc     0x000007dc      0x164 globals.o
+ .debug_loc     0x00000940      0x51a joystick.o
+ .debug_loc     0x00000e5a      0x1e9 usart_def.o
 
 .debug_macinfo
  *(.debug_macinfo)
-OUTPUT(ControleRemoto.elf elf32-avr)
-LOAD linker stubs
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
 
 .debug_pubtypes
-                0x00000000      0x162
- .debug_pubtypes
-                0x00000000       0x2b adc_def.o
- .debug_pubtypes
-                0x0000002b       0x4c ControleRemoto.o
- .debug_pubtypes
-                0x00000077       0x59 controle_def.o
- .debug_pubtypes
-                0x000000d0       0x2b globals.o
- .debug_pubtypes
-                0x000000fb       0x3c joystick.o
- .debug_pubtypes
-                0x00000137       0x2b usart_def.o
+ *(.debug_pubtypes)
 
-.debug_ranges   0x00000000       0xa8
- .debug_ranges  0x00000000       0x90 controle_def.o
- .debug_ranges  0x00000090       0x18 usart_def.o
+.debug_ranges   0x00000000      0x1a0
+ *(.debug_ranges)
+ .debug_ranges  0x00000000       0x18 adc_def.o
+ .debug_ranges  0x00000018       0x30 ControleRemoto.o
+ .debug_ranges  0x00000048       0x98 controle_def.o
+ .debug_ranges  0x000000e0       0x10 globals.o
+ .debug_ranges  0x000000f0       0x68 joystick.o
+ .debug_ranges  0x00000158       0x48 usart_def.o
+
+.debug_macro
+ *(.debug_macro)
+OUTPUT(ControleRemoto.elf elf32-avr)
+LOAD linker stubs

@@ -1,16 +1,98 @@
 Archive member included because of file (symbol)
 
-c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
+c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_udivmodhi4.o)
                               direcao_def.o (__udivmodhi4)
-c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
-                              c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328.o (exit)
-c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
+c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+                              c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328.o (exit)
+c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
                               ControleCarro.o (__do_clear_bss)
+c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
+                              globals_def.o (__umulhisi3)
 
 Allocating common symbols
 Common symbol       size              file
 
 bufferRX_g          0xb               ControleCarro.o
+
+Discarded input sections
+
+ .bss           0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328.o
+ .text          0x00000000        0x0 adc_def.o
+ .bss           0x00000000        0x0 adc_def.o
+ .text          0x00000000        0x0 ControleCarro.o
+ .bss           0x00000000        0x0 ControleCarro.o
+ .text          0x00000000        0x0 direcao_def.o
+ .bss           0x00000000        0x0 direcao_def.o
+ .text          0x00000000        0x0 globals_def.o
+ .bss           0x00000000        0x0 globals_def.o
+ .text.CvrtNum2CaracterIndividual
+                0x00000000       0xae globals_def.o
+ .text          0x00000000        0x0 usart_def.o
+ .bss           0x00000000        0x0 usart_def.o
+ .text.Usart_Receive
+                0x00000000       0x10 usart_def.o
+ .text.Usart_Write
+                0x00000000       0x1e usart_def.o
+ .text.Usart_Write_Flash
+                0x00000000       0x28 usart_def.o
+ .text          0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_udivmodhi4.o)
+ .bss           0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.mul
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc   0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.prologue
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.builtins
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.fmul
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.fixed
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_udivmodhi4.o)
+ .text          0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .bss           0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .text.libgcc.mul
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .text.libgcc.div
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .text.libgcc.prologue
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .text.libgcc.builtins
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .text.libgcc.fmul
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .text.libgcc.fixed
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .text          0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
+ .bss           0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.mul
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.div
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.prologue
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.builtins
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.fmul
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.fixed
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
+ .text          0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
+ .bss           0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.mul
+                0x00000000       0x1e c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.div
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc   0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.prologue
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.builtins
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.fmul
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.fixed
+                0x00000000        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
 
 Memory Configuration
 
@@ -21,21 +103,26 @@ eeprom           0x00810000         0x00010000         rw !x
 fuse             0x00820000         0x00000400         rw !x
 lock             0x00830000         0x00000400         rw !x
 signature        0x00840000         0x00000400         rw !x
+user_signatures  0x00850000         0x00000400         rw !x
 *default*        0x00000000         0xffffffff
 
 Linker script and memory map
 
 Address of section .data set to 0x800100
-LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328.o
+LOAD c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328.o
 LOAD adc_def.o
 LOAD ControleCarro.o
 LOAD direcao_def.o
 LOAD globals_def.o
 LOAD usart_def.o
-LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5\libm.a
-LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a
-LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5\libc.a
-LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a
+START GROUP
+LOAD c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libm.a
+END GROUP
+START GROUP
+LOAD c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a
+LOAD c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libm.a
+LOAD c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a
+END GROUP
 
 .hash
  *(.hash)
@@ -127,20 +214,21 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x678
+.text           0x00000000      0x5f8
  *(.vectors)
- .vectors       0x00000000       0x68 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328.o
+ .vectors       0x00000000       0x68 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328.o
                 0x00000000                __vector_default
                 0x00000000                __vectors
  *(.vectors)
  *(.progmem.gcc*)
- *(.progmem*)
                 0x00000068                . = ALIGN (0x2)
                 0x00000068                __trampolines_start = .
  *(.trampolines)
  .trampolines   0x00000068        0x0 linker stubs
  *(.trampolines*)
                 0x00000068                __trampolines_end = .
+ *(.progmem*)
+                0x00000068                . = ALIGN (0x2)
  *(.jumptables)
  *(.jumptables*)
  *(.lowtext)
@@ -154,18 +242,18 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
  SORT(*)(.ctors)
  SORT(*)(.dtors)
  *(.init0)
- .init0         0x00000068        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328.o
+ .init0         0x00000068        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328.o
                 0x00000068                __init
  *(.init0)
  *(.init1)
  *(.init1)
  *(.init2)
- .init2         0x00000068        0xc c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328.o
+ .init2         0x00000068        0xc c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328.o
  *(.init2)
  *(.init3)
  *(.init3)
  *(.init4)
- .init4         0x00000074       0x10 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
+ .init4         0x00000074       0x10 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
                 0x00000074                __do_clear_bss
  *(.init4)
  *(.init5)
@@ -177,10 +265,10 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
  *(.init8)
  *(.init8)
  *(.init9)
- .init9         0x00000084        0x8 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328.o
+ .init9         0x00000084        0x8 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328.o
  *(.init9)
  *(.text)
- .text          0x0000008c        0x4 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328.o
+ .text          0x0000008c        0x4 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328.o
                 0x0000008c                __vector_22
                 0x0000008c                __vector_1
                 0x0000008c                __vector_24
@@ -204,50 +292,79 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
                 0x0000008c                __vector_8
                 0x0000008c                __vector_14
                 0x0000008c                __vector_10
-                0x0000008c                __vector_16
                 0x0000008c                __vector_20
- .text          0x00000090       0x44 adc_def.o
-                0x00000090                ADC_Init
-                0x000000a8                ADC_Read
- .text          0x000000d4       0xb8 ControleCarro.o
-                0x000000d4                __vector_18
-                0x00000140                ValoresIniciaisBuffer
-                0x00000174                main
- .text          0x0000018c      0x3e0 direcao_def.o
-                0x0000018c                CalculaDutyCicleM1
-                0x000001d6                CalculaDutyCicleM2
-                0x00000220                SetaFonteAlimentacao
-                0x0000023e                AndandoFrente
-                0x0000027a                AndandoTras
-                0x000002b6                CarroParado
-                0x000002c8                DirecaoCarro
-                0x00000384                ConfiguracoesDirecaoInit
-                0x000003d2                RecebeProtocolo
-                0x00000478                TensaoBateria
-                0x000004c6                TensaoPainel
-                0x00000520                TransmitiBuffer
- .text          0x0000056c       0x60 globals_def.o
-                0x0000056c                CvrtNum2CaracterIndividual
- .text          0x000005cc       0x80 usart_def.o
-                0x000005cc                Usart_Init
-                0x000005e6                Usart_Transmit
-                0x000005f6                Usart_Receive
-                0x00000606                Usart_Write
-                0x00000624                Usart_Write_Flash
- .text          0x0000064c        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
- .text          0x0000064c        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
- .text          0x0000064c        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
-                0x0000064c                . = ALIGN (0x2)
+                0x00000090                . = ALIGN (0x2)
  *(.text.*)
- .text.libgcc   0x0000064c       0x28 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
-                0x0000064c                __udivmodhi4
- .text.libgcc   0x00000674        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
- .text.libgcc   0x00000674        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
-                0x00000674                . = ALIGN (0x2)
+ .text.ADC_Init
+                0x00000090       0x18 adc_def.o
+                0x00000090                ADC_Init
+ .text.ADC_Read
+                0x000000a8       0x28 adc_def.o
+                0x000000a8                ADC_Read
+ .text.__vector_18
+                0x000000d0       0x6c ControleCarro.o
+                0x000000d0                __vector_18
+ .text.SolicitaReenvioDados
+                0x0000013c        0xc ControleCarro.o
+                0x0000013c                SolicitaReenvioDados
+ .text.__vector_16
+                0x00000148       0x5e ControleCarro.o
+                0x00000148                __vector_16
+ .text.ValoresIniciaisBuffer
+                0x000001a6       0x38 ControleCarro.o
+                0x000001a6                ValoresIniciaisBuffer
+ .text.main     0x000001de       0x22 ControleCarro.o
+                0x000001de                main
+ .text.CalculaDutyCicleM1
+                0x00000200       0x44 direcao_def.o
+                0x00000200                CalculaDutyCicleM1
+ .text.CalculaDutyCicleM2
+                0x00000244       0x44 direcao_def.o
+                0x00000244                CalculaDutyCicleM2
+ .text.SetaFonteAlimentacao
+                0x00000288       0x1e direcao_def.o
+                0x00000288                SetaFonteAlimentacao
+ .text.AndandoFrente
+                0x000002a6       0x3c direcao_def.o
+                0x000002a6                AndandoFrente
+ .text.AndandoTras
+                0x000002e2       0x3c direcao_def.o
+                0x000002e2                AndandoTras
+ .text.CarroParado
+                0x0000031e       0x12 direcao_def.o
+                0x0000031e                CarroParado
+ .text.ConfiguracoesDirecaoInit
+                0x00000330       0x4e direcao_def.o
+                0x00000330                ConfiguracoesDirecaoInit
+ .text.DirecaoCarro
+                0x0000037e       0xbc direcao_def.o
+                0x0000037e                DirecaoCarro
+ .text.RecebeProtocolo
+                0x0000043a       0x94 direcao_def.o
+                0x0000043a                RecebeProtocolo
+ .text.TensaoBateria
+                0x000004ce       0x3e direcao_def.o
+                0x000004ce                TensaoBateria
+ .text.TensaoPainel
+                0x0000050c       0x4a direcao_def.o
+                0x0000050c                TensaoPainel
+ .text.TransmitiBuffer
+                0x00000556       0x4c direcao_def.o
+                0x00000556                TransmitiBuffer
+ .text.Usart_Init
+                0x000005a2       0x1a usart_def.o
+                0x000005a2                Usart_Init
+ .text.Usart_Transmit
+                0x000005bc       0x10 usart_def.o
+                0x000005bc                Usart_Transmit
+ .text.libgcc.div
+                0x000005cc       0x28 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_udivmodhi4.o)
+                0x000005cc                __udivmodhi4
+                0x000005f4                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000674        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
-                0x00000674                _exit
-                0x00000674                exit
+ .fini9         0x000005f4        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+                0x000005f4                _exit
+                0x000005f4                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -266,22 +383,23 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000674        0x4 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
+ .fini0         0x000005f4        0x4 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000678                _etext = .
+                0x000005f8                _etext = .
 
-.data           0x00800100        0x0 load address 0x00000678
+.data           0x00800100        0x0 load address 0x000005f8
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
- .data          0x00800100        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328.o
+ .data          0x00800100        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm328.o
  .data          0x00800100        0x0 adc_def.o
  .data          0x00800100        0x0 ControleCarro.o
  .data          0x00800100        0x0 direcao_def.o
  .data          0x00800100        0x0 globals_def.o
  .data          0x00800100        0x0 usart_def.o
- .data          0x00800100        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
- .data          0x00800100        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
- .data          0x00800100        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
+ .data          0x00800100        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_udivmodhi4.o)
+ .data          0x00800100        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .data          0x00800100        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
+ .data          0x00800100        0x0 c:/program files/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_umulhisi3.o)
  *(.data*)
  *(.rodata)
  *(.rodata*)
@@ -290,32 +408,25 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
                 0x00800100                _edata = .
                 0x00800100                PROVIDE (__data_end, .)
 
-.bss            0x00800100        0xb
+.bss            0x00800100        0xc
                 0x00800100                PROVIDE (__bss_start, .)
  *(.bss)
- .bss           0x00800100        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328.o
- .bss           0x00800100        0x0 adc_def.o
- .bss           0x00800100        0x0 ControleCarro.o
- .bss           0x00800100        0x0 direcao_def.o
- .bss           0x00800100        0x0 globals_def.o
- .bss           0x00800100        0x0 usart_def.o
- .bss           0x00800100        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_udivmodhi4.o)
- .bss           0x00800100        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_exit.o)
- .bss           0x00800100        0x0 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr5\libgcc.a(_clear_bss.o)
  *(.bss*)
+ .bss.tempoRecep.1655
+                0x00800100        0x1 ControleCarro.o
  *(COMMON)
- COMMON         0x00800100        0xb ControleCarro.o
-                0x00800100                bufferRX_g
-                0x0080010b                PROVIDE (__bss_end, .)
-                0x00000678                __data_load_start = LOADADDR (.data)
-                0x00000678                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x00800101        0xb ControleCarro.o
+                0x00800101                bufferRX_g
+                0x0080010c                PROVIDE (__bss_end, .)
+                0x000005f8                __data_load_start = LOADADDR (.data)
+                0x000005f8                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x0080010b        0x0
-                0x0080010b                PROVIDE (__noinit_start, .)
+.noinit         0x0080010c        0x0
+                0x0080010c                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x0080010b                PROVIDE (__noinit_end, .)
-                0x0080010b                _end = .
-                0x0080010b                PROVIDE (__heap_start, .)
+                0x0080010c                PROVIDE (__noinit_end, .)
+                0x0080010c                _end = .
+                0x0080010c                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -333,13 +444,14 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
 .signature
  *(.signature*)
 
-.stab           0x00000000      0x6cc
- *(.stab)
- .stab          0x00000000      0x6cc c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328.o
+.user_signatures
+ *(.user_signatures*)
 
-.stabstr        0x00000000       0x90
+.stab
+ *(.stab)
+
+.stabstr
  *(.stabstr)
- .stabstr       0x00000000       0x90 c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr5/crtm328.o
 
 .stab.excl
  *(.stab.excl)
@@ -353,8 +465,17 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
 .stab.indexstr
  *(.stab.indexstr)
 
-.comment
+.comment        0x00000000       0x30
  *(.comment)
+ .comment       0x00000000       0x30 adc_def.o
+                                 0x31 (size before relaxing)
+ .comment       0x00000000       0x31 ControleCarro.o
+ .comment       0x00000000       0x31 direcao_def.o
+ .comment       0x00000000       0x31 globals_def.o
+ .comment       0x00000000       0x31 usart_def.o
+
+.note.gnu.build-id
+ *(.note.gnu.build-id)
 
 .debug
  *(.debug)
@@ -368,103 +489,102 @@ LOAD c:/program files/atmel/avr studio 5.1/extensions/atmel/avrgcc/3.3.1.27/avrt
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000       0xa0
+.debug_aranges  0x00000000      0x140
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0x20 adc_def.o
+                0x00000000       0x28 adc_def.o
  .debug_aranges
-                0x00000020       0x20 ControleCarro.o
+                0x00000028       0x40 ControleCarro.o
  .debug_aranges
-                0x00000040       0x20 direcao_def.o
+                0x00000068       0x78 direcao_def.o
  .debug_aranges
-                0x00000060       0x20 globals_def.o
+                0x000000e0       0x20 globals_def.o
  .debug_aranges
-                0x00000080       0x20 usart_def.o
+                0x00000100       0x40 usart_def.o
 
 .debug_pubnames
-                0x00000000      0x221
  *(.debug_pubnames)
- .debug_pubnames
-                0x00000000       0x2c adc_def.o
- .debug_pubnames
-                0x0000002c       0x54 ControleCarro.o
- .debug_pubnames
-                0x00000080      0x104 direcao_def.o
- .debug_pubnames
-                0x00000184       0x31 globals_def.o
- .debug_pubnames
-                0x000001b5       0x6c usart_def.o
 
-.debug_info     0x00000000      0x9d0
- *(.debug_info)
- .debug_info    0x00000000       0xb1 adc_def.o
- .debug_info    0x000000b1      0x196 ControleCarro.o
- .debug_info    0x00000247      0x50a direcao_def.o
- .debug_info    0x00000751       0xdf globals_def.o
- .debug_info    0x00000830      0x1a0 usart_def.o
- *(.gnu.linkonce.wi.*)
+.debug_info     0x00000000      0xc19
+ *(.debug_info .gnu.linkonce.wi.*)
+ .debug_info    0x00000000       0xb7 adc_def.o
+ .debug_info    0x000000b7      0x2eb ControleCarro.o
+ .debug_info    0x000003a2      0x5e2 direcao_def.o
+ .debug_info    0x00000984       0xe4 globals_def.o
+ .debug_info    0x00000a68      0x1b1 usart_def.o
 
-.debug_abbrev   0x00000000      0x478
+.debug_abbrev   0x00000000      0x5a2
  *(.debug_abbrev)
- .debug_abbrev  0x00000000       0x70 adc_def.o
- .debug_abbrev  0x00000070       0xe7 ControleCarro.o
- .debug_abbrev  0x00000157      0x1eb direcao_def.o
- .debug_abbrev  0x00000342       0x75 globals_def.o
- .debug_abbrev  0x000003b7       0xc1 usart_def.o
+ .debug_abbrev  0x00000000       0x78 adc_def.o
+ .debug_abbrev  0x00000078      0x180 ControleCarro.o
+ .debug_abbrev  0x000001f8      0x240 direcao_def.o
+ .debug_abbrev  0x00000438       0x7a globals_def.o
+ .debug_abbrev  0x000004b2       0xf0 usart_def.o
 
-.debug_line     0x00000000      0xbe4
- *(.debug_line)
- .debug_line    0x00000000      0x141 adc_def.o
- .debug_line    0x00000141      0x1aa ControleCarro.o
- .debug_line    0x000002eb      0x5f9 direcao_def.o
- .debug_line    0x000008e4      0x14d globals_def.o
- .debug_line    0x00000a31      0x1b3 usart_def.o
+.debug_line     0x00000000      0x68c
+ *(.debug_line .debug_line.* .debug_line_end)
+ .debug_line    0x00000000       0xc9 adc_def.o
+ .debug_line    0x000000c9      0x149 ControleCarro.o
+ .debug_line    0x00000212      0x292 direcao_def.o
+ .debug_line    0x000004a4       0xd0 globals_def.o
+ .debug_line    0x00000574      0x118 usart_def.o
 
-.debug_frame    0x00000000      0x1c0
+.debug_frame    0x00000000      0x318
  *(.debug_frame)
- .debug_frame   0x00000000       0x30 adc_def.o
- .debug_frame   0x00000030       0x40 ControleCarro.o
- .debug_frame   0x00000070       0xd0 direcao_def.o
- .debug_frame   0x00000140       0x20 globals_def.o
- .debug_frame   0x00000160       0x60 usart_def.o
+ .debug_frame   0x00000000       0x34 adc_def.o
+ .debug_frame   0x00000034       0xf4 ControleCarro.o
+ .debug_frame   0x00000128      0x140 direcao_def.o
+ .debug_frame   0x00000268       0x34 globals_def.o
+ .debug_frame   0x0000029c       0x7c usart_def.o
 
-.debug_str      0x00000000      0x42c
+.debug_str      0x00000000      0x4da
  *(.debug_str)
- .debug_str     0x00000000       0xc5 adc_def.o
-                                 0xf9 (size before relaxing)
- .debug_str     0x000000c5       0xe0 ControleCarro.o
-                                0x1b2 (size before relaxing)
- .debug_str     0x000001a5      0x1b2 direcao_def.o
-                                0x31d (size before relaxing)
- .debug_str     0x00000357       0x56 globals_def.o
-                                0x12e (size before relaxing)
- .debug_str     0x000003ad       0x7f usart_def.o
-                                0x156 (size before relaxing)
+ .debug_str     0x00000000      0x17a adc_def.o
+                                0x1ae (size before relaxing)
+ .debug_str     0x0000017a      0x169 ControleCarro.o
+                                0x2f0 (size before relaxing)
+ .debug_str     0x000002e3      0x148 direcao_def.o
+                                0x3c3 (size before relaxing)
+ .debug_str     0x0000042b       0x56 globals_def.o
+                                0x1e3 (size before relaxing)
+ .debug_str     0x00000481       0x59 usart_def.o
+                                0x1ff (size before relaxing)
 
-.debug_loc      0x00000000      0x43b
+.debug_loc      0x00000000      0x9a5
  *(.debug_loc)
- .debug_loc     0x00000000       0x13 adc_def.o
- .debug_loc     0x00000013      0x239 direcao_def.o
- .debug_loc     0x0000024c       0xb9 globals_def.o
- .debug_loc     0x00000305      0x136 usart_def.o
+ .debug_loc     0x00000000       0x21 adc_def.o
+ .debug_loc     0x00000021      0x196 ControleCarro.o
+ .debug_loc     0x000001b7      0x4a1 direcao_def.o
+ .debug_loc     0x00000658      0x164 globals_def.o
+ .debug_loc     0x000007bc      0x1e9 usart_def.o
 
 .debug_macinfo
  *(.debug_macinfo)
-OUTPUT(ControleCarro.elf elf32-avr)
-LOAD linker stubs
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
 
 .debug_pubtypes
-                0x00000000      0x119
- .debug_pubtypes
-                0x00000000       0x2b adc_def.o
- .debug_pubtypes
-                0x0000002b       0x3f ControleCarro.o
- .debug_pubtypes
-                0x0000006a       0x59 direcao_def.o
- .debug_pubtypes
-                0x000000c3       0x2b globals_def.o
- .debug_pubtypes
-                0x000000ee       0x2b usart_def.o
+ *(.debug_pubtypes)
 
-.debug_ranges   0x00000000       0x18
- .debug_ranges  0x00000000       0x18 usart_def.o
+.debug_ranges   0x00000000      0x108
+ *(.debug_ranges)
+ .debug_ranges  0x00000000       0x18 adc_def.o
+ .debug_ranges  0x00000018       0x30 ControleCarro.o
+ .debug_ranges  0x00000048       0x68 direcao_def.o
+ .debug_ranges  0x000000b0       0x10 globals_def.o
+ .debug_ranges  0x000000c0       0x48 usart_def.o
+
+.debug_macro
+ *(.debug_macro)
+OUTPUT(ControleCarro.elf elf32-avr)
+LOAD linker stubs

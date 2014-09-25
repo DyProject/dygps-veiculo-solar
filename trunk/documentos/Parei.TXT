@@ -1,0 +1,1 @@
+Cortar o disipador e fazer teste na outra ponte H e com os dois motores.

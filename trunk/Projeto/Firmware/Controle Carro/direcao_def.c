@@ -228,8 +228,8 @@ void TransmitiBuffer(
 	volatile uint8_t indicaInicioTransmissao = 'z';
 	volatile uint8_t tensaoBat ;
 	volatile uint8_t tensaoPainel;
-	volatile uint16_t lidoADBat;
-	volatile uint16_t lidoADPain;	
+	//volatile uint16_t lidoADBat;
+	//volatile uint16_t lidoADPain;	
 	
 	//lidoADBat = ADC_Read(AD_BATERIA);
 	//lidoADPain = ADC_Read(AD_PAINEL);
