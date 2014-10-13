@@ -3,6 +3,7 @@
 #include "globals_def.h"
 #include "LCD4b.h"
 #include "usart_def.h"
+#include "joystick.h"
 
 //----------------------------------------------------------------------------
 
@@ -12,6 +13,7 @@ unsigned char caracterConvertido_g[5];
 
 //----------------------------------------------------------------------------
 
+/*Recebe os dados em 3ms*/
 uint8_t RecebeProtocolo(
 	BufferDados* bufferRecepcao
 )
@@ -63,11 +65,12 @@ void TransmitiBuffer(
 	
 	direcao = DirecaoCarro(sentido);
 	bufferDados->direcao = direcao;
+	
 	dutyLadoEsq = CalculaDutyCycleLadoEsq();
 	bufferDados->dutyLadoEsq = dutyLadoEsq;
 	dutyLadoDir = CalculaDutyCycleLadoDir();
 	bufferDados->dutyLadoDir = dutyLadoDir;
-	
+		
 	/*Indica o inicio do protocolo*/
 	Usart_Transmit(indicaInicioTransmissao);
 	/*Indica a direcao do carro*/
@@ -96,11 +99,11 @@ void MostraDadosLCD(
 			
 	LCD_setPos(1,3);
 	CvrtNum2CaracterIndividual(bufferDados->dutyLadoEsq	, caracConvertido, 3);
-	escreve_LCD(caracConvertido);
+	escreve_LCD((char*)caracConvertido);
 	
 	LCD_setPos(2,3);
 	CvrtNum2CaracterIndividual(bufferDados->dutyLadoDir,  caracConvertido, 3);
-	escreve_LCD(caracConvertido);
+	escreve_LCD((char*)caracConvertido);
 	
 	/*Para o display não ficar piscando*/
 	if(contador > 16){				
@@ -110,7 +113,7 @@ void MostraDadosLCD(
 		LCD_setPos(1,7);
 		escreve_LCD("B:");
 		CvrtNum2CaracterIndividual(bufferDados->tensaoBateria, caracConvertido, 2);
-		escreve_LCD(caracConvertido);
+		escreve_LCD((char*)caracConvertido);
 		EscreveCaracterLCD('V');
 	
 		LCD_setPos(1,13);
@@ -124,7 +127,7 @@ void MostraDadosLCD(
 		LCD_setPos(2,7);
 		escreve_LCD("P:");
 		CvrtNum2CaracterIndividual(bufferDados->tensaoPainel, caracConvertido, 2);
-		escreve_LCD(caracConvertido);
+		escreve_LCD((char*)caracConvertido);
 		EscreveCaracterLCD('V');
 	
 		LCD_setPos(2,13);

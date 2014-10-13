@@ -10,8 +10,8 @@
 
 //----------------------------------------------------------------------------
 
-#define IN1								PB1
-#define IN3								PB2
+#define IN1								PB2
+#define IN3								PB1
 #define	IN2_IN4							PB3
 #define ENA_ENB							PB4
 
@@ -47,6 +47,10 @@ uint16_t CalculaDutyCicleM1(
 uint16_t CalculaDutyCicleM2(
 	uint16_t porCentagem,
 	TEstadoCarro estadoCarro
+);
+
+void ParadaLenta(
+	BufferRecep* bufferRecepcao
 );
 
 void DirecaoCarro(

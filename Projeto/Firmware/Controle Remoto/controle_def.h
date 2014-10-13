@@ -14,10 +14,6 @@
 #include "globals_def.h"
 
 //----------------------------------------------------------------------------
-	
-unsigned char DirecaoCarro(
-	unsigned char sentido
-);
 
 void TransmitiBuffer(
 	BufferDados* bufferDados

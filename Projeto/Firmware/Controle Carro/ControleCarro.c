@@ -33,7 +33,7 @@ void SolicitaReenvioDados();
 ISR(USART_RX_vect)							
 {
 	RecebeProtocolo(&bufferRX_g);
-	if(bufferRX_g.completo == 'y' && bufferRX_g.iniciado == 'n') {
+	if(bufferRX_g.completo == 'y') {
 		DirecaoCarro(&bufferRX_g);
 		TransmitiBuffer(&bufferRX_g.fonteAlimentacao);
 	}	
@@ -45,13 +45,25 @@ ISR(TIMER0_OVF_vect)
 {
 	static uint8_t tempoRecep = 0;
 	
-	/*aproximadamente 3s, senão receber dados nesse tempo envia novamente os dados*/
-	if(tempoRecep > 100) {
-		SolicitaReenvioDados();
+	if(bufferRX_g.iniciado == 'y')
 		tempoRecep = 0;
+	else if(tempoRecep > 80) {
+		/*Desabilita Interrupção RX*/ //trace
+		clr_bit(UCSR0B, 7);
+		ParadaLenta(&bufferRX_g);
+		/*Habilita Interrupção RX*///trace
+		tempoRecep = 0;
+		set_bit(UCSR0B, 7);
 	}
-	
 	tempoRecep++;
+		
+	//trace}else if(tempoRecep > 100){
+	//trace	SolicitaReenvioDados();
+		//tracetempoRecep = 0;
+	//trace}
+	
+	//traceSolicitaReenvioDados();
+	
 }
 
 //----------------------------------------------------------------------------
@@ -65,6 +77,10 @@ void SolicitaReenvioDados()
 	/*Para o carro*/
 	bufferRX_g.estadoCarro = PARADO;
 	CarroParado();
+		
+	bufferRX_g.iniciado = 'n';
+	bufferRX_g.completo = 'n';
+	bufferRX_g.qntdDadosLido = 0;
 	
 	//traceTransmitiBuffer(&bufferRX_g.fonteAlimentacao);
 }
@@ -94,7 +110,7 @@ void ValoresIniciaisBuffer()
 	bufferRX_g.dutyCicleM2 = 0;
 	bufferRX_g.qntdDadosLido = 0;
 	bufferRX_g.iniciado = 'n';
-	bufferRX_g.completo = 'y';
+	bufferRX_g.completo = 'n';
 	bufferRX_g.fonteAlimentacao = 'B';
 	bufferRX_g.direcao = 'P';
 	bufferRX_g.estadoCarro = PARADO;

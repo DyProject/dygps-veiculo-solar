@@ -13,6 +13,8 @@
 #include "controle_def.h"
 #include "globals_def.h"
 #include "usart_def.h"
+#include "adc_def.h"
+
 
 #include <util/delay.h>
 
@@ -38,18 +40,22 @@ ISR(INT0_vect)
 		
 //----------------------------------------------------------------------------
 
+/*Interrupção gerada a cada 16,38ms*/
 ISR(ADC_vect)			
 {
 	static uint8_t contador = 0;
-		
 	/*Envia o valor lido do ADC a cada 1s aproximadamente*/
-	if(contador > 16 && (bufferDados_g.podeIniciarTransmissao == 'y')) {
+	if(contador > 8 && (bufferDados_g.podeIniciarTransmissao == 'y')) {
+		
+		/*Desabilita Interrupção RX*/
+		clr_bit(UCSR0B, 7);
+		
 		ADMUX &= ~(1 << ADIE);
 			
 		TransmitiBuffer(&bufferDados_g);
-		//Limpa_matriz_LCD(1, 6, 1);
-		//Limpa_matriz_LCD(2, 6, 1);
+		
 		MostraDadosLCD(&bufferDados_g);
+		
 		/*Para eleminar o ruído*/
 		static int contBounce = 0;
 		if(contBounce > 4) {		
@@ -61,20 +67,32 @@ ISR(ADC_vect)
 		contBounce++;
 		bufferDados_g.podeIniciarTransmissao = 'n';
 		contador = 0;
-		
+		/*Habilita AD*/
 		ADMUX |= (1 << ADIE);
-	} else if(contador > 100) {
+		
+		/*Habilita Interrupção RX*/
+		set_bit(UCSR0B, 7);
+		
+	} else if(contador > 15) {
+		/*Desabilita Interrupção RX*/
+		clr_bit(UCSR0B, 7);
+		
 		ADMUX &= ~(1 << ADIE);
 		TransmitiBuffer(&bufferDados_g);
 		MostraDadosLCD(&bufferDados_g);
-		ADMUX |= (1 << ADIE);
 		contador = 0;
+		
+		ADMUX |= (1 << ADIE);
+		
+		/*Habilita Interrupção RX*/
+		set_bit(UCSR0B, 7);		
 	}
 	
 	contador++;
 	/*Limpa o flag de overflow do Timer0. Esse flag indica que houve um estouro do timer.
 	limpar para habilitar um novo estouro para gerar a interrupção do ADC.*/
 	TIFR0 |= TOV0;
+	
 }	
 
 //----------------------------------------------------------------------------
@@ -116,6 +134,7 @@ void ValoresIniciaisBuffer()
 	bufferDados_g.podeIniciarTransmissao = 'y';
 	bufferDados_g.fonteAlimentacao = 'B';
 	bufferDados_g.botaoSelFontePress = 'n';
+
 }	
 
 //----------------------------------------------------------------------------
