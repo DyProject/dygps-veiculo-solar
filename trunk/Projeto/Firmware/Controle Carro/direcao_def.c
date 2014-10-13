@@ -11,15 +11,11 @@ uint16_t CalculaDutyCicleM1(
 	TEstadoCarro estadoCarro
 )
 {
-	uint16_t valor = 0;
-	if(porCentagem == 100)
-		valor = 35000;
-	else if (porCentagem == 75)
-		valor = 26250;
-	else if (porCentagem == 50)
-		valor = 17500;
-	else if (porCentagem == 25)
-		valor = 8750;
+	/*Valor é igual ao (35000 * 0,25) ou (350*porcentagem)*/
+	uint16_t valor = porCentagem * 350;
+		
+	if(porCentagem > 100)
+		porCentagem = 100;
 		
 	if(estadoCarro == ANDANDO_TRAS)
 		valor = 35000 - valor;
@@ -35,15 +31,10 @@ uint16_t CalculaDutyCicleM2(
 	TEstadoCarro estadoCarro
 )
 {
-	uint16_t valor = 0;
-	if (porCentagem == 100)
-		valor = 35000;
-	else if (porCentagem == 75)
-		valor = 26250;
-	else if (porCentagem == 50)
-		valor = 17500;
-	else if (porCentagem == 25)
-		valor = 8750;
+	uint16_t valor = porCentagem * 350;
+
+	if(porCentagem > 100)
+		porCentagem = 100;
 		
 	if(estadoCarro == ANDANDO_TRAS)
 		valor = 35000 - valor;
@@ -99,6 +90,39 @@ void SetaFonteAlimentacao(
 	}				
 }	
 	
+//----------------------------------------------------------------------------
+
+void ParadaLenta(
+	BufferRecep* bufferRecepcao
+) 
+{
+	uint8_t incremento = 15;
+	uint8_t incrementoInicial = 15;
+	
+	switch (bufferRecepcao->estadoCarro) {			
+		case ANDANDO_FRENTE:
+		case ANDANDO_TRAS:	
+			
+			if(bufferRecepcao->dutyCicleM1 > incrementoInicial)//Abaixo desse valor o carrinho não anda
+				bufferRecepcao->dutyCicleM1 -= incremento;
+		
+			if(bufferRecepcao->dutyCicleM2 > incrementoInicial)//Abaixo desse valor o carrinho não anda
+				bufferRecepcao->dutyCicleM2 -= incremento;
+		
+			OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
+			OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
+			
+			if(bufferRecepcao->dutyCicleM1 < incrementoInicial && bufferRecepcao->dutyCicleM2 < incrementoInicial)
+				CarroParado();
+		
+			
+		
+		break;
+		case PARADO:
+		break;
+	}
+}
+
 //----------------------------------------------------------------------------
 
 void DirecaoCarro(
@@ -246,10 +270,12 @@ void TransmitiBuffer(
 	Usart_Transmit(*fonteAlimentacao);
 	
 	/*Tensão na bateria*/	
-	Usart_Transmit(tensaoBat);
+	Usart_Transmit('2');//trace
+	//Usart_Transmit(tensaoBat);
 	
 	/*Tensão no Painel*/
-	Usart_Transmit(tensaoPainel);
+	Usart_Transmit('!');//trace
+	//Usart_Transmit(tensaoPainel);
 }
 
 //----------------------------------------------------------------------------

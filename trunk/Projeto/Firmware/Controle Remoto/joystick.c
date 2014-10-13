@@ -170,10 +170,16 @@ uint8_t SoftStarterLadoEsq(
 	uint8_t dutyAtual
 )
 {
-	if(dutyAnteriorLadoEsq_g < dutyAtual)
-	dutyAtual = dutyAnteriorLadoEsq_g + 25;
+	uint8_t incremento = 5;
+	uint8_t incrementoInicial = 15;
+	
+	
+	if(dutyAnteriorLadoEsq_g < incrementoInicial)//Abaixo desse valor o carrinho não anda
+		dutyAtual = incrementoInicial; 
+	else if(dutyAnteriorLadoEsq_g < dutyAtual)
+		dutyAtual = dutyAnteriorLadoEsq_g + incremento;
 	else if(dutyAnteriorLadoEsq_g > dutyAtual)
-	dutyAtual = dutyAnteriorLadoEsq_g - 25;
+		dutyAtual = dutyAnteriorLadoEsq_g - incremento;
 		
 	return dutyAtual;
 }
@@ -184,10 +190,16 @@ uint8_t SoftStarterLadoDir(
 uint8_t dutyAtual
 )
 {
-	if(dutyAnteriorLadoDir_g < dutyAtual)
-	dutyAtual = dutyAnteriorLadoDir_g + 25;
+	uint8_t incremento = 5;
+	uint8_t incrementoInicial = 15;
+	
+	
+	if(dutyAnteriorLadoDir_g < incrementoInicial)//Abaixo desse valor o carrinho não anda
+		dutyAtual = incrementoInicial;
+	else if(dutyAnteriorLadoDir_g < dutyAtual)
+		dutyAtual = dutyAnteriorLadoDir_g + incremento;
 	else if(dutyAnteriorLadoDir_g > dutyAtual)
-	dutyAtual =dutyAnteriorLadoDir_g - 25;
+		dutyAtual =dutyAnteriorLadoDir_g - incremento;
 	
 	return dutyAtual;
 }

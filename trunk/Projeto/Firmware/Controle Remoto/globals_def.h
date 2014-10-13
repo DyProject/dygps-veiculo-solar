@@ -44,6 +44,7 @@ typedef struct{
 	volatile TEstadoCarro estadoCarro;
 	volatile uint8_t podeIniciarTransmissao;
 	volatile uint8_t botaoSelFontePress;
+	volatile uint8_t podeRecalcularDutyCicle;//'y' yes ou 'n' no - Caso não tenha recebido dados do carro, não envia novo valor do duty cicle
 }BufferDados;
 
 //----------------------------------------------------------------------------
