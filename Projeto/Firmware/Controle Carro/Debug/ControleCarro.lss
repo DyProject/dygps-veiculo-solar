@@ -3,50 +3,72 @@ ControleCarro.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00000706  0000079a  2**0
+  0 .data         00000000  00800100  000006ba  0000074e  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         00000706  00000000  00000000  00000094  2**1
+  1 .text         000006ba  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          0000000c  00800100  00800100  0000079a  2**0
+  2 .bss          0000000c  00800100  00800100  0000074e  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  0000079a  2**0
+  3 .comment      00000030  00000000  00000000  0000074e  2**0
                   CONTENTS, READONLY
-  4 .debug_aranges 00000148  00000000  00000000  000007ca  2**0
+  4 .debug_aranges 00000148  00000000  00000000  0000077e  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000ec1  00000000  00000000  00000912  2**0
+  5 .debug_info   00000cb6  00000000  00000000  000008c6  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000005d1  00000000  00000000  000017d3  2**0
+  6 .debug_abbrev 000005da  00000000  00000000  0000157c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   000006f9  00000000  00000000  00001da4  2**0
+  7 .debug_line   000006c3  00000000  00000000  00001b56  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  0000030c  00000000  00000000  000024a0  2**2
+  8 .debug_frame  00000358  00000000  00000000  0000221c  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000056a  00000000  00000000  000027ac  2**0
+  9 .debug_str    000004ef  00000000  00000000  00002574  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000b2e  00000000  00000000  00002d16  2**0
+ 10 .debug_loc    000009a0  00000000  00000000  00002a63  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000110  00000000  00000000  00003844  2**0
+ 11 .debug_ranges 00000110  00000000  00000000  00003403  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
 
 00000000 <__vectors>:
+void CvrtNum2CaracterIndividual(
+	uint16_t valor, 
+	unsigned char* caracterConvertido,
+	uint8_t tamanho
+)		
+{											
    0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
    4:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
    8:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+	uint8_t contIni;
+	for(contIni = 0; contIni < (tamanho - 1); contIni++)
    c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
   10:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
   14:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
   18:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+		*(caracterConvertido + contIni) = 0x30; 
   1c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
   20:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+	unsigned char* caracterConvertido,
+	uint8_t tamanho
+)		
+{											
+	uint8_t contIni;
+	for(contIni = 0; contIni < (tamanho - 1); contIni++)
   24:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
   28:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
   2c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
   30:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+		*(caracterConvertido + contIni) = 0x30; 
+	*(caracterConvertido + contIni + 1) = '\0';
   34:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
   38:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
   3c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+	
+	unsigned char cont = tamanho - 1;
+	do{
+		/*+0x30 para converter de caracter para número*/
+		caracterConvertido[cont--] = (valor % 10) + 0x30;											
   40:	0c 94 9a 00 	jmp	0x134	; 0x134 <__vector_16>
   44:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
   48:	0c 94 68 00 	jmp	0xd0	; 0xd0 <__vector_18>
@@ -80,7 +102,8 @@ Disassembly of section .text:
   80:	b2 07       	cpc	r27, r18
   82:	e1 f7       	brne	.-8      	; 0x7c <.do_clear_bss_loop>
   84:	0e 94 f9 00 	call	0x1f2	; 0x1f2 <main>
-  88:	0c 94 81 03 	jmp	0x702	; 0x702 <_exit>
+		valor /= 10;								
+  88:	0c 94 5b 03 	jmp	0x6b6	; 0x6b6 <_exit>
 
 0000008c <__bad_interrupt>:
   8c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -91,28 +114,53 @@ Disassembly of section .text:
   96:	87 e8       	ldi	r24, 0x87	; 135
   98:	80 93 7a 00 	sts	0x007A, r24
   9c:	10 92 7b 00 	sts	0x007B, r1
+	}while (valor != 0);
   a0:	8f e3       	ldi	r24, 0x3F	; 63
+	*(caracterConvertido + contIni + 1) = '\0';
+	
+	unsigned char cont = tamanho - 1;
+	do{
+		/*+0x30 para converter de caracter para número*/
+		caracterConvertido[cont--] = (valor % 10) + 0x30;											
   a2:	80 93 7e 00 	sts	0x007E, r24
+		valor /= 10;								
+	}while (valor != 0);
+}
   a6:	08 95       	ret
 
 000000a8 <ADC_Read>:
   a8:	ec e7       	ldi	r30, 0x7C	; 124
   aa:	f0 e0       	ldi	r31, 0x00	; 0
   ac:	90 81       	ld	r25, Z
+uint16_t ADC_Read(
+	uint8_t canal
+)
+{
+	/*Máscara para definir o canal. Bits2:0*/
+	ADMUX = (ADMUX & 0b11111000)  | (canal & 0b0000111);
   ae:	87 70       	andi	r24, 0x07	; 7
   b0:	98 7f       	andi	r25, 0xF8	; 248
   b2:	98 2b       	or	r25, r24
   b4:	90 83       	st	Z, r25
+	
+	/*Inicia conversão*/
+	ADCSRA |= (1<<ADSC);
   b6:	ea e7       	ldi	r30, 0x7A	; 122
   b8:	f0 e0       	ldi	r31, 0x00	; 0
   ba:	80 81       	ld	r24, Z
   bc:	80 64       	ori	r24, 0x40	; 64
   be:	80 83       	st	Z, r24
+	
+	/*Aguarda conversão ser concluída*/
+	while(ADCSRA & (1<<ADSC));
   c0:	80 81       	ld	r24, Z
   c2:	86 fd       	sbrc	r24, 6
   c4:	fd cf       	rjmp	.-6      	; 0xc0 <ADC_Read+0x18>
+		
+	return (ADC);
   c6:	80 91 78 00 	lds	r24, 0x0078
   ca:	90 91 79 00 	lds	r25, 0x0079
+}
   ce:	08 95       	ret
 
 000000d0 <__vector_18>:
@@ -142,7 +190,7 @@ ISR(USART_RX_vect)
 	RecebeProtocolo(&bufferRX_g);
   f2:	81 e0       	ldi	r24, 0x01	; 1
   f4:	91 e0       	ldi	r25, 0x01	; 1
-  f6:	0e 94 a4 02 	call	0x548	; 0x548 <RecebeProtocolo>
+  f6:	0e 94 7e 02 	call	0x4fc	; 0x4fc <RecebeProtocolo>
 	if(bufferRX_g.completo == 'y') {
   fa:	80 91 0a 01 	lds	r24, 0x010A
   fe:	89 37       	cpi	r24, 0x79	; 121
@@ -150,11 +198,11 @@ ISR(USART_RX_vect)
 		DirecaoCarro(&bufferRX_g);
  102:	81 e0       	ldi	r24, 0x01	; 1
  104:	91 e0       	ldi	r25, 0x01	; 1
- 106:	0e 94 0c 02 	call	0x418	; 0x418 <DirecaoCarro>
+ 106:	0e 94 20 02 	call	0x440	; 0x440 <DirecaoCarro>
 		TransmitiBuffer(&bufferRX_g.fonteAlimentacao);
  10a:	81 e0       	ldi	r24, 0x01	; 1
  10c:	91 e0       	ldi	r25, 0x01	; 1
- 10e:	0e 94 32 03 	call	0x664	; 0x664 <TransmitiBuffer>
+ 10e:	0e 94 0c 03 	call	0x618	; 0x618 <TransmitiBuffer>
 	}	
 }	
  112:	ff 91       	pop	r31
@@ -223,7 +271,7 @@ ISR(TIMER0_OVF_vect)
 		ParadaLenta(&bufferRX_g);
  17a:	81 e0       	ldi	r24, 0x01	; 1
  17c:	91 e0       	ldi	r25, 0x01	; 1
- 17e:	0e 94 b9 01 	call	0x372	; 0x372 <ParadaLenta>
+ 17e:	0e 94 b5 01 	call	0x36a	; 0x36a <ParadaLenta>
 		/*Habilita Interrupção RX*///trace
 		tempoRecep = 0;
  182:	10 92 00 01 	sts	0x0100, r1
@@ -302,13 +350,13 @@ int main()
 	Usart_Init(MYUBRR);
  1f2:	87 e6       	ldi	r24, 0x67	; 103
  1f4:	90 e0       	ldi	r25, 0x00	; 0
- 1f6:	0e 94 58 03 	call	0x6b0	; 0x6b0 <Usart_Init>
+ 1f6:	0e 94 32 03 	call	0x664	; 0x664 <Usart_Init>
 	ADC_Init();
  1fa:	0e 94 48 00 	call	0x90	; 0x90 <ADC_Init>
 	ValoresIniciaisBuffer();
  1fe:	0e 94 de 00 	call	0x1bc	; 0x1bc <ValoresIniciaisBuffer>
 	ConfiguracoesDirecaoInit();
- 202:	0e 94 92 01 	call	0x324	; 0x324 <ConfiguracoesDirecaoInit>
+ 202:	0e 94 8e 01 	call	0x31c	; 0x31c <ConfiguracoesDirecaoInit>
 	
 	/*Contador Timer 0*/
 	TIMSK0 = 0b00000001;
@@ -323,1044 +371,931 @@ int main()
  210:	78 94       	sei
  212:	ff cf       	rjmp	.-2      	; 0x212 <main+0x20>
 
-00000214 <SetaFonteAlimentacao>:
+00000214 <CalculaDutyCicleM1>:
+/*Irá receber sempre os duty cicle definidos 25, 50, 75 e 100*/
+uint16_t CalculaDutyCicleM1(
+	uint16_t porCentagem,
+	TEstadoCarro estadoCarro
+)
+{
+ 214:	85 36       	cpi	r24, 0x65	; 101
+ 216:	91 05       	cpc	r25, r1
+ 218:	10 f0       	brcs	.+4      	; 0x21e <CalculaDutyCicleM1+0xa>
+ 21a:	84 e6       	ldi	r24, 0x64	; 100
+ 21c:	90 e0       	ldi	r25, 0x00	; 0
+	if(porCentagem > 100)
+		porCentagem = 100;
+	
+	/*Valor é igual ao (35000 * 0,25) ou (350*porcentagem)*/
+	uint16_t valor = porCentagem * 350;
+ 21e:	4e e5       	ldi	r20, 0x5E	; 94
+ 220:	51 e0       	ldi	r21, 0x01	; 1
+ 222:	84 9f       	mul	r24, r20
+ 224:	90 01       	movw	r18, r0
+ 226:	85 9f       	mul	r24, r21
+ 228:	30 0d       	add	r19, r0
+ 22a:	94 9f       	mul	r25, r20
+ 22c:	30 0d       	add	r19, r0
+ 22e:	11 24       	eor	r1, r1
+				
+	if(estadoCarro == ANDANDO_TRAS)
+ 230:	63 30       	cpi	r22, 0x03	; 3
+ 232:	31 f4       	brne	.+12     	; 0x240 <CalculaDutyCicleM1+0x2c>
+		valor = 35000 - valor;
+ 234:	88 eb       	ldi	r24, 0xB8	; 184
+ 236:	98 e8       	ldi	r25, 0x88	; 136
+ 238:	ac 01       	movw	r20, r24
+ 23a:	42 1b       	sub	r20, r18
+ 23c:	53 0b       	sbc	r21, r19
+ 23e:	9a 01       	movw	r18, r20
+		
+	return valor;
+}
+ 240:	c9 01       	movw	r24, r18
+ 242:	08 95       	ret
+
+00000244 <CalculaDutyCicleM2>:
+/*Irá receber sempre os duty cicle definidos 25, 50, 75 e 100*/
+uint16_t CalculaDutyCicleM2(
+	uint16_t porCentagem,
+	TEstadoCarro estadoCarro
+)
+{
+ 244:	85 36       	cpi	r24, 0x65	; 101
+ 246:	91 05       	cpc	r25, r1
+ 248:	10 f0       	brcs	.+4      	; 0x24e <CalculaDutyCicleM2+0xa>
+ 24a:	84 e6       	ldi	r24, 0x64	; 100
+ 24c:	90 e0       	ldi	r25, 0x00	; 0
+	if(porCentagem > 100)
+		porCentagem = 100;
+	
+	uint16_t valor = porCentagem * 350;
+ 24e:	4e e5       	ldi	r20, 0x5E	; 94
+ 250:	51 e0       	ldi	r21, 0x01	; 1
+ 252:	84 9f       	mul	r24, r20
+ 254:	90 01       	movw	r18, r0
+ 256:	85 9f       	mul	r24, r21
+ 258:	30 0d       	add	r19, r0
+ 25a:	94 9f       	mul	r25, r20
+ 25c:	30 0d       	add	r19, r0
+ 25e:	11 24       	eor	r1, r1
+		
+	if(estadoCarro == ANDANDO_TRAS)
+ 260:	63 30       	cpi	r22, 0x03	; 3
+ 262:	31 f4       	brne	.+12     	; 0x270 <CalculaDutyCicleM2+0x2c>
+		valor = 35000 - valor;
+ 264:	88 eb       	ldi	r24, 0xB8	; 184
+ 266:	98 e8       	ldi	r25, 0x88	; 136
+ 268:	ac 01       	movw	r20, r24
+ 26a:	42 1b       	sub	r20, r18
+ 26c:	53 0b       	sbc	r21, r19
+ 26e:	9a 01       	movw	r18, r20
+			
+	return valor;
+}
+ 270:	c9 01       	movw	r24, r18
+ 272:	08 95       	ret
+
+00000274 <SetaFonteAlimentacao>:
 //----------------------------------------------------------------------------
 
 void SetaFonteAlimentacao(
 	volatile uint8_t* fonteAlimentacao
 )
 {	
- 214:	fc 01       	movw	r30, r24
+ 274:	fc 01       	movw	r30, r24
 	if(*fonteAlimentacao == 'P') {
- 216:	80 81       	ld	r24, Z
- 218:	80 35       	cpi	r24, 0x50	; 80
- 21a:	21 f4       	brne	.+8      	; 0x224 <SetaFonteAlimentacao+0x10>
+ 276:	80 81       	ld	r24, Z
+ 278:	80 35       	cpi	r24, 0x50	; 80
+ 27a:	21 f4       	brne	.+8      	; 0x284 <SetaFonteAlimentacao+0x10>
 		DESATIVA_RELE(RELE_CHAVE_PAINEL_BATERIA);
- 21c:	5b 98       	cbi	0x0b, 3	; 11
+ 27c:	5b 98       	cbi	0x0b, 3	; 11
 		*fonteAlimentacao = 'B';
- 21e:	82 e4       	ldi	r24, 0x42	; 66
- 220:	80 83       	st	Z, r24
- 222:	08 95       	ret
+ 27e:	82 e4       	ldi	r24, 0x42	; 66
+ 280:	80 83       	st	Z, r24
+ 282:	08 95       	ret
 	}			
 	else  if(*fonteAlimentacao == 'B'){
- 224:	80 81       	ld	r24, Z
- 226:	82 34       	cpi	r24, 0x42	; 66
- 228:	19 f4       	brne	.+6      	; 0x230 <SetaFonteAlimentacao+0x1c>
+ 284:	80 81       	ld	r24, Z
+ 286:	82 34       	cpi	r24, 0x42	; 66
+ 288:	19 f4       	brne	.+6      	; 0x290 <SetaFonteAlimentacao+0x1c>
 		ATIVA_RELE(RELE_CHAVE_PAINEL_BATERIA);
- 22a:	5b 9a       	sbi	0x0b, 3	; 11
+ 28a:	5b 9a       	sbi	0x0b, 3	; 11
 		*fonteAlimentacao = 'P';
- 22c:	80 e5       	ldi	r24, 0x50	; 80
- 22e:	80 83       	st	Z, r24
- 230:	08 95       	ret
+ 28c:	80 e5       	ldi	r24, 0x50	; 80
+ 28e:	80 83       	st	Z, r24
+ 290:	08 95       	ret
 
-00000232 <AndandoFrente>:
+00000292 <AndandoFrente>:
 //----------------------------------------------------------------------------
 
 void AndandoFrente(
 	BufferRecep* bufferRecepcao
 )
 {
- 232:	fc 01       	movw	r30, r24
+ 292:	cf 93       	push	r28
+ 294:	df 93       	push	r29
+ 296:	ec 01       	movw	r28, r24
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 234:	45 e3       	ldi	r20, 0x35	; 53
- 236:	4a 95       	dec	r20
- 238:	f1 f7       	brne	.-4      	; 0x236 <AndandoFrente+0x4>
- 23a:	00 00       	nop
+ 298:	85 e3       	ldi	r24, 0x35	; 53
+ 29a:	8a 95       	dec	r24
+ 29c:	f1 f7       	brne	.-4      	; 0x29a <AndandoFrente+0x8>
+ 29e:	00 00       	nop
 	_delay_us(10);
 	set_bit(PORTB,ENA_ENB);	
- 23c:	2c 9a       	sbi	0x05, 4	; 5
+ 2a0:	2c 9a       	sbi	0x05, 4	; 5
 	clr_bit(PORTB,IN2_IN4);
- 23e:	2b 98       	cbi	0x05, 3	; 5
+ 2a2:	2b 98       	cbi	0x05, 3	; 5
 	OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
- 240:	62 85       	ldd	r22, Z+10	; 0x0a
- 242:	42 81       	ldd	r20, Z+2	; 0x02
- 244:	53 81       	ldd	r21, Z+3	; 0x03
-	uint16_t porCentagem,
-	TEstadoCarro estadoCarro
-)
-{
-	/*Valor é igual ao (35000 * 0,25) ou (350*porcentagem)*/
-	uint16_t valor = porCentagem * 350;
- 246:	2e e5       	ldi	r18, 0x5E	; 94
- 248:	31 e0       	ldi	r19, 0x01	; 1
- 24a:	42 9f       	mul	r20, r18
- 24c:	c0 01       	movw	r24, r0
- 24e:	43 9f       	mul	r20, r19
- 250:	90 0d       	add	r25, r0
- 252:	52 9f       	mul	r21, r18
- 254:	90 0d       	add	r25, r0
- 256:	11 24       	eor	r1, r1
-		
-	if(porCentagem > 100)
-		porCentagem = 100;
-		
-	if(estadoCarro == ANDANDO_TRAS)
- 258:	63 30       	cpi	r22, 0x03	; 3
- 25a:	31 f4       	brne	.+12     	; 0x268 <AndandoFrente+0x36>
-		valor = 35000 - valor;
- 25c:	28 eb       	ldi	r18, 0xB8	; 184
- 25e:	38 e8       	ldi	r19, 0x88	; 136
- 260:	a9 01       	movw	r20, r18
- 262:	48 1b       	sub	r20, r24
- 264:	59 0b       	sbc	r21, r25
- 266:	ca 01       	movw	r24, r20
-)
-{
-	_delay_us(10);
-	set_bit(PORTB,ENA_ENB);	
-	clr_bit(PORTB,IN2_IN4);
-	OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
- 268:	90 93 89 00 	sts	0x0089, r25
- 26c:	80 93 88 00 	sts	0x0088, r24
+ 2a4:	6a 85       	ldd	r22, Y+10	; 0x0a
+ 2a6:	8a 81       	ldd	r24, Y+2	; 0x02
+ 2a8:	9b 81       	ldd	r25, Y+3	; 0x03
+ 2aa:	0e 94 0a 01 	call	0x214	; 0x214 <CalculaDutyCicleM1>
+ 2ae:	90 93 89 00 	sts	0x0089, r25
+ 2b2:	80 93 88 00 	sts	0x0088, r24
 	OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
- 270:	62 85       	ldd	r22, Z+10	; 0x0a
- 272:	44 81       	ldd	r20, Z+4	; 0x04
- 274:	55 81       	ldd	r21, Z+5	; 0x05
-uint16_t CalculaDutyCicleM2(
-	uint16_t porCentagem,
-	TEstadoCarro estadoCarro
-)
-{
-	uint16_t valor = porCentagem * 350;
- 276:	2e e5       	ldi	r18, 0x5E	; 94
- 278:	31 e0       	ldi	r19, 0x01	; 1
- 27a:	42 9f       	mul	r20, r18
- 27c:	c0 01       	movw	r24, r0
- 27e:	43 9f       	mul	r20, r19
- 280:	90 0d       	add	r25, r0
- 282:	52 9f       	mul	r21, r18
- 284:	90 0d       	add	r25, r0
- 286:	11 24       	eor	r1, r1
+ 2b6:	6a 85       	ldd	r22, Y+10	; 0x0a
+ 2b8:	8c 81       	ldd	r24, Y+4	; 0x04
+ 2ba:	9d 81       	ldd	r25, Y+5	; 0x05
+ 2bc:	0e 94 22 01 	call	0x244	; 0x244 <CalculaDutyCicleM2>
+ 2c0:	90 93 8b 00 	sts	0x008B, r25
+ 2c4:	80 93 8a 00 	sts	0x008A, r24
+}
+ 2c8:	df 91       	pop	r29
+ 2ca:	cf 91       	pop	r28
+ 2cc:	08 95       	ret
 
-	if(porCentagem > 100)
-		porCentagem = 100;
-		
-	if(estadoCarro == ANDANDO_TRAS)
- 288:	63 30       	cpi	r22, 0x03	; 3
- 28a:	31 f4       	brne	.+12     	; 0x298 <AndandoFrente+0x66>
-		valor = 35000 - valor;
- 28c:	28 eb       	ldi	r18, 0xB8	; 184
- 28e:	38 e8       	ldi	r19, 0x88	; 136
- 290:	a9 01       	movw	r20, r18
- 292:	48 1b       	sub	r20, r24
- 294:	59 0b       	sbc	r21, r25
- 296:	ca 01       	movw	r24, r20
-{
-	_delay_us(10);
-	set_bit(PORTB,ENA_ENB);	
-	clr_bit(PORTB,IN2_IN4);
-	OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
-	OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
- 298:	90 93 8b 00 	sts	0x008B, r25
- 29c:	80 93 8a 00 	sts	0x008A, r24
- 2a0:	08 95       	ret
-
-000002a2 <AndandoTras>:
+000002ce <AndandoTras>:
 //----------------------------------------------------------------------------
 
 void AndandoTras(
 	BufferRecep* bufferRecepcao
 )
 {
- 2a2:	fc 01       	movw	r30, r24
- 2a4:	45 e3       	ldi	r20, 0x35	; 53
- 2a6:	4a 95       	dec	r20
- 2a8:	f1 f7       	brne	.-4      	; 0x2a6 <AndandoTras+0x4>
- 2aa:	00 00       	nop
+ 2ce:	cf 93       	push	r28
+ 2d0:	df 93       	push	r29
+ 2d2:	ec 01       	movw	r28, r24
+ 2d4:	85 e3       	ldi	r24, 0x35	; 53
+ 2d6:	8a 95       	dec	r24
+ 2d8:	f1 f7       	brne	.-4      	; 0x2d6 <AndandoTras+0x8>
+ 2da:	00 00       	nop
 	_delay_us(10);
 	set_bit(PORTB,ENA_ENB);	
- 2ac:	2c 9a       	sbi	0x05, 4	; 5
+ 2dc:	2c 9a       	sbi	0x05, 4	; 5
 	set_bit(PORTB,IN2_IN4);
- 2ae:	2b 9a       	sbi	0x05, 3	; 5
+ 2de:	2b 9a       	sbi	0x05, 3	; 5
 	OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
- 2b0:	62 85       	ldd	r22, Z+10	; 0x0a
- 2b2:	42 81       	ldd	r20, Z+2	; 0x02
- 2b4:	53 81       	ldd	r21, Z+3	; 0x03
-	uint16_t porCentagem,
-	TEstadoCarro estadoCarro
-)
-{
-	/*Valor é igual ao (35000 * 0,25) ou (350*porcentagem)*/
-	uint16_t valor = porCentagem * 350;
- 2b6:	2e e5       	ldi	r18, 0x5E	; 94
- 2b8:	31 e0       	ldi	r19, 0x01	; 1
- 2ba:	42 9f       	mul	r20, r18
- 2bc:	c0 01       	movw	r24, r0
- 2be:	43 9f       	mul	r20, r19
- 2c0:	90 0d       	add	r25, r0
- 2c2:	52 9f       	mul	r21, r18
- 2c4:	90 0d       	add	r25, r0
- 2c6:	11 24       	eor	r1, r1
-		
-	if(porCentagem > 100)
-		porCentagem = 100;
-		
-	if(estadoCarro == ANDANDO_TRAS)
- 2c8:	63 30       	cpi	r22, 0x03	; 3
- 2ca:	31 f4       	brne	.+12     	; 0x2d8 <AndandoTras+0x36>
-		valor = 35000 - valor;
- 2cc:	28 eb       	ldi	r18, 0xB8	; 184
- 2ce:	38 e8       	ldi	r19, 0x88	; 136
- 2d0:	a9 01       	movw	r20, r18
- 2d2:	48 1b       	sub	r20, r24
- 2d4:	59 0b       	sbc	r21, r25
- 2d6:	ca 01       	movw	r24, r20
-)
-{
-	_delay_us(10);
-	set_bit(PORTB,ENA_ENB);	
-	set_bit(PORTB,IN2_IN4);
-	OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
- 2d8:	90 93 89 00 	sts	0x0089, r25
- 2dc:	80 93 88 00 	sts	0x0088, r24
+ 2e0:	6a 85       	ldd	r22, Y+10	; 0x0a
+ 2e2:	8a 81       	ldd	r24, Y+2	; 0x02
+ 2e4:	9b 81       	ldd	r25, Y+3	; 0x03
+ 2e6:	0e 94 0a 01 	call	0x214	; 0x214 <CalculaDutyCicleM1>
+ 2ea:	90 93 89 00 	sts	0x0089, r25
+ 2ee:	80 93 88 00 	sts	0x0088, r24
 	OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
- 2e0:	62 85       	ldd	r22, Z+10	; 0x0a
- 2e2:	44 81       	ldd	r20, Z+4	; 0x04
- 2e4:	55 81       	ldd	r21, Z+5	; 0x05
-uint16_t CalculaDutyCicleM2(
-	uint16_t porCentagem,
-	TEstadoCarro estadoCarro
-)
-{
-	uint16_t valor = porCentagem * 350;
- 2e6:	2e e5       	ldi	r18, 0x5E	; 94
- 2e8:	31 e0       	ldi	r19, 0x01	; 1
- 2ea:	42 9f       	mul	r20, r18
- 2ec:	c0 01       	movw	r24, r0
- 2ee:	43 9f       	mul	r20, r19
- 2f0:	90 0d       	add	r25, r0
- 2f2:	52 9f       	mul	r21, r18
- 2f4:	90 0d       	add	r25, r0
- 2f6:	11 24       	eor	r1, r1
+ 2f2:	6a 85       	ldd	r22, Y+10	; 0x0a
+ 2f4:	8c 81       	ldd	r24, Y+4	; 0x04
+ 2f6:	9d 81       	ldd	r25, Y+5	; 0x05
+ 2f8:	0e 94 22 01 	call	0x244	; 0x244 <CalculaDutyCicleM2>
+ 2fc:	90 93 8b 00 	sts	0x008B, r25
+ 300:	80 93 8a 00 	sts	0x008A, r24
+}
+ 304:	df 91       	pop	r29
+ 306:	cf 91       	pop	r28
+ 308:	08 95       	ret
 
-	if(porCentagem > 100)
-		porCentagem = 100;
-		
-	if(estadoCarro == ANDANDO_TRAS)
- 2f8:	63 30       	cpi	r22, 0x03	; 3
- 2fa:	31 f4       	brne	.+12     	; 0x308 <AndandoTras+0x66>
-		valor = 35000 - valor;
- 2fc:	28 eb       	ldi	r18, 0xB8	; 184
- 2fe:	38 e8       	ldi	r19, 0x88	; 136
- 300:	a9 01       	movw	r20, r18
- 302:	48 1b       	sub	r20, r24
- 304:	59 0b       	sbc	r21, r25
- 306:	ca 01       	movw	r24, r20
-{
-	_delay_us(10);
-	set_bit(PORTB,ENA_ENB);	
-	set_bit(PORTB,IN2_IN4);
-	OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
-	OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
- 308:	90 93 8b 00 	sts	0x008B, r25
- 30c:	80 93 8a 00 	sts	0x008A, r24
- 310:	08 95       	ret
-
-00000312 <CarroParado>:
- 312:	85 e3       	ldi	r24, 0x35	; 53
- 314:	8a 95       	dec	r24
- 316:	f1 f7       	brne	.-4      	; 0x314 <CarroParado+0x2>
- 318:	00 00       	nop
+0000030a <CarroParado>:
+ 30a:	85 e3       	ldi	r24, 0x35	; 53
+ 30c:	8a 95       	dec	r24
+ 30e:	f1 f7       	brne	.-4      	; 0x30c <CarroParado+0x2>
+ 310:	00 00       	nop
 //----------------------------------------------------------------------------
 
 void CarroParado()
 {
 	_delay_us(10);
 	clr_bit(PORTB,ENA_ENB);	
- 31a:	2c 98       	cbi	0x05, 4	; 5
+ 312:	2c 98       	cbi	0x05, 4	; 5
 	set_bit(PORTB,IN1);	
- 31c:	2a 9a       	sbi	0x05, 2	; 5
+ 314:	2a 9a       	sbi	0x05, 2	; 5
 	set_bit(PORTB,IN3);	
- 31e:	29 9a       	sbi	0x05, 1	; 5
+ 316:	29 9a       	sbi	0x05, 1	; 5
 	set_bit(PORTB,IN2_IN4);	
- 320:	2b 9a       	sbi	0x05, 3	; 5
- 322:	08 95       	ret
+ 318:	2b 9a       	sbi	0x05, 3	; 5
+ 31a:	08 95       	ret
 
-00000324 <ConfiguracoesDirecaoInit>:
+0000031c <ConfiguracoesDirecaoInit>:
 void ConfiguracoesDirecaoInit(
 	BufferRecep* bufferRecepcao
 )
 {	
 	/*pinos OC1B e OC1A como saída*/
 	DDRB |= (1 << IN2_IN4) | (1 << ENA_ENB) | (1 << IN1) | (1 << IN3);	
- 324:	84 b1       	in	r24, 0x04	; 4
- 326:	8e 61       	ori	r24, 0x1E	; 30
- 328:	84 b9       	out	0x04, r24	; 4
+ 31c:	84 b1       	in	r24, 0x04	; 4
+ 31e:	8e 61       	ori	r24, 0x1E	; 30
+ 320:	84 b9       	out	0x04, r24	; 4
 	PORTB |= (1 << IN2_IN4) | (1 << ENA_ENB);		
- 32a:	85 b1       	in	r24, 0x05	; 5
- 32c:	88 61       	ori	r24, 0x18	; 24
- 32e:	85 b9       	out	0x05, r24	; 5
+ 322:	85 b1       	in	r24, 0x05	; 5
+ 324:	88 61       	ori	r24, 0x18	; 24
+ 326:	85 b9       	out	0x05, r24	; 5
 	PORTB &= (~(1 << IN1)) & (~(1 << IN3)); 
- 330:	85 b1       	in	r24, 0x05	; 5
- 332:	89 7f       	andi	r24, 0xF9	; 249
- 334:	85 b9       	out	0x05, r24	; 5
+ 328:	85 b1       	in	r24, 0x05	; 5
+ 32a:	89 7f       	andi	r24, 0xF9	; 249
+ 32c:	85 b9       	out	0x05, r24	; 5
 	
 	/*Pino relé como saída*/	
 	RELE_DDR |= (1 << RELE_CHAVE_PAINEL_BATERIA) | (1 << RELE_TENSAO_PAINEL);
- 336:	8a b1       	in	r24, 0x0a	; 10
- 338:	88 61       	ori	r24, 0x18	; 24
- 33a:	8a b9       	out	0x0a, r24	; 10
+ 32e:	8a b1       	in	r24, 0x0a	; 10
+ 330:	88 61       	ori	r24, 0x18	; 24
+ 332:	8a b9       	out	0x0a, r24	; 10
 	
 	/*Seleciona a fonte de alimentação da bateria*/
 	DESATIVA_RELE(RELE_CHAVE_PAINEL_BATERIA);
- 33c:	5b 98       	cbi	0x0b, 3	; 11
+ 334:	5b 98       	cbi	0x0b, 3	; 11
 	
 	/*Desliga o painel*/
 	DESATIVA_RELE(RELE_TENSAO_PAINEL);
- 33e:	5c 98       	cbi	0x0b, 4	; 11
+ 336:	5c 98       	cbi	0x0b, 4	; 11
 		
 	TCCR1A = 0b10100010;		//PWM não invertido nos pinos OC1A e OC1B
- 340:	82 ea       	ldi	r24, 0xA2	; 162
- 342:	80 93 80 00 	sts	0x0080, r24
+ 338:	82 ea       	ldi	r24, 0xA2	; 162
+ 33a:	80 93 80 00 	sts	0x0080, r24
 	TCCR1B = 0b00011001;		//liga TC1, prescaler = 1
- 346:	89 e1       	ldi	r24, 0x19	; 25
- 348:	80 93 81 00 	sts	0x0081, r24
+ 33e:	89 e1       	ldi	r24, 0x19	; 25
+ 340:	80 93 81 00 	sts	0x0081, r24
 	ICR1 = 35000;				//valor máximo para contagem
- 34c:	88 eb       	ldi	r24, 0xB8	; 184
- 34e:	98 e8       	ldi	r25, 0x88	; 136
- 350:	90 93 87 00 	sts	0x0087, r25
- 354:	80 93 86 00 	sts	0x0086, r24
+ 344:	88 eb       	ldi	r24, 0xB8	; 184
+ 346:	98 e8       	ldi	r25, 0x88	; 136
+ 348:	90 93 87 00 	sts	0x0087, r25
+ 34c:	80 93 86 00 	sts	0x0086, r24
 	OCR1A = 0;				//controle do ciclo ativo do PWM 0C1A
- 358:	10 92 89 00 	sts	0x0089, r1
- 35c:	10 92 88 00 	sts	0x0088, r1
+ 350:	10 92 89 00 	sts	0x0089, r1
+ 354:	10 92 88 00 	sts	0x0088, r1
 	OCR1B = 0;
- 360:	10 92 8b 00 	sts	0x008B, r1
- 364:	10 92 8a 00 	sts	0x008A, r1
+ 358:	10 92 8b 00 	sts	0x008B, r1
+ 35c:	10 92 8a 00 	sts	0x008A, r1
 			
 	//Prescaler do Timer0, usado para fazer uma leitura do ADC.
 	TCCR0B = (1<<CS02) | (1<<CS00);
- 368:	85 e0       	ldi	r24, 0x05	; 5
- 36a:	85 bd       	out	0x25, r24	; 37
+ 360:	85 e0       	ldi	r24, 0x05	; 5
+ 362:	85 bd       	out	0x25, r24	; 37
 					
 	CarroParado();
- 36c:	0e 94 89 01 	call	0x312	; 0x312 <CarroParado>
- 370:	08 95       	ret
+ 364:	0e 94 85 01 	call	0x30a	; 0x30a <CarroParado>
+ 368:	08 95       	ret
 
-00000372 <ParadaLenta>:
+0000036a <ParadaLenta>:
 //----------------------------------------------------------------------------
 
 void ParadaLenta(
 	BufferRecep* bufferRecepcao
 ) 
 {
- 372:	fc 01       	movw	r30, r24
+ 36a:	cf 92       	push	r12
+ 36c:	df 92       	push	r13
+ 36e:	ef 92       	push	r14
+ 370:	ff 92       	push	r15
+ 372:	0f 93       	push	r16
+ 374:	1f 93       	push	r17
+ 376:	cf 93       	push	r28
+ 378:	df 93       	push	r29
+ 37a:	ec 01       	movw	r28, r24
 	uint8_t incremento = 15;
 	uint8_t incrementoInicial = 15;
 	
 	switch (bufferRecepcao->estadoCarro) {			
- 374:	82 85       	ldd	r24, Z+10	; 0x0a
- 376:	82 50       	subi	r24, 0x02	; 2
- 378:	82 30       	cpi	r24, 0x02	; 2
- 37a:	08 f0       	brcs	.+2      	; 0x37e <ParadaLenta+0xc>
- 37c:	4c c0       	rjmp	.+152    	; 0x416 <ParadaLenta+0xa4>
+ 37c:	8a 85       	ldd	r24, Y+10	; 0x0a
+ 37e:	82 50       	subi	r24, 0x02	; 2
+ 380:	82 30       	cpi	r24, 0x02	; 2
+ 382:	08 f0       	brcs	.+2      	; 0x386 <ParadaLenta+0x1c>
+ 384:	54 c0       	rjmp	.+168    	; 0x42e <ParadaLenta+0xc4>
+							bufferRecepcao->qntdDadosLido = 0;
+							CarroParado();
+						}
+						
+						else {
+							OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
+ 386:	0f 2e       	mov	r0, r31
+ 388:	f8 e8       	ldi	r31, 0x88	; 136
+ 38a:	ef 2e       	mov	r14, r31
+ 38c:	f1 2c       	mov	r15, r1
+ 38e:	f0 2d       	mov	r31, r0
+							OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
+ 390:	0a e8       	ldi	r16, 0x8A	; 138
+ 392:	10 e0       	ldi	r17, 0x00	; 0
+						
+						if(bufferRecepcao->dutyCicleM2 > incrementoInicial && bufferRecepcao->dutyCicleM2 > 0)//Abaixo desse valor o carrinho não anda
+							bufferRecepcao->dutyCicleM2 -= incremento;
+						
+						if(bufferRecepcao->dutyCicleM1 < incrementoInicial && bufferRecepcao->dutyCicleM2 < incrementoInicial) {
+							bufferRecepcao->estadoCarro = PARADO;
+ 394:	cc 24       	eor	r12, r12
+ 396:	c3 94       	inc	r12
+							bufferRecepcao->iniciado = 'n';
+ 398:	0f 2e       	mov	r0, r31
+ 39a:	fe e6       	ldi	r31, 0x6E	; 110
+ 39c:	df 2e       	mov	r13, r31
+ 39e:	f0 2d       	mov	r31, r0
+ 3a0:	3c c0       	rjmp	.+120    	; 0x41a <ParadaLenta+0xb0>
+	switch (bufferRecepcao->estadoCarro) {			
 		case ANDANDO_FRENTE:
-		case ANDANDO_TRAS:	
-			
-			if(bufferRecepcao->dutyCicleM1 > incrementoInicial)//Abaixo desse valor o carrinho não anda
- 37e:	82 81       	ldd	r24, Z+2	; 0x02
- 380:	93 81       	ldd	r25, Z+3	; 0x03
- 382:	40 97       	sbiw	r24, 0x10	; 16
- 384:	2c f0       	brlt	.+10     	; 0x390 <ParadaLenta+0x1e>
-				bufferRecepcao->dutyCicleM1 -= incremento;
- 386:	82 81       	ldd	r24, Z+2	; 0x02
- 388:	93 81       	ldd	r25, Z+3	; 0x03
- 38a:	0f 97       	sbiw	r24, 0x0f	; 15
- 38c:	93 83       	std	Z+3, r25	; 0x03
- 38e:	82 83       	std	Z+2, r24	; 0x02
-		
-			if(bufferRecepcao->dutyCicleM2 > incrementoInicial)//Abaixo desse valor o carrinho não anda
- 390:	84 81       	ldd	r24, Z+4	; 0x04
- 392:	95 81       	ldd	r25, Z+5	; 0x05
- 394:	40 97       	sbiw	r24, 0x10	; 16
- 396:	2c f0       	brlt	.+10     	; 0x3a2 <ParadaLenta+0x30>
-				bufferRecepcao->dutyCicleM2 -= incremento;
- 398:	84 81       	ldd	r24, Z+4	; 0x04
- 39a:	95 81       	ldd	r25, Z+5	; 0x05
- 39c:	0f 97       	sbiw	r24, 0x0f	; 15
- 39e:	95 83       	std	Z+5, r25	; 0x05
- 3a0:	84 83       	std	Z+4, r24	; 0x04
-		
-			OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
- 3a2:	62 85       	ldd	r22, Z+10	; 0x0a
- 3a4:	42 81       	ldd	r20, Z+2	; 0x02
- 3a6:	53 81       	ldd	r21, Z+3	; 0x03
-	uint16_t porCentagem,
-	TEstadoCarro estadoCarro
-)
-{
-	/*Valor é igual ao (35000 * 0,25) ou (350*porcentagem)*/
-	uint16_t valor = porCentagem * 350;
- 3a8:	2e e5       	ldi	r18, 0x5E	; 94
- 3aa:	31 e0       	ldi	r19, 0x01	; 1
- 3ac:	42 9f       	mul	r20, r18
- 3ae:	c0 01       	movw	r24, r0
- 3b0:	43 9f       	mul	r20, r19
- 3b2:	90 0d       	add	r25, r0
- 3b4:	52 9f       	mul	r21, r18
- 3b6:	90 0d       	add	r25, r0
- 3b8:	11 24       	eor	r1, r1
-		
-	if(porCentagem > 100)
-		porCentagem = 100;
-		
-	if(estadoCarro == ANDANDO_TRAS)
- 3ba:	63 30       	cpi	r22, 0x03	; 3
- 3bc:	31 f4       	brne	.+12     	; 0x3ca <ParadaLenta+0x58>
-		valor = 35000 - valor;
- 3be:	28 eb       	ldi	r18, 0xB8	; 184
- 3c0:	38 e8       	ldi	r19, 0x88	; 136
- 3c2:	a9 01       	movw	r20, r18
- 3c4:	48 1b       	sub	r20, r24
- 3c6:	59 0b       	sbc	r21, r25
- 3c8:	ca 01       	movw	r24, r20
-				bufferRecepcao->dutyCicleM1 -= incremento;
-		
-			if(bufferRecepcao->dutyCicleM2 > incrementoInicial)//Abaixo desse valor o carrinho não anda
-				bufferRecepcao->dutyCicleM2 -= incremento;
-		
-			OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
- 3ca:	90 93 89 00 	sts	0x0089, r25
- 3ce:	80 93 88 00 	sts	0x0088, r24
-			OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
- 3d2:	62 85       	ldd	r22, Z+10	; 0x0a
- 3d4:	44 81       	ldd	r20, Z+4	; 0x04
- 3d6:	55 81       	ldd	r21, Z+5	; 0x05
-uint16_t CalculaDutyCicleM2(
-	uint16_t porCentagem,
-	TEstadoCarro estadoCarro
-)
-{
-	uint16_t valor = porCentagem * 350;
- 3d8:	2e e5       	ldi	r18, 0x5E	; 94
- 3da:	31 e0       	ldi	r19, 0x01	; 1
- 3dc:	42 9f       	mul	r20, r18
- 3de:	c0 01       	movw	r24, r0
- 3e0:	43 9f       	mul	r20, r19
- 3e2:	90 0d       	add	r25, r0
- 3e4:	52 9f       	mul	r21, r18
- 3e6:	90 0d       	add	r25, r0
- 3e8:	11 24       	eor	r1, r1
+		case ANDANDO_TRAS:
+			while(!(bufferRecepcao->dutyCicleM1 < incrementoInicial && bufferRecepcao->dutyCicleM2 < incrementoInicial)){
+						
+						if(bufferRecepcao->dutyCicleM1 > incrementoInicial && bufferRecepcao->dutyCicleM1 > 0)//Abaixo desse valor o carrinho não anda
+ 3a2:	8a 81       	ldd	r24, Y+2	; 0x02
+ 3a4:	9b 81       	ldd	r25, Y+3	; 0x03
+ 3a6:	40 97       	sbiw	r24, 0x10	; 16
+ 3a8:	54 f0       	brlt	.+20     	; 0x3be <ParadaLenta+0x54>
+ 3aa:	8a 81       	ldd	r24, Y+2	; 0x02
+ 3ac:	9b 81       	ldd	r25, Y+3	; 0x03
+ 3ae:	18 16       	cp	r1, r24
+ 3b0:	19 06       	cpc	r1, r25
+ 3b2:	2c f4       	brge	.+10     	; 0x3be <ParadaLenta+0x54>
+							bufferRecepcao->dutyCicleM1 -= incremento;
+ 3b4:	8a 81       	ldd	r24, Y+2	; 0x02
+ 3b6:	9b 81       	ldd	r25, Y+3	; 0x03
+ 3b8:	0f 97       	sbiw	r24, 0x0f	; 15
+ 3ba:	9b 83       	std	Y+3, r25	; 0x03
+ 3bc:	8a 83       	std	Y+2, r24	; 0x02
+						
+						if(bufferRecepcao->dutyCicleM2 > incrementoInicial && bufferRecepcao->dutyCicleM2 > 0)//Abaixo desse valor o carrinho não anda
+ 3be:	8c 81       	ldd	r24, Y+4	; 0x04
+ 3c0:	9d 81       	ldd	r25, Y+5	; 0x05
+ 3c2:	40 97       	sbiw	r24, 0x10	; 16
+ 3c4:	54 f0       	brlt	.+20     	; 0x3da <ParadaLenta+0x70>
+ 3c6:	8c 81       	ldd	r24, Y+4	; 0x04
+ 3c8:	9d 81       	ldd	r25, Y+5	; 0x05
+ 3ca:	18 16       	cp	r1, r24
+ 3cc:	19 06       	cpc	r1, r25
+ 3ce:	2c f4       	brge	.+10     	; 0x3da <ParadaLenta+0x70>
+							bufferRecepcao->dutyCicleM2 -= incremento;
+ 3d0:	8c 81       	ldd	r24, Y+4	; 0x04
+ 3d2:	9d 81       	ldd	r25, Y+5	; 0x05
+ 3d4:	0f 97       	sbiw	r24, 0x0f	; 15
+ 3d6:	9d 83       	std	Y+5, r25	; 0x05
+ 3d8:	8c 83       	std	Y+4, r24	; 0x04
+						
+						if(bufferRecepcao->dutyCicleM1 < incrementoInicial && bufferRecepcao->dutyCicleM2 < incrementoInicial) {
+ 3da:	8a 81       	ldd	r24, Y+2	; 0x02
+ 3dc:	9b 81       	ldd	r25, Y+3	; 0x03
+ 3de:	0f 97       	sbiw	r24, 0x0f	; 15
+ 3e0:	64 f4       	brge	.+24     	; 0x3fa <ParadaLenta+0x90>
+ 3e2:	8c 81       	ldd	r24, Y+4	; 0x04
+ 3e4:	9d 81       	ldd	r25, Y+5	; 0x05
+ 3e6:	0f 97       	sbiw	r24, 0x0f	; 15
+ 3e8:	44 f4       	brge	.+16     	; 0x3fa <ParadaLenta+0x90>
+							bufferRecepcao->estadoCarro = PARADO;
+ 3ea:	ca 86       	std	Y+10, r12	; 0x0a
+							bufferRecepcao->iniciado = 'n';
+ 3ec:	d8 86       	std	Y+8, r13	; 0x08
+							bufferRecepcao->completo = 'n';
+ 3ee:	d9 86       	std	Y+9, r13	; 0x09
+							bufferRecepcao->qntdDadosLido = 0;
+ 3f0:	1f 82       	std	Y+7, r1	; 0x07
+ 3f2:	1e 82       	std	Y+6, r1	; 0x06
+							CarroParado();
+ 3f4:	0e 94 85 01 	call	0x30a	; 0x30a <CarroParado>
+ 3f8:	10 c0       	rjmp	.+32     	; 0x41a <ParadaLenta+0xb0>
+						}
+						
+						else {
+							OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
+ 3fa:	6a 85       	ldd	r22, Y+10	; 0x0a
+ 3fc:	8a 81       	ldd	r24, Y+2	; 0x02
+ 3fe:	9b 81       	ldd	r25, Y+3	; 0x03
+ 400:	0e 94 0a 01 	call	0x214	; 0x214 <CalculaDutyCicleM1>
+ 404:	f7 01       	movw	r30, r14
+ 406:	91 83       	std	Z+1, r25	; 0x01
+ 408:	80 83       	st	Z, r24
+							OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
+ 40a:	6a 85       	ldd	r22, Y+10	; 0x0a
+ 40c:	8c 81       	ldd	r24, Y+4	; 0x04
+ 40e:	9d 81       	ldd	r25, Y+5	; 0x05
+ 410:	0e 94 22 01 	call	0x244	; 0x244 <CalculaDutyCicleM2>
+ 414:	f8 01       	movw	r30, r16
+ 416:	91 83       	std	Z+1, r25	; 0x01
+ 418:	80 83       	st	Z, r24
+	uint8_t incrementoInicial = 15;
+	
+	switch (bufferRecepcao->estadoCarro) {			
+		case ANDANDO_FRENTE:
+		case ANDANDO_TRAS:
+			while(!(bufferRecepcao->dutyCicleM1 < incrementoInicial && bufferRecepcao->dutyCicleM2 < incrementoInicial)){
+ 41a:	8a 81       	ldd	r24, Y+2	; 0x02
+ 41c:	9b 81       	ldd	r25, Y+3	; 0x03
+ 41e:	0f 97       	sbiw	r24, 0x0f	; 15
+ 420:	0c f0       	brlt	.+2      	; 0x424 <ParadaLenta+0xba>
+ 422:	bf cf       	rjmp	.-130    	; 0x3a2 <ParadaLenta+0x38>
+ 424:	8c 81       	ldd	r24, Y+4	; 0x04
+ 426:	9d 81       	ldd	r25, Y+5	; 0x05
+ 428:	0f 97       	sbiw	r24, 0x0f	; 15
+ 42a:	0c f0       	brlt	.+2      	; 0x42e <ParadaLenta+0xc4>
+ 42c:	ba cf       	rjmp	.-140    	; 0x3a2 <ParadaLenta+0x38>
+	
+		break;
+		case PARADO:
+		break;
+	}
+}
+ 42e:	df 91       	pop	r29
+ 430:	cf 91       	pop	r28
+ 432:	1f 91       	pop	r17
+ 434:	0f 91       	pop	r16
+ 436:	ff 90       	pop	r15
+ 438:	ef 90       	pop	r14
+ 43a:	df 90       	pop	r13
+ 43c:	cf 90       	pop	r12
+ 43e:	08 95       	ret
 
-	if(porCentagem > 100)
-		porCentagem = 100;
-		
-	if(estadoCarro == ANDANDO_TRAS)
- 3ea:	63 30       	cpi	r22, 0x03	; 3
- 3ec:	31 f4       	brne	.+12     	; 0x3fa <ParadaLenta+0x88>
-		valor = 35000 - valor;
- 3ee:	28 eb       	ldi	r18, 0xB8	; 184
- 3f0:	38 e8       	ldi	r19, 0x88	; 136
- 3f2:	a9 01       	movw	r20, r18
- 3f4:	48 1b       	sub	r20, r24
- 3f6:	59 0b       	sbc	r21, r25
- 3f8:	ca 01       	movw	r24, r20
-		
-			if(bufferRecepcao->dutyCicleM2 > incrementoInicial)//Abaixo desse valor o carrinho não anda
-				bufferRecepcao->dutyCicleM2 -= incremento;
-		
-			OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
-			OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
- 3fa:	90 93 8b 00 	sts	0x008B, r25
- 3fe:	80 93 8a 00 	sts	0x008A, r24
-			
-			if(bufferRecepcao->dutyCicleM1 < incrementoInicial && bufferRecepcao->dutyCicleM2 < incrementoInicial)
- 402:	82 81       	ldd	r24, Z+2	; 0x02
- 404:	93 81       	ldd	r25, Z+3	; 0x03
- 406:	0f 97       	sbiw	r24, 0x0f	; 15
- 408:	34 f4       	brge	.+12     	; 0x416 <ParadaLenta+0xa4>
- 40a:	84 81       	ldd	r24, Z+4	; 0x04
- 40c:	95 81       	ldd	r25, Z+5	; 0x05
- 40e:	0f 97       	sbiw	r24, 0x0f	; 15
- 410:	14 f4       	brge	.+4      	; 0x416 <ParadaLenta+0xa4>
-				CarroParado();
- 412:	0e 94 89 01 	call	0x312	; 0x312 <CarroParado>
- 416:	08 95       	ret
-
-00000418 <DirecaoCarro>:
+00000440 <DirecaoCarro>:
 //----------------------------------------------------------------------------
 
 void DirecaoCarro(
 	BufferRecep* bufferRecepcao
 )
 {		
- 418:	fc 01       	movw	r30, r24
+ 440:	cf 93       	push	r28
+ 442:	df 93       	push	r29
+ 444:	ec 01       	movw	r28, r24
 	switch (bufferRecepcao->estadoCarro) {
- 41a:	82 85       	ldd	r24, Z+10	; 0x0a
- 41c:	82 30       	cpi	r24, 0x02	; 2
- 41e:	d9 f0       	breq	.+54     	; 0x456 <DirecaoCarro+0x3e>
- 420:	83 30       	cpi	r24, 0x03	; 3
- 422:	09 f4       	brne	.+2      	; 0x426 <DirecaoCarro+0xe>
- 424:	55 c0       	rjmp	.+170    	; 0x4d0 <DirecaoCarro+0xb8>
- 426:	81 30       	cpi	r24, 0x01	; 1
- 428:	09 f0       	breq	.+2      	; 0x42c <DirecaoCarro+0x14>
- 42a:	8d c0       	rjmp	.+282    	; 0x546 <DirecaoCarro+0x12e>
+ 446:	8a 85       	ldd	r24, Y+10	; 0x0a
+ 448:	82 30       	cpi	r24, 0x02	; 2
+ 44a:	d1 f0       	breq	.+52     	; 0x480 <DirecaoCarro+0x40>
+ 44c:	83 30       	cpi	r24, 0x03	; 3
+ 44e:	b1 f1       	breq	.+108    	; 0x4bc <DirecaoCarro+0x7c>
+ 450:	81 30       	cpi	r24, 0x01	; 1
+ 452:	09 f0       	breq	.+2      	; 0x456 <DirecaoCarro+0x16>
+ 454:	50 c0       	rjmp	.+160    	; 0x4f6 <DirecaoCarro+0xb6>
 		case PARADO:
 			if ( bufferRecepcao->direcao == 'F') {
- 42c:	81 81       	ldd	r24, Z+1	; 0x01
- 42e:	86 34       	cpi	r24, 0x46	; 70
- 430:	31 f4       	brne	.+12     	; 0x43e <DirecaoCarro+0x26>
+ 456:	89 81       	ldd	r24, Y+1	; 0x01
+ 458:	86 34       	cpi	r24, 0x46	; 70
+ 45a:	31 f4       	brne	.+12     	; 0x468 <DirecaoCarro+0x28>
 				bufferRecepcao->estadoCarro = ANDANDO_FRENTE;
- 432:	82 e0       	ldi	r24, 0x02	; 2
- 434:	82 87       	std	Z+10, r24	; 0x0a
+ 45c:	82 e0       	ldi	r24, 0x02	; 2
+ 45e:	8a 87       	std	Y+10, r24	; 0x0a
 				AndandoFrente(bufferRecepcao);
- 436:	cf 01       	movw	r24, r30
- 438:	0e 94 19 01 	call	0x232	; 0x232 <AndandoFrente>
- 43c:	08 95       	ret
+ 460:	ce 01       	movw	r24, r28
+ 462:	0e 94 49 01 	call	0x292	; 0x292 <AndandoFrente>
+ 466:	47 c0       	rjmp	.+142    	; 0x4f6 <DirecaoCarro+0xb6>
 			}				
 			else if ( bufferRecepcao->direcao == 'T') {
- 43e:	81 81       	ldd	r24, Z+1	; 0x01
- 440:	84 35       	cpi	r24, 0x54	; 84
- 442:	31 f4       	brne	.+12     	; 0x450 <DirecaoCarro+0x38>
+ 468:	89 81       	ldd	r24, Y+1	; 0x01
+ 46a:	84 35       	cpi	r24, 0x54	; 84
+ 46c:	31 f4       	brne	.+12     	; 0x47a <DirecaoCarro+0x3a>
 				bufferRecepcao->estadoCarro = ANDANDO_TRAS;
- 444:	83 e0       	ldi	r24, 0x03	; 3
- 446:	82 87       	std	Z+10, r24	; 0x0a
+ 46e:	83 e0       	ldi	r24, 0x03	; 3
+ 470:	8a 87       	std	Y+10, r24	; 0x0a
 				AndandoTras(bufferRecepcao);		
- 448:	cf 01       	movw	r24, r30
- 44a:	0e 94 51 01 	call	0x2a2	; 0x2a2 <AndandoTras>
- 44e:	08 95       	ret
+ 472:	ce 01       	movw	r24, r28
+ 474:	0e 94 67 01 	call	0x2ce	; 0x2ce <AndandoTras>
+ 478:	3e c0       	rjmp	.+124    	; 0x4f6 <DirecaoCarro+0xb6>
 			}			
 			else bufferRecepcao->direcao = 'P';
- 450:	80 e5       	ldi	r24, 0x50	; 80
- 452:	81 83       	std	Z+1, r24	; 0x01
- 454:	08 95       	ret
+ 47a:	80 e5       	ldi	r24, 0x50	; 80
+ 47c:	89 83       	std	Y+1, r24	; 0x01
+ 47e:	3b c0       	rjmp	.+118    	; 0x4f6 <DirecaoCarro+0xb6>
 			break;
 		
 		case ANDANDO_FRENTE:	
 			if(bufferRecepcao->direcao == 'P') {
- 456:	81 81       	ldd	r24, Z+1	; 0x01
- 458:	80 35       	cpi	r24, 0x50	; 80
- 45a:	29 f4       	brne	.+10     	; 0x466 <DirecaoCarro+0x4e>
+ 480:	89 81       	ldd	r24, Y+1	; 0x01
+ 482:	80 35       	cpi	r24, 0x50	; 80
+ 484:	29 f4       	brne	.+10     	; 0x490 <DirecaoCarro+0x50>
 				bufferRecepcao->estadoCarro = PARADO;
- 45c:	81 e0       	ldi	r24, 0x01	; 1
- 45e:	82 87       	std	Z+10, r24	; 0x0a
+ 486:	81 e0       	ldi	r24, 0x01	; 1
+ 488:	8a 87       	std	Y+10, r24	; 0x0a
 				CarroParado();
- 460:	0e 94 89 01 	call	0x312	; 0x312 <CarroParado>
- 464:	08 95       	ret
+ 48a:	0e 94 85 01 	call	0x30a	; 0x30a <CarroParado>
+ 48e:	33 c0       	rjmp	.+102    	; 0x4f6 <DirecaoCarro+0xb6>
 			}				
 			else if(bufferRecepcao->direcao == 'F'){
- 466:	81 81       	ldd	r24, Z+1	; 0x01
- 468:	86 34       	cpi	r24, 0x46	; 70
- 46a:	09 f0       	breq	.+2      	; 0x46e <DirecaoCarro+0x56>
- 46c:	6c c0       	rjmp	.+216    	; 0x546 <DirecaoCarro+0x12e>
+ 490:	89 81       	ldd	r24, Y+1	; 0x01
+ 492:	86 34       	cpi	r24, 0x46	; 70
+ 494:	81 f5       	brne	.+96     	; 0x4f6 <DirecaoCarro+0xb6>
 				OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
- 46e:	62 85       	ldd	r22, Z+10	; 0x0a
- 470:	42 81       	ldd	r20, Z+2	; 0x02
- 472:	53 81       	ldd	r21, Z+3	; 0x03
-	uint16_t porCentagem,
-	TEstadoCarro estadoCarro
-)
-{
-	/*Valor é igual ao (35000 * 0,25) ou (350*porcentagem)*/
-	uint16_t valor = porCentagem * 350;
- 474:	2e e5       	ldi	r18, 0x5E	; 94
- 476:	31 e0       	ldi	r19, 0x01	; 1
- 478:	42 9f       	mul	r20, r18
- 47a:	c0 01       	movw	r24, r0
- 47c:	43 9f       	mul	r20, r19
- 47e:	90 0d       	add	r25, r0
- 480:	52 9f       	mul	r21, r18
- 482:	90 0d       	add	r25, r0
- 484:	11 24       	eor	r1, r1
-		
-	if(porCentagem > 100)
-		porCentagem = 100;
-		
-	if(estadoCarro == ANDANDO_TRAS)
- 486:	63 30       	cpi	r22, 0x03	; 3
- 488:	31 f4       	brne	.+12     	; 0x496 <DirecaoCarro+0x7e>
-		valor = 35000 - valor;
- 48a:	28 eb       	ldi	r18, 0xB8	; 184
- 48c:	38 e8       	ldi	r19, 0x88	; 136
- 48e:	a9 01       	movw	r20, r18
- 490:	48 1b       	sub	r20, r24
- 492:	59 0b       	sbc	r21, r25
- 494:	ca 01       	movw	r24, r20
-			if(bufferRecepcao->direcao == 'P') {
-				bufferRecepcao->estadoCarro = PARADO;
-				CarroParado();
-			}				
-			else if(bufferRecepcao->direcao == 'F'){
-				OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
- 496:	90 93 89 00 	sts	0x0089, r25
- 49a:	80 93 88 00 	sts	0x0088, r24
+ 496:	6a 85       	ldd	r22, Y+10	; 0x0a
+ 498:	8a 81       	ldd	r24, Y+2	; 0x02
+ 49a:	9b 81       	ldd	r25, Y+3	; 0x03
+ 49c:	0e 94 0a 01 	call	0x214	; 0x214 <CalculaDutyCicleM1>
+ 4a0:	90 93 89 00 	sts	0x0089, r25
+ 4a4:	80 93 88 00 	sts	0x0088, r24
 				OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
- 49e:	62 85       	ldd	r22, Z+10	; 0x0a
- 4a0:	44 81       	ldd	r20, Z+4	; 0x04
- 4a2:	55 81       	ldd	r21, Z+5	; 0x05
-uint16_t CalculaDutyCicleM2(
-	uint16_t porCentagem,
-	TEstadoCarro estadoCarro
-)
-{
-	uint16_t valor = porCentagem * 350;
- 4a4:	2e e5       	ldi	r18, 0x5E	; 94
- 4a6:	31 e0       	ldi	r19, 0x01	; 1
- 4a8:	42 9f       	mul	r20, r18
- 4aa:	c0 01       	movw	r24, r0
- 4ac:	43 9f       	mul	r20, r19
- 4ae:	90 0d       	add	r25, r0
- 4b0:	52 9f       	mul	r21, r18
- 4b2:	90 0d       	add	r25, r0
- 4b4:	11 24       	eor	r1, r1
-
-	if(porCentagem > 100)
-		porCentagem = 100;
-		
-	if(estadoCarro == ANDANDO_TRAS)
- 4b6:	63 30       	cpi	r22, 0x03	; 3
- 4b8:	31 f4       	brne	.+12     	; 0x4c6 <DirecaoCarro+0xae>
-		valor = 35000 - valor;
- 4ba:	28 eb       	ldi	r18, 0xB8	; 184
- 4bc:	38 e8       	ldi	r19, 0x88	; 136
- 4be:	a9 01       	movw	r20, r18
- 4c0:	48 1b       	sub	r20, r24
- 4c2:	59 0b       	sbc	r21, r25
- 4c4:	ca 01       	movw	r24, r20
-				bufferRecepcao->estadoCarro = PARADO;
-				CarroParado();
-			}				
-			else if(bufferRecepcao->direcao == 'F'){
-				OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
-				OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
- 4c6:	90 93 8b 00 	sts	0x008B, r25
- 4ca:	80 93 8a 00 	sts	0x008A, r24
- 4ce:	08 95       	ret
+ 4a8:	6a 85       	ldd	r22, Y+10	; 0x0a
+ 4aa:	8c 81       	ldd	r24, Y+4	; 0x04
+ 4ac:	9d 81       	ldd	r25, Y+5	; 0x05
+ 4ae:	0e 94 22 01 	call	0x244	; 0x244 <CalculaDutyCicleM2>
+ 4b2:	90 93 8b 00 	sts	0x008B, r25
+ 4b6:	80 93 8a 00 	sts	0x008A, r24
+ 4ba:	1d c0       	rjmp	.+58     	; 0x4f6 <DirecaoCarro+0xb6>
 			}			
 			break;
 			
 		case ANDANDO_TRAS:
 			if(bufferRecepcao->direcao == 'P') {
- 4d0:	81 81       	ldd	r24, Z+1	; 0x01
- 4d2:	80 35       	cpi	r24, 0x50	; 80
- 4d4:	29 f4       	brne	.+10     	; 0x4e0 <DirecaoCarro+0xc8>
+ 4bc:	89 81       	ldd	r24, Y+1	; 0x01
+ 4be:	80 35       	cpi	r24, 0x50	; 80
+ 4c0:	29 f4       	brne	.+10     	; 0x4cc <DirecaoCarro+0x8c>
 				bufferRecepcao->estadoCarro = PARADO;
- 4d6:	81 e0       	ldi	r24, 0x01	; 1
- 4d8:	82 87       	std	Z+10, r24	; 0x0a
+ 4c2:	81 e0       	ldi	r24, 0x01	; 1
+ 4c4:	8a 87       	std	Y+10, r24	; 0x0a
 				CarroParado();
- 4da:	0e 94 89 01 	call	0x312	; 0x312 <CarroParado>
- 4de:	08 95       	ret
+ 4c6:	0e 94 85 01 	call	0x30a	; 0x30a <CarroParado>
+ 4ca:	15 c0       	rjmp	.+42     	; 0x4f6 <DirecaoCarro+0xb6>
 			}				
 			else if(bufferRecepcao->direcao == 'T'){
- 4e0:	81 81       	ldd	r24, Z+1	; 0x01
- 4e2:	84 35       	cpi	r24, 0x54	; 84
- 4e4:	81 f5       	brne	.+96     	; 0x546 <DirecaoCarro+0x12e>
+ 4cc:	89 81       	ldd	r24, Y+1	; 0x01
+ 4ce:	84 35       	cpi	r24, 0x54	; 84
+ 4d0:	91 f4       	brne	.+36     	; 0x4f6 <DirecaoCarro+0xb6>
 				OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
- 4e6:	62 85       	ldd	r22, Z+10	; 0x0a
- 4e8:	42 81       	ldd	r20, Z+2	; 0x02
- 4ea:	53 81       	ldd	r21, Z+3	; 0x03
-	uint16_t porCentagem,
-	TEstadoCarro estadoCarro
-)
-{
-	/*Valor é igual ao (35000 * 0,25) ou (350*porcentagem)*/
-	uint16_t valor = porCentagem * 350;
- 4ec:	2e e5       	ldi	r18, 0x5E	; 94
- 4ee:	31 e0       	ldi	r19, 0x01	; 1
- 4f0:	42 9f       	mul	r20, r18
- 4f2:	c0 01       	movw	r24, r0
- 4f4:	43 9f       	mul	r20, r19
- 4f6:	90 0d       	add	r25, r0
- 4f8:	52 9f       	mul	r21, r18
- 4fa:	90 0d       	add	r25, r0
- 4fc:	11 24       	eor	r1, r1
-		
-	if(porCentagem > 100)
-		porCentagem = 100;
-		
-	if(estadoCarro == ANDANDO_TRAS)
- 4fe:	63 30       	cpi	r22, 0x03	; 3
- 500:	31 f4       	brne	.+12     	; 0x50e <DirecaoCarro+0xf6>
-		valor = 35000 - valor;
- 502:	28 eb       	ldi	r18, 0xB8	; 184
- 504:	38 e8       	ldi	r19, 0x88	; 136
- 506:	a9 01       	movw	r20, r18
- 508:	48 1b       	sub	r20, r24
- 50a:	59 0b       	sbc	r21, r25
- 50c:	ca 01       	movw	r24, r20
-			if(bufferRecepcao->direcao == 'P') {
-				bufferRecepcao->estadoCarro = PARADO;
-				CarroParado();
-			}				
-			else if(bufferRecepcao->direcao == 'T'){
-				OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
- 50e:	90 93 89 00 	sts	0x0089, r25
- 512:	80 93 88 00 	sts	0x0088, r24
+ 4d2:	6a 85       	ldd	r22, Y+10	; 0x0a
+ 4d4:	8a 81       	ldd	r24, Y+2	; 0x02
+ 4d6:	9b 81       	ldd	r25, Y+3	; 0x03
+ 4d8:	0e 94 0a 01 	call	0x214	; 0x214 <CalculaDutyCicleM1>
+ 4dc:	90 93 89 00 	sts	0x0089, r25
+ 4e0:	80 93 88 00 	sts	0x0088, r24
 				OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
- 516:	62 85       	ldd	r22, Z+10	; 0x0a
- 518:	44 81       	ldd	r20, Z+4	; 0x04
- 51a:	55 81       	ldd	r21, Z+5	; 0x05
-uint16_t CalculaDutyCicleM2(
-	uint16_t porCentagem,
-	TEstadoCarro estadoCarro
-)
-{
-	uint16_t valor = porCentagem * 350;
- 51c:	2e e5       	ldi	r18, 0x5E	; 94
- 51e:	31 e0       	ldi	r19, 0x01	; 1
- 520:	42 9f       	mul	r20, r18
- 522:	c0 01       	movw	r24, r0
- 524:	43 9f       	mul	r20, r19
- 526:	90 0d       	add	r25, r0
- 528:	52 9f       	mul	r21, r18
- 52a:	90 0d       	add	r25, r0
- 52c:	11 24       	eor	r1, r1
+ 4e4:	6a 85       	ldd	r22, Y+10	; 0x0a
+ 4e6:	8c 81       	ldd	r24, Y+4	; 0x04
+ 4e8:	9d 81       	ldd	r25, Y+5	; 0x05
+ 4ea:	0e 94 22 01 	call	0x244	; 0x244 <CalculaDutyCicleM2>
+ 4ee:	90 93 8b 00 	sts	0x008B, r25
+ 4f2:	80 93 8a 00 	sts	0x008A, r24
+			}			
+			break;			
+	}		
+}		
+ 4f6:	df 91       	pop	r29
+ 4f8:	cf 91       	pop	r28
+ 4fa:	08 95       	ret
 
-	if(porCentagem > 100)
-		porCentagem = 100;
-		
-	if(estadoCarro == ANDANDO_TRAS)
- 52e:	63 30       	cpi	r22, 0x03	; 3
- 530:	31 f4       	brne	.+12     	; 0x53e <DirecaoCarro+0x126>
-		valor = 35000 - valor;
- 532:	28 eb       	ldi	r18, 0xB8	; 184
- 534:	38 e8       	ldi	r19, 0x88	; 136
- 536:	a9 01       	movw	r20, r18
- 538:	48 1b       	sub	r20, r24
- 53a:	59 0b       	sbc	r21, r25
- 53c:	ca 01       	movw	r24, r20
-				bufferRecepcao->estadoCarro = PARADO;
-				CarroParado();
-			}				
-			else if(bufferRecepcao->direcao == 'T'){
-				OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
-				OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
- 53e:	90 93 8b 00 	sts	0x008B, r25
- 542:	80 93 8a 00 	sts	0x008A, r24
- 546:	08 95       	ret
-
-00000548 <RecebeProtocolo>:
+000004fc <RecebeProtocolo>:
 //----------------------------------------------------------------------------
 
 uint8_t RecebeProtocolo(
 	BufferRecep* bufferRecepcao
 )
 {	
- 548:	cf 93       	push	r28
- 54a:	df 93       	push	r29
- 54c:	ec 01       	movw	r28, r24
+ 4fc:	cf 93       	push	r28
+ 4fe:	df 93       	push	r29
+ 500:	ec 01       	movw	r28, r24
 	uint8_t dadoRecebido = UDR0;	
- 54e:	20 91 c6 00 	lds	r18, 0x00C6
+ 502:	20 91 c6 00 	lds	r18, 0x00C6
 	bufferRecepcao->completo = 'n';
- 552:	8e e6       	ldi	r24, 0x6E	; 110
- 554:	89 87       	std	Y+9, r24	; 0x09
+ 506:	8e e6       	ldi	r24, 0x6E	; 110
+ 508:	89 87       	std	Y+9, r24	; 0x09
 	/*Inicia transmissão*/
 	if(dadoRecebido == 'S') {
- 556:	23 35       	cpi	r18, 0x53	; 83
- 558:	41 f4       	brne	.+16     	; 0x56a <RecebeProtocolo+0x22>
+ 50a:	23 35       	cpi	r18, 0x53	; 83
+ 50c:	41 f4       	brne	.+16     	; 0x51e <RecebeProtocolo+0x22>
 		bufferRecepcao->iniciado = 'y';		
- 55a:	89 e7       	ldi	r24, 0x79	; 121
- 55c:	88 87       	std	Y+8, r24	; 0x08
+ 50e:	89 e7       	ldi	r24, 0x79	; 121
+ 510:	88 87       	std	Y+8, r24	; 0x08
 		bufferRecepcao->qntdDadosLido++;
- 55e:	8e 81       	ldd	r24, Y+6	; 0x06
- 560:	9f 81       	ldd	r25, Y+7	; 0x07
- 562:	01 96       	adiw	r24, 0x01	; 1
- 564:	9f 83       	std	Y+7, r25	; 0x07
- 566:	8e 83       	std	Y+6, r24	; 0x06
- 568:	35 c0       	rjmp	.+106    	; 0x5d4 <RecebeProtocolo+0x8c>
+ 512:	8e 81       	ldd	r24, Y+6	; 0x06
+ 514:	9f 81       	ldd	r25, Y+7	; 0x07
+ 516:	01 96       	adiw	r24, 0x01	; 1
+ 518:	9f 83       	std	Y+7, r25	; 0x07
+ 51a:	8e 83       	std	Y+6, r24	; 0x06
+ 51c:	35 c0       	rjmp	.+106    	; 0x588 <RecebeProtocolo+0x8c>
 	}		
 	else if(bufferRecepcao->iniciado == 'y') {
- 56a:	88 85       	ldd	r24, Y+8	; 0x08
- 56c:	89 37       	cpi	r24, 0x79	; 121
- 56e:	91 f5       	brne	.+100    	; 0x5d4 <RecebeProtocolo+0x8c>
+ 51e:	88 85       	ldd	r24, Y+8	; 0x08
+ 520:	89 37       	cpi	r24, 0x79	; 121
+ 522:	91 f5       	brne	.+100    	; 0x588 <RecebeProtocolo+0x8c>
 						
 		if(bufferRecepcao->qntdDadosLido == 1) {
- 570:	8e 81       	ldd	r24, Y+6	; 0x06
- 572:	9f 81       	ldd	r25, Y+7	; 0x07
- 574:	01 97       	sbiw	r24, 0x01	; 1
- 576:	39 f4       	brne	.+14     	; 0x586 <RecebeProtocolo+0x3e>
+ 524:	8e 81       	ldd	r24, Y+6	; 0x06
+ 526:	9f 81       	ldd	r25, Y+7	; 0x07
+ 528:	01 97       	sbiw	r24, 0x01	; 1
+ 52a:	39 f4       	brne	.+14     	; 0x53a <RecebeProtocolo+0x3e>
 			bufferRecepcao->direcao = dadoRecebido;
- 578:	29 83       	std	Y+1, r18	; 0x01
+ 52c:	29 83       	std	Y+1, r18	; 0x01
 			bufferRecepcao->qntdDadosLido++;
- 57a:	8e 81       	ldd	r24, Y+6	; 0x06
- 57c:	9f 81       	ldd	r25, Y+7	; 0x07
- 57e:	01 96       	adiw	r24, 0x01	; 1
- 580:	9f 83       	std	Y+7, r25	; 0x07
- 582:	8e 83       	std	Y+6, r24	; 0x06
- 584:	27 c0       	rjmp	.+78     	; 0x5d4 <RecebeProtocolo+0x8c>
+ 52e:	8e 81       	ldd	r24, Y+6	; 0x06
+ 530:	9f 81       	ldd	r25, Y+7	; 0x07
+ 532:	01 96       	adiw	r24, 0x01	; 1
+ 534:	9f 83       	std	Y+7, r25	; 0x07
+ 536:	8e 83       	std	Y+6, r24	; 0x06
+ 538:	27 c0       	rjmp	.+78     	; 0x588 <RecebeProtocolo+0x8c>
 		}
 		else if(bufferRecepcao->qntdDadosLido == 2) {		
- 586:	8e 81       	ldd	r24, Y+6	; 0x06
- 588:	9f 81       	ldd	r25, Y+7	; 0x07
- 58a:	02 97       	sbiw	r24, 0x02	; 2
- 58c:	51 f4       	brne	.+20     	; 0x5a2 <RecebeProtocolo+0x5a>
+ 53a:	8e 81       	ldd	r24, Y+6	; 0x06
+ 53c:	9f 81       	ldd	r25, Y+7	; 0x07
+ 53e:	02 97       	sbiw	r24, 0x02	; 2
+ 540:	51 f4       	brne	.+20     	; 0x556 <RecebeProtocolo+0x5a>
 			bufferRecepcao->dutyCicleM1 = dadoRecebido;
- 58e:	82 2f       	mov	r24, r18
- 590:	90 e0       	ldi	r25, 0x00	; 0
- 592:	9b 83       	std	Y+3, r25	; 0x03
- 594:	8a 83       	std	Y+2, r24	; 0x02
+ 542:	82 2f       	mov	r24, r18
+ 544:	90 e0       	ldi	r25, 0x00	; 0
+ 546:	9b 83       	std	Y+3, r25	; 0x03
+ 548:	8a 83       	std	Y+2, r24	; 0x02
 			bufferRecepcao->qntdDadosLido++;
- 596:	8e 81       	ldd	r24, Y+6	; 0x06
- 598:	9f 81       	ldd	r25, Y+7	; 0x07
- 59a:	01 96       	adiw	r24, 0x01	; 1
- 59c:	9f 83       	std	Y+7, r25	; 0x07
- 59e:	8e 83       	std	Y+6, r24	; 0x06
- 5a0:	19 c0       	rjmp	.+50     	; 0x5d4 <RecebeProtocolo+0x8c>
+ 54a:	8e 81       	ldd	r24, Y+6	; 0x06
+ 54c:	9f 81       	ldd	r25, Y+7	; 0x07
+ 54e:	01 96       	adiw	r24, 0x01	; 1
+ 550:	9f 83       	std	Y+7, r25	; 0x07
+ 552:	8e 83       	std	Y+6, r24	; 0x06
+ 554:	19 c0       	rjmp	.+50     	; 0x588 <RecebeProtocolo+0x8c>
 		}			
 		else if(bufferRecepcao->qntdDadosLido == 3) {
- 5a2:	8e 81       	ldd	r24, Y+6	; 0x06
- 5a4:	9f 81       	ldd	r25, Y+7	; 0x07
- 5a6:	03 97       	sbiw	r24, 0x03	; 3
- 5a8:	51 f4       	brne	.+20     	; 0x5be <RecebeProtocolo+0x76>
+ 556:	8e 81       	ldd	r24, Y+6	; 0x06
+ 558:	9f 81       	ldd	r25, Y+7	; 0x07
+ 55a:	03 97       	sbiw	r24, 0x03	; 3
+ 55c:	51 f4       	brne	.+20     	; 0x572 <RecebeProtocolo+0x76>
 			bufferRecepcao->dutyCicleM2 = dadoRecebido;
- 5aa:	82 2f       	mov	r24, r18
- 5ac:	90 e0       	ldi	r25, 0x00	; 0
- 5ae:	9d 83       	std	Y+5, r25	; 0x05
- 5b0:	8c 83       	std	Y+4, r24	; 0x04
+ 55e:	82 2f       	mov	r24, r18
+ 560:	90 e0       	ldi	r25, 0x00	; 0
+ 562:	9d 83       	std	Y+5, r25	; 0x05
+ 564:	8c 83       	std	Y+4, r24	; 0x04
 			bufferRecepcao->qntdDadosLido++;	
- 5b2:	8e 81       	ldd	r24, Y+6	; 0x06
- 5b4:	9f 81       	ldd	r25, Y+7	; 0x07
- 5b6:	01 96       	adiw	r24, 0x01	; 1
- 5b8:	9f 83       	std	Y+7, r25	; 0x07
- 5ba:	8e 83       	std	Y+6, r24	; 0x06
- 5bc:	0b c0       	rjmp	.+22     	; 0x5d4 <RecebeProtocolo+0x8c>
+ 566:	8e 81       	ldd	r24, Y+6	; 0x06
+ 568:	9f 81       	ldd	r25, Y+7	; 0x07
+ 56a:	01 96       	adiw	r24, 0x01	; 1
+ 56c:	9f 83       	std	Y+7, r25	; 0x07
+ 56e:	8e 83       	std	Y+6, r24	; 0x06
+ 570:	0b c0       	rjmp	.+22     	; 0x588 <RecebeProtocolo+0x8c>
 		}			
 		else {
 			if(dadoRecebido == '1')
- 5be:	21 33       	cpi	r18, 0x31	; 49
- 5c0:	19 f4       	brne	.+6      	; 0x5c8 <RecebeProtocolo+0x80>
+ 572:	21 33       	cpi	r18, 0x31	; 49
+ 574:	19 f4       	brne	.+6      	; 0x57c <RecebeProtocolo+0x80>
 				SetaFonteAlimentacao(&bufferRecepcao->fonteAlimentacao);		
- 5c2:	ce 01       	movw	r24, r28
- 5c4:	0e 94 0a 01 	call	0x214	; 0x214 <SetaFonteAlimentacao>
+ 576:	ce 01       	movw	r24, r28
+ 578:	0e 94 3a 01 	call	0x274	; 0x274 <SetaFonteAlimentacao>
 			
 			bufferRecepcao->iniciado = 'n';
- 5c8:	8e e6       	ldi	r24, 0x6E	; 110
- 5ca:	88 87       	std	Y+8, r24	; 0x08
+ 57c:	8e e6       	ldi	r24, 0x6E	; 110
+ 57e:	88 87       	std	Y+8, r24	; 0x08
 			bufferRecepcao->completo = 'y';
- 5cc:	89 e7       	ldi	r24, 0x79	; 121
- 5ce:	89 87       	std	Y+9, r24	; 0x09
+ 580:	89 e7       	ldi	r24, 0x79	; 121
+ 582:	89 87       	std	Y+9, r24	; 0x09
 			bufferRecepcao->qntdDadosLido = 0;
- 5d0:	1f 82       	std	Y+7, r1	; 0x07
- 5d2:	1e 82       	std	Y+6, r1	; 0x06
+ 584:	1f 82       	std	Y+7, r1	; 0x07
+ 586:	1e 82       	std	Y+6, r1	; 0x06
 		}
 	}		
 			
 	return bufferRecepcao->completo;
- 5d4:	89 85       	ldd	r24, Y+9	; 0x09
+ 588:	89 85       	ldd	r24, Y+9	; 0x09
 }	
- 5d6:	df 91       	pop	r29
- 5d8:	cf 91       	pop	r28
- 5da:	08 95       	ret
+ 58a:	df 91       	pop	r29
+ 58c:	cf 91       	pop	r28
+ 58e:	08 95       	ret
 
-000005dc <TensaoBateria>:
+00000590 <TensaoBateria>:
 }
 
 //----------------------------------------------------------------------------
 
 uint8_t TensaoBateria()
 {
- 5dc:	cf 93       	push	r28
- 5de:	df 93       	push	r29
- 5e0:	00 d0       	rcall	.+0      	; 0x5e2 <TensaoBateria+0x6>
- 5e2:	1f 92       	push	r1
- 5e4:	cd b7       	in	r28, 0x3d	; 61
- 5e6:	de b7       	in	r29, 0x3e	; 62
+ 590:	cf 93       	push	r28
+ 592:	df 93       	push	r29
+ 594:	00 d0       	rcall	.+0      	; 0x596 <TensaoBateria+0x6>
+ 596:	1f 92       	push	r1
+ 598:	cd b7       	in	r28, 0x3d	; 61
+ 59a:	de b7       	in	r29, 0x3e	; 62
 	volatile uint16_t lido16;
 	volatile uint8_t tensao;
 	
 	lido16 = ADC_Read(AD_BATERIA);
- 5e8:	81 e0       	ldi	r24, 0x01	; 1
- 5ea:	0e 94 54 00 	call	0xa8	; 0xa8 <ADC_Read>
- 5ee:	9a 83       	std	Y+2, r25	; 0x02
- 5f0:	89 83       	std	Y+1, r24	; 0x01
+ 59c:	81 e0       	ldi	r24, 0x01	; 1
+ 59e:	0e 94 54 00 	call	0xa8	; 0xa8 <ADC_Read>
+ 5a2:	9a 83       	std	Y+2, r25	; 0x02
+ 5a4:	89 83       	std	Y+1, r24	; 0x01
 	tensao = (uint8_t)((lido16 * 30)/640);
- 5f2:	29 81       	ldd	r18, Y+1	; 0x01
- 5f4:	3a 81       	ldd	r19, Y+2	; 0x02
- 5f6:	4e e1       	ldi	r20, 0x1E	; 30
- 5f8:	42 9f       	mul	r20, r18
- 5fa:	c0 01       	movw	r24, r0
- 5fc:	43 9f       	mul	r20, r19
- 5fe:	90 0d       	add	r25, r0
- 600:	11 24       	eor	r1, r1
- 602:	60 e8       	ldi	r22, 0x80	; 128
- 604:	72 e0       	ldi	r23, 0x02	; 2
- 606:	0e 94 6d 03 	call	0x6da	; 0x6da <__udivmodhi4>
- 60a:	6b 83       	std	Y+3, r22	; 0x03
+ 5a6:	29 81       	ldd	r18, Y+1	; 0x01
+ 5a8:	3a 81       	ldd	r19, Y+2	; 0x02
+ 5aa:	4e e1       	ldi	r20, 0x1E	; 30
+ 5ac:	42 9f       	mul	r20, r18
+ 5ae:	c0 01       	movw	r24, r0
+ 5b0:	43 9f       	mul	r20, r19
+ 5b2:	90 0d       	add	r25, r0
+ 5b4:	11 24       	eor	r1, r1
+ 5b6:	60 e8       	ldi	r22, 0x80	; 128
+ 5b8:	72 e0       	ldi	r23, 0x02	; 2
+ 5ba:	0e 94 47 03 	call	0x68e	; 0x68e <__udivmodhi4>
+ 5be:	6b 83       	std	Y+3, r22	; 0x03
 		
 	return tensao;
- 60c:	8b 81       	ldd	r24, Y+3	; 0x03
+ 5c0:	8b 81       	ldd	r24, Y+3	; 0x03
 }
- 60e:	0f 90       	pop	r0
- 610:	0f 90       	pop	r0
- 612:	0f 90       	pop	r0
- 614:	df 91       	pop	r29
- 616:	cf 91       	pop	r28
- 618:	08 95       	ret
+ 5c2:	0f 90       	pop	r0
+ 5c4:	0f 90       	pop	r0
+ 5c6:	0f 90       	pop	r0
+ 5c8:	df 91       	pop	r29
+ 5ca:	cf 91       	pop	r28
+ 5cc:	08 95       	ret
 
-0000061a <TensaoPainel>:
+000005ce <TensaoPainel>:
 
 //----------------------------------------------------------------------------
 
 uint8_t TensaoPainel()
 {		
- 61a:	cf 93       	push	r28
- 61c:	df 93       	push	r29
- 61e:	00 d0       	rcall	.+0      	; 0x620 <TensaoPainel+0x6>
- 620:	1f 92       	push	r1
- 622:	cd b7       	in	r28, 0x3d	; 61
- 624:	de b7       	in	r29, 0x3e	; 62
+ 5ce:	cf 93       	push	r28
+ 5d0:	df 93       	push	r29
+ 5d2:	00 d0       	rcall	.+0      	; 0x5d4 <TensaoPainel+0x6>
+ 5d4:	1f 92       	push	r1
+ 5d6:	cd b7       	in	r28, 0x3d	; 61
+ 5d8:	de b7       	in	r29, 0x3e	; 62
 	volatile uint16_t lido16;
 	volatile uint8_t tensao;
 	
 	lido16 = ADC_Read(AD_PAINEL);
- 626:	80 e0       	ldi	r24, 0x00	; 0
- 628:	0e 94 54 00 	call	0xa8	; 0xa8 <ADC_Read>
- 62c:	9a 83       	std	Y+2, r25	; 0x02
- 62e:	89 83       	std	Y+1, r24	; 0x01
+ 5da:	80 e0       	ldi	r24, 0x00	; 0
+ 5dc:	0e 94 54 00 	call	0xa8	; 0xa8 <ADC_Read>
+ 5e0:	9a 83       	std	Y+2, r25	; 0x02
+ 5e2:	89 83       	std	Y+1, r24	; 0x01
 	tensao = (uint8_t)((lido16 * 30)/640);
- 630:	29 81       	ldd	r18, Y+1	; 0x01
- 632:	3a 81       	ldd	r19, Y+2	; 0x02
- 634:	4e e1       	ldi	r20, 0x1E	; 30
- 636:	42 9f       	mul	r20, r18
- 638:	c0 01       	movw	r24, r0
- 63a:	43 9f       	mul	r20, r19
- 63c:	90 0d       	add	r25, r0
- 63e:	11 24       	eor	r1, r1
- 640:	60 e8       	ldi	r22, 0x80	; 128
- 642:	72 e0       	ldi	r23, 0x02	; 2
- 644:	0e 94 6d 03 	call	0x6da	; 0x6da <__udivmodhi4>
- 648:	6b 83       	std	Y+3, r22	; 0x03
+ 5e4:	29 81       	ldd	r18, Y+1	; 0x01
+ 5e6:	3a 81       	ldd	r19, Y+2	; 0x02
+ 5e8:	4e e1       	ldi	r20, 0x1E	; 30
+ 5ea:	42 9f       	mul	r20, r18
+ 5ec:	c0 01       	movw	r24, r0
+ 5ee:	43 9f       	mul	r20, r19
+ 5f0:	90 0d       	add	r25, r0
+ 5f2:	11 24       	eor	r1, r1
+ 5f4:	60 e8       	ldi	r22, 0x80	; 128
+ 5f6:	72 e0       	ldi	r23, 0x02	; 2
+ 5f8:	0e 94 47 03 	call	0x68e	; 0x68e <__udivmodhi4>
+ 5fc:	6b 83       	std	Y+3, r22	; 0x03
 	
 	/*Se a tensão do painel for menor que 13 volts o painel não conseguirá 
 	fornecer a corrente necessária para os motores. Então foi colocado um
 	relé para selecionar entre a tensão da bateria ou a tensão do painel*/
 	if(tensao >= 13) 
- 64a:	8b 81       	ldd	r24, Y+3	; 0x03
- 64c:	8d 30       	cpi	r24, 0x0D	; 13
- 64e:	10 f0       	brcs	.+4      	; 0x654 <TensaoPainel+0x3a>
+ 5fe:	8b 81       	ldd	r24, Y+3	; 0x03
+ 600:	8d 30       	cpi	r24, 0x0D	; 13
+ 602:	10 f0       	brcs	.+4      	; 0x608 <TensaoPainel+0x3a>
 		ATIVA_RELE(RELE_TENSAO_PAINEL);
- 650:	5c 9a       	sbi	0x0b, 4	; 11
- 652:	01 c0       	rjmp	.+2      	; 0x656 <TensaoPainel+0x3c>
+ 604:	5c 9a       	sbi	0x0b, 4	; 11
+ 606:	01 c0       	rjmp	.+2      	; 0x60a <TensaoPainel+0x3c>
 	else 
 		DESATIVA_RELE(RELE_TENSAO_PAINEL);
- 654:	5c 98       	cbi	0x0b, 4	; 11
+ 608:	5c 98       	cbi	0x0b, 4	; 11
 		
 	
 	return tensao;
- 656:	8b 81       	ldd	r24, Y+3	; 0x03
+ 60a:	8b 81       	ldd	r24, Y+3	; 0x03
 	//return lidoAd;
 }
- 658:	0f 90       	pop	r0
- 65a:	0f 90       	pop	r0
- 65c:	0f 90       	pop	r0
- 65e:	df 91       	pop	r29
- 660:	cf 91       	pop	r28
- 662:	08 95       	ret
+ 60c:	0f 90       	pop	r0
+ 60e:	0f 90       	pop	r0
+ 610:	0f 90       	pop	r0
+ 612:	df 91       	pop	r29
+ 614:	cf 91       	pop	r28
+ 616:	08 95       	ret
 
-00000664 <TransmitiBuffer>:
+00000618 <TransmitiBuffer>:
 //----------------------------------------------------------------------------
 
 void TransmitiBuffer(
 	volatile uint8_t* fonteAlimentacao
 )
 {	
- 664:	0f 93       	push	r16
- 666:	1f 93       	push	r17
- 668:	cf 93       	push	r28
- 66a:	df 93       	push	r29
- 66c:	00 d0       	rcall	.+0      	; 0x66e <TransmitiBuffer+0xa>
- 66e:	1f 92       	push	r1
- 670:	cd b7       	in	r28, 0x3d	; 61
- 672:	de b7       	in	r29, 0x3e	; 62
- 674:	8c 01       	movw	r16, r24
+ 618:	0f 93       	push	r16
+ 61a:	1f 93       	push	r17
+ 61c:	cf 93       	push	r28
+ 61e:	df 93       	push	r29
+ 620:	00 d0       	rcall	.+0      	; 0x622 <TransmitiBuffer+0xa>
+ 622:	1f 92       	push	r1
+ 624:	cd b7       	in	r28, 0x3d	; 61
+ 626:	de b7       	in	r29, 0x3e	; 62
+ 628:	8c 01       	movw	r16, r24
 	volatile uint8_t indicaInicioTransmissao = 'z';
- 676:	8a e7       	ldi	r24, 0x7A	; 122
- 678:	89 83       	std	Y+1, r24	; 0x01
+ 62a:	8a e7       	ldi	r24, 0x7A	; 122
+ 62c:	89 83       	std	Y+1, r24	; 0x01
 	//lidoADBat = ADC_Read(AD_BATERIA);
 	//lidoADPain = ADC_Read(AD_PAINEL);
 	//tensaoBat = (uint8_t)((lidoADBat * 30)/640);
 	//tensaoPainel = (uint8_t)((lidoADPain * 30)/640);
 						
 	tensaoBat = TensaoBateria();
- 67a:	0e 94 ee 02 	call	0x5dc	; 0x5dc <TensaoBateria>
- 67e:	8a 83       	std	Y+2, r24	; 0x02
+ 62e:	0e 94 c8 02 	call	0x590	; 0x590 <TensaoBateria>
+ 632:	8a 83       	std	Y+2, r24	; 0x02
 	tensaoPainel = TensaoPainel();
- 680:	0e 94 0d 03 	call	0x61a	; 0x61a <TensaoPainel>
- 684:	8b 83       	std	Y+3, r24	; 0x03
+ 634:	0e 94 e7 02 	call	0x5ce	; 0x5ce <TensaoPainel>
+ 638:	8b 83       	std	Y+3, r24	; 0x03
 						
 	/*Indica o recebimento do protocolo e o inicio do envio do novo protocolo*/			
 	Usart_Transmit(indicaInicioTransmissao);
- 686:	89 81       	ldd	r24, Y+1	; 0x01
- 688:	0e 94 65 03 	call	0x6ca	; 0x6ca <Usart_Transmit>
+ 63a:	89 81       	ldd	r24, Y+1	; 0x01
+ 63c:	0e 94 3f 03 	call	0x67e	; 0x67e <Usart_Transmit>
 	
 	/*Indica qual fonte está selecionada 'B' bateria ou 'P' painel*/
 	Usart_Transmit(*fonteAlimentacao);
- 68c:	f8 01       	movw	r30, r16
- 68e:	80 81       	ld	r24, Z
- 690:	0e 94 65 03 	call	0x6ca	; 0x6ca <Usart_Transmit>
+ 640:	f8 01       	movw	r30, r16
+ 642:	80 81       	ld	r24, Z
+ 644:	0e 94 3f 03 	call	0x67e	; 0x67e <Usart_Transmit>
 	
 	/*Tensão na bateria*/	
 	Usart_Transmit('2');//trace
- 694:	82 e3       	ldi	r24, 0x32	; 50
- 696:	0e 94 65 03 	call	0x6ca	; 0x6ca <Usart_Transmit>
+ 648:	82 e3       	ldi	r24, 0x32	; 50
+ 64a:	0e 94 3f 03 	call	0x67e	; 0x67e <Usart_Transmit>
 	//Usart_Transmit(tensaoBat);
 	
 	/*Tensão no Painel*/
 	Usart_Transmit('!');//trace
- 69a:	81 e2       	ldi	r24, 0x21	; 33
- 69c:	0e 94 65 03 	call	0x6ca	; 0x6ca <Usart_Transmit>
+ 64e:	81 e2       	ldi	r24, 0x21	; 33
+ 650:	0e 94 3f 03 	call	0x67e	; 0x67e <Usart_Transmit>
 	//Usart_Transmit(tensaoPainel);
 }
- 6a0:	0f 90       	pop	r0
- 6a2:	0f 90       	pop	r0
- 6a4:	0f 90       	pop	r0
- 6a6:	df 91       	pop	r29
- 6a8:	cf 91       	pop	r28
- 6aa:	1f 91       	pop	r17
- 6ac:	0f 91       	pop	r16
- 6ae:	08 95       	ret
+ 654:	0f 90       	pop	r0
+ 656:	0f 90       	pop	r0
+ 658:	0f 90       	pop	r0
+ 65a:	df 91       	pop	r29
+ 65c:	cf 91       	pop	r28
+ 65e:	1f 91       	pop	r17
+ 660:	0f 91       	pop	r16
+ 662:	08 95       	ret
 
-000006b0 <Usart_Init>:
- 6b0:	90 93 c5 00 	sts	0x00C5, r25
- 6b4:	80 93 c4 00 	sts	0x00C4, r24
- 6b8:	10 92 c0 00 	sts	0x00C0, r1
- 6bc:	88 e9       	ldi	r24, 0x98	; 152
- 6be:	80 93 c1 00 	sts	0x00C1, r24
- 6c2:	86 e0       	ldi	r24, 0x06	; 6
- 6c4:	80 93 c2 00 	sts	0x00C2, r24
- 6c8:	08 95       	ret
+00000664 <Usart_Init>:
+{
+	/*UBRR - Usart Baud Rate Register[UBRR] 12 bits
+	* Bit 15:12		Reservado	Para uso futuro. Deve ser escrito 0. 
+	* Bit 11:0		UBRR		Baud Rate
+	*/
+	UBRR0H = (unsigned char) (ubrr >> 8);        
+ 664:	90 93 c5 00 	sts	0x00C5, r25
+	UBRR0L = (unsigned char) ubrr;
+ 668:	80 93 c4 00 	sts	0x00C4, r24
+	* bit 2		0:	  R:	UPEn:	0=Sem erro, 1=Erro de paridade
+	* bit 1		0:	R/W:	U2Xn:	0=desabilita, 1=Dobra velocidade TX (apenas modo assincrono)	
+	* bit 0		0:	  R:	MPCMn:	0=Desabilita, 1=Modo comunicação multi processo
+	*OBS: sempre zerar bit 4:2 quando escrever no UCSR0A.
+	*/
+	UCSR0A = 0b00000000;
+ 66c:	10 92 c0 00 	sts	0x00C0, r1
+	* bit 3		0:	R/W:	TXENn:		0=Des. TX, 1=Habilita
+	* bit 2		0:	R/W:	UCSZn2:		Seta bits tamanho do frame. Combinado com UCSZn1 e UCSZn0
+	* bit 1		0:	  R:	RXB8n:		9° bit RX quando frame 9 bits
+	* bit 0		0:	R/W:	TXB8n:		9° bit TX quando frame 9 bits
+	*/				
+	UCSR0B = 0b10011000;
+ 670:	88 e9       	ldi	r24, 0x98	; 152
+ 672:	80 93 c1 00 	sts	0x00C1, r24
+	* bit 2-1	0:	R/W:	UCSZn1:0:	Combinado com UCSZn2:0.	100, 101, 110= Reservados.
+	*									000=Frame Cinco bits, 001=Seis, 010= Sete, 011=Oito, 111=Nove
+	* bit 0		0:	R/W:	UCPOLn:		Somento modo Sincrono. 0=TX borda subido e RX descida.
+															   1=TX borda descida e RX subida.
+	*/
+	UCSR0C = 0b00000110;
+ 676:	86 e0       	ldi	r24, 0x06	; 6
+ 678:	80 93 c2 00 	sts	0x00C2, r24
+ 67c:	08 95       	ret
 
-000006ca <Usart_Transmit>:
- 6ca:	e0 ec       	ldi	r30, 0xC0	; 192
- 6cc:	f0 e0       	ldi	r31, 0x00	; 0
- 6ce:	90 81       	ld	r25, Z
- 6d0:	95 ff       	sbrs	r25, 5
- 6d2:	fd cf       	rjmp	.-6      	; 0x6ce <Usart_Transmit+0x4>
- 6d4:	80 93 c6 00 	sts	0x00C6, r24
- 6d8:	08 95       	ret
+0000067e <Usart_Transmit>:
+//---------------------------------------------------------------------------
 
-000006da <__udivmodhi4>:
- 6da:	aa 1b       	sub	r26, r26
- 6dc:	bb 1b       	sub	r27, r27
- 6de:	51 e1       	ldi	r21, 0x11	; 17
- 6e0:	07 c0       	rjmp	.+14     	; 0x6f0 <__udivmodhi4_ep>
+void Usart_Transmit(unsigned char dado)
+{
+	/*wait for empty transmit buffer*/
+	while (!( UCSR0A & (1<<UDRE0)) );	
+ 67e:	e0 ec       	ldi	r30, 0xC0	; 192
+ 680:	f0 e0       	ldi	r31, 0x00	; 0
+ 682:	90 81       	ld	r25, Z
+ 684:	95 ff       	sbrs	r25, 5
+ 686:	fd cf       	rjmp	.-6      	; 0x682 <Usart_Transmit+0x4>
+	
+	/*put data into buffer, sends the data*/
+	UDR0 = dado; 				
+ 688:	80 93 c6 00 	sts	0x00C6, r24
+ 68c:	08 95       	ret
 
-000006e2 <__udivmodhi4_loop>:
- 6e2:	aa 1f       	adc	r26, r26
- 6e4:	bb 1f       	adc	r27, r27
- 6e6:	a6 17       	cp	r26, r22
- 6e8:	b7 07       	cpc	r27, r23
- 6ea:	10 f0       	brcs	.+4      	; 0x6f0 <__udivmodhi4_ep>
- 6ec:	a6 1b       	sub	r26, r22
- 6ee:	b7 0b       	sbc	r27, r23
+0000068e <__udivmodhi4>:
+ 68e:	aa 1b       	sub	r26, r26
+ 690:	bb 1b       	sub	r27, r27
+ 692:	51 e1       	ldi	r21, 0x11	; 17
+ 694:	07 c0       	rjmp	.+14     	; 0x6a4 <__udivmodhi4_ep>
 
-000006f0 <__udivmodhi4_ep>:
- 6f0:	88 1f       	adc	r24, r24
- 6f2:	99 1f       	adc	r25, r25
- 6f4:	5a 95       	dec	r21
- 6f6:	a9 f7       	brne	.-22     	; 0x6e2 <__udivmodhi4_loop>
- 6f8:	80 95       	com	r24
- 6fa:	90 95       	com	r25
- 6fc:	bc 01       	movw	r22, r24
- 6fe:	cd 01       	movw	r24, r26
- 700:	08 95       	ret
+00000696 <__udivmodhi4_loop>:
+ 696:	aa 1f       	adc	r26, r26
+ 698:	bb 1f       	adc	r27, r27
+ 69a:	a6 17       	cp	r26, r22
+ 69c:	b7 07       	cpc	r27, r23
+ 69e:	10 f0       	brcs	.+4      	; 0x6a4 <__udivmodhi4_ep>
+ 6a0:	a6 1b       	sub	r26, r22
+ 6a2:	b7 0b       	sbc	r27, r23
 
-00000702 <_exit>:
- 702:	f8 94       	cli
+000006a4 <__udivmodhi4_ep>:
+ 6a4:	88 1f       	adc	r24, r24
+ 6a6:	99 1f       	adc	r25, r25
+ 6a8:	5a 95       	dec	r21
+ 6aa:	a9 f7       	brne	.-22     	; 0x696 <__udivmodhi4_loop>
+ 6ac:	80 95       	com	r24
+ 6ae:	90 95       	com	r25
+ 6b0:	bc 01       	movw	r22, r24
+ 6b2:	cd 01       	movw	r24, r26
+ 6b4:	08 95       	ret
 
-00000704 <__stop_program>:
- 704:	ff cf       	rjmp	.-2      	; 0x704 <__stop_program>
+000006b6 <_exit>:
+ 6b6:	f8 94       	cli
+
+000006b8 <__stop_program>:
+ 6b8:	ff cf       	rjmp	.-2      	; 0x6b8 <__stop_program>
