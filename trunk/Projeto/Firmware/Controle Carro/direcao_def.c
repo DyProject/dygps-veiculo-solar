@@ -11,12 +11,12 @@ uint16_t CalculaDutyCicleM1(
 	TEstadoCarro estadoCarro
 )
 {
-	/*Valor é igual ao (35000 * 0,25) ou (350*porcentagem)*/
-	uint16_t valor = porCentagem * 350;
-		
 	if(porCentagem > 100)
 		porCentagem = 100;
-		
+	
+	/*Valor é igual ao (35000 * 0,25) ou (350*porcentagem)*/
+	uint16_t valor = porCentagem * 350;
+				
 	if(estadoCarro == ANDANDO_TRAS)
 		valor = 35000 - valor;
 		
@@ -31,10 +31,10 @@ uint16_t CalculaDutyCicleM2(
 	TEstadoCarro estadoCarro
 )
 {
-	uint16_t valor = porCentagem * 350;
-
 	if(porCentagem > 100)
 		porCentagem = 100;
+	
+	uint16_t valor = porCentagem * 350;
 		
 	if(estadoCarro == ANDANDO_TRAS)
 		valor = 35000 - valor;
@@ -101,22 +101,33 @@ void ParadaLenta(
 	
 	switch (bufferRecepcao->estadoCarro) {			
 		case ANDANDO_FRENTE:
-		case ANDANDO_TRAS:	
+		case ANDANDO_TRAS:
+			while(!(bufferRecepcao->dutyCicleM1 < incrementoInicial && bufferRecepcao->dutyCicleM2 < incrementoInicial)){
+						
+						if(bufferRecepcao->dutyCicleM1 > incrementoInicial && bufferRecepcao->dutyCicleM1 > 0)//Abaixo desse valor o carrinho não anda
+							bufferRecepcao->dutyCicleM1 -= incremento;
+						
+						if(bufferRecepcao->dutyCicleM2 > incrementoInicial && bufferRecepcao->dutyCicleM2 > 0)//Abaixo desse valor o carrinho não anda
+							bufferRecepcao->dutyCicleM2 -= incremento;
+						
+						if(bufferRecepcao->dutyCicleM1 < incrementoInicial && bufferRecepcao->dutyCicleM2 < incrementoInicial) {
+							bufferRecepcao->estadoCarro = PARADO;
+							bufferRecepcao->iniciado = 'n';
+							bufferRecepcao->completo = 'n';
+							bufferRecepcao->qntdDadosLido = 0;
+							CarroParado();
+						}
+						
+						else {
+							OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
+							OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
+						}	
+			}
+		
+		
+		
 			
-			if(bufferRecepcao->dutyCicleM1 > incrementoInicial)//Abaixo desse valor o carrinho não anda
-				bufferRecepcao->dutyCicleM1 -= incremento;
-		
-			if(bufferRecepcao->dutyCicleM2 > incrementoInicial)//Abaixo desse valor o carrinho não anda
-				bufferRecepcao->dutyCicleM2 -= incremento;
-		
-			OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
-			OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
-			
-			if(bufferRecepcao->dutyCicleM1 < incrementoInicial && bufferRecepcao->dutyCicleM2 < incrementoInicial)
-				CarroParado();
-		
-			
-		
+	
 		break;
 		case PARADO:
 		break;
