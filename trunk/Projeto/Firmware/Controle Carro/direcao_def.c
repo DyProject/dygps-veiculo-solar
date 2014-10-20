@@ -96,37 +96,30 @@ void ParadaLenta(
 	BufferRecep* bufferRecepcao
 ) 
 {
-	uint8_t incremento = 15;
+	uint8_t incremento = 35;
 	uint8_t incrementoInicial = 15;
 	
 	switch (bufferRecepcao->estadoCarro) {			
 		case ANDANDO_FRENTE:
-		case ANDANDO_TRAS:
-			while(!(bufferRecepcao->dutyCicleM1 < incrementoInicial && bufferRecepcao->dutyCicleM2 < incrementoInicial)){
-						
-						if(bufferRecepcao->dutyCicleM1 > incrementoInicial && bufferRecepcao->dutyCicleM1 > 0)//Abaixo desse valor o carrinho não anda
-							bufferRecepcao->dutyCicleM1 -= incremento;
-						
-						if(bufferRecepcao->dutyCicleM2 > incrementoInicial && bufferRecepcao->dutyCicleM2 > 0)//Abaixo desse valor o carrinho não anda
-							bufferRecepcao->dutyCicleM2 -= incremento;
-						
-						if(bufferRecepcao->dutyCicleM1 < incrementoInicial && bufferRecepcao->dutyCicleM2 < incrementoInicial) {
-							bufferRecepcao->estadoCarro = PARADO;
-							bufferRecepcao->iniciado = 'n';
-							bufferRecepcao->completo = 'n';
-							bufferRecepcao->qntdDadosLido = 0;
-							CarroParado();
-						}
-						
-						else {
-							OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
-							OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
-						}	
+		case ANDANDO_TRAS:			
+			if(bufferRecepcao->dutyCicleM1 > incrementoInicial)//Abaixo desse valor o carrinho não anda
+				bufferRecepcao->dutyCicleM1 -= incremento;
+		
+			if(bufferRecepcao->dutyCicleM2 > incrementoInicial)//Abaixo desse valor o carrinho não anda
+				bufferRecepcao->dutyCicleM2 -= incremento;
+		
+			if(bufferRecepcao->dutyCicleM1 < incrementoInicial && bufferRecepcao->dutyCicleM2 < incrementoInicial) {
+					bufferRecepcao->estadoCarro = PARADO;
+					bufferRecepcao->iniciado = 'n';
+					bufferRecepcao->completo = 'n';
+					bufferRecepcao->qntdDadosLido = 0;
+					CarroParado();
+				}
+				
+			else {
+				OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
+				OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
 			}
-		
-		
-		
-			
 	
 		break;
 		case PARADO:

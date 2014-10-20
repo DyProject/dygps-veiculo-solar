@@ -143,16 +143,27 @@ uint8_t CalculaDutyCycleLadoDir()
 	switch(sentido) {
 		case 'F'://Andando Frente
 		case 'T'://Andando Tras
-			duty = SoftStarterLadoDir(CalculaPorcentoPosicaoEixoY(valorLidoADEixoY));
+		
+			if(dutyAnteriorLadoDir_g < 75)
+				duty = SoftStarterLadoDir(CalculaPorcentoPosicaoEixoY(valorLidoADEixoY));
+			else duty = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
+		
 			break;
 				
 		case 'E'://Andando Frente Esquerda
 		case 'L'://Andando Tras Esquerda
-			duty = SoftStarterLadoDir(100);
+			if(dutyAnteriorLadoDir_g < 75)
+				duty = SoftStarterLadoDir(100);
+			else duty = 100;
+			
 			break;
 		case 'R': //Andando Tras Direita
 		case 'D'://Andando Frente Direita
-			duty = SoftStarterLadoDir(100 - CalculaPorcentoPosicaoEixoX(valorLidoADEixoX));
+			if(dutyAnteriorLadoDir_g < 75)
+				duty = SoftStarterLadoDir(100 - CalculaPorcentoPosicaoEixoX(valorLidoADEixoX));
+			else duty = (100 - CalculaPorcentoPosicaoEixoX(valorLidoADEixoX));
+			
+			
 			break;
 		case 'P'://Parado
 			duty = 0;
@@ -173,8 +184,7 @@ uint8_t SoftStarterLadoEsq(
 	uint8_t incremento = 5;
 	uint8_t incrementoInicial = 15;
 	
-	
-	if(dutyAnteriorLadoEsq_g < incrementoInicial)//Abaixo desse valor o carrinho não anda
+	if(dutyAnteriorLadoEsq_g < incrementoInicial )//Abaixo desse valor o carrinho não anda
 		dutyAtual = incrementoInicial; 
 	else if(dutyAnteriorLadoEsq_g < dutyAtual)
 		dutyAtual = dutyAnteriorLadoEsq_g + incremento;
@@ -192,9 +202,8 @@ uint8_t dutyAtual
 {
 	uint8_t incremento = 5;
 	uint8_t incrementoInicial = 15;
-	
-	
-	if(dutyAnteriorLadoDir_g < incrementoInicial)//Abaixo desse valor o carrinho não anda
+		
+	if((dutyAnteriorLadoDir_g < incrementoInicial))//Abaixo desse valor o carrinho não anda. 
 		dutyAtual = incrementoInicial;
 	else if(dutyAnteriorLadoDir_g < dutyAtual)
 		dutyAtual = dutyAnteriorLadoDir_g + incremento;
@@ -214,18 +223,30 @@ uint8_t CalculaDutyCycleLadoEsq()
 	
 	uint8_t duty = 0;
 	unsigned char sentido = CalculaSentido();
+	
 	switch(sentido) {
 		case 'F'://Andando Frente
 		case 'T'://Andando Tras
-			duty = SoftStarterLadoEsq(CalculaPorcentoPosicaoEixoY(valorLidoADEixoY));
+			//trace
+			
+			if(dutyAnteriorLadoEsq_g < 75)
+				duty = SoftStarterLadoEsq(CalculaPorcentoPosicaoEixoY(valorLidoADEixoY));
+			else duty = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
+					
+			//EndTrace
+			//duty = SoftStarterLadoEsq(CalculaPorcentoPosicaoEixoY(valorLidoADEixoY));
 			break;
 		case 'D'://Andando Frente Direita
 		case 'R'://Andando Tras Direita
-			duty = SoftStarterLadoEsq(100);
+			if(dutyAnteriorLadoEsq_g < 75)
+				duty = SoftStarterLadoEsq(100);
+			else duty = 100;
 			break;
 		case 'E'://Andando Frente Esquerda
 		case 'L': //Andando Tras Esquerda
-			duty = SoftStarterLadoEsq(100 - CalculaPorcentoPosicaoEixoX(valorLidoADEixoX));
+			if(dutyAnteriorLadoEsq_g < 75)
+				duty = SoftStarterLadoEsq(100 - CalculaPorcentoPosicaoEixoX(valorLidoADEixoX));
+			else duty = (100 -CalculaPorcentoPosicaoEixoX(valorLidoADEixoX));
 			break;
 		case 'P'://Parado
 			duty = 0;
