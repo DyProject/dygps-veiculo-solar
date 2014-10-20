@@ -47,7 +47,7 @@ ISR(TIMER0_OVF_vect)
 	
 	if(bufferRX_g.iniciado == 'y')
 		tempoRecep = 0;
-	else if(tempoRecep > 80) {
+	else if(tempoRecep > 100) {
 		/*Desabilita Interrupção RX*/ //trace
 		clr_bit(UCSR0B, 7);
 		ParadaLenta(&bufferRX_g);

@@ -45,7 +45,7 @@ ISR(ADC_vect)
 {
 	static uint8_t contador = 0;
 	/*Envia o valor lido do ADC a cada 1s aproximadamente*/
-	if(contador > 8 && (bufferDados_g.podeIniciarTransmissao == 'y')) {
+	if(contador > 10 && (bufferDados_g.podeIniciarTransmissao == 'y')) {
 		
 		/*Desabilita Interrupção RX*/
 		clr_bit(UCSR0B, 7);
@@ -73,20 +73,19 @@ ISR(ADC_vect)
 		/*Habilita Interrupção RX*/
 		set_bit(UCSR0B, 7);
 		
-	} else if(contador > 15) {
+	} else if((contador > 15 && !bufferDados_g.iniciado == 'n') || contador > 100) {
 		/*Desabilita Interrupção RX*/
 		clr_bit(UCSR0B, 7);
 		
 		ADMUX &= ~(1 << ADIE);
 		TransmitiBuffer(&bufferDados_g);
+		/*Habilita Interrupção RX*/
+		set_bit(UCSR0B, 7);
 		MostraDadosLCD(&bufferDados_g);
 		contador = 0;
 		
 		ADMUX |= (1 << ADIE);
-		
-		/*Habilita Interrupção RX*/
-		set_bit(UCSR0B, 7);		
-	}
+	} 	
 	
 	contador++;
 	/*Limpa o flag de overflow do Timer0. Esse flag indica que houve um estouro do timer.

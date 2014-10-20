@@ -97,33 +97,43 @@ void MostraDadosLCD(
 	static uint8_t contador = 20;
 	unsigned char caracConvertido[3];
 			
-	LCD_setPos(1,3);
+	LCD_setPos(2,3);
 	CvrtNum2CaracterIndividual(bufferDados->dutyLadoEsq	, caracConvertido, 3);
 	escreve_LCD((char*)caracConvertido);
 	
-	LCD_setPos(2,3);
+	LCD_setPos(2,10);
 	CvrtNum2CaracterIndividual(bufferDados->dutyLadoDir,  caracConvertido, 3);
 	escreve_LCD((char*)caracConvertido);
 	
 	/*Para o display não ficar piscando*/
 	if(contador > 16){				
-		LCD_setPos(1,0);
+		LCD_setPos(2,0);
 		escreve_LCD("M1:");
+		
+	LCD_setPos(1,6);
+	escreve_LCD("DAELN");
 	
+	LCD_setPos(1,1);
+	escreve_LCD("IFSC");
+	
+	LCD_setPos(1,12);
+	escreve_LCD("2014");
+	
+	/*trace
 		LCD_setPos(1,7);
 		escreve_LCD("B:");
 		CvrtNum2CaracterIndividual(bufferDados->tensaoBateria, caracConvertido, 2);
 		escreve_LCD((char*)caracConvertido);
-		EscreveCaracterLCD('V');
+		EscreveCaracterLCD('V');*/
 	
-		LCD_setPos(1,13);
-		EscreveCaracterLCD('[');
+		LCD_setPos(2,15);
+		//EscreveCaracterLCD('[');
 		EscreveCaracterLCD(bufferDados->direcao);
-		EscreveCaracterLCD(']');
+		//EscreveCaracterLCD(']');
 	
-		LCD_setPos(2,0);
+		LCD_setPos(2,7);
 		escreve_LCD("M2:");
-		
+		/*trace
 		LCD_setPos(2,7);
 		escreve_LCD("P:");
 		CvrtNum2CaracterIndividual(bufferDados->tensaoPainel, caracConvertido, 2);
@@ -133,7 +143,7 @@ void MostraDadosLCD(
 		LCD_setPos(2,13);
 		EscreveCaracterLCD('F');
 		EscreveCaracterLCD(':');
-		EscreveCaracterLCD(bufferDados->fonteAlimentacao);
+		EscreveCaracterLCD(bufferDados->fonteAlimentacao);*/
 	}
 		
 	contador++;
