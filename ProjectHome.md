@@ -1,0 +1,1 @@
+Veículo Não Tripulado Movimentado por Motores CC, Alimentados por Baterias, Carregadas por Controlador Conectado a Painel Fotovoltaico, Controlado Remotamente
