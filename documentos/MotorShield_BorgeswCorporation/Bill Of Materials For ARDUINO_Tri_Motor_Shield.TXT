@@ -1,0 +1,40 @@
+Bill Of Materials
+=================
+Design:   F:\PROJETOS\Motor_shield\ARDUINO_Tri_Motor_Shield.DSN
+Doc. no.: <NONE>
+Revision: <NONE>
+Author:   <NONE>
+Created:  11/09/10
+Modified: 10/12/10
+
+QTY  PART-REFS           VALUE               CODE                          
+---  ---------           -----               ----                          
+Resistors
+---------
+4    R1-R4               0.5         Carvão 2W (não pode ser de fio)   
+				     ou jumper (curto-circuito)                                         
+
+Capacitors
+----------
+5    C1-C5               100nF               cerâmico                              
+2    C6,C7               470uF               35V                 
+
+Integrated Circuits
+-------------------
+2    U1,U2               L298                                              
+1    U3                  (soquete 18 pinos) ULN2803                                           
+
+Diodes
+------
+16   D1-D16              1N4934      (diodo de chaveamento rápido)                                      
+
+Miscellaneous
+-------------
+1    RESET      push-botton 6mmx6mm                                       
+6    CONN-SIL2  borne KF301 2T                                       
+3    CONN-SIL2  (1 barra de pinos + 2 barra de pinos ou soquete barra)
+4    CONN-SIL6  soquete barra
+2    CONN-SIL6  barra de pinos (longa)                                        
+3    CONN-SIL8  soquete barra 
+2    CONN-SIL8  barra de pinos (longa))                                        
+1    CONN-SIL8  soquete barra ou  barra de pinos (normal)   
