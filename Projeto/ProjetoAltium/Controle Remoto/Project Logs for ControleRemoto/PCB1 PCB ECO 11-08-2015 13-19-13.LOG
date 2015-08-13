@@ -1,0 +1,7 @@
+Added Component: Designator=M1(XBee)
+Added Pin To Net: NetName=NetC1_1 Pin=M1-1
+Added Pin To Net: NetName=PD0 Pin=M1-2
+Added Pin To Net: NetName=NetM1_3 Pin=M1-3
+Added Pin To Net: NetName=RESET Pin=M1-5
+Added Pin To Net: NetName=GND Pin=M1-10
+Added Member To Class: ClassName=controleRemoto Member=Component M1 XBee

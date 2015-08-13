@@ -1,0 +1,29 @@
+Added Component: Designator=JP1(Modulo Joystick Dual Eixo XY)
+Added Component: Designator=JP2(Modulo Joystick Dual Eixo XY)
+Added Component: Designator=LCD1(DISPLAY 16x2)
+Added Pin To Net: NetName=GND Pin=JP1-1
+Added Pin To Net: NetName=5V Pin=JP1-2
+Added Pin To Net: NetName=VRX_MOTOR Pin=JP1-3
+Added Pin To Net: NetName=VRY_MOTOR Pin=JP1-4
+Added Pin To Net: NetName=PD2 Pin=JP1-5
+Added Pin To Net: NetName=GND Pin=JP2-1
+Added Pin To Net: NetName=5V Pin=JP2-2
+Added Pin To Net: NetName=VRX_SERVO Pin=JP2-3
+Added Pin To Net: NetName=VRY_SERVO Pin=JP2-4
+Added Pin To Net: NetName=PD3 Pin=JP2-5
+Added Pin To Net: NetName=GND Pin=LCD1-1
+Added Pin To Net: NetName=5V Pin=LCD1-2
+Added Pin To Net: NetName=VO_LCD Pin=LCD1-3
+Added Pin To Net: NetName=PB4 Pin=LCD1-4
+Added Pin To Net: NetName=GND Pin=LCD1-5
+Added Pin To Net: NetName=PB5 Pin=LCD1-6
+Added Pin To Net: NetName=PB0 Pin=LCD1-11
+Added Pin To Net: NetName=PB1 Pin=LCD1-12
+Added Pin To Net: NetName=PB2 Pin=LCD1-13
+Added Pin To Net: NetName=PB3 Pin=LCD1-14
+Added Pin To Net: NetName=5V Pin=LCD1-15
+Added Pin To Net: NetName=NetLCD1_16 Pin=LCD1-16
+Added Member To Class: ClassName=controleRemoto Member=Component JP1 JoyStick
+Added Member To Class: ClassName=controleRemoto Member=Component JP2 JoyStick
+Added Member To Class: ClassName=controleRemoto Member=Component LCD1 162A
+Added Member To Class: ClassName=controleRemoto Member=Component M1 XBee

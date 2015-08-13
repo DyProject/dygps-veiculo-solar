@@ -1,0 +1,7 @@
+Removed Pin From Net: NetName=VIN Pin=P3-1
+Added Component: Designator=P?(Chave Alavanca MTS103)
+Added Pin To Net: NetName=VIN Pin=P?-1
+Added Pin To Net: NetName=VIN_BAT Pin=P3-1
+Added Pin To Net: NetName=VIN_BAT Pin=P?-2
+Added Net: Name=VIN_BAT
+Added Member To Class: ClassName=controleRemoto Member=Component P? Header_1x3

@@ -1,0 +1,4 @@
+Added Component: Designator=R?(RESTH_AXIAL-0.4)
+Added Pin To Net: NetName=NetLCD1_16 Pin=R?-1
+Added Pin To Net: NetName=GND Pin=R?-2
+Added Member To Class: ClassName=controleRemoto Member=Component R? 560

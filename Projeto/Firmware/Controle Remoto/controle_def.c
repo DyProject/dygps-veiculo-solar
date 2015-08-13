@@ -59,7 +59,10 @@ void TransmitiBuffer(
 	volatile uint8_t dutyLadoDir;
 	volatile uint8_t sentido;
 	volatile uint8_t fonte;
+	volatile uint16_t anguloServoLeft;
+	volatile uint16_t anguloServoRigth;
 	
+
 	sentido = CalculaSentido();
 	bufferDados->sentido = sentido;
 	
@@ -70,7 +73,17 @@ void TransmitiBuffer(
 	bufferDados->dutyLadoEsq = dutyLadoEsq;
 	dutyLadoDir = CalculaDutyCycleLadoDir();
 	bufferDados->dutyLadoDir = dutyLadoDir;
-		
+	
+	//Valores do angulo do servo
+	JoyStick joystick;	
+	joystick.valorEixoX = (((int32_t)ValorLidoADEixoX(AD_EIXO_X_SERVO))- 510);
+	joystick.valorEixoY = (((int32_t)(ValorLidoADEixoY(AD_EIXO_Y_SERVO))) - 506);
+	TankDrive(&joystick);
+	
+	CalculaAngulosServo(&joystick, bufferDados);
+	anguloServoLeft = bufferDados->anguloServoLeft;
+	anguloServoRigth = bufferDados->anguloServoRight;
+		//
 	/*Indica o inicio do protocolo*/
 	Usart_Transmit(indicaInicioTransmissao);
 	/*Indica a direcao do carro*/
@@ -79,6 +92,11 @@ void TransmitiBuffer(
 	Usart_Transmit(dutyLadoEsq);
 	/*Indica o duty cicle motor 1*/
 	Usart_Transmit(dutyLadoDir);
+	
+	/*Informações Servo*/
+	Usart_Transmit(anguloServoLeft);
+	Usart_Transmit(anguloServoRigth);
+	
 	/*Indica se deve alterar a fonte de alimentacao*/
 	if(bufferDados->botaoSelFontePress == 'y')
 		fonte = '1';//deve inverter a fonte de alimentação

@@ -1,0 +1,119 @@
+\hypertarget{_controle_remoto_8c}{}\section{Referência do Arquivo C\+:/\+Users/\+Suporte/\+Documents/\+Git\+Hub/dygps-\/veiculo-\/solar/\+Projeto/\+Firmware/\+Controle Remoto/\+Controle\+Remoto.c}
+\label{_controle_remoto_8c}\index{C\+:/\+Users/\+Suporte/\+Documents/\+Git\+Hub/dygps-\/veiculo-\/solar/\+Projeto/\+Firmware/\+Controle Remoto/\+Controle\+Remoto.\+c@{C\+:/\+Users/\+Suporte/\+Documents/\+Git\+Hub/dygps-\/veiculo-\/solar/\+Projeto/\+Firmware/\+Controle Remoto/\+Controle\+Remoto.\+c}}
+{\ttfamily \#include $<$avr/io.\+h$>$}\\*
+{\ttfamily \#include $<$avr/interrupt.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}controle\+\_\+def.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}globals\+\_\+def.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}usart\+\_\+def.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}adc\+\_\+def.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$util/delay.\+h$>$}\\*
+\subsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_controle_remoto_8c_afe8964718257889855cd751b63d80298}{Valores\+Iniciais\+Buffer} ()
+\begin{DoxyCompactList}\small\item\em Seta os valores inicias dos dados. \end{DoxyCompactList}\item 
+\hyperlink{_controle_remoto_8c_afea150fcd685610cb9f7672fce361e53}{I\+S\+R} (I\+N\+T0\+\_\+vect)
+\begin{DoxyCompactList}\small\item\em Interrupção do botão que seleciona qual fonte de alimentação deve ser usada. \end{DoxyCompactList}\item 
+\hyperlink{_controle_remoto_8c_a05c2e5b588ced1cd7312f5b0edc5b295}{I\+S\+R} (A\+D\+C\+\_\+vect)
+\begin{DoxyCompactList}\small\item\em Interrupção do A\+D gerada pelo Overflow do Timer 0. \end{DoxyCompactList}\item 
+\hyperlink{_controle_remoto_8c_a09ce999e15ad60b8a3f07d08af1946f9}{I\+S\+R} (U\+S\+A\+R\+T\+\_\+\+R\+X\+\_\+vect)
+\begin{DoxyCompactList}\small\item\em Interrupção da comunicação serial R\+X. \end{DoxyCompactList}\item 
+int \hyperlink{_controle_remoto_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main} ()
+\end{DoxyCompactItemize}
+\subsection*{Variáveis}
+\begin{DoxyCompactItemize}
+\item 
+Buffer\+Dados \hyperlink{_controle_remoto_8c_a744a45a5e992571e842db22fa10f9acc}{buffer\+Dados\+\_\+g}
+\end{DoxyCompactItemize}
+
+
+\subsection{Funções}
+\hypertarget{_controle_remoto_8c_afea150fcd685610cb9f7672fce361e53}{}\index{Controle\+Remoto.\+c@{Controle\+Remoto.\+c}!I\+S\+R@{I\+S\+R}}
+\index{I\+S\+R@{I\+S\+R}!Controle\+Remoto.\+c@{Controle\+Remoto.\+c}}
+\subsubsection[{I\+S\+R(\+I\+N\+T0\+\_\+vect)}]{\setlength{\rightskip}{0pt plus 5cm}I\+S\+R (
+\begin{DoxyParamCaption}
+\item[{I\+N\+T0\+\_\+vect}]{}
+\end{DoxyParamCaption}
+)}\label{_controle_remoto_8c_afea150fcd685610cb9f7672fce361e53}
+
+
+Interrupção do botão que seleciona qual fonte de alimentação deve ser usada. 
+
+
+\begin{DoxyItemize}
+\item E\+I\+M\+S\+K \&= $\sim$(1 $<$$<$ I\+N\+T0) -\/ Desabilita a interrupção até enviar os dados e estes serem apresentados no lcd
+\item E\+I\+F\+R = (1 $<$$<$ I\+N\+T\+F0) -\/ Limpa flag de solicitação de nova interrupção. evita o bounce 
+\end{DoxyItemize}\hypertarget{_controle_remoto_8c_a05c2e5b588ced1cd7312f5b0edc5b295}{}\index{Controle\+Remoto.\+c@{Controle\+Remoto.\+c}!I\+S\+R@{I\+S\+R}}
+\index{I\+S\+R@{I\+S\+R}!Controle\+Remoto.\+c@{Controle\+Remoto.\+c}}
+\subsubsection[{I\+S\+R(\+A\+D\+C\+\_\+vect)}]{\setlength{\rightskip}{0pt plus 5cm}I\+S\+R (
+\begin{DoxyParamCaption}
+\item[{A\+D\+C\+\_\+vect}]{}
+\end{DoxyParamCaption}
+)}\label{_controle_remoto_8c_a05c2e5b588ced1cd7312f5b0edc5b295}
+
+
+Interrupção do A\+D gerada pelo Overflow do Timer 0. 
+
+f\+\_\+estouro = Nr\+\_\+max\+\_\+con $\ast$ T $\ast$ Prescaler Sendo\+:
+\begin{DoxyItemize}
+\item Nr\+\_\+max\+\_\+con -\/ 256 para o Timer 0 que é de 8 bits;
+\item T -\/ Período 1/\+F\+\_\+\+C\+P\+U;
+\item Prescaler -\/ Definido nos C\+S02, C\+S01 e C\+S00 do registrador T\+C\+C\+R0\+B;
+\end{DoxyItemize}
+
+Para o prescaler de 1024 f\+\_\+estouro = 16,384 ms T\+I\+F\+R0 $\vert$= T\+O\+V0 -\/ Limpa o flag de overflow do Timer0. Esse flag indica que houve um estouro do timer. limpar para habilitar um novo estouro para gerar a interrupção do A\+D\+C. \hypertarget{_controle_remoto_8c_a09ce999e15ad60b8a3f07d08af1946f9}{}\index{Controle\+Remoto.\+c@{Controle\+Remoto.\+c}!I\+S\+R@{I\+S\+R}}
+\index{I\+S\+R@{I\+S\+R}!Controle\+Remoto.\+c@{Controle\+Remoto.\+c}}
+\subsubsection[{I\+S\+R(\+U\+S\+A\+R\+T\+\_\+\+R\+X\+\_\+vect)}]{\setlength{\rightskip}{0pt plus 5cm}I\+S\+R (
+\begin{DoxyParamCaption}
+\item[{U\+S\+A\+R\+T\+\_\+\+R\+X\+\_\+vect}]{}
+\end{DoxyParamCaption}
+)}\label{_controle_remoto_8c_a09ce999e15ad60b8a3f07d08af1946f9}
+
+
+Interrupção da comunicação serial R\+X. 
+
+\hypertarget{_controle_remoto_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{}\index{Controle\+Remoto.\+c@{Controle\+Remoto.\+c}!main@{main}}
+\index{main@{main}!Controle\+Remoto.\+c@{Controle\+Remoto.\+c}}
+\subsubsection[{main()}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{_controle_remoto_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}
+Configuração do prescaler do Timer 0. Ele está sendo usado para fazer leitura do A\+D\+C. A cada overflow gera uma interrupção.
+
+Prescaler do Timer0 ~\newline
+ 2 1 0 (C\+Sx bits)~\newline
+ 0 0 0 -\/ No clock source (Timer/\+Counter stopped) ~\newline
+ 0 0 1 -\/ clk I/\+O /(No prescaling) ~\newline
+ 0 1 0 -\/ clk I/\+O /8 (From prescaler)~\newline
+ 0 1 1 -\/ clk I/\+O /64 (From prescaler)~\newline
+ 1 0 0 -\/ clk I/\+O /256 (From prescaler)~\newline
+ 1 0 1 -\/ clk I/\+O /1024 (From prescaler)~\newline
+ 1 1 0 -\/ External clock source on T0 pin. Clock on falling edge.~\newline
+ 1 1 1 -\/ External clock source on T0 pin. Clock on rising edge.~\newline
+ \hypertarget{_controle_remoto_8c_afe8964718257889855cd751b63d80298}{}\index{Controle\+Remoto.\+c@{Controle\+Remoto.\+c}!Valores\+Iniciais\+Buffer@{Valores\+Iniciais\+Buffer}}
+\index{Valores\+Iniciais\+Buffer@{Valores\+Iniciais\+Buffer}!Controle\+Remoto.\+c@{Controle\+Remoto.\+c}}
+\subsubsection[{Valores\+Iniciais\+Buffer()}]{\setlength{\rightskip}{0pt plus 5cm}void Valores\+Iniciais\+Buffer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{_controle_remoto_8c_afe8964718257889855cd751b63d80298}
+
+
+Seta os valores inicias dos dados. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+void 
+\end{DoxyReturn}
+
+
+\subsection{Variáveis}
+\hypertarget{_controle_remoto_8c_a744a45a5e992571e842db22fa10f9acc}{}\index{Controle\+Remoto.\+c@{Controle\+Remoto.\+c}!buffer\+Dados\+\_\+g@{buffer\+Dados\+\_\+g}}
+\index{buffer\+Dados\+\_\+g@{buffer\+Dados\+\_\+g}!Controle\+Remoto.\+c@{Controle\+Remoto.\+c}}
+\subsubsection[{buffer\+Dados\+\_\+g}]{\setlength{\rightskip}{0pt plus 5cm}Buffer\+Dados buffer\+Dados\+\_\+g}\label{_controle_remoto_8c_a744a45a5e992571e842db22fa10f9acc}
+Armazena as principais informações que serão transmitidas ou que serão utilizadas para calcular os valores a transmitir. 

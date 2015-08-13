@@ -1,0 +1,20 @@
+Removed Pin From Net: NetName=5V Pin=JP1-1
+Removed Pin From Net: NetName=VRX_MOTOR Pin=JP1-2
+Removed Pin From Net: NetName=VRY_MOTOR Pin=JP1-3
+Removed Pin From Net: NetName=GND Pin=JP1-5
+Removed Pin From Net: NetName=5V Pin=JP2-1
+Removed Pin From Net: NetName=VRX_SERVO Pin=JP2-2
+Removed Pin From Net: NetName=VRY_SERVO Pin=JP2-3
+Removed Pin From Net: NetName=GND Pin=JP2-5
+Change Component Footprint: Designator=JP1 Old Footprint=HDR-M-1x5-2.54mm-180-9.2mm New Footprint=Modulo Joystick Dual Eixo XY
+Change Component Footprint: Designator=JP2 Old Footprint=HDR-M-1x5-2.54mm-180-9.2mm New Footprint=Modulo Joystick Dual Eixo XY
+Change Component Comment : Designator=JP1 Old Comment=MOTOR New Comment=JoyStick
+Change Component Comment : Designator=JP2 Old Comment=SERVO New Comment=JoyStick
+Added Pin To Net: NetName=GND Pin=JP1-1
+Added Pin To Net: NetName=5V Pin=JP1-2
+Added Pin To Net: NetName=VRX_MOTOR Pin=JP1-3
+Added Pin To Net: NetName=VRY_MOTOR Pin=JP1-4
+Added Pin To Net: NetName=GND Pin=JP2-1
+Added Pin To Net: NetName=5V Pin=JP2-2
+Added Pin To Net: NetName=VRX_SERVO Pin=JP2-3
+Added Pin To Net: NetName=VRY_SERVO Pin=JP2-4

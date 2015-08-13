@@ -1,0 +1,66 @@
+\hypertarget{usart__def_8c}{}\section{Referência do Arquivo C\+:/\+Users/\+Suporte/\+Documents/\+Git\+Hub/dygps-\/veiculo-\/solar/\+Projeto/\+Firmware/\+Controle Remoto/usart\+\_\+def.c}
+\label{usart__def_8c}\index{C\+:/\+Users/\+Suporte/\+Documents/\+Git\+Hub/dygps-\/veiculo-\/solar/\+Projeto/\+Firmware/\+Controle Remoto/usart\+\_\+def.\+c@{C\+:/\+Users/\+Suporte/\+Documents/\+Git\+Hub/dygps-\/veiculo-\/solar/\+Projeto/\+Firmware/\+Controle Remoto/usart\+\_\+def.\+c}}
+{\ttfamily \#include \char`\"{}usart\+\_\+def.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$avr/io.\+h$>$}\\*
+{\ttfamily \#include $<$avr/pgmspace.\+h$>$}\\*
+\subsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{usart__def_8c_a90b7a75799906bb06ccfd8bcc5bb193c}{Usart\+\_\+\+Init} (unsigned int ubrr)
+\item 
+void \hyperlink{usart__def_8c_a8126664d631cd9f25af64b70290760d9}{Usart\+\_\+\+Transmit} (unsigned char dado)
+\item 
+void \hyperlink{usart__def_8c_a1584760f2f1d8b191997d9e2cf49b742}{Usart\+\_\+\+Transmit\+\_\+\+Printf} (char dado, F\+I\+L\+E $\ast$stream)
+\item 
+unsigned char \hyperlink{usart__def_8c_aade88fcc0c310c6e174383cef5c429dc}{Usart\+\_\+\+Receive} ()
+\item 
+void \hyperlink{usart__def_8c_a6178e5ff89b381216bbaeb6a83929f98}{Usart\+\_\+\+Write} (char $\ast$c)
+\item 
+void \hyperlink{usart__def_8c_af672b36396978d1c7d832ab94e4f9469}{Usart\+\_\+\+Write\+\_\+\+Flash} (const char $\ast$c)
+\end{DoxyCompactItemize}
+
+
+\subsection{Funções}
+\hypertarget{usart__def_8c_a90b7a75799906bb06ccfd8bcc5bb193c}{}\index{usart\+\_\+def.\+c@{usart\+\_\+def.\+c}!Usart\+\_\+\+Init@{Usart\+\_\+\+Init}}
+\index{Usart\+\_\+\+Init@{Usart\+\_\+\+Init}!usart\+\_\+def.\+c@{usart\+\_\+def.\+c}}
+\subsubsection[{Usart\+\_\+\+Init(unsigned int ubrr)}]{\setlength{\rightskip}{0pt plus 5cm}void Usart\+\_\+\+Init (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{ubrr}
+\end{DoxyParamCaption}
+)}\label{usart__def_8c_a90b7a75799906bb06ccfd8bcc5bb193c}
+\hypertarget{usart__def_8c_aade88fcc0c310c6e174383cef5c429dc}{}\index{usart\+\_\+def.\+c@{usart\+\_\+def.\+c}!Usart\+\_\+\+Receive@{Usart\+\_\+\+Receive}}
+\index{Usart\+\_\+\+Receive@{Usart\+\_\+\+Receive}!usart\+\_\+def.\+c@{usart\+\_\+def.\+c}}
+\subsubsection[{Usart\+\_\+\+Receive()}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char Usart\+\_\+\+Receive (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{usart__def_8c_aade88fcc0c310c6e174383cef5c429dc}
+\hypertarget{usart__def_8c_a8126664d631cd9f25af64b70290760d9}{}\index{usart\+\_\+def.\+c@{usart\+\_\+def.\+c}!Usart\+\_\+\+Transmit@{Usart\+\_\+\+Transmit}}
+\index{Usart\+\_\+\+Transmit@{Usart\+\_\+\+Transmit}!usart\+\_\+def.\+c@{usart\+\_\+def.\+c}}
+\subsubsection[{Usart\+\_\+\+Transmit(unsigned char dado)}]{\setlength{\rightskip}{0pt plus 5cm}void Usart\+\_\+\+Transmit (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{dado}
+\end{DoxyParamCaption}
+)}\label{usart__def_8c_a8126664d631cd9f25af64b70290760d9}
+\hypertarget{usart__def_8c_a1584760f2f1d8b191997d9e2cf49b742}{}\index{usart\+\_\+def.\+c@{usart\+\_\+def.\+c}!Usart\+\_\+\+Transmit\+\_\+\+Printf@{Usart\+\_\+\+Transmit\+\_\+\+Printf}}
+\index{Usart\+\_\+\+Transmit\+\_\+\+Printf@{Usart\+\_\+\+Transmit\+\_\+\+Printf}!usart\+\_\+def.\+c@{usart\+\_\+def.\+c}}
+\subsubsection[{Usart\+\_\+\+Transmit\+\_\+\+Printf(char dado, F\+I\+L\+E $\ast$stream)}]{\setlength{\rightskip}{0pt plus 5cm}void Usart\+\_\+\+Transmit\+\_\+\+Printf (
+\begin{DoxyParamCaption}
+\item[{char}]{dado, }
+\item[{F\+I\+L\+E $\ast$}]{stream}
+\end{DoxyParamCaption}
+)}\label{usart__def_8c_a1584760f2f1d8b191997d9e2cf49b742}
+\hypertarget{usart__def_8c_a6178e5ff89b381216bbaeb6a83929f98}{}\index{usart\+\_\+def.\+c@{usart\+\_\+def.\+c}!Usart\+\_\+\+Write@{Usart\+\_\+\+Write}}
+\index{Usart\+\_\+\+Write@{Usart\+\_\+\+Write}!usart\+\_\+def.\+c@{usart\+\_\+def.\+c}}
+\subsubsection[{Usart\+\_\+\+Write(char $\ast$c)}]{\setlength{\rightskip}{0pt plus 5cm}void Usart\+\_\+\+Write (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{c}
+\end{DoxyParamCaption}
+)}\label{usart__def_8c_a6178e5ff89b381216bbaeb6a83929f98}
+\hypertarget{usart__def_8c_af672b36396978d1c7d832ab94e4f9469}{}\index{usart\+\_\+def.\+c@{usart\+\_\+def.\+c}!Usart\+\_\+\+Write\+\_\+\+Flash@{Usart\+\_\+\+Write\+\_\+\+Flash}}
+\index{Usart\+\_\+\+Write\+\_\+\+Flash@{Usart\+\_\+\+Write\+\_\+\+Flash}!usart\+\_\+def.\+c@{usart\+\_\+def.\+c}}
+\subsubsection[{Usart\+\_\+\+Write\+\_\+\+Flash(const char $\ast$c)}]{\setlength{\rightskip}{0pt plus 5cm}void Usart\+\_\+\+Write\+\_\+\+Flash (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{c}
+\end{DoxyParamCaption}
+)}\label{usart__def_8c_af672b36396978d1c7d832ab94e4f9469}

@@ -45,10 +45,18 @@ typedef struct{
 	volatile uint8_t podeIniciarTransmissao;
 	volatile uint8_t botaoSelFontePress;
 	volatile uint8_t podeRecalcularDutyCicle;//'y' yes ou 'n' no - Caso não tenha recebido dados do carro, não envia novo valor do duty cicle
+	volatile unsigned char anguloServoLeft; 
+	volatile unsigned char anguloServoRight;
 }BufferDados;
 
 //----------------------------------------------------------------------------
-	
+
+/*!
+	\param uint16_t valor - valor a ser convertido
+	\param unsigned char* caracterConvertido - caracter convertido
+	\param uint8_t tamanho
+	\brief Converte um valor inteiro para  valores em char individuais.
+*/	
 void CvrtNum2CaracterIndividual(
 	uint16_t valor, 
 	unsigned char* caracterConvertido,

@@ -1,0 +1,190 @@
+\hypertarget{joystick_8c}{}\section{Referência do Arquivo C\+:/\+Users/\+Suporte/\+Documents/\+Git\+Hub/dygps-\/veiculo-\/solar/\+Projeto/\+Firmware/\+Controle Remoto/joystick.c}
+\label{joystick_8c}\index{C\+:/\+Users/\+Suporte/\+Documents/\+Git\+Hub/dygps-\/veiculo-\/solar/\+Projeto/\+Firmware/\+Controle Remoto/joystick.\+c@{C\+:/\+Users/\+Suporte/\+Documents/\+Git\+Hub/dygps-\/veiculo-\/solar/\+Projeto/\+Firmware/\+Controle Remoto/joystick.\+c}}
+{\ttfamily \#include \char`\"{}joy\+Stick.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}adc\+\_\+def.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}globals\+\_\+def.\+h\char`\"{}}\\*
+\subsection*{Componentes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_joy_stick_info}{Joy\+Stick\+Info}
+\end{DoxyCompactItemize}
+\subsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{joystick_8c_aecf5b71ac8342a766dc411b8a122c528}{Calcula\+Angulos\+Servo} (Joy\+Stick $\ast$joy\+Stick, Buffer\+Dados $\ast$buffer\+Dados)
+\item 
+void \hyperlink{joystick_8c_ab75cc7de2c9005f1d96e27263afaa150}{Tank\+Drive} (Joy\+Stick $\ast$joy\+Stick)
+\item 
+uint16\+\_\+t \hyperlink{joystick_8c_a6f4fbb3b8da7e5d885c067376d276d13}{Valor\+Lido\+A\+D\+Eixo\+X} (unsigned char ad\+Selected)
+\item 
+uint16\+\_\+t \hyperlink{joystick_8c_afa52be9a2af39a7ab7019f0e7fea1728}{Valor\+Lido\+A\+D\+Eixo\+Y} (unsigned char ad\+Selected)
+\item 
+uint8\+\_\+t \hyperlink{joystick_8c_a698743a7c5f26a59cb029cee82af327a}{Ponto\+X\+Na\+Pos\+Inic} (unsigned char ad\+Selected)
+\item 
+uint8\+\_\+t \hyperlink{joystick_8c_adb277a99b9333976cb01435bdce73ae4}{Ponto\+Y\+Na\+Pos\+Inic} (unsigned char ad\+Selected)
+\item 
+unsigned char \hyperlink{joystick_8c_a91c6e4c0a24ae13a501f025965dd51a4}{Direcao\+Carro} ()
+\item 
+unsigned char \hyperlink{joystick_8c_a19d9b913ff091bb4cc29f924501002a4}{Calcula\+Sentido} ()
+\item 
+uint8\+\_\+t \hyperlink{joystick_8c_a4b9ea86913cd8d6d643fa92a34de9101}{Calcula\+Duty\+Cycle\+Lado\+Dir} ()
+\item 
+uint8\+\_\+t \hyperlink{joystick_8c_a8b8fd75e8d8b907bc8aa3bdb7e627541}{Soft\+Starter\+Lado\+Esq} (uint8\+\_\+t duty\+Atual)
+\item 
+uint8\+\_\+t \hyperlink{joystick_8c_a9ed12f2d62448cfb96a87573ae694afb}{Soft\+Starter\+Lado\+Dir} (uint8\+\_\+t duty\+Atual)
+\item 
+uint8\+\_\+t \hyperlink{joystick_8c_a787b522a017802bc225831897b1a5c71}{Calcula\+Duty\+Cycle\+Lado\+Esq} ()
+\item 
+uint8\+\_\+t \hyperlink{joystick_8c_af6274d4bdca320120f9b84eb889fcce5}{Calcula\+Porcento\+Posicao\+Eixo\+Y} (uint16\+\_\+t valor\+Lido\+A\+D\+Eixo\+Y)
+\item 
+uint8\+\_\+t \hyperlink{joystick_8c_af8f9e338c0f525e4c0a6bf35f2430e93}{Calcula\+Porcento\+Posicao\+Eixo\+X} (uint16\+\_\+t valor\+Lido\+A\+D\+Eixo\+X)
+\end{DoxyCompactItemize}
+\subsection*{Variáveis}
+\begin{DoxyCompactItemize}
+\item 
+uint16\+\_\+t \hyperlink{joystick_8c_a8e62cee96a900fef375e78f22fac3873}{ponto\+Inic\+X\+\_\+g} = 522
+\item 
+uint16\+\_\+t \hyperlink{joystick_8c_a0ebb4ca667928d07ebeb07ff9545f271}{lim\+Inf\+Ponto\+Inic\+X\+\_\+g} = 502
+\item 
+uint16\+\_\+t \hyperlink{joystick_8c_aba905b811c587262fd87ccedfbe9775f}{lim\+Sup\+Ponto\+Inic\+X\+\_\+g} = 542
+\item 
+uint16\+\_\+t \hyperlink{joystick_8c_a73819a506324e20c6ea6c94d30dea818}{ponto\+Inic\+Y\+\_\+g} = 498
+\item 
+uint16\+\_\+t \hyperlink{joystick_8c_ab5ea1f511e23f10c4d2c27ba83056289}{lim\+Inf\+Ponto\+Inic\+Y\+\_\+g} = 478
+\item 
+uint16\+\_\+t \hyperlink{joystick_8c_aa7960c492c458dfc5d9357a7758d1df7}{lim\+Sup\+Ponto\+Inic\+Y\+\_\+g} = 518
+\item 
+uint8\+\_\+t \hyperlink{joystick_8c_a288710dc69633b8eed352987af6f06a7}{duty\+Anterior\+Lado\+Esq\+\_\+g} = 0
+\item 
+uint8\+\_\+t \hyperlink{joystick_8c_af8a18a28136bcd78afd96f290cd47900}{duty\+Anterior\+Lado\+Dir\+\_\+g} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Funções}
+\hypertarget{joystick_8c_aecf5b71ac8342a766dc411b8a122c528}{}\index{joystick.\+c@{joystick.\+c}!Calcula\+Angulos\+Servo@{Calcula\+Angulos\+Servo}}
+\index{Calcula\+Angulos\+Servo@{Calcula\+Angulos\+Servo}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{Calcula\+Angulos\+Servo(\+Joy\+Stick $\ast$joy\+Stick, Buffer\+Dados $\ast$buffer\+Dados)}]{\setlength{\rightskip}{0pt plus 5cm}void Calcula\+Angulos\+Servo (
+\begin{DoxyParamCaption}
+\item[{Joy\+Stick $\ast$}]{joy\+Stick, }
+\item[{Buffer\+Dados $\ast$}]{buffer\+Dados}
+\end{DoxyParamCaption}
+)}\label{joystick_8c_aecf5b71ac8342a766dc411b8a122c528}
+\hypertarget{joystick_8c_a4b9ea86913cd8d6d643fa92a34de9101}{}\index{joystick.\+c@{joystick.\+c}!Calcula\+Duty\+Cycle\+Lado\+Dir@{Calcula\+Duty\+Cycle\+Lado\+Dir}}
+\index{Calcula\+Duty\+Cycle\+Lado\+Dir@{Calcula\+Duty\+Cycle\+Lado\+Dir}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{Calcula\+Duty\+Cycle\+Lado\+Dir()}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t Calcula\+Duty\+Cycle\+Lado\+Dir (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{joystick_8c_a4b9ea86913cd8d6d643fa92a34de9101}
+\hypertarget{joystick_8c_a787b522a017802bc225831897b1a5c71}{}\index{joystick.\+c@{joystick.\+c}!Calcula\+Duty\+Cycle\+Lado\+Esq@{Calcula\+Duty\+Cycle\+Lado\+Esq}}
+\index{Calcula\+Duty\+Cycle\+Lado\+Esq@{Calcula\+Duty\+Cycle\+Lado\+Esq}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{Calcula\+Duty\+Cycle\+Lado\+Esq()}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t Calcula\+Duty\+Cycle\+Lado\+Esq (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{joystick_8c_a787b522a017802bc225831897b1a5c71}
+\hypertarget{joystick_8c_af8f9e338c0f525e4c0a6bf35f2430e93}{}\index{joystick.\+c@{joystick.\+c}!Calcula\+Porcento\+Posicao\+Eixo\+X@{Calcula\+Porcento\+Posicao\+Eixo\+X}}
+\index{Calcula\+Porcento\+Posicao\+Eixo\+X@{Calcula\+Porcento\+Posicao\+Eixo\+X}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{Calcula\+Porcento\+Posicao\+Eixo\+X(uint16\+\_\+t valor\+Lido\+A\+D\+Eixo\+X)}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t Calcula\+Porcento\+Posicao\+Eixo\+X (
+\begin{DoxyParamCaption}
+\item[{uint16\+\_\+t}]{valor\+Lido\+A\+D\+Eixo\+X}
+\end{DoxyParamCaption}
+)}\label{joystick_8c_af8f9e338c0f525e4c0a6bf35f2430e93}
+\hypertarget{joystick_8c_af6274d4bdca320120f9b84eb889fcce5}{}\index{joystick.\+c@{joystick.\+c}!Calcula\+Porcento\+Posicao\+Eixo\+Y@{Calcula\+Porcento\+Posicao\+Eixo\+Y}}
+\index{Calcula\+Porcento\+Posicao\+Eixo\+Y@{Calcula\+Porcento\+Posicao\+Eixo\+Y}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{Calcula\+Porcento\+Posicao\+Eixo\+Y(uint16\+\_\+t valor\+Lido\+A\+D\+Eixo\+Y)}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t Calcula\+Porcento\+Posicao\+Eixo\+Y (
+\begin{DoxyParamCaption}
+\item[{uint16\+\_\+t}]{valor\+Lido\+A\+D\+Eixo\+Y}
+\end{DoxyParamCaption}
+)}\label{joystick_8c_af6274d4bdca320120f9b84eb889fcce5}
+\hypertarget{joystick_8c_a19d9b913ff091bb4cc29f924501002a4}{}\index{joystick.\+c@{joystick.\+c}!Calcula\+Sentido@{Calcula\+Sentido}}
+\index{Calcula\+Sentido@{Calcula\+Sentido}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{Calcula\+Sentido()}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char Calcula\+Sentido (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{joystick_8c_a19d9b913ff091bb4cc29f924501002a4}
+\hypertarget{joystick_8c_a91c6e4c0a24ae13a501f025965dd51a4}{}\index{joystick.\+c@{joystick.\+c}!Direcao\+Carro@{Direcao\+Carro}}
+\index{Direcao\+Carro@{Direcao\+Carro}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{Direcao\+Carro()}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char Direcao\+Carro (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{joystick_8c_a91c6e4c0a24ae13a501f025965dd51a4}
+\hypertarget{joystick_8c_a698743a7c5f26a59cb029cee82af327a}{}\index{joystick.\+c@{joystick.\+c}!Ponto\+X\+Na\+Pos\+Inic@{Ponto\+X\+Na\+Pos\+Inic}}
+\index{Ponto\+X\+Na\+Pos\+Inic@{Ponto\+X\+Na\+Pos\+Inic}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{Ponto\+X\+Na\+Pos\+Inic(unsigned char ad\+Selected)}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t Ponto\+X\+Na\+Pos\+Inic (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{ad\+Selected}
+\end{DoxyParamCaption}
+)}\label{joystick_8c_a698743a7c5f26a59cb029cee82af327a}
+\hypertarget{joystick_8c_adb277a99b9333976cb01435bdce73ae4}{}\index{joystick.\+c@{joystick.\+c}!Ponto\+Y\+Na\+Pos\+Inic@{Ponto\+Y\+Na\+Pos\+Inic}}
+\index{Ponto\+Y\+Na\+Pos\+Inic@{Ponto\+Y\+Na\+Pos\+Inic}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{Ponto\+Y\+Na\+Pos\+Inic(unsigned char ad\+Selected)}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t Ponto\+Y\+Na\+Pos\+Inic (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{ad\+Selected}
+\end{DoxyParamCaption}
+)}\label{joystick_8c_adb277a99b9333976cb01435bdce73ae4}
+\hypertarget{joystick_8c_a9ed12f2d62448cfb96a87573ae694afb}{}\index{joystick.\+c@{joystick.\+c}!Soft\+Starter\+Lado\+Dir@{Soft\+Starter\+Lado\+Dir}}
+\index{Soft\+Starter\+Lado\+Dir@{Soft\+Starter\+Lado\+Dir}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{Soft\+Starter\+Lado\+Dir(uint8\+\_\+t duty\+Atual)}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t Soft\+Starter\+Lado\+Dir (
+\begin{DoxyParamCaption}
+\item[{uint8\+\_\+t}]{duty\+Atual}
+\end{DoxyParamCaption}
+)}\label{joystick_8c_a9ed12f2d62448cfb96a87573ae694afb}
+\hypertarget{joystick_8c_a8b8fd75e8d8b907bc8aa3bdb7e627541}{}\index{joystick.\+c@{joystick.\+c}!Soft\+Starter\+Lado\+Esq@{Soft\+Starter\+Lado\+Esq}}
+\index{Soft\+Starter\+Lado\+Esq@{Soft\+Starter\+Lado\+Esq}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{Soft\+Starter\+Lado\+Esq(uint8\+\_\+t duty\+Atual)}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t Soft\+Starter\+Lado\+Esq (
+\begin{DoxyParamCaption}
+\item[{uint8\+\_\+t}]{duty\+Atual}
+\end{DoxyParamCaption}
+)}\label{joystick_8c_a8b8fd75e8d8b907bc8aa3bdb7e627541}
+\hypertarget{joystick_8c_ab75cc7de2c9005f1d96e27263afaa150}{}\index{joystick.\+c@{joystick.\+c}!Tank\+Drive@{Tank\+Drive}}
+\index{Tank\+Drive@{Tank\+Drive}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{Tank\+Drive(\+Joy\+Stick $\ast$joy\+Stick)}]{\setlength{\rightskip}{0pt plus 5cm}void Tank\+Drive (
+\begin{DoxyParamCaption}
+\item[{Joy\+Stick $\ast$}]{joy\+Stick}
+\end{DoxyParamCaption}
+)}\label{joystick_8c_ab75cc7de2c9005f1d96e27263afaa150}
+\hypertarget{joystick_8c_a6f4fbb3b8da7e5d885c067376d276d13}{}\index{joystick.\+c@{joystick.\+c}!Valor\+Lido\+A\+D\+Eixo\+X@{Valor\+Lido\+A\+D\+Eixo\+X}}
+\index{Valor\+Lido\+A\+D\+Eixo\+X@{Valor\+Lido\+A\+D\+Eixo\+X}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{Valor\+Lido\+A\+D\+Eixo\+X(unsigned char ad\+Selected)}]{\setlength{\rightskip}{0pt plus 5cm}uint16\+\_\+t Valor\+Lido\+A\+D\+Eixo\+X (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{ad\+Selected}
+\end{DoxyParamCaption}
+)}\label{joystick_8c_a6f4fbb3b8da7e5d885c067376d276d13}
+\hypertarget{joystick_8c_afa52be9a2af39a7ab7019f0e7fea1728}{}\index{joystick.\+c@{joystick.\+c}!Valor\+Lido\+A\+D\+Eixo\+Y@{Valor\+Lido\+A\+D\+Eixo\+Y}}
+\index{Valor\+Lido\+A\+D\+Eixo\+Y@{Valor\+Lido\+A\+D\+Eixo\+Y}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{Valor\+Lido\+A\+D\+Eixo\+Y(unsigned char ad\+Selected)}]{\setlength{\rightskip}{0pt plus 5cm}uint16\+\_\+t Valor\+Lido\+A\+D\+Eixo\+Y (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{ad\+Selected}
+\end{DoxyParamCaption}
+)}\label{joystick_8c_afa52be9a2af39a7ab7019f0e7fea1728}
+
+
+\subsection{Variáveis}
+\hypertarget{joystick_8c_af8a18a28136bcd78afd96f290cd47900}{}\index{joystick.\+c@{joystick.\+c}!duty\+Anterior\+Lado\+Dir\+\_\+g@{duty\+Anterior\+Lado\+Dir\+\_\+g}}
+\index{duty\+Anterior\+Lado\+Dir\+\_\+g@{duty\+Anterior\+Lado\+Dir\+\_\+g}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{duty\+Anterior\+Lado\+Dir\+\_\+g}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t duty\+Anterior\+Lado\+Dir\+\_\+g = 0}\label{joystick_8c_af8a18a28136bcd78afd96f290cd47900}
+\hypertarget{joystick_8c_a288710dc69633b8eed352987af6f06a7}{}\index{joystick.\+c@{joystick.\+c}!duty\+Anterior\+Lado\+Esq\+\_\+g@{duty\+Anterior\+Lado\+Esq\+\_\+g}}
+\index{duty\+Anterior\+Lado\+Esq\+\_\+g@{duty\+Anterior\+Lado\+Esq\+\_\+g}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{duty\+Anterior\+Lado\+Esq\+\_\+g}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t duty\+Anterior\+Lado\+Esq\+\_\+g = 0}\label{joystick_8c_a288710dc69633b8eed352987af6f06a7}
+\hypertarget{joystick_8c_a0ebb4ca667928d07ebeb07ff9545f271}{}\index{joystick.\+c@{joystick.\+c}!lim\+Inf\+Ponto\+Inic\+X\+\_\+g@{lim\+Inf\+Ponto\+Inic\+X\+\_\+g}}
+\index{lim\+Inf\+Ponto\+Inic\+X\+\_\+g@{lim\+Inf\+Ponto\+Inic\+X\+\_\+g}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{lim\+Inf\+Ponto\+Inic\+X\+\_\+g}]{\setlength{\rightskip}{0pt plus 5cm}uint16\+\_\+t lim\+Inf\+Ponto\+Inic\+X\+\_\+g = 502}\label{joystick_8c_a0ebb4ca667928d07ebeb07ff9545f271}
+\hypertarget{joystick_8c_ab5ea1f511e23f10c4d2c27ba83056289}{}\index{joystick.\+c@{joystick.\+c}!lim\+Inf\+Ponto\+Inic\+Y\+\_\+g@{lim\+Inf\+Ponto\+Inic\+Y\+\_\+g}}
+\index{lim\+Inf\+Ponto\+Inic\+Y\+\_\+g@{lim\+Inf\+Ponto\+Inic\+Y\+\_\+g}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{lim\+Inf\+Ponto\+Inic\+Y\+\_\+g}]{\setlength{\rightskip}{0pt plus 5cm}uint16\+\_\+t lim\+Inf\+Ponto\+Inic\+Y\+\_\+g = 478}\label{joystick_8c_ab5ea1f511e23f10c4d2c27ba83056289}
+\hypertarget{joystick_8c_aba905b811c587262fd87ccedfbe9775f}{}\index{joystick.\+c@{joystick.\+c}!lim\+Sup\+Ponto\+Inic\+X\+\_\+g@{lim\+Sup\+Ponto\+Inic\+X\+\_\+g}}
+\index{lim\+Sup\+Ponto\+Inic\+X\+\_\+g@{lim\+Sup\+Ponto\+Inic\+X\+\_\+g}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{lim\+Sup\+Ponto\+Inic\+X\+\_\+g}]{\setlength{\rightskip}{0pt plus 5cm}uint16\+\_\+t lim\+Sup\+Ponto\+Inic\+X\+\_\+g = 542}\label{joystick_8c_aba905b811c587262fd87ccedfbe9775f}
+\hypertarget{joystick_8c_aa7960c492c458dfc5d9357a7758d1df7}{}\index{joystick.\+c@{joystick.\+c}!lim\+Sup\+Ponto\+Inic\+Y\+\_\+g@{lim\+Sup\+Ponto\+Inic\+Y\+\_\+g}}
+\index{lim\+Sup\+Ponto\+Inic\+Y\+\_\+g@{lim\+Sup\+Ponto\+Inic\+Y\+\_\+g}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{lim\+Sup\+Ponto\+Inic\+Y\+\_\+g}]{\setlength{\rightskip}{0pt plus 5cm}uint16\+\_\+t lim\+Sup\+Ponto\+Inic\+Y\+\_\+g = 518}\label{joystick_8c_aa7960c492c458dfc5d9357a7758d1df7}
+\hypertarget{joystick_8c_a8e62cee96a900fef375e78f22fac3873}{}\index{joystick.\+c@{joystick.\+c}!ponto\+Inic\+X\+\_\+g@{ponto\+Inic\+X\+\_\+g}}
+\index{ponto\+Inic\+X\+\_\+g@{ponto\+Inic\+X\+\_\+g}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{ponto\+Inic\+X\+\_\+g}]{\setlength{\rightskip}{0pt plus 5cm}uint16\+\_\+t ponto\+Inic\+X\+\_\+g = 522}\label{joystick_8c_a8e62cee96a900fef375e78f22fac3873}
+\hypertarget{joystick_8c_a73819a506324e20c6ea6c94d30dea818}{}\index{joystick.\+c@{joystick.\+c}!ponto\+Inic\+Y\+\_\+g@{ponto\+Inic\+Y\+\_\+g}}
+\index{ponto\+Inic\+Y\+\_\+g@{ponto\+Inic\+Y\+\_\+g}!joystick.\+c@{joystick.\+c}}
+\subsubsection[{ponto\+Inic\+Y\+\_\+g}]{\setlength{\rightskip}{0pt plus 5cm}uint16\+\_\+t ponto\+Inic\+Y\+\_\+g = 498}\label{joystick_8c_a73819a506324e20c6ea6c94d30dea818}

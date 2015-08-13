@@ -1,0 +1,8 @@
+Added Component: Designator=P1(HDR-M-2x3-2.54mm-180-9.2mm)
+Added Pin To Net: NetName=PB4 Pin=P1-1
+Added Pin To Net: NetName=5V Pin=P1-2
+Added Pin To Net: NetName=PB5 Pin=P1-3
+Added Pin To Net: NetName=PB3 Pin=P1-4
+Added Pin To Net: NetName=RESET Pin=P1-5
+Added Pin To Net: NetName=GND Pin=P1-6
+Added Member To Class: ClassName=controleRemoto Member=Component P1 AVR ISP

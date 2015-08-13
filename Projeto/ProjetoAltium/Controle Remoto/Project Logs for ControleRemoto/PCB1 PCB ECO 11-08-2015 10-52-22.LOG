@@ -1,0 +1,27 @@
+Added Component: Designator=U?(Shield Arduino Uno Rv3 1)
+Added Component: Designator=U?(Shield Arduino Uno Rv3 1)
+Added Component: Designator=U?(Shield Arduino Uno Rv3 1)
+Added Component: Designator=U?(Shield Arduino Uno Rv3 1)
+Added Pin To Net: NetName=PD0 Pin=U?-1
+Added Pin To Net: NetName=PD1 Pin=U?-2
+Added Pin To Net: NetName=PD2 Pin=U?-3
+Added Pin To Net: NetName=PD3 Pin=U?-4
+Added Pin To Net: NetName=PB0 Pin=U?-9
+Added Pin To Net: NetName=PB1 Pin=U?-10
+Added Pin To Net: NetName=PB2 Pin=U?-11
+Added Pin To Net: NetName=PB3 Pin=U?-12
+Added Pin To Net: NetName=PB4 Pin=U?-13
+Added Pin To Net: NetName=PB5 Pin=U?-14
+Added Pin To Net: NetName=GND Pin=U?-15
+Added Pin To Net: NetName=NetC2_2 Pin=U?-16
+Added Pin To Net: NetName=VRX_MOTOR Pin=U?-19
+Added Pin To Net: NetName=VRY_MOTOR Pin=U?-20
+Added Pin To Net: NetName=VRX_SERVO Pin=U?-21
+Added Pin To Net: NetName=VRY_SERVO Pin=U?-22
+Added Pin To Net: NetName=VIN Pin=U?-25
+Added Pin To Net: NetName=GND Pin=U?-26
+Added Pin To Net: NetName=GND Pin=U?-27
+Added Pin To Net: NetName=5V Pin=U?-28
+Added Pin To Net: NetName=3V3 Pin=U?-29
+Added Pin To Net: NetName=RESET Pin=U?-30
+Added Member To Class: ClassName=controleRemoto Member=Component U? Shield Arduino Uno Rv3 1

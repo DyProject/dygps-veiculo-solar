@@ -78,6 +78,17 @@ void Usart_Transmit(unsigned char dado)
 
 //---------------------------------------------------------------------------
 
+void Usart_Transmit_Printf(char dado, FILE *stream)
+{
+	/*wait for empty transmit buffer*/
+	while (!( UCSR0A & (1<<UDRE0)) );
+	
+	/*put data into buffer, sends the data*/
+	UDR0 = dado;
+}
+
+//---------------------------------------------------------------------------
+
 unsigned char Usart_Receive()
 {
 	/*wait for data to be receive*/

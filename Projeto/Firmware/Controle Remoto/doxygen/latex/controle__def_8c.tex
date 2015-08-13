@@ -1,0 +1,56 @@
+\hypertarget{controle__def_8c}{}\section{Referência do Arquivo C\+:/\+Users/\+Suporte/\+Documents/\+Git\+Hub/dygps-\/veiculo-\/solar/\+Projeto/\+Firmware/\+Controle Remoto/controle\+\_\+def.c}
+\label{controle__def_8c}\index{C\+:/\+Users/\+Suporte/\+Documents/\+Git\+Hub/dygps-\/veiculo-\/solar/\+Projeto/\+Firmware/\+Controle Remoto/controle\+\_\+def.\+c@{C\+:/\+Users/\+Suporte/\+Documents/\+Git\+Hub/dygps-\/veiculo-\/solar/\+Projeto/\+Firmware/\+Controle Remoto/controle\+\_\+def.\+c}}
+{\ttfamily \#include \char`\"{}controle\+\_\+def.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}globals\+\_\+def.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}L\+C\+D4b.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}usart\+\_\+def.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}joystick.\+h\char`\"{}}\\*
+\subsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \hyperlink{controle__def_8c_a2378ab7010daf7d28d5102cbafd9603f}{Recebe\+Protocolo} (Buffer\+Dados $\ast$buffer\+Recepcao)
+\item 
+void \hyperlink{controle__def_8c_a2155ed6da7bbcac8a4140ca15d6c6fa2}{Transmiti\+Buffer} (Buffer\+Dados $\ast$buffer\+Dados)
+\item 
+void \hyperlink{controle__def_8c_aff222befa96e86d2d47a3d40e8af37d4}{Mostra\+Dados\+L\+C\+D} (Buffer\+Dados $\ast$buffer\+Dados)
+\end{DoxyCompactItemize}
+\subsection*{Variáveis}
+\begin{DoxyCompactItemize}
+\item 
+volatile T\+Estado\+Carro \hyperlink{controle__def_8c_a8e21139d28bfac3ff595b0af1b8bf31e}{estado\+Carro} = P\+A\+R\+A\+D\+O
+\item 
+unsigned char \hyperlink{controle__def_8c_a10b6a7c313c8078e4ea4394909f45f90}{caracter\+Convertido\+\_\+g} \mbox{[}5\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Funções}
+\hypertarget{controle__def_8c_aff222befa96e86d2d47a3d40e8af37d4}{}\index{controle\+\_\+def.\+c@{controle\+\_\+def.\+c}!Mostra\+Dados\+L\+C\+D@{Mostra\+Dados\+L\+C\+D}}
+\index{Mostra\+Dados\+L\+C\+D@{Mostra\+Dados\+L\+C\+D}!controle\+\_\+def.\+c@{controle\+\_\+def.\+c}}
+\subsubsection[{Mostra\+Dados\+L\+C\+D(\+Buffer\+Dados $\ast$buffer\+Dados)}]{\setlength{\rightskip}{0pt plus 5cm}void Mostra\+Dados\+L\+C\+D (
+\begin{DoxyParamCaption}
+\item[{Buffer\+Dados $\ast$}]{buffer\+Dados}
+\end{DoxyParamCaption}
+)}\label{controle__def_8c_aff222befa96e86d2d47a3d40e8af37d4}
+\hypertarget{controle__def_8c_a2378ab7010daf7d28d5102cbafd9603f}{}\index{controle\+\_\+def.\+c@{controle\+\_\+def.\+c}!Recebe\+Protocolo@{Recebe\+Protocolo}}
+\index{Recebe\+Protocolo@{Recebe\+Protocolo}!controle\+\_\+def.\+c@{controle\+\_\+def.\+c}}
+\subsubsection[{Recebe\+Protocolo(\+Buffer\+Dados $\ast$buffer\+Recepcao)}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t Recebe\+Protocolo (
+\begin{DoxyParamCaption}
+\item[{Buffer\+Dados $\ast$}]{buffer\+Recepcao}
+\end{DoxyParamCaption}
+)}\label{controle__def_8c_a2378ab7010daf7d28d5102cbafd9603f}
+\hypertarget{controle__def_8c_a2155ed6da7bbcac8a4140ca15d6c6fa2}{}\index{controle\+\_\+def.\+c@{controle\+\_\+def.\+c}!Transmiti\+Buffer@{Transmiti\+Buffer}}
+\index{Transmiti\+Buffer@{Transmiti\+Buffer}!controle\+\_\+def.\+c@{controle\+\_\+def.\+c}}
+\subsubsection[{Transmiti\+Buffer(\+Buffer\+Dados $\ast$buffer\+Dados)}]{\setlength{\rightskip}{0pt plus 5cm}void Transmiti\+Buffer (
+\begin{DoxyParamCaption}
+\item[{Buffer\+Dados $\ast$}]{buffer\+Dados}
+\end{DoxyParamCaption}
+)}\label{controle__def_8c_a2155ed6da7bbcac8a4140ca15d6c6fa2}
+
+
+\subsection{Variáveis}
+\hypertarget{controle__def_8c_a10b6a7c313c8078e4ea4394909f45f90}{}\index{controle\+\_\+def.\+c@{controle\+\_\+def.\+c}!caracter\+Convertido\+\_\+g@{caracter\+Convertido\+\_\+g}}
+\index{caracter\+Convertido\+\_\+g@{caracter\+Convertido\+\_\+g}!controle\+\_\+def.\+c@{controle\+\_\+def.\+c}}
+\subsubsection[{caracter\+Convertido\+\_\+g}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char caracter\+Convertido\+\_\+g\mbox{[}5\mbox{]}}\label{controle__def_8c_a10b6a7c313c8078e4ea4394909f45f90}
+\hypertarget{controle__def_8c_a8e21139d28bfac3ff595b0af1b8bf31e}{}\index{controle\+\_\+def.\+c@{controle\+\_\+def.\+c}!estado\+Carro@{estado\+Carro}}
+\index{estado\+Carro@{estado\+Carro}!controle\+\_\+def.\+c@{controle\+\_\+def.\+c}}
+\subsubsection[{estado\+Carro}]{\setlength{\rightskip}{0pt plus 5cm}volatile T\+Estado\+Carro estado\+Carro = P\+A\+R\+A\+D\+O}\label{controle__def_8c_a8e21139d28bfac3ff595b0af1b8bf31e}

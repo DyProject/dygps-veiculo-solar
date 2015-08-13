@@ -35,13 +35,15 @@ ISR(USART_RX_vect)
 	RecebeProtocolo(&bufferRX_g);
 	if(bufferRX_g.completo == 'y') {
 		DirecaoCarro(&bufferRX_g);
+		AnguloServo(&bufferRX_g);
+
 		TransmitiBuffer(&bufferRX_g.fonteAlimentacao);
 	}	
 }	
 
 //----------------------------------------------------------------------------
 
-ISR(TIMER0_OVF_vect)
+ISR(TIMER2_OVF_vect)
 {
 	static uint8_t tempoRecep = 0;
 	
@@ -93,10 +95,10 @@ int main()
 	ValoresIniciaisBuffer();
 	ConfiguracoesDirecaoInit();
 	
-	/*Contador Timer 0*/
-	TIMSK0 = 0b00000001;
-	/*Prescaler do Timer0*/
-	TCCR0B = (1<<CS02) | (1<<CS00);
+	/*Contador Timer 2*/
+	TIMSK2 = 0b00000001;
+	/*Prescaler do Timer2*/
+	TCCR2B = (1<<CS22) | (1<<CS21) | (1<<CS20);
 	
 	sei();	
 	while(1){}		

@@ -1,0 +1,125 @@
+/****************************************************************
+*                  PROJECT INTEGRATOR II                        *
+*           Title: Controle Remoto                              *
+*           Students:   CAMPOS, Dyego de                        *
+*                       SOUZA, Gustavo Pereira de               *
+*           Date:  10/02/2013                                   *
+*           Version:  1.1                                       *
+****************************************************************/
+
+#include <avr/io.h>
+#include <avr/interrupt.h>
+
+#include "controle_def.h"
+#include "globals_def.h"
+#include "usart_def.h"
+#include "adc_def.h"
+#include "joystick.h"
+
+
+#include <util/delay.h>
+#include "stdio.h"
+
+volatile uint8_t podeIniciarNovaTrasmissao = 1;
+BufferDados bufferDados_g;
+JoyStick joyStick;
+
+static FILE UARTstdout = FDEV_SETUP_STREAM(
+Usart_Transmit_Printf,
+NULL,
+_FDEV_SETUP_WRITE
+);
+
+
+//----------------------------------------------------------------------------
+
+void ValoresIniciaisBuffer();
+
+//----------------------------------------------------------------------------
+
+/*Interrupção do botão que seleciona qual fonte de alimentação deve ser usada. Quando o botão é pressionado seta bufferDados_g.botaoSelFontePress = 'y' e 
+desabilita a interrupção. A interrupção é novamente habilitada após enviar os dados e mostrar valores no lcd.*/
+ISR(INT0_vect)
+{
+	bufferDados_g.botaoSelFontePress = 'y';
+	/*Desabilita a interrupção até enviar os dados*/
+	EIMSK &= ~(1 << INT0);
+	/*Limpa flag de solicitação de nova interrupção. evita o bounce*/ 
+	EIFR = (1 << INTF0);
+}	 
+		
+//----------------------------------------------------------------------------
+
+/*Interrupção gerada a cada 16,38ms*/
+ISR(ADC_vect)			
+{
+		static uint8_t contador = 0;
+		
+		ADMUX &= ~(1 << ADIE);
+					
+		if(contador > 100) {
+						
+			//printf("X: [%d], [%d] \n", eixoX, eixoY);
+			
+			TankDrive(&joyStick);
+					
+			//printf("[%ld, %ld] Hip: %lu, angulo: %u, pwm: [%d, %d] \n",  (int32_t)joyStick.ValorEixoX, (int32_t)joyStick.ValorEixoY, (uint32_t)joyStick.hypotenuse, (uint16_t)joyStick.AngleDegrees, joyStick.pwmLeft, joyStick.pwmRigth);			
+			
+			contador = 0;
+		}
+		contador++;
+		/*Habilita Interrupção RX*/
+		set_bit(UCSR0B, 7);
+		ADMUX |= (1 << ADIE);
+		
+		/*Limpa o flag de overflow do Timer0. Esse flag indica que houve um estouro do timer.
+	limpar para habilitar um novo estouro para gerar a interrupção do ADC.*/
+	TIFR0 |= TOV0;
+	
+}	
+
+//----------------------------------------------------------------------------
+
+ISR(USART_RX_vect)							
+{	
+	RecebeProtocolo(&bufferDados_g);
+	if(bufferDados_g.completo == 'y') 
+		bufferDados_g.podeIniciarTransmissao = 'y';
+}	
+
+//----------------------------------------------------------------------------
+
+int main()
+{	
+	ValoresIniciaisBuffer();
+	Usart_Init(MYUBRR);
+	/*Prescaler do Timer0, usado para fazer uma leitura do ADC.*/
+	TCCR0B = (1<<CS02) | (1<<CS00);
+	
+	DDRD &= ~(1 << PD2);
+	PORTD |= (1 << PD2);
+	EICRA = (1<<ISC00) ;  
+	
+	stdout = &UARTstdout;
+	
+	inic_LCD_4bits();					
+	ADC_Init();
+	sei();
+		
+	while(1){}
+}
+
+//----------------------------------------------------------------------------
+
+void ValoresIniciaisBuffer()
+{
+	bufferDados_g.qntdDadosLido = 0;
+	bufferDados_g.iniciado = 'n';
+	bufferDados_g.completo = 'y';
+	bufferDados_g.podeIniciarTransmissao = 'y';
+	bufferDados_g.fonteAlimentacao = 'B';
+	bufferDados_g.botaoSelFontePress = 'n';
+
+}	
+
+//----------------------------------------------------------------------------

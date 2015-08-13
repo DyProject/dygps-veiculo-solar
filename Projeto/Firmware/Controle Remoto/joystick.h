@@ -1,20 +1,52 @@
 #ifndef _JOYSTICK_H_
 #define _JOYSTICK_H_
 
-#include <stdint.h>
+#include "globals_def.h"
 
 //---------------------------------------------------------------------------
 
-#define AD_EIXO_X		0
-#define AD_EIXO_Y		1
+#define AD_EIXO_X_DIR		0
+#define AD_EIXO_Y_DIR		1
+#define AD_EIXO_X_SERVO		2
+#define AD_EIXO_Y_SERVO		3
 
 //---------------------------------------------------------------------------
 		
-uint16_t ValorLidoADEixoX();
-uint16_t ValorLidoADEixoY();
+uint16_t ValorLidoADEixoX(
+	unsigned char adSelected
+);
+uint16_t ValorLidoADEixoY(
+	unsigned char adSelected
+);
 
-uint8_t PontoXNaPosInic();
-uint8_t PontoYNaPosInic();
+//---------------------------------------------------------------------------
+
+typedef struct{
+	volatile int32_t valorEixoX;
+	volatile int32_t valorEixoY;
+	volatile uint32_t hypotenuse;
+	volatile uint16_t angleDegrees;
+	volatile int16_t dytyLD;
+	volatile int16_t dytyLE;
+}JoyStick;
+
+//---------------------------------------------------------------------------
+
+void CalculaAngulosServo(
+	JoyStick* joyStick,
+	BufferDados* bufferDados
+);
+	
+void TankDrive(
+	JoyStick* joyStick
+);
+
+uint8_t PontoXNaPosInic(
+	unsigned char adSelected
+);
+uint8_t PontoYNaPosInic(
+	unsigned char adSelected
+);
 
 unsigned char CalculaSentido();
 

@@ -17,36 +17,126 @@ uint16_t pontoInicY_g = 498,
 uint8_t dutyAnteriorLadoEsq_g = 0;
 uint8_t dutyAnteriorLadoDir_g = 0;
 
+typedef struct{
+	volatile uint32_t PWM_Right;
+	volatile  uint32_t PWM_Left ;
+}JoyStickInfo;
+
 //---------------------------------------------------------------------------
 
-uint16_t ValorLidoADEixoX()
+void CalculaAngulosServo(
+	JoyStick* joyStick,
+	BufferDados* bufferDados
+){
+		bufferDados->anguloServoRight = (unsigned char) round(0.6 * (joyStick->dytyLD + 100)); //120*(valor+100) /200
+		bufferDados->anguloServoLeft = (unsigned char)round(0.6 * (joyStick->dytyLE + 100)); //120*(valor+100) /200
+}
+
+//---------------------------------------------------------------------------
+/* 
+ Controlling a servo position using a potentiometer (variable resistor) 
+ by Michal Rinott <http://people.interaction-ivrea.it/m.rinott> 
+
+ modified on 8 Nov 2013
+ by Scott Fitzgerald
+ http://arduino.cc/en/Tutorial/Knob
+*/
+
+void TankDrive(
+	JoyStick* joyStick
+) 
+{	
+	//Ajuste do zero
+	int32_t eixoX = joyStick->valorEixoX;
+	int32_t eixoY = joyStick->valorEixoY;
+	
+	//TRACEprintf("\n[%ld, %ld] \n", eixoX, eixoY);
+	
+	//trace
+	//int32_t eixoX = ((int32_t)ValorLidoADEixoX()) - 510;
+	//int32_t eixoY = ((int32_t)ValorLidoADEixoY()) - 506;
+	
+	uint32_t hypotenuse = sqrt(((eixoX*eixoX) + (eixoY*eixoY)));
+	uint16_t angleDegrees = (uint16_t)((acos(fabs(eixoX)/hypotenuse))*(180/M_PI)); 
+	
+	joyStick->hypotenuse = hypotenuse;
+	joyStick->angleDegrees = angleDegrees;
+			 
+	// Now angle indicates the measure of turn
+	// Along a straight line, with an angle o, the turn co-efficient is same
+	// this applies for angles between 0-90, with angle 0 the co-eff is -1
+	// with angle 45, the co-efficient is 0 and with angle 90, it is 1
+	 
+	// And max of y or x is the movement
+	int16_t mov = fmax(fabs(eixoY),fabs(eixoX));
+	 
+	int16_t tcoeff = ((-100 + (angleDegrees*2.222222))); //(angleDegrees/90)*2*100
+	int16_t turn = ((tcoeff*0.01) * (fabs(fabs(eixoY) - fabs(eixoX))));
+
+	// First and third quadrant
+	mov = mov * 0.196; // converter em pwm = ValorLido/510 * 100
+	turn  = turn * 0.196; 
+	
+	int16_t left, right;
+	
+	if( (eixoX >= 0 && eixoY >= 0) || (eixoX < 0 &&  eixoY < 0) ) {
+		left = mov;
+		right = turn;
+		} else {
+		right = mov;
+		left = turn;
+	}
+
+	// Reverse polarity - Define o sentido
+	if(eixoY < 0) {
+		left = 0 - left;
+		right = 0 - right;
+	}
+	
+	//TRACEprintf("PWM: [%d, %d]", left, right);
+	
+	joyStick->dytyLE = left;
+	joyStick->dytyLD = right;
+}
+
+//---------------------------------------------------------------------------
+
+uint16_t ValorLidoADEixoX(
+	unsigned char adSelected
+)
 {
-	uint16_t adcX = ADC_Read(AD_EIXO_X);
+	uint16_t adcX = ADC_Read(adSelected);
 		
 	return adcX;	
 }
 
 //---------------------------------------------------------------------------
 
-uint16_t ValorLidoADEixoY()
+uint16_t ValorLidoADEixoY(
+	unsigned char adSelected
+)
 {
-	uint16_t adcY = ADC_Read(AD_EIXO_Y);
+	uint16_t adcY = ADC_Read(adSelected);
 	
 	return adcY;	
 }
 
 //---------------------------------------------------------------------------
 
-uint8_t PontoXNaPosInic()
+uint8_t PontoXNaPosInic(
+	unsigned char adSelected
+)
 {
-	return ((ValorLidoADEixoX() >= limInfPontoInicX_g ) && (ValorLidoADEixoX() <= limSupPontoInicX_g));
+	return ((ValorLidoADEixoX(adSelected) >= limInfPontoInicX_g ) && (ValorLidoADEixoX(adSelected) <= limSupPontoInicX_g));
 }
 
 //---------------------------------------------------------------------------
 
-uint8_t PontoYNaPosInic()
+uint8_t PontoYNaPosInic(
+	unsigned char adSelected
+)
 {
-	return ((ValorLidoADEixoY() >= limInfPontoInicY_g ) && (ValorLidoADEixoY() <= limSupPontoInicY_g));	
+	return ((ValorLidoADEixoY(adSelected) >= limInfPontoInicY_g ) && (ValorLidoADEixoY(adSelected) <= limSupPontoInicY_g));	
 }
 
 //---------------------------------------------------------------------------
@@ -95,25 +185,25 @@ unsigned char DirecaoCarro()
 unsigned char CalculaSentido()
 {
 	unsigned char direcao = 'P';
-	uint16_t valorLidoADEixoX = ValorLidoADEixoX(); 
-	uint16_t valorLidoADEixoY = ValorLidoADEixoY();
+	uint16_t valorLidoADEixoX = ValorLidoADEixoX(AD_EIXO_X_DIR); 
+	uint16_t valorLidoADEixoY = ValorLidoADEixoY(AD_EIXO_Y_DIR);
 	
 	/*Andando Frente*/		
-	if((valorLidoADEixoY > limSupPontoInicY_g) && PontoXNaPosInic())
+	if((valorLidoADEixoY > limSupPontoInicY_g) && PontoXNaPosInic(AD_EIXO_X_DIR))
 		direcao = 'F';
 	
 	/*Andando Frente Direita*/
 	else if((valorLidoADEixoX > limSupPontoInicX_g) && 
-			((valorLidoADEixoY > limSupPontoInicY_g) || PontoYNaPosInic()))
+			((valorLidoADEixoY > limSupPontoInicY_g) || PontoYNaPosInic(AD_EIXO_Y_DIR)))
 		direcao = 'D';
 		
 	/*Andando Frente Esquerda*/	
 	else if((valorLidoADEixoX < limInfPontoInicX_g) && 
-			((valorLidoADEixoY > limSupPontoInicY_g) ||  PontoYNaPosInic()))
+			((valorLidoADEixoY > limSupPontoInicY_g) ||  PontoYNaPosInic(AD_EIXO_Y_DIR)))
 		direcao = 'E';	
 		
 	/*Andando Tras*/
-	else if((valorLidoADEixoY < limInfPontoInicY_g) && PontoXNaPosInic())
+	else if((valorLidoADEixoY < limInfPontoInicY_g) && PontoXNaPosInic(AD_EIXO_X_DIR))
 		direcao = 'T';
 		
 	/*Andando Tras Direita*/
@@ -134,8 +224,8 @@ unsigned char CalculaSentido()
 
 uint8_t CalculaDutyCycleLadoDir()
 {
-	uint16_t valorLidoADEixoX = ValorLidoADEixoX(); 
-	uint16_t valorLidoADEixoY = ValorLidoADEixoY();
+	uint16_t valorLidoADEixoX = ValorLidoADEixoX(AD_EIXO_X_DIR); 
+	uint16_t valorLidoADEixoY = ValorLidoADEixoY(AD_EIXO_Y_DIR);
 	//uint8_t valorPorCentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
 		
 	uint8_t duty = 0;
@@ -217,8 +307,8 @@ uint8_t dutyAtual
 
 uint8_t CalculaDutyCycleLadoEsq()
 {
-	uint16_t valorLidoADEixoX = ValorLidoADEixoX(); 
-	uint16_t valorLidoADEixoY = ValorLidoADEixoY();
+	uint16_t valorLidoADEixoX = ValorLidoADEixoX(AD_EIXO_X_DIR); 
+	uint16_t valorLidoADEixoY = ValorLidoADEixoY(AD_EIXO_Y_DIR);
 	//uint8_t valorPorCentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
 	
 	uint8_t duty = 0;
@@ -286,7 +376,7 @@ uint8_t CalculaPorcentoPosicaoEixoY(
 	else if((valorLidoADEixoY > posYFrente25PorCento) || (valorLidoADEixoY < posYTras25PorCento)) 
 		valorPorCentoEixoY = 50;
 	
-	else if(PontoYNaPosInic())
+	else if(PontoYNaPosInic(AD_EIXO_Y_DIR))
 		valorPorCentoEixoY = 0;
 			
 	else  
@@ -323,7 +413,7 @@ uint8_t CalculaPorcentoPosicaoEixoX(
 	else if((valorLidoADEixoX > posXFrente25PorCento) || (valorLidoADEixoX < posXTras25PorCento) ) 
 		valorPorCentoEixoX = 50;
 				
-	else if(PontoXNaPosInic())
+	else if(PontoXNaPosInic(AD_EIXO_X_DIR))
 		valorPorCentoEixoX = 0;
 	
 	else 

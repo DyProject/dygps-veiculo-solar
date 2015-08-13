@@ -68,11 +68,25 @@ void ConfiguracoesDirecaoInit(
 	OCR1A = 0;				//controle do ciclo ativo do PWM 0C1A
 	OCR1B = 0;
 			
-	//Prescaler do Timer0, usado para fazer uma leitura do ADC.
-	TCCR0B = (1<<CS02) | (1<<CS00);
+	ConfigInitServo();
 					
 	CarroParado();
 };
+
+//----------------------------------------------------------------------------
+
+void ConfigInitServo() {
+	/*pinos OC0B e OC0A como saída*/
+	DDRD |= (1 << DDD6) | (1 << DDD5);
+	
+	TCCR0A |= (1 << COM0A1) | (1 << COM0B1); // set none-inverting mode
+	TCCR0A |= (1 << WGM01) | (1 << WGM00);// set fast PWM Mode
+	
+	TCCR0B |= (1 << CS02) | (1 << CS00); // set prescaler to 1024 (Freq Servo Motor 50Hz)
+	
+	OCR0A = 23; // equivale a 1.5 ms do periodo do servo
+	OCR0B = 23;
+}
 
 //----------------------------------------------------------------------------
 
@@ -172,6 +186,25 @@ void DirecaoCarro(
 
 //----------------------------------------------------------------------------
 
+void AnguloServo(
+	BufferRecep* bufferRecepcao
+){	
+	
+	/*O frequencia do servo é de 50Hz de 1ms a 2ms. a frequencia minima alcançada foi de 60Hz (16.66s). para 1ms é 6% de 16.66s e 2ms é igual a 12%. Desta forma, o timer zero com valor máximo de 255 deve
+	gerar um valor aproximado de 15 a 30 (6% e 12% de 255) */
+	uint16_t anguloServoLeft = (uint16_t)(((bufferRecepcao->anguloServoLeft) * 0.125) + 15); //(Valor = (dutyCicle * 15) / 120) + 15
+	uint16_t anguloServoRight = (uint16_t)(((bufferRecepcao->anguloServoRight) * 0.125) + 15); 
+	
+	unsigned char left = (unsigned char) anguloServoLeft; 
+	unsigned char right = (unsigned char) anguloServoRight;
+	
+	OCR0A = left;
+	OCR0B = right;
+}
+
+
+//----------------------------------------------------------------------------
+
 void AndandoFrente(
 	BufferRecep* bufferRecepcao
 )
@@ -233,7 +266,15 @@ uint8_t RecebeProtocolo(
 		else if(bufferRecepcao->qntdDadosLido == 3) {
 			bufferRecepcao->dutyCicleM2 = dadoRecebido;
 			bufferRecepcao->qntdDadosLido++;	
-		}			
+		}	
+		else if(bufferRecepcao->qntdDadosLido == 4) {
+			bufferRecepcao->anguloServoLeft = dadoRecebido;
+			bufferRecepcao->qntdDadosLido++;
+		}		
+		else if(bufferRecepcao->qntdDadosLido == 5) {
+			bufferRecepcao->anguloServoRight = dadoRecebido;
+			bufferRecepcao->qntdDadosLido++;
+		}
 		else {
 			if(dadoRecebido == '1')
 				SetaFonteAlimentacao(&bufferRecepcao->fonteAlimentacao);		

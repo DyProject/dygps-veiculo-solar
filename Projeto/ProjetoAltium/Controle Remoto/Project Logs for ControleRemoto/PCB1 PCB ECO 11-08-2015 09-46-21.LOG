@@ -1,0 +1,13 @@
+Added Component: Designator=P2(HDR-M-1x2-2.54mm-180-9.2mm)
+Added Component: Designator=P?(Pot_Vert)
+Added Pin To Net: NetName=GND Pin=P2-2
+Added Pin To Net: NetName=5V Pin=P?-1
+Added Pin To Net: NetName=GND Pin=P?-3
+Added Pin To Net: NetName=VIN Pin=P2-1
+Added Pin To Net: NetName=VIN Pin=U1-25
+Added Net: Name=VIN
+Added Pin To Net: NetName=VO_LCD Pin=LCD1-3
+Added Pin To Net: NetName=VO_LCD Pin=P?-2
+Added Net: Name=VO_LCD
+Added Member To Class: ClassName=controleRemoto Member=Component P2 Bateria
+Added Member To Class: ClassName=controleRemoto Member=Component P? Pot_Vert

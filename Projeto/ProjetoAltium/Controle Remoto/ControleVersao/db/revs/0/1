@@ -1,0 +1,25 @@
+id: 0-1.0.r1/0
+type: dir
+count: 0
+cpath: /Controle Remoto
+copyroot: 0 /
+
+PLAIN
+K 15
+Controle Remoto
+V 14
+dir 0-1.0.r1/0
+END
+ENDREP
+id: 0.0.r1/131
+type: dir
+pred: 0.0.r0/17
+count: 1
+text: 1 73 45 45 36f94a408f635f4dc63979b8cd987496
+cpath: /
+copyroot: 0 /
+
+_0.0.t0-0 add-dir false false /Controle Remoto
+
+
+131 255

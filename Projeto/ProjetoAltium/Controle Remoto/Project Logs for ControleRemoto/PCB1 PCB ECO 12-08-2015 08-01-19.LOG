@@ -1,0 +1,24 @@
+Added Component: Designator=U1(Shield Arduino Uno Rv3 1)
+Added Pin To Net: NetName=PD0 Pin=U1-1
+Added Pin To Net: NetName=PD1 Pin=U1-2
+Added Pin To Net: NetName=PD2 Pin=U1-3
+Added Pin To Net: NetName=PD3 Pin=U1-4
+Added Pin To Net: NetName=PB0 Pin=U1-9
+Added Pin To Net: NetName=PB1 Pin=U1-10
+Added Pin To Net: NetName=PB2 Pin=U1-11
+Added Pin To Net: NetName=PB3 Pin=U1-12
+Added Pin To Net: NetName=PB4 Pin=U1-13
+Added Pin To Net: NetName=PB5 Pin=U1-14
+Added Pin To Net: NetName=GND Pin=U1-15
+Added Pin To Net: NetName=NetC2_2 Pin=U1-16
+Added Pin To Net: NetName=VRX_MOTOR Pin=U1-19
+Added Pin To Net: NetName=VRY_MOTOR Pin=U1-20
+Added Pin To Net: NetName=VRX_SERVO Pin=U1-21
+Added Pin To Net: NetName=VRY_SERVO Pin=U1-22
+Added Pin To Net: NetName=VIN Pin=U1-25
+Added Pin To Net: NetName=GND Pin=U1-26
+Added Pin To Net: NetName=GND Pin=U1-27
+Added Pin To Net: NetName=5V Pin=U1-28
+Added Pin To Net: NetName=3V3 Pin=U1-29
+Added Pin To Net: NetName=RESET Pin=U1-30
+Added Member To Class: ClassName=controleRemoto Member=Component U1 Shield Arduino Uno Rv3 1

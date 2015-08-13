@@ -38,6 +38,7 @@ void SetaFonteAlimentacao(
 );
 
 void ConfiguracoesDirecaoInit();
+void ConfigInitServo();
 
 uint16_t CalculaDutyCicleM1(
 	uint16_t porCentagem,
@@ -54,6 +55,10 @@ void ParadaLenta(
 );
 
 void DirecaoCarro(
+	BufferRecep* bufferRecepcao
+);
+
+void AnguloServo(
 	BufferRecep* bufferRecepcao
 );
 

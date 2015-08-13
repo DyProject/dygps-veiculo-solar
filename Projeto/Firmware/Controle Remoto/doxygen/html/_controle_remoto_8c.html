@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.10"/>
+<title>ControleRemoto: Referência do Arquivo C:/Users/Suporte/Documents/GitHub/dygps-veiculo-solar/Projeto/Firmware/Controle Remoto/ControleRemoto.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">ControleRemoto
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.8.10 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Busca');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;Principal</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Arquivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Busca" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;Arquivos</span></a></li>
+      <li><a href="globals.html"><span>Membros&#160;dos&#160;Arquivos</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_8ceffd4ee35c3518d4e8bdc7e638efe8.html">Users</a></li><li class="navelem"><a class="el" href="dir_898c1856d36889bd66ed14115e3be463.html">Suporte</a></li><li class="navelem"><a class="el" href="dir_b72057510bb48c5f68f8d23916b81c29.html">Documents</a></li><li class="navelem"><a class="el" href="dir_7937ef839ee834d747e959482e28fd54.html">GitHub</a></li><li class="navelem"><a class="el" href="dir_1c7ce55b21d18aa8bfdf3954879337b2.html">dygps-veiculo-solar</a></li><li class="navelem"><a class="el" href="dir_2b546f6e604b961cb26b51072872d95f.html">Projeto</a></li><li class="navelem"><a class="el" href="dir_1f7109326a8b97a2adfaf93be071034b.html">Firmware</a></li><li class="navelem"><a class="el" href="dir_1e3e4b8b70ea9b8c9c129152a7eb83bf.html">Controle Remoto</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Funções</a> &#124;
+<a href="#var-members">Variáveis</a>  </div>
+  <div class="headertitle">
+<div class="title">Referência do Arquivo ControleRemoto.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;avr/io.h&gt;</code><br />
+<code>#include &lt;avr/interrupt.h&gt;</code><br />
+<code>#include &quot;controle_def.h&quot;</code><br />
+<code>#include &quot;globals_def.h&quot;</code><br />
+<code>#include &quot;usart_def.h&quot;</code><br />
+<code>#include &quot;adc_def.h&quot;</code><br />
+<code>#include &lt;util/delay.h&gt;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Funções</h2></td></tr>
+<tr class="memitem:afe8964718257889855cd751b63d80298"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_controle_remoto_8c.html#afe8964718257889855cd751b63d80298">ValoresIniciaisBuffer</a> ()</td></tr>
+<tr class="memdesc:afe8964718257889855cd751b63d80298"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seta os valores inicias dos dados.  <a href="#afe8964718257889855cd751b63d80298">Mais...</a><br /></td></tr>
+<tr class="separator:afe8964718257889855cd751b63d80298"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afea150fcd685610cb9f7672fce361e53"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_controle_remoto_8c.html#afea150fcd685610cb9f7672fce361e53">ISR</a> (INT0_vect)</td></tr>
+<tr class="memdesc:afea150fcd685610cb9f7672fce361e53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupção do botão que seleciona qual fonte de alimentação deve ser usada.  <a href="#afea150fcd685610cb9f7672fce361e53">Mais...</a><br /></td></tr>
+<tr class="separator:afea150fcd685610cb9f7672fce361e53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05c2e5b588ced1cd7312f5b0edc5b295"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_controle_remoto_8c.html#a05c2e5b588ced1cd7312f5b0edc5b295">ISR</a> (ADC_vect)</td></tr>
+<tr class="memdesc:a05c2e5b588ced1cd7312f5b0edc5b295"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupção do AD gerada pelo Overflow do Timer 0.  <a href="#a05c2e5b588ced1cd7312f5b0edc5b295">Mais...</a><br /></td></tr>
+<tr class="separator:a05c2e5b588ced1cd7312f5b0edc5b295"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09ce999e15ad60b8a3f07d08af1946f9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_controle_remoto_8c.html#a09ce999e15ad60b8a3f07d08af1946f9">ISR</a> (USART_RX_vect)</td></tr>
+<tr class="memdesc:a09ce999e15ad60b8a3f07d08af1946f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupção da comunicação serial RX.  <a href="#a09ce999e15ad60b8a3f07d08af1946f9">Mais...</a><br /></td></tr>
+<tr class="separator:a09ce999e15ad60b8a3f07d08af1946f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_controle_remoto_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
+<tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variáveis</h2></td></tr>
+<tr class="memitem:a744a45a5e992571e842db22fa10f9acc"><td class="memItemLeft" align="right" valign="top">BufferDados&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_controle_remoto_8c.html#a744a45a5e992571e842db22fa10f9acc">bufferDados_g</a></td></tr>
+<tr class="separator:a744a45a5e992571e842db22fa10f9acc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Funções</h2>
+<a class="anchor" id="afea150fcd685610cb9f7672fce361e53"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ISR </td>
+          <td>(</td>
+          <td class="paramtype">INT0_vect&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupção do botão que seleciona qual fonte de alimentação deve ser usada. </p>
+<ul>
+<li>EIMSK &amp;= ~(1 &lt;&lt; INT0) - Desabilita a interrupção até enviar os dados e estes serem apresentados no lcd</li>
+<li>EIFR = (1 &lt;&lt; INTF0) - Limpa flag de solicitação de nova interrupção. evita o bounce </li>
+</ul>
+
+</div>
+</div>
+<a class="anchor" id="a05c2e5b588ced1cd7312f5b0edc5b295"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ISR </td>
+          <td>(</td>
+          <td class="paramtype">ADC_vect&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupção do AD gerada pelo Overflow do Timer 0. </p>
+<p>f_estouro = Nr_max_con * T * Prescaler Sendo:</p><ul>
+<li>Nr_max_con - 256 para o Timer 0 que é de 8 bits;</li>
+<li>T - Período 1/F_CPU;</li>
+<li>Prescaler - Definido nos CS02, CS01 e CS00 do registrador TCCR0B;</li>
+</ul>
+<p>Para o prescaler de 1024 f_estouro = 16,384 ms </p>
+<p>TIFR0 |= TOV0 - Limpa o flag de overflow do Timer0. Esse flag indica que houve um estouro do timer. limpar para habilitar um novo estouro para gerar a interrupção do ADC. </p>
+
+</div>
+</div>
+<a class="anchor" id="a09ce999e15ad60b8a3f07d08af1946f9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ISR </td>
+          <td>(</td>
+          <td class="paramtype">USART_RX_vect&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupção da comunicação serial RX. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Configuração do prescaler do Timer 0. Ele está sendo usado para fazer leitura do ADC. A cada overflow gera uma interrupção.</p>
+<p>Prescaler do Timer0 <br />
+ 2 1 0 (CSx bits)<br />
+ 0 0 0 - No clock source (Timer/Counter stopped) <br />
+ 0 0 1 - clk I/O /(No prescaling) <br />
+ 0 1 0 - clk I/O /8 (From prescaler)<br />
+ 0 1 1 - clk I/O /64 (From prescaler)<br />
+ 1 0 0 - clk I/O /256 (From prescaler)<br />
+ 1 0 1 - clk I/O /1024 (From prescaler)<br />
+ 1 1 0 - External clock source on T0 pin. Clock on falling edge.<br />
+ 1 1 1 - External clock source on T0 pin. Clock on rising edge.<br />
+ </p>
+
+</div>
+</div>
+<a class="anchor" id="afe8964718257889855cd751b63d80298"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ValoresIniciaisBuffer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Seta os valores inicias dos dados. </p>
+<dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Retorna</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Variáveis</h2>
+<a class="anchor" id="a744a45a5e992571e842db22fa10f9acc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BufferDados bufferDados_g</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Armazena as principais informações que serão transmitidas ou que serão utilizadas para calcular os valores a transmitir. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Gerado por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.10
+</small></address>
+</body>
+</html>

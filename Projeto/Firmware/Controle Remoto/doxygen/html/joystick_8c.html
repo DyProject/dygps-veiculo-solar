@@ -1,0 +1,491 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.10"/>
+<title>ControleRemoto: Referência do Arquivo C:/Users/Suporte/Documents/GitHub/dygps-veiculo-solar/Projeto/Firmware/Controle Remoto/joystick.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">ControleRemoto
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.8.10 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Busca');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;Principal</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Arquivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Busca" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;Arquivos</span></a></li>
+      <li><a href="globals.html"><span>Membros&#160;dos&#160;Arquivos</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_8ceffd4ee35c3518d4e8bdc7e638efe8.html">Users</a></li><li class="navelem"><a class="el" href="dir_898c1856d36889bd66ed14115e3be463.html">Suporte</a></li><li class="navelem"><a class="el" href="dir_b72057510bb48c5f68f8d23916b81c29.html">Documents</a></li><li class="navelem"><a class="el" href="dir_7937ef839ee834d747e959482e28fd54.html">GitHub</a></li><li class="navelem"><a class="el" href="dir_1c7ce55b21d18aa8bfdf3954879337b2.html">dygps-veiculo-solar</a></li><li class="navelem"><a class="el" href="dir_2b546f6e604b961cb26b51072872d95f.html">Projeto</a></li><li class="navelem"><a class="el" href="dir_1f7109326a8b97a2adfaf93be071034b.html">Firmware</a></li><li class="navelem"><a class="el" href="dir_1e3e4b8b70ea9b8c9c129152a7eb83bf.html">Controle Remoto</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Componentes</a> &#124;
+<a href="#func-members">Funções</a> &#124;
+<a href="#var-members">Variáveis</a>  </div>
+  <div class="headertitle">
+<div class="title">Referência do Arquivo joystick.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;joyStick.h&quot;</code><br />
+<code>#include &lt;math.h&gt;</code><br />
+<code>#include &quot;adc_def.h&quot;</code><br />
+<code>#include &quot;globals_def.h&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Componentes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_joy_stick_info.html">JoyStickInfo</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Funções</h2></td></tr>
+<tr class="memitem:aecf5b71ac8342a766dc411b8a122c528"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#aecf5b71ac8342a766dc411b8a122c528">CalculaAngulosServo</a> (JoyStick *joyStick, BufferDados *bufferDados)</td></tr>
+<tr class="separator:aecf5b71ac8342a766dc411b8a122c528"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab75cc7de2c9005f1d96e27263afaa150"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#ab75cc7de2c9005f1d96e27263afaa150">TankDrive</a> (JoyStick *joyStick)</td></tr>
+<tr class="separator:ab75cc7de2c9005f1d96e27263afaa150"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f4fbb3b8da7e5d885c067376d276d13"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#a6f4fbb3b8da7e5d885c067376d276d13">ValorLidoADEixoX</a> (unsigned char adSelected)</td></tr>
+<tr class="separator:a6f4fbb3b8da7e5d885c067376d276d13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa52be9a2af39a7ab7019f0e7fea1728"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#afa52be9a2af39a7ab7019f0e7fea1728">ValorLidoADEixoY</a> (unsigned char adSelected)</td></tr>
+<tr class="separator:afa52be9a2af39a7ab7019f0e7fea1728"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a698743a7c5f26a59cb029cee82af327a"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#a698743a7c5f26a59cb029cee82af327a">PontoXNaPosInic</a> (unsigned char adSelected)</td></tr>
+<tr class="separator:a698743a7c5f26a59cb029cee82af327a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb277a99b9333976cb01435bdce73ae4"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#adb277a99b9333976cb01435bdce73ae4">PontoYNaPosInic</a> (unsigned char adSelected)</td></tr>
+<tr class="separator:adb277a99b9333976cb01435bdce73ae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91c6e4c0a24ae13a501f025965dd51a4"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#a91c6e4c0a24ae13a501f025965dd51a4">DirecaoCarro</a> ()</td></tr>
+<tr class="separator:a91c6e4c0a24ae13a501f025965dd51a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19d9b913ff091bb4cc29f924501002a4"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#a19d9b913ff091bb4cc29f924501002a4">CalculaSentido</a> ()</td></tr>
+<tr class="separator:a19d9b913ff091bb4cc29f924501002a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b9ea86913cd8d6d643fa92a34de9101"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#a4b9ea86913cd8d6d643fa92a34de9101">CalculaDutyCycleLadoDir</a> ()</td></tr>
+<tr class="separator:a4b9ea86913cd8d6d643fa92a34de9101"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b8fd75e8d8b907bc8aa3bdb7e627541"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#a8b8fd75e8d8b907bc8aa3bdb7e627541">SoftStarterLadoEsq</a> (uint8_t dutyAtual)</td></tr>
+<tr class="separator:a8b8fd75e8d8b907bc8aa3bdb7e627541"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ed12f2d62448cfb96a87573ae694afb"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#a9ed12f2d62448cfb96a87573ae694afb">SoftStarterLadoDir</a> (uint8_t dutyAtual)</td></tr>
+<tr class="separator:a9ed12f2d62448cfb96a87573ae694afb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a787b522a017802bc225831897b1a5c71"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#a787b522a017802bc225831897b1a5c71">CalculaDutyCycleLadoEsq</a> ()</td></tr>
+<tr class="separator:a787b522a017802bc225831897b1a5c71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6274d4bdca320120f9b84eb889fcce5"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#af6274d4bdca320120f9b84eb889fcce5">CalculaPorcentoPosicaoEixoY</a> (uint16_t valorLidoADEixoY)</td></tr>
+<tr class="separator:af6274d4bdca320120f9b84eb889fcce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8f9e338c0f525e4c0a6bf35f2430e93"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#af8f9e338c0f525e4c0a6bf35f2430e93">CalculaPorcentoPosicaoEixoX</a> (uint16_t valorLidoADEixoX)</td></tr>
+<tr class="separator:af8f9e338c0f525e4c0a6bf35f2430e93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variáveis</h2></td></tr>
+<tr class="memitem:a8e62cee96a900fef375e78f22fac3873"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#a8e62cee96a900fef375e78f22fac3873">pontoInicX_g</a> = 522</td></tr>
+<tr class="separator:a8e62cee96a900fef375e78f22fac3873"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ebb4ca667928d07ebeb07ff9545f271"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#a0ebb4ca667928d07ebeb07ff9545f271">limInfPontoInicX_g</a> = 502</td></tr>
+<tr class="separator:a0ebb4ca667928d07ebeb07ff9545f271"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba905b811c587262fd87ccedfbe9775f"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#aba905b811c587262fd87ccedfbe9775f">limSupPontoInicX_g</a> = 542</td></tr>
+<tr class="separator:aba905b811c587262fd87ccedfbe9775f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73819a506324e20c6ea6c94d30dea818"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#a73819a506324e20c6ea6c94d30dea818">pontoInicY_g</a> = 498</td></tr>
+<tr class="separator:a73819a506324e20c6ea6c94d30dea818"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5ea1f511e23f10c4d2c27ba83056289"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#ab5ea1f511e23f10c4d2c27ba83056289">limInfPontoInicY_g</a> = 478</td></tr>
+<tr class="separator:ab5ea1f511e23f10c4d2c27ba83056289"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7960c492c458dfc5d9357a7758d1df7"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#aa7960c492c458dfc5d9357a7758d1df7">limSupPontoInicY_g</a> = 518</td></tr>
+<tr class="separator:aa7960c492c458dfc5d9357a7758d1df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a288710dc69633b8eed352987af6f06a7"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#a288710dc69633b8eed352987af6f06a7">dutyAnteriorLadoEsq_g</a> = 0</td></tr>
+<tr class="separator:a288710dc69633b8eed352987af6f06a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8a18a28136bcd78afd96f290cd47900"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="joystick_8c.html#af8a18a28136bcd78afd96f290cd47900">dutyAnteriorLadoDir_g</a> = 0</td></tr>
+<tr class="separator:af8a18a28136bcd78afd96f290cd47900"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Funções</h2>
+<a class="anchor" id="aecf5b71ac8342a766dc411b8a122c528"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CalculaAngulosServo </td>
+          <td>(</td>
+          <td class="paramtype">JoyStick *&#160;</td>
+          <td class="paramname"><em>joyStick</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">BufferDados *&#160;</td>
+          <td class="paramname"><em>bufferDados</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4b9ea86913cd8d6d643fa92a34de9101"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t CalculaDutyCycleLadoDir </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a787b522a017802bc225831897b1a5c71"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t CalculaDutyCycleLadoEsq </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af8f9e338c0f525e4c0a6bf35f2430e93"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t CalculaPorcentoPosicaoEixoX </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>valorLidoADEixoX</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af6274d4bdca320120f9b84eb889fcce5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t CalculaPorcentoPosicaoEixoY </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>valorLidoADEixoY</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a19d9b913ff091bb4cc29f924501002a4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char CalculaSentido </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a91c6e4c0a24ae13a501f025965dd51a4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char DirecaoCarro </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a698743a7c5f26a59cb029cee82af327a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t PontoXNaPosInic </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>adSelected</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="adb277a99b9333976cb01435bdce73ae4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t PontoYNaPosInic </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>adSelected</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9ed12f2d62448cfb96a87573ae694afb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t SoftStarterLadoDir </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>dutyAtual</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8b8fd75e8d8b907bc8aa3bdb7e627541"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t SoftStarterLadoEsq </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>dutyAtual</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab75cc7de2c9005f1d96e27263afaa150"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TankDrive </td>
+          <td>(</td>
+          <td class="paramtype">JoyStick *&#160;</td>
+          <td class="paramname"><em>joyStick</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6f4fbb3b8da7e5d885c067376d276d13"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t ValorLidoADEixoX </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>adSelected</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="afa52be9a2af39a7ab7019f0e7fea1728"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t ValorLidoADEixoY </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>adSelected</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Variáveis</h2>
+<a class="anchor" id="af8a18a28136bcd78afd96f290cd47900"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t dutyAnteriorLadoDir_g = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a288710dc69633b8eed352987af6f06a7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t dutyAnteriorLadoEsq_g = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a0ebb4ca667928d07ebeb07ff9545f271"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t limInfPontoInicX_g = 502</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab5ea1f511e23f10c4d2c27ba83056289"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t limInfPontoInicY_g = 478</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aba905b811c587262fd87ccedfbe9775f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t limSupPontoInicX_g = 542</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa7960c492c458dfc5d9357a7758d1df7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t limSupPontoInicY_g = 518</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8e62cee96a900fef375e78f22fac3873"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t pontoInicX_g = 522</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a73819a506324e20c6ea6c94d30dea818"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t pontoInicY_g = 498</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Gerado por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.10
+</small></address>
+</body>
+</html>

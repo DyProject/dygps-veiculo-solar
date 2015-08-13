@@ -1,0 +1,22 @@
+Added Component: Designator=JP1(Modulo Joystick Dual Eixo XY)
+Added Component: Designator=JP2(Modulo Joystick Dual Eixo XY)
+Added Component: Designator=P1(HDR-M-2x3-2.54mm-180-9.2mm)
+Added Pin To Net: NetName=GND Pin=JP1-1
+Added Pin To Net: NetName=5V Pin=JP1-2
+Added Pin To Net: NetName=VRX_MOTOR Pin=JP1-3
+Added Pin To Net: NetName=VRY_MOTOR Pin=JP1-4
+Added Pin To Net: NetName=PD2 Pin=JP1-5
+Added Pin To Net: NetName=GND Pin=JP2-1
+Added Pin To Net: NetName=5V Pin=JP2-2
+Added Pin To Net: NetName=VRX_SERVO Pin=JP2-3
+Added Pin To Net: NetName=VRY_SERVO Pin=JP2-4
+Added Pin To Net: NetName=PD3 Pin=JP2-5
+Added Pin To Net: NetName=PB4 Pin=P1-1
+Added Pin To Net: NetName=5V Pin=P1-2
+Added Pin To Net: NetName=PB5 Pin=P1-3
+Added Pin To Net: NetName=PB3 Pin=P1-4
+Added Pin To Net: NetName=RESET Pin=P1-5
+Added Pin To Net: NetName=GND Pin=P1-6
+Added Member To Class: ClassName=controleRemoto Member=Component JP1 JoyStick
+Added Member To Class: ClassName=controleRemoto Member=Component JP2 JoyStick
+Added Member To Class: ClassName=controleRemoto Member=Component P1 AVR ISP

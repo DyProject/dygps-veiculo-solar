@@ -38,6 +38,8 @@ typedef struct{
 	volatile uint8_t iniciado;//'y' yes ou 'n' no
 	volatile uint8_t completo;//'y' yes ou 'n' no
 	volatile TEstadoCarro estadoCarro;
+	volatile unsigned char anguloServoLeft;
+	volatile unsigned char anguloServoRight;
 }BufferRecep;
 
 //----------------------------------------------------------------------------
