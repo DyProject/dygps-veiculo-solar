@@ -8,11 +8,11 @@
 //---------------------------------------------------------------------------
 
 uint16_t pontoInicX_g = 522,
-		 limInfPontoInicX_g = 502,
+		 limInfPontoInicX_g = 478,
 		 limSupPontoInicX_g = 542;	
 uint16_t pontoInicY_g = 498,
 		 limInfPontoInicY_g = 478,
-		 limSupPontoInicY_g = 518;
+		 limSupPontoInicY_g = 542;
 		 
 uint8_t dutyAnteriorLadoEsq_g = 0;
 uint8_t dutyAnteriorLadoDir_g = 0;

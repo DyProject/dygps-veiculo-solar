@@ -5,10 +5,10 @@
 
 //---------------------------------------------------------------------------
 
-#define AD_EIXO_X_DIR		0
-#define AD_EIXO_Y_DIR		1
-#define AD_EIXO_X_SERVO		2
-#define AD_EIXO_Y_SERVO		3
+#define AD_EIXO_X_DIR		4
+#define AD_EIXO_Y_DIR		5
+#define AD_EIXO_X_SERVO		3
+#define AD_EIXO_Y_SERVO		2
 
 //---------------------------------------------------------------------------
 		

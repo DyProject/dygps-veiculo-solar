@@ -102,7 +102,7 @@ void TransmitiBuffer(
 		fonte = '1';//deve inverter a fonte de alimentação
 	else fonte = '0';
 	bufferDados->botaoSelFontePress = 'n';	
-	Usart_Transmit(fonte);//falta ajustar para enviar 1 quando o botão for pressionado
+	Usart_Transmit(fonte);
 }
 
 //----------------------------------------------------------------------------
@@ -111,59 +111,28 @@ void MostraDadosLCD(
 	BufferDados* bufferDados
 )
 {
-	/*Imprimi tudo na primeira vez*/
-	static uint8_t contador = 20;
-	unsigned char caracConvertido[3];
+	FILE mystdout = FDEV_SETUP_STREAM(cmd_LCD_Printf, NULL, _FDEV_SETUP_WRITE);
+	
+	stdout = &mystdout;
 			
-	LCD_setPos(2,3);
-	CvrtNum2CaracterIndividual(bufferDados->dutyLadoEsq	, caracConvertido, 3);
-	escreve_LCD((char*)caracConvertido);
+	LCD_setPos(1,0);
+	printf("MD:%d ", bufferDados->dutyLadoDir);
+	LCD_setPos(2,0);
+	printf("ME:%d ", bufferDados->dutyLadoEsq);
 	
-	LCD_setPos(2,10);
-	CvrtNum2CaracterIndividual(bufferDados->dutyLadoDir,  caracConvertido, 3);
-	escreve_LCD((char*)caracConvertido);
+	LCD_setPos(1,7);
+	printf("SD:%d ", bufferDados->anguloServoRight);
+	LCD_setPos(2,7);
+	printf("SE:%d ", bufferDados->anguloServoLeft);
 	
-	/*Para o display não ficar piscando*/
-	if(contador > 16){				
-		LCD_setPos(2,0);
-		escreve_LCD("M1:");
+	LCD_setPos(1,14);
+	if(bufferDados->estacomunicando == 'n') 
+		printf("NC");	
+	else 
+		printf("OK");
 		
-	LCD_setPos(1,6);
-	escreve_LCD("DAELN");
+	LCD_setPos(2,14);	
+	printf("%c", bufferDados->direcao);
 	
-	LCD_setPos(1,1);
-	escreve_LCD("IFSC");
-	
-	LCD_setPos(1,12);
-	escreve_LCD("2014");
-	
-	/*trace
-		LCD_setPos(1,7);
-		escreve_LCD("B:");
-		CvrtNum2CaracterIndividual(bufferDados->tensaoBateria, caracConvertido, 2);
-		escreve_LCD((char*)caracConvertido);
-		EscreveCaracterLCD('V');*/
-	
-		LCD_setPos(2,15);
-		//EscreveCaracterLCD('[');
-		EscreveCaracterLCD(bufferDados->direcao);
-		//EscreveCaracterLCD(']');
-	
-		LCD_setPos(2,7);
-		escreve_LCD("M2:");
-		/*trace
-		LCD_setPos(2,7);
-		escreve_LCD("P:");
-		CvrtNum2CaracterIndividual(bufferDados->tensaoPainel, caracConvertido, 2);
-		escreve_LCD((char*)caracConvertido);
-		EscreveCaracterLCD('V');
-	
-		LCD_setPos(2,13);
-		EscreveCaracterLCD('F');
-		EscreveCaracterLCD(':');
-		EscreveCaracterLCD(bufferDados->fonteAlimentacao);*/
-	}
-		
-	contador++;
 }
 //----------------------------------------------------------------------------

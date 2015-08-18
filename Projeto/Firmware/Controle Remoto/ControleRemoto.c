@@ -12,6 +12,7 @@
 *	-# SOUZA, Gustavo Pereira de
 *                                   
 ****************************************************************/
+#define F_CPU 16000000UL
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -20,6 +21,10 @@
 #include "globals_def.h"
 #include "usart_def.h"
 #include "adc_def.h"
+#include "LCD4b.h"
+#include "stdio.h"
+#include "adc_def.h"
+#include "joystick.h"
 
 #include <util/delay.h>
 
@@ -97,6 +102,9 @@ ISR(ADC_vect)
 		/*Habilita Interrupção RX*/
 		set_bit(UCSR0B, 7);
 		
+		/*Indica se há comunicação*/
+		bufferDados_g.estacomunicando = 's';
+		
 	} else if((contador > 15 && !bufferDados_g.iniciado == 'n') || contador > 100) {
 		/*Desabilita Interrupção RX*/
 		clr_bit(UCSR0B, 7);
@@ -105,6 +113,10 @@ ISR(ADC_vect)
 		TransmitiBuffer(&bufferDados_g);
 		/*Habilita Interrupção RX*/
 		set_bit(UCSR0B, 7);
+		
+		/*Indica se há comunicação*/
+		bufferDados_g.estacomunicando = 'n';
+		
 		MostraDadosLCD(&bufferDados_g);
 		contador = 0;
 		
@@ -153,8 +165,11 @@ int main()
 	*/
 	TCCR0B |= (1<<CS02) | (1<<CS00);
 	
-	DDRD &= ~(1 << PD2);
-	PORTD |= (1 << PD2);
+	DDRD &= ~(1 << DDD2); //PD2 como entrada
+	PORTD |= (1 << DDD2);//Habilita pull up interno
+	DDRD &= ~(1 << DDD3);
+	PORTD |= (1 << DDD3);
+	
 	EICRA = (1<<ISC00) ;  
 	
 	inic_LCD_4bits();					
@@ -175,6 +190,7 @@ void ValoresIniciaisBuffer()
 	bufferDados_g.podeIniciarTransmissao = 'y';
 	bufferDados_g.fonteAlimentacao = 'B';
 	bufferDados_g.botaoSelFontePress = 'n';
+	bufferDados_g.estacomunicando = 'n';
 }	
 
 //----------------------------------------------------------------------------

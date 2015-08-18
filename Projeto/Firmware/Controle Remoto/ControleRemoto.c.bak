@@ -1,11 +1,18 @@
-/****************************************************************
-*                  PROJECT INTEGRATOR II                        *
-*           Title: Controle Remoto                              *
-*           Students:   CAMPOS, Dyego de                        *
-*                       SOUZA, Gustavo Pereira de               *
-*           Date:  10/02/2013                                   *
-*           Version:  1.1                                       *
+/*!**************************************************************
+*\mainpage		Solar Foot 
+*\date			07/08/2015
+*\author		Dyego de Campos
+*\author		Daniel Dezan de Bona
+*
+*\brief	Solar Foot será utilizado como modelo na disciplina de PI2 do CST de Sistemas Eletrônicos.
+*		A ideia é realizar uma partida de futebol com os carros do projeto.
+*	
+*Solar Foot é baseado no Projeto DYGPS (PI2) do CST em Sistemas Eletrônicos de:
+*	-# CAMPOS, Dyego de</li>                        
+*	-# SOUZA, Gustavo Pereira de
+*                                   
 ****************************************************************/
+#define F_CPU 16000000UL
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -14,65 +21,107 @@
 #include "globals_def.h"
 #include "usart_def.h"
 #include "adc_def.h"
+#include "LCD4b.h"
+#include "stdio.h"
+#include "adc_def.h"
 #include "joystick.h"
 
-
 #include <util/delay.h>
-#include "stdio.h"
 
-volatile uint8_t podeIniciarNovaTrasmissao = 1;
-BufferDados bufferDados_g;
-JoyStick joyStick;
+BufferDados bufferDados_g; /*!<Armazena as principais informações que serão transmitidas ou que serão utilizadas para calcular os valores a transmitir.*/
 
-static FILE UARTstdout = FDEV_SETUP_STREAM(
-Usart_Transmit_Printf,
-NULL,
-_FDEV_SETUP_WRITE
-);
-
-
+//FILE lcd_output_g = FDEV_SETUP_STREAM(cmd_LCD_Printf, NULL, _FDEV_SETUP_WRITE);
+//stdout = & lcd_output_g;
 //----------------------------------------------------------------------------
 
+/*!
+	\fn void ValoresIniciaisBuffer()
+	\param void
+	\return void
+	\brief Seta os valores inicias dos dados.
+*/
 void ValoresIniciaisBuffer();
 
 //----------------------------------------------------------------------------
 
-/*Interrupção do botão que seleciona qual fonte de alimentação deve ser usada. Quando o botão é pressionado seta bufferDados_g.botaoSelFontePress = 'y' e 
-desabilita a interrupção. A interrupção é novamente habilitada após enviar os dados e mostrar valores no lcd.*/
+/*!\fn ISR(INT0_vect)
+	\brief	Interrupção do botão que seleciona qual fonte de alimentação deve ser usada. 
+*/
 ISR(INT0_vect)
 {
 	bufferDados_g.botaoSelFontePress = 'y';
-	/*Desabilita a interrupção até enviar os dados*/
+	
+	/*! - EIMSK &= ~(1 << INT0) - Desabilita a interrupção até enviar os dados e estes serem apresentados no lcd*/
 	EIMSK &= ~(1 << INT0);
-	/*Limpa flag de solicitação de nova interrupção. evita o bounce*/ 
+	
+	/*! - EIFR = (1 << INTF0) - Limpa flag de solicitação de nova interrupção. evita o bounce*/ 
 	EIFR = (1 << INTF0);
 }	 
 		
 //----------------------------------------------------------------------------
 
-/*Interrupção gerada a cada 16,38ms*/
+/*!\fn ISR(ADC_vect)	
+	\brief	Interrupção do AD gerada pelo Overflow do Timer 0.
+			
+			f_estouro = Nr_max_con * T * Prescaler
+				Sendo:
+					- Nr_max_con - 256 para o Timer 0 que é de 8 bits;
+					- T - Período 1/F_CPU;
+					- Prescaler - Definido nos CS02, CS01 e CS00 do registrador TCCR0B;
+					
+			Para o prescaler de 1024 f_estouro = 16,384 ms 
+*/
 ISR(ADC_vect)			
 {
-		static uint8_t contador = 0;
+	static uint8_t contador = 0;
+	if(contador > 10 && (bufferDados_g.podeIniciarTransmissao == 'y')) {
 		
+		/*Desabilita Interrupção RX*/
+		clr_bit(UCSR0B, 7);
+		
+		/*Desabilita AD*/
 		ADMUX &= ~(1 << ADIE);
-					
-		if(contador > 100) {
-						
-			//printf("X: [%d], [%d] \n", eixoX, eixoY);
 			
-			TankDrive(&joyStick);
-					
-			//printf("[%ld, %ld] Hip: %lu, angulo: %u, pwm: [%d, %d] \n",  (int32_t)joyStick.ValorEixoX, (int32_t)joyStick.ValorEixoY, (uint32_t)joyStick.hypotenuse, (uint16_t)joyStick.AngleDegrees, joyStick.pwmLeft, joyStick.pwmRigth);			
-			
-			contador = 0;
-		}
-		contador++;
-		/*Habilita Interrupção RX*/
-		set_bit(UCSR0B, 7);
+		TransmitiBuffer(&bufferDados_g);
+		//MostraDadosLCD(&bufferDados_g);
+		
+		/*Bounce - Para eleminar o ruído*/
+		static int contBounce = 0;
+		if(contBounce > 4) {		
+			/*Habilita a interrupção do botão*/
+			EIFR = (1 << INTF0);
+			EIMSK = (1<<INT0);
+			contBounce = 0;
+		}			
+		contBounce++;
+		
+		bufferDados_g.podeIniciarTransmissao = 'n';
+		contador = 0;
+		
+		/*Habilita AD*/
 		ADMUX |= (1 << ADIE);
 		
-		/*Limpa o flag de overflow do Timer0. Esse flag indica que houve um estouro do timer.
+		/*Habilita Interrupção RX*/
+		set_bit(UCSR0B, 7);
+		
+	} else if((contador > 15 && !bufferDados_g.iniciado == 'n') || contador > 100) {
+		/*Desabilita Interrupção RX*/
+		clr_bit(UCSR0B, 7);
+		
+		//printf("")
+		
+		ADMUX &= ~(1 << ADIE);
+		TransmitiBuffer(&bufferDados_g);
+		/*Habilita Interrupção RX*/
+		set_bit(UCSR0B, 7);
+		//MostraDadosLCD(&bufferDados_g);
+		contador = 0;
+		
+		ADMUX |= (1 << ADIE);
+	} 	
+	
+	contador++;
+	/*!TIFR0 |= TOV0 - Limpa o flag de overflow do Timer0. Esse flag indica que houve um estouro do timer.
 	limpar para habilitar um novo estouro para gerar a interrupção do ADC.*/
 	TIFR0 |= TOV0;
 	
@@ -80,6 +129,9 @@ ISR(ADC_vect)
 
 //----------------------------------------------------------------------------
 
+/*!\fn ISR(USART_RX_vect)	
+	\brief	Interrupção da comunicação serial RX.
+*/
 ISR(USART_RX_vect)							
 {	
 	RecebeProtocolo(&bufferDados_g);
@@ -93,17 +145,38 @@ int main()
 {	
 	ValoresIniciaisBuffer();
 	Usart_Init(MYUBRR);
-	/*Prescaler do Timer0, usado para fazer uma leitura do ADC.*/
-	TCCR0B = (1<<CS02) | (1<<CS00);
+		
+	/*! \brief	Configuração do prescaler do Timer 0. Ele está sendo usado para fazer leitura do ADC. 
+				A cada overflow gera uma interrupção.
 	
-	DDRD &= ~(1 << PD2);
-	PORTD |= (1 << PD2);
+				*Prescaler do Timer0 \n
+				*2      1		0		(CSx bits)\n
+				*0		0		0	-	No clock source (Timer/Counter stopped) \n
+				*0		0		1	-	clk I/O /(No prescaling) \n
+				*0		1		0	-	clk I/O /8 (From prescaler)\n
+				*0		1		1	-	clk I/O /64 (From prescaler)\n
+				*1		0		0	-	clk I/O /256 (From prescaler)\n
+				*1		0		1	-	clk I/O /1024 (From prescaler)\n
+				*1		1		0	-	External clock source on T0 pin. Clock on falling edge.\n
+				*1		1		1	-	External clock source on T0 pin. Clock on rising edge.\n
+	*/
+	TCCR0B |= (1<<CS02) | (1<<CS00);
+	
+	DDRD &= ~(1 << DDD2); //PD2 como entrada
+	PORTD |= (1 << DDD2);//Habilita pull up interno
+	DDRD &= ~(1 << DDD3);
+	PORTD |= (1 << DDD3);
+	
 	EICRA = (1<<ISC00) ;  
 	
-	stdout = &UARTstdout;
+	inic_LCD_4bits();
 	
-	inic_LCD_4bits();					
+	
+	
+	
 	ADC_Init();
+	
+	
 	sei();
 		
 	while(1){}
@@ -113,13 +186,12 @@ int main()
 
 void ValoresIniciaisBuffer()
 {
-	bufferDados_g.qntdDadosLido = 0;
+	bufferDados_g.qntdDadosLido = 0; 
 	bufferDados_g.iniciado = 'n';
 	bufferDados_g.completo = 'y';
 	bufferDados_g.podeIniciarTransmissao = 'y';
 	bufferDados_g.fonteAlimentacao = 'B';
 	bufferDados_g.botaoSelFontePress = 'n';
-
 }	
 
 //----------------------------------------------------------------------------

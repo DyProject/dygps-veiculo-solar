@@ -126,6 +126,9 @@
     <Compile Include="joystick.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="LCD4b.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="LCD4b.h">
       <SubType>compile</SubType>
     </Compile>

@@ -4,23 +4,15 @@
 
 #include "adc_def.h"
 #include "globals_def.h"
-#include "stdio.h"
-#include "usart_def.h"
-
-static FILE UARTstdout = FDEV_SETUP_STREAM(
-Usart_Transmit_Printf,
-NULL,
-_FDEV_SETUP_WRITE
-);
 
 //---------------------------------------------------------------------------
 
 uint16_t pontoInicX_g = 522,
-		 limInfPontoInicX_g = 502,
+		 limInfPontoInicX_g = 478,
 		 limSupPontoInicX_g = 542;	
 uint16_t pontoInicY_g = 498,
 		 limInfPontoInicY_g = 478,
-		 limSupPontoInicY_g = 518;
+		 limSupPontoInicY_g = 542;
 		 
 uint8_t dutyAnteriorLadoEsq_g = 0;
 uint8_t dutyAnteriorLadoDir_g = 0;
@@ -53,9 +45,7 @@ void CalculaAngulosServo(
 void TankDrive(
 	JoyStick* joyStick
 ) 
-{
-	stdout = &UARTstdout;
-	
+{	
 	//Ajuste do zero
 	int32_t eixoX = joyStick->valorEixoX;
 	int32_t eixoY = joyStick->valorEixoY;
@@ -137,6 +127,7 @@ uint8_t PontoXNaPosInic(
 	unsigned char adSelected
 )
 {
+	uint16_t lido = ValorLidoADEixoX(adSelected);
 	return ((ValorLidoADEixoX(adSelected) >= limInfPontoInicX_g ) && (ValorLidoADEixoX(adSelected) <= limSupPontoInicX_g));
 }
 
@@ -146,7 +137,9 @@ uint8_t PontoYNaPosInic(
 	unsigned char adSelected
 )
 {
-	return ((ValorLidoADEixoY(adSelected) >= limInfPontoInicY_g ) && (ValorLidoADEixoY(adSelected) <= limSupPontoInicY_g));	
+	uint16_t lido = ValorLidoADEixoY(adSelected);
+	uint16_t valorLido = ValorLidoADEixoY(adSelected);
+	return ((valorLido >= limInfPontoInicY_g ) && (valorLido <= limSupPontoInicY_g));	
 }
 
 //---------------------------------------------------------------------------

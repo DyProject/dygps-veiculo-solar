@@ -47,6 +47,7 @@ typedef struct{
 	volatile uint8_t podeRecalcularDutyCicle;//'y' yes ou 'n' no - Caso não tenha recebido dados do carro, não envia novo valor do duty cicle
 	volatile unsigned char anguloServoLeft; 
 	volatile unsigned char anguloServoRight;
+	volatile unsigned char estacomunicando;
 }BufferDados;
 
 //----------------------------------------------------------------------------
