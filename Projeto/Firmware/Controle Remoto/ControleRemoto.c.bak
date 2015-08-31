@@ -30,8 +30,6 @@
 
 BufferDados bufferDados_g; /*!<Armazena as principais informações que serão transmitidas ou que serão utilizadas para calcular os valores a transmitir.*/
 
-//FILE lcd_output_g = FDEV_SETUP_STREAM(cmd_LCD_Printf, NULL, _FDEV_SETUP_WRITE);
-//stdout = & lcd_output_g;
 //----------------------------------------------------------------------------
 
 /*!
@@ -82,8 +80,12 @@ ISR(ADC_vect)
 		/*Desabilita AD*/
 		ADMUX &= ~(1 << ADIE);
 			
+		/*Indica se há comunicação*/
+		bufferDados_g.estacomunicando = 's';
+		
 		TransmitiBuffer(&bufferDados_g);
-		//MostraDadosLCD(&bufferDados_g);
+		MostraDadosLCD(&bufferDados_g);
+			
 		
 		/*Bounce - Para eleminar o ruído*/
 		static int contBounce = 0;
@@ -103,21 +105,33 @@ ISR(ADC_vect)
 		
 		/*Habilita Interrupção RX*/
 		set_bit(UCSR0B, 7);
+				
+	} else if((contador > 15 && !(bufferDados_g.iniciado == 'n')) || contador > 100) {
 		
-	} else if((contador > 15 && !bufferDados_g.iniciado == 'n') || contador > 100) {
-		/*Desabilita Interrupção RX*/
-		clr_bit(UCSR0B, 7);
+		bufferDados_g.iniciado = 'n';
+		bufferDados_g.completo = 'y';
+		bufferDados_g.qntdDadosLido = 0;
+		bufferDados_g.podeIniciarTransmissao = 'y';
 		
-		//printf("")
+		/*Indica se há comunicação*/
+		bufferDados_g.estacomunicando = 'n';
 		
-		ADMUX &= ~(1 << ADIE);
-		TransmitiBuffer(&bufferDados_g);
-		/*Habilita Interrupção RX*/
-		set_bit(UCSR0B, 7);
+		///*Desabilita Interrupção RX*/
+		//clr_bit(UCSR0B, 7);
+		//
+//
+		//ADMUX &= ~(1 << ADIE);
+		//TransmitiBuffer(&bufferDados_g);
+		///*Habilita Interrupção RX*/
+		//set_bit(UCSR0B, 7);
+		//
+		///*Indica se há comunicação*/
+		//bufferDados_g.estacomunicando = 'n';
+		//
 		//MostraDadosLCD(&bufferDados_g);
-		contador = 0;
-		
-		ADMUX |= (1 << ADIE);
+		//contador = 0;
+		//
+		//ADMUX |= (1 << ADIE);
 	} 	
 	
 	contador++;
@@ -135,8 +149,12 @@ ISR(ADC_vect)
 ISR(USART_RX_vect)							
 {	
 	RecebeProtocolo(&bufferDados_g);
-	if(bufferDados_g.completo == 'y') 
+	if(bufferDados_g.completo == 'y') {
 		bufferDados_g.podeIniciarTransmissao = 'y';
+		
+		/*Indica se há comunicação*/
+		bufferDados_g.estacomunicando = 's';
+	}
 }	
 
 //----------------------------------------------------------------------------
@@ -145,7 +163,7 @@ int main()
 {	
 	ValoresIniciaisBuffer();
 	Usart_Init(MYUBRR);
-		
+	
 	/*! \brief	Configuração do prescaler do Timer 0. Ele está sendo usado para fazer leitura do ADC. 
 				A cada overflow gera uma interrupção.
 	
@@ -167,15 +185,19 @@ int main()
 	DDRD &= ~(1 << DDD3);
 	PORTD |= (1 << DDD3);
 	
+	////trace
+	//DDRD |= (1 << DDD7); //PD4 como entrada
+	//PORTD |= (1 << DDD7);//Habilita pull up interno
+	////trace
+	//DDRD |= (1 << DDD6); //PD4 como entrada
+	//PORTD |= (1 << DDD6);//Habilita pull up interno
+	//DDRD |= (1 << DDD5); //PD4 como entrada
+	//PORTD |= (1 << DDD5);//Habilita pull up interno
+	//
 	EICRA = (1<<ISC00) ;  
 	
-	inic_LCD_4bits();
-	
-	
-	
-	
+	inic_LCD_4bits();					
 	ADC_Init();
-	
 	
 	sei();
 		
@@ -192,6 +214,7 @@ void ValoresIniciaisBuffer()
 	bufferDados_g.podeIniciarTransmissao = 'y';
 	bufferDados_g.fonteAlimentacao = 'B';
 	bufferDados_g.botaoSelFontePress = 'n';
+	bufferDados_g.estacomunicando = 'n';
 }	
 
 //----------------------------------------------------------------------------

@@ -4,6 +4,8 @@
 
 #include "adc_def.h"
 #include "globals_def.h"
+#include "stdio.h"
+#include "LCD4b.h"
 
 //---------------------------------------------------------------------------
 
@@ -24,12 +26,16 @@ typedef struct{
 
 //---------------------------------------------------------------------------
 
-void CalculaAngulosServo(
+//Envia um valor entre 0-100%. 100% equivale a 180º
+void CalculaAngulosServo(//trace 
 	JoyStick* joyStick,
 	BufferDados* bufferDados
-){
-		bufferDados->anguloServoRight = (unsigned char) round(0.6 * (joyStick->dytyLD + 100)); //120*(valor+100) /200
-		bufferDados->anguloServoLeft = (unsigned char)round(0.6 * (joyStick->dytyLE + 100)); //120*(valor+100) /200
+){	
+	bufferDados->anguloServoRight = (unsigned char)((joyStick->dutyLD/2) + 50); //x = 100*(y+100) / 200
+
+	bufferDados->anguloServoLeft = (unsigned char)fabs(((joyStick->dutyLE/2) + 50)-100); //x = 100*(y+100) / 200
+		//bufferDados->anguloServoRight = (unsigned char) round(0.6 * (joyStick->dytyLD + 100)); //120*(valor+100) /200
+		//bufferDados->anguloServoLeft = (unsigned char)round(0.6 * (joyStick->dytyLE + 100)); //120*(valor+100) /200
 }
 
 //---------------------------------------------------------------------------
@@ -45,12 +51,16 @@ void CalculaAngulosServo(
 void TankDrive(
 	JoyStick* joyStick
 ) 
-{	
+{		
 	//Ajuste do zero
 	int32_t eixoX = joyStick->valorEixoX;
-	int32_t eixoY = joyStick->valorEixoY;
-	
+	int32_t eixoY = joyStick->valorEixoY;	
 	//TRACEprintf("\n[%ld, %ld] \n", eixoX, eixoY);
+
+	//LCD_setPos(1,0);
+	//printf("MD:%d ", (uint16_t)eixoX);
+	//LCD_setPos(2,0);
+	//printf("ME:%d ", (uint16_t)eixoY);
 	
 	//trace
 	//int32_t eixoX = ((int32_t)ValorLidoADEixoX()) - 510;
@@ -95,8 +105,8 @@ void TankDrive(
 	
 	//TRACEprintf("PWM: [%d, %d]", left, right);
 	
-	joyStick->dytyLE = left;
-	joyStick->dytyLD = right;
+	joyStick->dutyLE = left;
+	joyStick->dutyLD = right;		
 }
 
 //---------------------------------------------------------------------------
@@ -127,7 +137,6 @@ uint8_t PontoXNaPosInic(
 	unsigned char adSelected
 )
 {
-	uint16_t lido = ValorLidoADEixoX(adSelected);
 	return ((ValorLidoADEixoX(adSelected) >= limInfPontoInicX_g ) && (ValorLidoADEixoX(adSelected) <= limSupPontoInicX_g));
 }
 
@@ -137,9 +146,7 @@ uint8_t PontoYNaPosInic(
 	unsigned char adSelected
 )
 {
-	uint16_t lido = ValorLidoADEixoY(adSelected);
-	uint16_t valorLido = ValorLidoADEixoY(adSelected);
-	return ((valorLido >= limInfPontoInicY_g ) && (valorLido <= limSupPontoInicY_g));	
+	return ((ValorLidoADEixoY(adSelected) >= limInfPontoInicY_g ) && (ValorLidoADEixoY(adSelected) <= limSupPontoInicY_g));	
 }
 
 //---------------------------------------------------------------------------

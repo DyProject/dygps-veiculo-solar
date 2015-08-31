@@ -76,8 +76,17 @@ void TransmitiBuffer(
 	
 	//Valores do angulo do servo
 	JoyStick joystick;	
-	joystick.valorEixoX = (((int32_t)ValorLidoADEixoX(AD_EIXO_X_SERVO))- 510);
-	joystick.valorEixoY = (((int32_t)(ValorLidoADEixoY(AD_EIXO_Y_SERVO))) - 506);
+	
+	if(!PontoXNaPosInic(AD_EIXO_X_SERVO))	
+		joystick.valorEixoX = (((int32_t)ValorLidoADEixoX(AD_EIXO_X_SERVO))- 510);
+	else
+		joystick.valorEixoX = 0;
+	
+	if(!PontoYNaPosInic(AD_EIXO_Y_SERVO))		
+		joystick.valorEixoY = (((int32_t)(ValorLidoADEixoY(AD_EIXO_Y_SERVO))) - 506);
+	else
+		joystick.valorEixoY = 0;
+
 	TankDrive(&joystick);
 	
 	CalculaAngulosServo(&joystick, bufferDados);

@@ -18,6 +18,7 @@ uint8_t RecebeProtocolo(
 	BufferDados* bufferRecepcao
 )
 {	
+	clr_bit(PORTD, DDD5);
 	uint8_t dadoRecebido = UDR0;	
 	bufferRecepcao->completo = 'n';
 	/*Inicia recepção*/
@@ -41,6 +42,7 @@ uint8_t RecebeProtocolo(
 			bufferRecepcao->iniciado = 'n';
 			bufferRecepcao->completo = 'y';
 			bufferRecepcao->qntdDadosLido = 0;
+			set_bit(PORTD, DDD5);
 		}
 	}		
 			
@@ -53,6 +55,7 @@ void TransmitiBuffer(
 	BufferDados* bufferDados
 )
 {
+	clr_bit(PORTD, DDD6);
 	volatile uint8_t indicaInicioTransmissao = 'S';
 	volatile uint8_t direcao;
 	volatile uint8_t dutyLadoEsq;
@@ -62,6 +65,7 @@ void TransmitiBuffer(
 	volatile uint16_t anguloServoLeft;
 	volatile uint16_t anguloServoRigth;
 	
+
 	sentido = CalculaSentido();
 	bufferDados->sentido = sentido;
 	
@@ -75,14 +79,23 @@ void TransmitiBuffer(
 	
 	//Valores do angulo do servo
 	JoyStick joystick;	
-	joystick.valorEixoX = (((int32_t)ValorLidoADEixoX(AD_EIXO_X_SERVO))- 510);
-	joystick.valorEixoY = (((int32_t)(ValorLidoADEixoY(AD_EIXO_Y_SERVO))) - 506);
+	
+	if(!PontoXNaPosInic(AD_EIXO_X_SERVO))	
+		joystick.valorEixoX = (((int32_t)ValorLidoADEixoX(AD_EIXO_X_SERVO))- 510);
+	else
+		joystick.valorEixoX = 0;
+	
+	if(!PontoYNaPosInic(AD_EIXO_Y_SERVO))		
+		joystick.valorEixoY = (((int32_t)(ValorLidoADEixoY(AD_EIXO_Y_SERVO))) - 506);
+	else
+		joystick.valorEixoY = 0;
+
 	TankDrive(&joystick);
 	
 	CalculaAngulosServo(&joystick, bufferDados);
 	anguloServoLeft = bufferDados->anguloServoLeft;
 	anguloServoRigth = bufferDados->anguloServoRight;
-		
+		//
 	/*Indica o inicio do protocolo*/
 	Usart_Transmit(indicaInicioTransmissao);
 	/*Indica a direcao do carro*/
@@ -101,7 +114,9 @@ void TransmitiBuffer(
 		fonte = '1';//deve inverter a fonte de alimentação
 	else fonte = '0';
 	bufferDados->botaoSelFontePress = 'n';	
-	Usart_Transmit(fonte);//falta ajustar para enviar 1 quando o botão for pressionado	
+	Usart_Transmit(fonte);
+	
+	set_bit(PORTD, DDD6);
 }
 
 //----------------------------------------------------------------------------
@@ -110,6 +125,7 @@ void MostraDadosLCD(
 	BufferDados* bufferDados
 )
 {
+	clr_bit(PORTD, DDD7);
 	FILE mystdout = FDEV_SETUP_STREAM(cmd_LCD_Printf, NULL, _FDEV_SETUP_WRITE);
 	
 	stdout = &mystdout;
@@ -132,6 +148,8 @@ void MostraDadosLCD(
 		
 	LCD_setPos(2,14);	
 	printf("%c", bufferDados->direcao);
+	
+	set_bit(PORTD, DDD7);
 	
 }
 //----------------------------------------------------------------------------

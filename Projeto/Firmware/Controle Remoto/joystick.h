@@ -7,8 +7,8 @@
 
 #define AD_EIXO_X_DIR		4
 #define AD_EIXO_Y_DIR		5
-#define AD_EIXO_X_SERVO		3
-#define AD_EIXO_Y_SERVO		2
+#define AD_EIXO_X_SERVO		2
+#define AD_EIXO_Y_SERVO		3
 
 //---------------------------------------------------------------------------
 		
@@ -26,8 +26,8 @@ typedef struct{
 	volatile int32_t valorEixoY;
 	volatile uint32_t hypotenuse;
 	volatile uint16_t angleDegrees;
-	volatile int16_t dytyLD;
-	volatile int16_t dytyLE;
+	volatile int16_t dutyLD;
+	volatile int16_t dutyLE;
 }JoyStick;
 
 //---------------------------------------------------------------------------

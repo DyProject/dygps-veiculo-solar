@@ -80,6 +80,9 @@ ISR(ADC_vect)
 		/*Desabilita AD*/
 		ADMUX &= ~(1 << ADIE);
 			
+		/*Indica se há comunicação*/
+		bufferDados_g.estacomunicando = 's';
+		
 		TransmitiBuffer(&bufferDados_g);
 		MostraDadosLCD(&bufferDados_g);
 		
@@ -101,26 +104,33 @@ ISR(ADC_vect)
 		
 		/*Habilita Interrupção RX*/
 		set_bit(UCSR0B, 7);
+				
+	} else if((contador > 15 && !(bufferDados_g.iniciado == 'n')) || contador > 100) {
 		
-		/*Indica se há comunicação*/
-		bufferDados_g.estacomunicando = 's';
-		
-	} else if((contador > 15 && !bufferDados_g.iniciado == 'n') || contador > 100) {
-		/*Desabilita Interrupção RX*/
-		clr_bit(UCSR0B, 7);
-		
-		ADMUX &= ~(1 << ADIE);
-		TransmitiBuffer(&bufferDados_g);
-		/*Habilita Interrupção RX*/
-		set_bit(UCSR0B, 7);
+		bufferDados_g.iniciado = 'n';
+		bufferDados_g.completo = 'y';
+		bufferDados_g.qntdDadosLido = 0;
+		bufferDados_g.podeIniciarTransmissao = 'y';
 		
 		/*Indica se há comunicação*/
 		bufferDados_g.estacomunicando = 'n';
 		
-		MostraDadosLCD(&bufferDados_g);
-		contador = 0;
-		
-		ADMUX |= (1 << ADIE);
+		///*Desabilita Interrupção RX*/
+		//clr_bit(UCSR0B, 7);
+		//
+//
+		//ADMUX &= ~(1 << ADIE);
+		//TransmitiBuffer(&bufferDados_g);
+		///*Habilita Interrupção RX*/
+		//set_bit(UCSR0B, 7);
+		//
+		///*Indica se há comunicação*/
+		//bufferDados_g.estacomunicando = 'n';
+		//
+		//MostraDadosLCD(&bufferDados_g);
+		//contador = 0;
+		//
+		//ADMUX |= (1 << ADIE);
 	} 	
 	
 	contador++;
@@ -140,6 +150,10 @@ ISR(USART_RX_vect)
 	RecebeProtocolo(&bufferDados_g);
 	if(bufferDados_g.completo == 'y') 
 		bufferDados_g.podeIniciarTransmissao = 'y';
+		
+		/*Indica se há comunicação*/
+		bufferDados_g.estacomunicando = 's';
+	}
 }	
 
 //----------------------------------------------------------------------------

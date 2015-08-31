@@ -4,6 +4,8 @@
 
 #include "adc_def.h"
 #include "globals_def.h"
+#include "stdio.h"
+#include "LCD4b.h"
 
 //---------------------------------------------------------------------------
 
@@ -24,12 +26,16 @@ typedef struct{
 
 //---------------------------------------------------------------------------
 
-void CalculaAngulosServo(
+//Envia um valor entre 0-100%. 100% equivale a 180º
+void CalculaAngulosServo(//trace 
 	JoyStick* joyStick,
 	BufferDados* bufferDados
-){
-		bufferDados->anguloServoRight = (unsigned char) round(0.6 * (joyStick->dytyLD + 100)); //120*(valor+100) /200
-		bufferDados->anguloServoLeft = (unsigned char)round(0.6 * (joyStick->dytyLE + 100)); //120*(valor+100) /200
+){	
+	bufferDados->anguloServoRight = (unsigned char)((joyStick->dutyLD/2) + 50); //x = 100*(y+100) / 200
+
+	bufferDados->anguloServoLeft = (unsigned char)fabs(((joyStick->dutyLE/2) + 50)-100); //x = 100*(y+100) / 200
+		//bufferDados->anguloServoRight = (unsigned char) round(0.6 * (joyStick->dytyLD + 100)); //120*(valor+100) /200
+		//bufferDados->anguloServoLeft = (unsigned char)round(0.6 * (joyStick->dytyLE + 100)); //120*(valor+100) /200
 }
 
 //---------------------------------------------------------------------------
@@ -95,8 +101,8 @@ void TankDrive(
 	
 	//TRACEprintf("PWM: [%d, %d]", left, right);
 	
-	joyStick->dytyLE = left;
-	joyStick->dytyLD = right;
+	joyStick->dutyLE = left;
+	joyStick->dutyLD = right;		
 }
 
 //---------------------------------------------------------------------------
