@@ -186,14 +186,15 @@ void DirecaoCarro(
 
 //----------------------------------------------------------------------------
 
+//Recebe um valor entre 0-100%. 100% equivale a 180º
+/*O frequencia do servo é de 50Hz período de 20ms com valor minimo de 1ms(5%) e máximo de 2ms(10%). O registrador OCR0x é de 8bits (0-255) o valor máximo para*/
 void AnguloServo(
 	BufferRecep* bufferRecepcao
-){	
-	
-	/*O frequencia do servo é de 50Hz de 1ms a 2ms. a frequencia minima alcançada foi de 60Hz (16.66s). para 1ms é 6% de 16.66s e 2ms é igual a 12%. Desta forma, o timer zero com valor máximo de 255 deve
-	gerar um valor aproximado de 15 a 30 (6% e 12% de 255) */
-	uint16_t anguloServoLeft = (uint16_t)(((bufferRecepcao->anguloServoLeft) * 0.125) + 15); //(Valor = (dutyCicle * 15) / 120) + 15
-	uint16_t anguloServoRight = (uint16_t)(((bufferRecepcao->anguloServoRight) * 0.125) + 15); 
+){			
+	/*O período do duty do servo é de no mínimo 1ms e no máximo 2ms. A Fpwm = fclk_io / (prescaler*256) para o prescaler do timer de 1024 o período é de 16.384ms. 
+	O contador do timer0 deve contar de 15,56 (1ms) até 31,12 (2ms)*/
+	uint16_t anguloServoLeft = (uint16_t)(((bufferRecepcao->anguloServoLeft) * 0.15) + 15); //(Valor = (dutyCicle * 15) / 100) + 15
+	uint16_t anguloServoRight = (uint16_t)(((bufferRecepcao->anguloServoRight) * 0.15) + 15); 
 	
 	unsigned char left = (unsigned char) anguloServoLeft; 
 	unsigned char right = (unsigned char) anguloServoRight;

@@ -514,34 +514,33 @@ void SetaFonteAlimentacao(
 
 000002bc <AnguloServo>:
 
-//----------------------------------------------------------------------------
-
+//Recebe um valor entre 0-100%. 100% equivale a 180º
+/*O frequencia do servo é de 50Hz período de 20ms com valor minimo de 1ms(5%) e máximo de 2ms(10%). O registrador OCR0x é de 8bits (0-255) o valor máximo para*/
 void AnguloServo(
 	BufferRecep* bufferRecepcao
-){	
+){			
  2bc:	cf 93       	push	r28
  2be:	df 93       	push	r29
-	
-	/*O frequencia do servo é de 50Hz de 1ms a 2ms. a frequencia minima alcançada foi de 60Hz (16.66s). para 1ms é 6% de 16.66s e 2ms é igual a 12%. Desta forma, o timer zero com valor máximo de 255 deve
-	gerar um valor aproximado de 15 a 30 (6% e 12% de 255) */
-	uint16_t anguloServoLeft = (uint16_t)(((bufferRecepcao->anguloServoLeft) * 0.125) + 15); //(Valor = (dutyCicle * 15) / 120) + 15
+	/*O período do duty do servo é de no mínimo 1ms e no máximo 2ms. A Fpwm = fclk_io / (prescaler*256) para o prescaler do timer de 1024 o período é de 16.384ms. 
+	O contador do timer0 deve contar de 15,56 (1ms) até 31,12 (2ms)*/
+	uint16_t anguloServoLeft = (uint16_t)(((bufferRecepcao->anguloServoLeft) * 0.15) + 15); //(Valor = (dutyCicle * 15) / 100) + 15
  2c0:	fc 01       	movw	r30, r24
  2c2:	63 85       	ldd	r22, Z+11	; 0x0b
-	uint16_t anguloServoRight = (uint16_t)(((bufferRecepcao->anguloServoRight) * 0.125) + 15); 
+	uint16_t anguloServoRight = (uint16_t)(((bufferRecepcao->anguloServoRight) * 0.15) + 15); 
  2c4:	d4 85       	ldd	r29, Z+12	; 0x0c
+void AnguloServo(
 	BufferRecep* bufferRecepcao
-){	
-	
-	/*O frequencia do servo é de 50Hz de 1ms a 2ms. a frequencia minima alcançada foi de 60Hz (16.66s). para 1ms é 6% de 16.66s e 2ms é igual a 12%. Desta forma, o timer zero com valor máximo de 255 deve
-	gerar um valor aproximado de 15 a 30 (6% e 12% de 255) */
-	uint16_t anguloServoLeft = (uint16_t)(((bufferRecepcao->anguloServoLeft) * 0.125) + 15); //(Valor = (dutyCicle * 15) / 120) + 15
+){			
+	/*O período do duty do servo é de no mínimo 1ms e no máximo 2ms. A Fpwm = fclk_io / (prescaler*256) para o prescaler do timer de 1024 o período é de 16.384ms. 
+	O contador do timer0 deve contar de 15,56 (1ms) até 31,12 (2ms)*/
+	uint16_t anguloServoLeft = (uint16_t)(((bufferRecepcao->anguloServoLeft) * 0.15) + 15); //(Valor = (dutyCicle * 15) / 100) + 15
  2c6:	70 e0       	ldi	r23, 0x00	; 0
  2c8:	80 e0       	ldi	r24, 0x00	; 0
  2ca:	90 e0       	ldi	r25, 0x00	; 0
  2cc:	0e 94 0d 04 	call	0x81a	; 0x81a <__floatsisf>
- 2d0:	20 e0       	ldi	r18, 0x00	; 0
- 2d2:	30 e0       	ldi	r19, 0x00	; 0
- 2d4:	40 e0       	ldi	r20, 0x00	; 0
+ 2d0:	2a e9       	ldi	r18, 0x9A	; 154
+ 2d2:	39 e9       	ldi	r19, 0x99	; 153
+ 2d4:	49 e1       	ldi	r20, 0x19	; 25
  2d6:	5e e3       	ldi	r21, 0x3E	; 62
  2d8:	0e 94 99 04 	call	0x932	; 0x932 <__mulsf3>
  2dc:	20 e0       	ldi	r18, 0x00	; 0
@@ -551,15 +550,15 @@ void AnguloServo(
  2e4:	0e 94 7b 03 	call	0x6f6	; 0x6f6 <__addsf3>
  2e8:	0e 94 df 03 	call	0x7be	; 0x7be <__fixunssfsi>
  2ec:	c6 2f       	mov	r28, r22
-	uint16_t anguloServoRight = (uint16_t)(((bufferRecepcao->anguloServoRight) * 0.125) + 15); 
+	uint16_t anguloServoRight = (uint16_t)(((bufferRecepcao->anguloServoRight) * 0.15) + 15); 
  2ee:	6d 2f       	mov	r22, r29
  2f0:	70 e0       	ldi	r23, 0x00	; 0
  2f2:	80 e0       	ldi	r24, 0x00	; 0
  2f4:	90 e0       	ldi	r25, 0x00	; 0
  2f6:	0e 94 0d 04 	call	0x81a	; 0x81a <__floatsisf>
- 2fa:	20 e0       	ldi	r18, 0x00	; 0
- 2fc:	30 e0       	ldi	r19, 0x00	; 0
- 2fe:	40 e0       	ldi	r20, 0x00	; 0
+ 2fa:	2a e9       	ldi	r18, 0x9A	; 154
+ 2fc:	39 e9       	ldi	r19, 0x99	; 153
+ 2fe:	49 e1       	ldi	r20, 0x19	; 25
  300:	5e e3       	ldi	r21, 0x3E	; 62
  302:	0e 94 99 04 	call	0x932	; 0x932 <__mulsf3>
  306:	20 e0       	ldi	r18, 0x00	; 0

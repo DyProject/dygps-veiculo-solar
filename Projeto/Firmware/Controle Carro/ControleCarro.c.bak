@@ -32,11 +32,12 @@ void SolicitaReenvioDados();
 
 ISR(USART_RX_vect)							
 {
+	bufferRX_g.recebendo = 'y';
 	RecebeProtocolo(&bufferRX_g);
 	if(bufferRX_g.completo == 'y') {
 		DirecaoCarro(&bufferRX_g);
-		AnguloServoLeft(&bufferRX_g);
-		traceTransmitiBuffer(&bufferRX_g.fonteAlimentacao);
+		AnguloServo(&bufferRX_g);
+		TransmitiBuffer(&bufferRX_g.fonteAlimentacao);
 	}	
 }	
 
@@ -81,6 +82,7 @@ void SolicitaReenvioDados()
 		
 	bufferRX_g.iniciado = 'n';
 	bufferRX_g.completo = 'n';
+	bufferRX_g.recebendo = 'n';
 	bufferRX_g.qntdDadosLido = 0;
 	
 	//traceTransmitiBuffer(&bufferRX_g.fonteAlimentacao);
@@ -94,10 +96,19 @@ int main()
 	ValoresIniciaisBuffer();
 	ConfiguracoesDirecaoInit();
 	
+		//trace
+		DDRD |= (1 << DDD7); //PD4 como entrada
+		PORTD |= (1 << DDD7);//Habilita pull up interno
+		//trace
+		DDRD |= (1 << DDD6); //PD4 como entrada
+		PORTD |= (1 << DDD6);//Habilita pull up interno
+		DDRD |= (1 << DDD5); //PD4 como entrada
+		PORTD |= (1 << DDD5);//Habilita pull up interno
+	
 	/*Contador Timer 2*/
 	TIMSK2 = 0b00000001;
 	/*Prescaler do Timer2*/
-	TCCR0B = (1<<CS22) | (1<<CS21) | (1<<CS20);
+	TCCR2B = (1<<CS22) | (1<<CS21) | (1<<CS20);
 	
 	sei();	
 	while(1){}		
@@ -112,6 +123,7 @@ void ValoresIniciaisBuffer()
 	bufferRX_g.qntdDadosLido = 0;
 	bufferRX_g.iniciado = 'n';
 	bufferRX_g.completo = 'n';
+	bufferRX_g.recebendo = 'n';
 	bufferRX_g.fonteAlimentacao = 'B';
 	bufferRX_g.direcao = 'P';
 	bufferRX_g.estadoCarro = PARADO;
