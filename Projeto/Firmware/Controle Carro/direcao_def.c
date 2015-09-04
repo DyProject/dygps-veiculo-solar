@@ -45,7 +45,7 @@ uint16_t CalculaDutyCicleM2(
 //----------------------------------------------------------------------------
 
 void ConfiguracoesDirecaoInit(
-	BufferRecep* bufferRecepcao
+	Buffer* bufferRecepcao
 )
 {	
 	/*pinos OC1B e OC1A como saída*/
@@ -107,7 +107,7 @@ void SetaFonteAlimentacao(
 //----------------------------------------------------------------------------
 
 void ParadaLenta(
-	BufferRecep* bufferRecepcao
+	Buffer* bufferRecepcao
 ) 
 {
 	uint8_t incremento = 35;
@@ -144,7 +144,7 @@ void ParadaLenta(
 //----------------------------------------------------------------------------
 
 void DirecaoCarro(
-	BufferRecep* bufferRecepcao
+	Buffer* bufferRecepcao
 )
 {		
 	switch (bufferRecepcao->estadoCarro) {
@@ -189,7 +189,7 @@ void DirecaoCarro(
 //Recebe um valor entre 0-100%. 100% equivale a 180º
 /*O frequencia do servo é de 50Hz período de 20ms com valor minimo de 1ms(5%) e máximo de 2ms(10%). O registrador OCR0x é de 8bits (0-255) o valor máximo para*/
 void AnguloServo(
-	BufferRecep* bufferRecepcao
+	Buffer* bufferRecepcao
 ){			
 	/*O período do duty do servo é de no mínimo 1ms e no máximo 2ms. A Fpwm = fclk_io / (prescaler*256) para o prescaler do timer de 1024 o período é de 16.384ms. 
 	O contador do timer0 deve contar de 15,56 (1ms) até 31,12 (2ms)*/
@@ -207,7 +207,7 @@ void AnguloServo(
 //----------------------------------------------------------------------------
 
 void AndandoFrente(
-	BufferRecep* bufferRecepcao
+	Buffer* bufferRecepcao
 )
 {
 	_delay_us(10);
@@ -220,7 +220,7 @@ void AndandoFrente(
 //----------------------------------------------------------------------------
 
 void AndandoTras(
-	BufferRecep* bufferRecepcao
+	Buffer* bufferRecepcao
 )
 {
 	_delay_us(10);
@@ -243,85 +243,49 @@ void CarroParado()
 
 //----------------------------------------------------------------------------
 
-uint8_t RecebeProtocolo(
-	BufferRecep* bufferRecepcao
-)
-{	
-	uint8_t dadoRecebido = UDR0;	
-	bufferRecepcao->completo = 'n';
-	/*Inicia transmissão*/
-	if(dadoRecebido == 'S') {
-		bufferRecepcao->iniciado = 'y';		
-		bufferRecepcao->qntdDadosLido++;
-	}		
-	else if(bufferRecepcao->iniciado == 'y') {
-						
-		if(bufferRecepcao->qntdDadosLido == 1) {
-			bufferRecepcao->direcao = dadoRecebido;
-			bufferRecepcao->qntdDadosLido++;
-		}
-		else if(bufferRecepcao->qntdDadosLido == 2) {		
-			bufferRecepcao->dutyCicleM1 = dadoRecebido;
-			bufferRecepcao->qntdDadosLido++;
-		}			
-		else if(bufferRecepcao->qntdDadosLido == 3) {
-			bufferRecepcao->dutyCicleM2 = dadoRecebido;
-			bufferRecepcao->qntdDadosLido++;	
-		}	
-		else if(bufferRecepcao->qntdDadosLido == 4) {
-			bufferRecepcao->anguloServoLeft = dadoRecebido;
-			bufferRecepcao->qntdDadosLido++;
-		}		
-		else if(bufferRecepcao->qntdDadosLido == 5) {
-			bufferRecepcao->anguloServoRight = dadoRecebido;
-			bufferRecepcao->qntdDadosLido++;
-		}
-		else {
-			if(dadoRecebido == '1')
-				SetaFonteAlimentacao(&bufferRecepcao->fonteAlimentacao);		
-			
-			bufferRecepcao->iniciado = 'n';
-			bufferRecepcao->completo = 'y';
-			bufferRecepcao->qntdDadosLido = 0;
-		}
-	}		
-			
-	return bufferRecepcao->completo;
-}	
-
-//----------------------------------------------------------------------------
-
 void TransmitiBuffer(
-	volatile uint8_t* fonteAlimentacao
+	Buffer* buffer
 )
 {	
-	volatile uint8_t indicaInicioTransmissao = 'z';
-	volatile uint8_t tensaoBat ;
-	volatile uint8_t tensaoPainel;
-	//volatile uint16_t lidoADBat;
-	//volatile uint16_t lidoADPain;	
-	
-	//lidoADBat = ADC_Read(AD_BATERIA);
-	//lidoADPain = ADC_Read(AD_PAINEL);
-	//tensaoBat = (uint8_t)((lidoADBat * 30)/640);
-	//tensaoPainel = (uint8_t)((lidoADPain * 30)/640);
-						
-	tensaoBat = TensaoBateria();
-	tensaoPainel = TensaoPainel();
-						
-	/*Indica o recebimento do protocolo e o inicio do envio do novo protocolo*/			
-	Usart_Transmit(indicaInicioTransmissao);
-	
-	/*Indica qual fonte está selecionada 'B' bateria ou 'P' painel*/
-	Usart_Transmit(*fonteAlimentacao);
-	
-	/*Tensão na bateria*/	
-	Usart_Transmit('2');//trace
-	//Usart_Transmit(tensaoBat);
-	
-	/*Tensão no Painel*/
-	Usart_Transmit('!');//trace
-	//Usart_Transmit(tensaoPainel);
+	fflush(stdout);
+	stdout = &stdoutUART;
+		
+	printf("z");
+	//switch(buffer->estadoBufferTrans) {		
+		//case IDLE:
+			//buffer->estadoBufferTrans = DADO_1;
+			//printf("%c", INICIO_PACOTE_TRANS);
+		//break;
+		//
+		//case INICIADO:				
+		//case DADO_1:
+			//buffer->estadoBufferTrans = DADO_2;
+			////printf("%c", buffer->fonteAlimentacao);
+			//printf("%c", 'a');
+		////break;
+				//
+		//case DADO_2:
+			//buffer->estadoBufferTrans = DADO_3;
+			////printf("%c", TensaoBateria());
+			//printf("%c", 'b');
+		////break;
+			//
+		//case DADO_3:
+			//buffer->estadoBufferTrans = CONCLUIDO;
+			////printf("%c", TensaoPainel());
+			//printf("%c", 'c');
+		//break;
+			//
+		//case ERRO_COMUNICACAO:
+			//printf("%c", REPORTAR_ERRO);
+			//printf("%c", buffer->erroCodeRecep);
+		//break;
+	//
+		//case CONCLUIDO:
+		//default:
+			//buffer->estadoBufferTrans = IDLE;		
+			//
+	//}
 }
 
 //----------------------------------------------------------------------------

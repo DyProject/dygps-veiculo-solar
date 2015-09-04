@@ -33,6 +33,10 @@
 
 //----------------------------------------------------------------------------
 
+extern FILE stdoutUART;
+
+//----------------------------------------------------------------------------
+
 void SetaFonteAlimentacao(
 	volatile uint8_t* fonteAlimentacao
 );
@@ -51,31 +55,35 @@ uint16_t CalculaDutyCicleM2(
 );
 
 void ParadaLenta(
-	BufferRecep* bufferRecepcao
+	Buffer* bufferRecepcao
 );
 
 void DirecaoCarro(
-	BufferRecep* bufferRecepcao
+	Buffer* bufferRecepcao
 );
 
 void AnguloServo(
-	BufferRecep* bufferRecepcao
+	Buffer* bufferRecepcao
 );
 
 void CarroParado();
 void AndandoFrente(
-	BufferRecep* bufferRecepcao
+	Buffer* bufferRecepcao
 );
 void AndandoTras(
-	BufferRecep* bufferRecepcao
+	Buffer* bufferRecepcao
 );
 
 uint8_t RecebeProtocolo(
-	BufferRecep* bufferRecepcao
+	Buffer* bufferRecepcao
 );
 
 void TransmitiBuffer(
-	volatile uint8_t* fonteAlimentacao
+	Buffer* bufferRecepcao
+);
+
+void EnviaConfirmacaoParaEstabelecerConexao(
+	Buffer* buffer
 );
 
 uint8_t TensaoBateria();

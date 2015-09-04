@@ -253,34 +253,28 @@ uint8_t RecebeProtocolo(
 	if(dadoRecebido == 'S') {
 		bufferRecepcao->iniciado = 'y';		
 		bufferRecepcao->qntdDadosLido++;
-		bufferRecepcao->recebendo = 'n';
 	}		
 	else if(bufferRecepcao->iniciado == 'y') {
 						
 		if(bufferRecepcao->qntdDadosLido == 1) {
 			bufferRecepcao->direcao = dadoRecebido;
 			bufferRecepcao->qntdDadosLido++;
-			bufferRecepcao->recebendo = 'n';
 		}
 		else if(bufferRecepcao->qntdDadosLido == 2) {		
 			bufferRecepcao->dutyCicleM1 = dadoRecebido;
 			bufferRecepcao->qntdDadosLido++;
-			bufferRecepcao->recebendo = 'n';
 		}			
 		else if(bufferRecepcao->qntdDadosLido == 3) {
 			bufferRecepcao->dutyCicleM2 = dadoRecebido;
-			bufferRecepcao->qntdDadosLido++;
-			bufferRecepcao->recebendo = 'n';	
+			bufferRecepcao->qntdDadosLido++;	
 		}	
 		else if(bufferRecepcao->qntdDadosLido == 4) {
 			bufferRecepcao->anguloServoLeft = dadoRecebido;
 			bufferRecepcao->qntdDadosLido++;
-			bufferRecepcao->recebendo = 'n';
 		}		
 		else if(bufferRecepcao->qntdDadosLido == 5) {
 			bufferRecepcao->anguloServoRight = dadoRecebido;
 			bufferRecepcao->qntdDadosLido++;
-			bufferRecepcao->recebendo = 'n';
 		}
 		else {
 			if(dadoRecebido == '1')
@@ -289,7 +283,18 @@ uint8_t RecebeProtocolo(
 			bufferRecepcao->iniciado = 'n';
 			bufferRecepcao->completo = 'y';
 			bufferRecepcao->qntdDadosLido = 0;
-			bufferRecepcao->recebendo = 'n';
+			
+			/*Desabilita Interrupção RX*/
+			clr_bit(UCSR0B, 7);
+
+
+			DirecaoCarro(&bufferRX_g);
+			AnguloServo(&bufferRX_g);
+			TransmitiBuffer(&bufferRX_g.fonteAlimentacao);				
+
+			/*Habilita Interrupção RX*/
+			set_bit(UCSR0B, 7);
+
 		}
 	}		
 			

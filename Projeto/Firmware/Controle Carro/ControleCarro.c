@@ -19,26 +19,61 @@
 
 #include <util/delay.h>
 
+unsigned char bufferRecepcao_g[QUANT_DADOS_PACOTE_TRANS];
 //----------------------------------------------------------------------------
 
-BufferRecep bufferRX_g;
+Buffer bufferRX_g;
+	
 
 //----------------------------------------------------------------------------
+
+extern FILE stdoutUART;
 
 void ValoresIniciaisBuffer();
 void SolicitaReenvioDados();
+void DescarregaDadosRecebidos();
 
 //----------------------------------------------------------------------------
 
-ISR(USART_RX_vect)							
-{
-	RecebeProtocolo(&bufferRX_g);
-	if(bufferRX_g.completo == 'y') {
-		DirecaoCarro(&bufferRX_g);
-		AnguloServo(&bufferRX_g);
+//char buff[10];
 
-		TransmitiBuffer(&bufferRX_g.fonteAlimentacao);
-	}	
+ISR(USART_RX_vect)							
+{				
+	stdout = &stdoutUART;
+	
+	char dadoRecebido = UDR0;	
+	static uint8_t contDados = 0;
+			
+	switch(bufferRX_g.estadoBufferRecep) {
+		case IDLE:
+			if (dadoRecebido == START_TRANSMISSION) 
+				bufferRX_g.estadoBufferRecep = INICIADO;
+			bufferRX_g.dadosRecebidosComSucesso = 'n';
+		break;
+			
+		case INICIADO:
+			bufferRX_g.qntDadosAReceber = QUANT_DADOS_PACOTE_TRANS;//dadoRecebido;
+			bufferRX_g.estadoBufferRecep = RECEBENDO_DADOS;
+		break;
+		
+		case RECEBENDO_DADOS:		
+			bufferRecepcao_g[contDados] = dadoRecebido;
+			contDados++;
+			if(contDados >= bufferRX_g.qntDadosAReceber) {
+				bufferRX_g.estadoBufferRecep = IDLE;
+				contDados = 0;
+				bufferRX_g.dadosRecebidosComSucesso = 'y';//provisorio ate implementar o checksum
+			}
+				//bufferRX_g.estadoBufferRecep = CHECKSUM;
+		break;
+		
+		case CHECKSUM:
+		case CONCLUIDO:			
+		default:
+			bufferRX_g.estadoBufferRecep = IDLE;
+			bufferRX_g.dadosRecebidosComSucesso = 'y';
+	}
+
 }	
 
 //----------------------------------------------------------------------------
@@ -47,61 +82,55 @@ ISR(TIMER2_OVF_vect)
 {
 	static uint8_t tempoRecep = 0;
 	
-	if(bufferRX_g.iniciado == 'y')
+	if (tempoRecep > 30) {		
+		if(bufferRX_g.erroCodeRecep != SEM_ERRO_RECEP) {
+			bufferRX_g.estadoBufferTrans = ERRO_COMUNICACAO;
+			TransmitiBuffer(&bufferRX_g);
+		}
+			
+		else if (bufferRX_g.dadosRecebidosComSucesso == 'y') {			
+			DirecaoCarro(&bufferRX_g);
+			AnguloServo(&bufferRX_g);
+			TransmitiBuffer(&bufferRX_g);
+			bufferRX_g.dadosRecebidosComSucesso = 'n';
+		}
+					
 		tempoRecep = 0;
-	else if(tempoRecep > 100) {
-		/*Desabilita Interrupção RX*/ //trace
-		clr_bit(UCSR0B, 7);
-		ParadaLenta(&bufferRX_g);
-		/*Habilita Interrupção RX*///trace
-		tempoRecep = 0;
-		set_bit(UCSR0B, 7);
 	}
+	
 	tempoRecep++;
-		
-	//trace}else if(tempoRecep > 100){
-	//trace	SolicitaReenvioDados();
-		//tracetempoRecep = 0;
-	//trace}
-	
-	//traceSolicitaReenvioDados();
-	
-}
-
-//----------------------------------------------------------------------------
-
-void SolicitaReenvioDados()
-{
-	/*Para a função recebe protocolo*/
-	//tracebufferRX_g.iniciado = 'n';
-	//tracebufferRX_g.qntdDadosLido = 0;
-	
-	/*Para o carro*/
-	bufferRX_g.estadoCarro = PARADO;
-	CarroParado();
-		
-	bufferRX_g.iniciado = 'n';
-	bufferRX_g.completo = 'n';
-	bufferRX_g.qntdDadosLido = 0;
-	
-	//traceTransmitiBuffer(&bufferRX_g.fonteAlimentacao);
 }
 
 //----------------------------------------------------------------------------
 int main()
 {
 	Usart_Init(MYUBRR);
-	ADC_Init();
+	//ADC_Init();
 	ValoresIniciaisBuffer();
 	ConfiguracoesDirecaoInit();
 	
 	/*Contador Timer 2*/
-	TIMSK2 = 0b00000001;
+	//TIMSK2 = 0b00000001;
 	/*Prescaler do Timer2*/
-	TCCR2B = (1<<CS22) | (1<<CS21) | (1<<CS20);
+	//TCCR2B = (1<<CS22) | (1<<CS21) | (1<<CS20);
 	
 	sei();	
-	while(1){}		
+	while(1){
+		if(bufferRX_g.dadosRecebidosComSucesso == 'y') {
+			
+			DescarregaDadosRecebidos();
+			
+			DirecaoCarro(&bufferRX_g);
+			AnguloServo(&bufferRX_g);
+			TransmitiBuffer(&bufferRX_g);
+	
+			printf("z");
+			bufferRX_g.dadosRecebidosComSucesso = 'n';
+		}
+		
+		
+		
+	}		
 } 
 
 //----------------------------------------------------------------------------
@@ -115,7 +144,24 @@ void ValoresIniciaisBuffer()
 	bufferRX_g.completo = 'n';
 	bufferRX_g.fonteAlimentacao = 'B';
 	bufferRX_g.direcao = 'P';
+	bufferRX_g.dadosRecebidosComSucesso = 'n';
 	bufferRX_g.estadoCarro = PARADO;
+	bufferRX_g.estadoBufferRecep = IDLE;
+	bufferRX_g.estadoBufferTrans = IDLE;
+	bufferRX_g.erroCodeRecep = SEM_ERRO_RECEP;
 }	
 
 //----------------------------------------------------------------------------
+
+void DescarregaDadosRecebidos()
+{
+	bufferRX_g.direcao = bufferRecepcao_g[DIRECAO];
+	bufferRX_g.dutyCicleM1 = bufferRecepcao_g[DUTY_MOTOR_E];
+	bufferRX_g.dutyCicleM2 = bufferRecepcao_g[DUTY_MOTOR_D];
+	bufferRX_g.anguloServoLeft = bufferRecepcao_g[ANGULO_SERVO_E];
+	bufferRX_g.anguloServoRight = bufferRecepcao_g[ANGULO_SERVO_D];
+	bufferRX_g.fonteAlimentacao = bufferRecepcao_g[FONTE_ALIMENTACAO];
+}
+
+//----------------------------------------------------------------------------
+

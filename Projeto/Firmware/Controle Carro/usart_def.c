@@ -10,6 +10,10 @@
 #include <avr/io.h> 	   
 #include <avr/pgmspace.h>   
 
+
+FILE stdoutUART = FDEV_SETUP_STREAM(Usart_Transmit_Printf, NULL, _FDEV_SETUP_WRITE);
+
+
 //---------------------------------------------------------------------------
 
 void Usart_Init(unsigned int ubrr)
@@ -74,6 +78,28 @@ void Usart_Transmit(unsigned char dado)
 	
 	/*put data into buffer, sends the data*/
 	UDR0 = dado; 				
+}
+
+//---------------------------------------------------------------------------
+
+void Usart_Transmit_Printf(char dado, FILE *stream)
+{
+	/*wait for empty transmit buffer*/
+	while (!( UCSR0A & (1<<UDRE0)) );
+	
+	/*put data into buffer, sends the data*/
+	UDR0 = dado;
+}
+
+//---------------------------------------------------------------------------
+
+unsigned char Usart_Receive_Scanf(FILE *stream)
+{
+	/*wait for data to be receive*/
+	while (!(UCSR0A & (1<<RXC0)));	
+	
+	/*read data into buffer, receive the data*/
+	return UDR0; 				
 }
 
 //---------------------------------------------------------------------------
