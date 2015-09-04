@@ -37,5 +37,6 @@ void escreve_LCD(char *c);
 void EscreveCaracterLCD(char caracter);
 void LCD_setPos(int posx, int posy);
 void Limpa_matriz_LCD(int posx,int posy,int limpa);
+void Limpa_LCD_RetornaCarro();
 
 #endif

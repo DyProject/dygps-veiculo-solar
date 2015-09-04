@@ -30,6 +30,9 @@
 
 BufferDados bufferDados_g; /*!<Armazena as principais informações que serão transmitidas ou que serão utilizadas para calcular os valores a transmitir.*/
 
+unsigned char bufferTransmissao_g[QUANT_DADOS_PACOTE_TRANS];
+unsigned char bufferRecepcao_g[QUANT_DADOS_PACOTE_TRANS];
+
 //----------------------------------------------------------------------------
 
 /*!
@@ -72,72 +75,28 @@ ISR(INT0_vect)
 ISR(ADC_vect)			
 {
 	static uint8_t contador = 0;
-	if(contador > 10 && (bufferDados_g.podeIniciarTransmissao == 'y')) {
-		
-		/*Desabilita Interrupção RX*/
-		clr_bit(UCSR0B, 7);
-		
-		/*Desabilita AD*/
-		ADMUX &= ~(1 << ADIE);
-			
-		/*Indica se há comunicação*/
-		bufferDados_g.estacomunicando = 's';
-		
-		TransmitiBuffer(&bufferDados_g);
-		MostraDadosLCD(&bufferDados_g);
-		
-		/*Bounce - Para eleminar o ruído*/
-		static int contBounce = 0;
-		if(contBounce > 4) {		
-			/*Habilita a interrupção do botão*/
-			EIFR = (1 << INTF0);
-			EIMSK = (1<<INT0);
-			contBounce = 0;
-		}			
-		contBounce++;
-		
-		bufferDados_g.podeIniciarTransmissao = 'n';
-		contador = 0;
-		
-		/*Habilita AD*/
-		ADMUX |= (1 << ADIE);
-		
-		/*Habilita Interrupção RX*/
-		set_bit(UCSR0B, 7);
-				
-	} else if((contador > 15 && !(bufferDados_g.iniciado == 'n')) || contador > 100) {
-		
-		bufferDados_g.iniciado = 'n';
-		bufferDados_g.completo = 'y';
-		bufferDados_g.qntdDadosLido = 0;
-		bufferDados_g.podeIniciarTransmissao = 'y';
-		
-		/*Indica se há comunicação*/
-		bufferDados_g.estacomunicando = 'n';
-		
-		///*Desabilita Interrupção RX*/
-		//clr_bit(UCSR0B, 7);
-		//
-//
-		//ADMUX &= ~(1 << ADIE);
-		//TransmitiBuffer(&bufferDados_g);
-		///*Habilita Interrupção RX*/
-		//set_bit(UCSR0B, 7);
-		//
-		///*Indica se há comunicação*/
-		//bufferDados_g.estacomunicando = 'n';
-		//
-		//MostraDadosLCD(&bufferDados_g);
-		//contador = 0;
-		//
-		//ADMUX |= (1 << ADIE);
-	} 	
 	
+	if(bufferDados_g.dadosRecebidosComSucesso == 'y') {
+		bufferDados_g.msgLCD4 = MSG_1;	
+		CarregaBufferTransmissao(&bufferDados_g, bufferTransmissao_g);
+		MostraDadosLCD(&bufferDados_g, bufferTransmissao_g);
+		TransmitiBuffer(bufferTransmissao_g);
+		bufferDados_g.dadosRecebidosComSucesso = 'n';
+		contador = 0;
+	}
+	else if(contador > 100) { //Timeout
+		bufferDados_g.msgLCD4 = MSG_INICIAL;	
+		CarregaBufferTransmissao(&bufferDados_g, bufferTransmissao_g);
+		TransmitiBuffer(bufferTransmissao_g);
+		bufferDados_g.estacomunicando = 'n';
+		MostraDadosLCD(&bufferDados_g, bufferTransmissao_g);
+		contador = 0;
+	}
+		
 	contador++;
 	/*!TIFR0 |= TOV0 - Limpa o flag de overflow do Timer0. Esse flag indica que houve um estouro do timer.
 	limpar para habilitar um novo estouro para gerar a interrupção do ADC.*/
-	TIFR0 |= TOV0;
-	
+	TIFR0 |= TOV0;	
 }	
 
 //----------------------------------------------------------------------------
@@ -147,13 +106,59 @@ ISR(ADC_vect)
 */
 ISR(USART_RX_vect)							
 {	
-	RecebeProtocolo(&bufferDados_g);
-	if(bufferDados_g.completo == 'y') 
-		bufferDados_g.podeIniciarTransmissao = 'y';
-		
-		/*Indica se há comunicação*/
-		bufferDados_g.estacomunicando = 's';
-	}
+	/*PROVISORIO*/
+	uint8_t dadoRecebido = UDR0;
+	bufferDados_g.estacomunicando = 'y';
+	bufferDados_g.dadosRecebidosComSucesso = 'y';
+	
+	/*IMPLEMENTANDO*/
+	//static uint8_t contDados = 0;
+	//uint8_t dadoRecebido = UDR0;
+	//
+	//if(dadoRecebido == ACK_RECEPTOR)
+		//bufferDados_g.estadoBufferRecep = IDLE;
+	//
+	//switch(bufferDados_g.estadoBufferRecep) {
+		//case IDLE:
+		//if(dadoRecebido == ACK_RECEPTOR) {
+			//bufferDados_g.estadoBufferRecep = INICIADO;
+			//bufferDados_g.estacomunicando = 'y';
+			//bufferDados_g.dadosRecebidosComSucesso = 'n';
+		//}
+		//else if (dadoRecebido == ERRO_REPORTADO) {
+			//bufferDados_g.estadoBufferRecep = COD_ERRO;
+			//bufferDados_g.estacomunicando = 'y';
+			//bufferDados_g.dadosRecebidosComSucesso = 'n';
+		//}
+		//break;
+		//
+		//case INICIADO:
+			//bufferDados_g.qntDadosAReceber = dadoRecebido;
+			//if(bufferDados_g.qntDadosAReceber == 0)
+				//bufferDados_g.estadoBufferRecep = IDLE;
+			//bufferDados_g.estadoBufferRecep = RECEBENDO_DADOS;
+		//break;
+		//
+		//case RECEBENDO_DADOS:
+			//bufferRecepcao_g[contDados] = dadoRecebido;
+			//contDados++;
+		//if(contDados >= bufferDados_g.qntDadosAReceber) {
+			//bufferDados_g.estadoBufferRecep = IDLE;
+			//contDados = 0;
+			//bufferDados_g.dadosRecebidosComSucesso = 'y';//provisorio ate implementar o checksum
+		//}
+		//break;
+		//
+		//case COD_ERRO:
+			//bufferDados_g.erroCode = dadoRecebido;
+			//bufferDados_g.estadoBufferRecep = IDLE;
+		//break;
+		//
+		//case CHECKSUM:
+		//case CONCLUIDO:
+		//default:
+			//bufferDados_g.estadoBufferRecep = IDLE;
+	//}
 }	
 
 //----------------------------------------------------------------------------
@@ -186,25 +191,30 @@ int main()
 	
 	EICRA = (1<<ISC00) ;  
 	
-	inic_LCD_4bits();					
-	ADC_Init();
+	inic_LCD_4bits();		
+	
+	CarregaBufferTransmissao(&bufferDados_g, bufferTransmissao_g);		
+	MostraDadosLCD(&bufferDados_g, bufferTransmissao_g);	
+	TransmitiBuffer(bufferTransmissao_g);
+		
+	ADC_Init();	
 	
 	sei();
 		
-	while(1){}
+	while(1){				
+	}
 }
+
 
 //----------------------------------------------------------------------------
 
 void ValoresIniciaisBuffer()
 {
-	bufferDados_g.qntdDadosLido = 0; 
-	bufferDados_g.iniciado = 'n';
-	bufferDados_g.completo = 'y';
-	bufferDados_g.podeIniciarTransmissao = 'y';
 	bufferDados_g.fonteAlimentacao = 'B';
 	bufferDados_g.botaoSelFontePress = 'n';
 	bufferDados_g.estacomunicando = 'n';
+	bufferDados_g.dadosRecebidosComSucesso = 0;
+	bufferDados_g.msgLCD4 = MSG_INICIAL;
 }	
 
 //----------------------------------------------------------------------------

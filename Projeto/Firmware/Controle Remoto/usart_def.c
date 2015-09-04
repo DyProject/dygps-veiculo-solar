@@ -10,6 +10,8 @@
 #include <avr/io.h> 	   
 #include <avr/pgmspace.h>   
 
+FILE stdoutUART = FDEV_SETUP_STREAM(Usart_Transmit_Printf, NULL, _FDEV_SETUP_WRITE);
+
 //---------------------------------------------------------------------------
 
 void Usart_Init(unsigned int ubrr)

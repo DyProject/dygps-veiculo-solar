@@ -16,15 +16,24 @@
 //----------------------------------------------------------------------------
 
 void TransmitiBuffer(
-	BufferDados* bufferDados
+	unsigned char* buff
 );
  
 void MostraDadosLCD(
-	BufferDados* bufferDados
+	BufferDados* bufferDados,
+	unsigned char* bufferDadosTrans
 );
 
-uint8_t RecebeProtocolo(
-	BufferDados* bufferRecepcao
+void LCD4_MSG1(
+	BufferDados* bufferDados,
+	unsigned char* bufferDadosTrans
+);
+
+void LCD4_MSG_INICIAL();
+
+void CarregaBufferTransmissao(
+	BufferDados* bufferDados,
+	unsigned char* buff
 );
 
  //----------------------------------------------------------------------------

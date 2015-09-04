@@ -32,9 +32,12 @@ typedef struct{
 
 //---------------------------------------------------------------------------
 
-void CalculaAngulosServo(
-	JoyStick* joyStick,
-	BufferDados* bufferDados
+unsigned char CalculaAnguloServoLeft(
+	int16_t dutyLE
+);
+
+unsigned char CalculaAnguloServoRight(
+	int16_t dutyLD
 );
 	
 void TankDrive(
