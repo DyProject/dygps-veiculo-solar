@@ -157,30 +157,32 @@ void DirecaoCarro(
 				bufferRecepcao->estadoCarro = ANDANDO_TRAS;
 				AndandoTras(bufferRecepcao);		
 			}			
-			else bufferRecepcao->direcao = 'P';
-			break;
+		break;
 		
 		case ANDANDO_FRENTE:	
-			if(bufferRecepcao->direcao == 'P') {
-				bufferRecepcao->estadoCarro = PARADO;
-				CarroParado();
-			}				
-			else if(bufferRecepcao->direcao == 'F'){
+							
+			if (bufferRecepcao->direcao == 'F'){
 				OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
 				OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
-			}			
-			break;
+			}	
+			else {
+				bufferRecepcao->estadoCarro = PARADO;
+				CarroParado();
+			}
+					
+		break;
 			
 		case ANDANDO_TRAS:
-			if(bufferRecepcao->direcao == 'P') {
-				bufferRecepcao->estadoCarro = PARADO;
-				CarroParado();
-			}				
-			else if(bufferRecepcao->direcao == 'T'){
+						
+			if(bufferRecepcao->direcao == 'T'){
 				OCR1A = CalculaDutyCicleM1(bufferRecepcao->dutyCicleM1, bufferRecepcao->estadoCarro);
 				OCR1B = CalculaDutyCicleM2(bufferRecepcao->dutyCicleM2, bufferRecepcao->estadoCarro);
-			}			
-			break;			
+			}	
+			else{
+				bufferRecepcao->estadoCarro = PARADO;
+				CarroParado();
+			}		
+		break;			
 	}		
 }		
 

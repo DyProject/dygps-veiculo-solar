@@ -89,9 +89,13 @@ ISR(TIMER2_OVF_vect)
 		}
 			
 		else if (bufferRX_g.dadosRecebidosComSucesso == 'y') {			
+			DescarregaDadosRecebidos();
+			
 			DirecaoCarro(&bufferRX_g);
 			AnguloServo(&bufferRX_g);
 			TransmitiBuffer(&bufferRX_g);
+			
+			printf("z");
 			bufferRX_g.dadosRecebidosComSucesso = 'n';
 		}
 					
@@ -110,9 +114,9 @@ int main()
 	ConfiguracoesDirecaoInit();
 	
 	/*Contador Timer 2*/
-	//TIMSK2 = 0b00000001;
+	TIMSK2 = 0b00000001;
 	/*Prescaler do Timer2*/
-	//TCCR2B = (1<<CS22) | (1<<CS21) | (1<<CS20);
+	TCCR2B = (1<<CS22) | (1<<CS21) | (1<<CS20);
 	
 	sei();	
 	while(1){

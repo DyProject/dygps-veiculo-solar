@@ -35,9 +35,13 @@ void CarregaBufferTransmissao(
 
 	TankDrive(&joystick);
 		
-	*(buff + DIRECAO) = DirecaoCarro(CalculaSentido());
-	*(buff + DUTY_MOTOR_E)= CalculaDutyCycleLadoEsq();
-	*(buff + DUTY_MOTOR_D) = CalculaDutyCycleLadoDir();
+	uint16_t valorLidoADEixoX = ValorLidoADEixoX(AD_EIXO_X_DIR);
+	uint16_t valorLidoADEixoY = ValorLidoADEixoY(AD_EIXO_Y_DIR);
+	unsigned char sentido = CalculaSentido(valorLidoADEixoX, valorLidoADEixoY);
+	
+	*(buff + DIRECAO) = DirecaoCarro(sentido);
+	*(buff + DUTY_MOTOR_E)= CalculaDutyCycleLadoEsq(valorLidoADEixoX, valorLidoADEixoY,sentido);
+	*(buff + DUTY_MOTOR_D) = CalculaDutyCycleLadoDir(valorLidoADEixoX, valorLidoADEixoY,sentido);
 	*(buff + ANGULO_SERVO_E) = CalculaAnguloServoLeft(joystick.dutyLE);
 	*(buff + ANGULO_SERVO_D) = CalculaAnguloServoRight(joystick.dutyLD);;
 	*(buff + FONTE_ALIMENTACAO) = bufferDados->fonteAlimentacao; 
@@ -54,15 +58,12 @@ void TransmitiBuffer(
 		
 	//Indica inicio da transmissao
 	printf("%c", START_TRANSMISSION);
-	_delay_us(30);
 	printf("%c", QUANT_DADOS_PACOTE_TRANS);
-	_delay_us(30);	
 	
 	//Envia dados
 	uint8_t cont;
 	for (cont = 0; cont < QUANT_DADOS_PACOTE_TRANS; cont++) {
 		printf("%c", *(buff + cont));
-		_delay_us(30);
 	}
 	
 		
@@ -126,7 +127,7 @@ void LCD4_MSG1(
 		printf("OK");
 	
 	LCD_setPos(2,14);
-	printf("%c", bufferTransmissao[FONTE_ALIMENTACAO]);
+	printf("%c", bufferTransmissao[DIRECAO]);
 	
 }
 

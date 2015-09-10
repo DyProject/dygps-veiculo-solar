@@ -153,10 +153,11 @@ uint8_t PontoYNaPosInic(
 
 //---------------------------------------------------------------------------
 
-unsigned char DirecaoCarro()
+unsigned char DirecaoCarro(
+	unsigned char sentido
+)
 {
 	static TEstadoCarro estadoCarro_g = PARADO;
-	unsigned char sentido = CalculaSentido();
 		
 	unsigned char direcao = 'P';
 	switch(estadoCarro_g) {
@@ -194,12 +195,13 @@ unsigned char DirecaoCarro()
 
 //---------------------------------------------------------------------------
 
-unsigned char CalculaSentido()
+unsigned char CalculaSentido(
+	uint16_t valorLidoADEixoX,
+	uint16_t valorLidoADEixoY
+)
 {
-	unsigned char direcao = 'P';
-	uint16_t valorLidoADEixoX = ValorLidoADEixoX(AD_EIXO_X_DIR); 
-	uint16_t valorLidoADEixoY = ValorLidoADEixoY(AD_EIXO_Y_DIR);
-	
+	volatile unsigned char direcao = 'P';
+		
 	/*Andando Frente*/		
 	if((valorLidoADEixoY > limSupPontoInicY_g) && PontoXNaPosInic(AD_EIXO_X_DIR))
 		direcao = 'F';
@@ -234,20 +236,21 @@ unsigned char CalculaSentido()
 
 //---------------------------------------------------------------------------
 
-uint8_t CalculaDutyCycleLadoDir()
+uint8_t CalculaDutyCycleLadoDir(
+		uint16_t valorLidoADEixoX,
+		uint16_t valorLidoADEixoY,
+		unsigned char sentido
+)
 {
-	uint16_t valorLidoADEixoX = ValorLidoADEixoX(AD_EIXO_X_DIR); 
-	uint16_t valorLidoADEixoY = ValorLidoADEixoY(AD_EIXO_Y_DIR);
-	//uint8_t valorPorCentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
-		
 	uint8_t duty = 0;
-	unsigned char sentido = CalculaSentido();
 	switch(sentido) {
 		case 'F'://Andando Frente
 		case 'T'://Andando Tras
 		
-			if(dutyAnteriorLadoDir_g < 75)
-				duty = SoftStarterLadoDir(CalculaPorcentoPosicaoEixoY(valorLidoADEixoY));
+			if(dutyAnteriorLadoDir_g < 75) {
+				uint8_t porcentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
+				duty = SoftStarterLadoDir(porcentoEixoY);	
+			}
 			else duty = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
 		
 			break;
@@ -299,7 +302,7 @@ uint8_t SoftStarterLadoEsq(
 //---------------------------------------------------------------------------
 
 uint8_t SoftStarterLadoDir(
-uint8_t dutyAtual
+	uint8_t dutyAtual
 )
 {
 	uint8_t incremento = 5;
@@ -317,22 +320,23 @@ uint8_t dutyAtual
 
 //---------------------------------------------------------------------------
 
-uint8_t CalculaDutyCycleLadoEsq()
+uint8_t CalculaDutyCycleLadoEsq(
+		uint16_t valorLidoADEixoX,
+		uint16_t valorLidoADEixoY,
+		unsigned char sentido
+)
 {
-	uint16_t valorLidoADEixoX = ValorLidoADEixoX(AD_EIXO_X_DIR); 
-	uint16_t valorLidoADEixoY = ValorLidoADEixoY(AD_EIXO_Y_DIR);
-	//uint8_t valorPorCentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
-	
 	uint8_t duty = 0;
-	unsigned char sentido = CalculaSentido();
 	
 	switch(sentido) {
 		case 'F'://Andando Frente
 		case 'T'://Andando Tras
 			//trace
 			
-			if(dutyAnteriorLadoEsq_g < 75)
-				duty = SoftStarterLadoEsq(CalculaPorcentoPosicaoEixoY(valorLidoADEixoY));
+			if(dutyAnteriorLadoEsq_g < 75) {
+				uint8_t porcentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
+				duty = SoftStarterLadoEsq(porcentoEixoY);	
+			}
 			else duty = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
 					
 			//EndTrace
@@ -367,7 +371,7 @@ uint8_t CalculaPorcentoPosicaoEixoY(
 ) 
 {
 	/*Valores Empíricos*/
-	uint16_t //posYFrente100PorCento = 1023,
+	volatile uint16_t //posYFrente100PorCento = 1023,
 			 posYFrente75PorCento = 900,
 			 posYFrente50PorCento = 775,
 			 posYFrente25PorCento = 650,

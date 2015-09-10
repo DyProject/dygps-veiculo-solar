@@ -51,7 +51,10 @@ uint8_t PontoYNaPosInic(
 	unsigned char adSelected
 );
 
-unsigned char CalculaSentido();
+unsigned char CalculaSentido(
+	uint16_t valorLidoADEixoX,
+	uint16_t valorLidoADEixoY
+);
 
 uint8_t SoftStarterLadoEsq(
 	uint8_t
@@ -60,8 +63,16 @@ uint8_t SoftStarterLadoDir(
 	uint8_t
 );
 
-uint8_t CalculaDutyCycleLadoEsq();
-uint8_t CalculaDutyCycleLadoDir();
+uint8_t CalculaDutyCycleLadoEsq(
+	uint16_t valorLidoADEixoX,
+	uint16_t valorLidoADEixoY,
+	unsigned char sentido
+);
+uint8_t CalculaDutyCycleLadoDir(
+	uint16_t valorLidoADEixoX,
+	uint16_t valorLidoADEixoY,
+	unsigned char sentido
+);
 
 uint8_t CalculaPorcentoPosicaoEixoY(
 	uint16_t valorLidoADEixoY
@@ -71,7 +82,9 @@ uint8_t CalculaPorcentoPosicaoEixoX(
 	uint16_t valorLidoADEixoY
 );
 
-unsigned char DirecaoCarro();
+unsigned char DirecaoCarro(
+	unsigned char sentido
+);
 
 //---------------------------------------------------------------------------
 
