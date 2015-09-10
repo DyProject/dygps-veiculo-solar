@@ -48,17 +48,17 @@ void ValoresIniciaisBuffer();
 /*!\fn ISR(INT0_vect)
 	\brief	Interrupção do botão que seleciona qual fonte de alimentação deve ser usada. 
 */
-ISR(INT0_vect)
-{
-	bufferDados_g.botaoSelFontePress = 'y';
-	
-	/*! - EIMSK &= ~(1 << INT0) - Desabilita a interrupção até enviar os dados e estes serem apresentados no lcd*/
-	EIMSK &= ~(1 << INT0);
-	
-	/*! - EIFR = (1 << INTF0) - Limpa flag de solicitação de nova interrupção. evita o bounce*/ 
-	EIFR = (1 << INTF0);
-}	 
-		
+//ISR(INT0_vect)
+//{
+	//bufferDados_g.botaoSelFontePress = 'y';
+	//
+	///*! - EIMSK &= ~(1 << INT0) - Desabilita a interrupção até enviar os dados e estes serem apresentados no lcd*/
+	//EIMSK &= ~(1 << INT0);
+	//
+	///*! - EIFR = (1 << INTF0) - Limpa flag de solicitação de nova interrupção. evita o bounce*/ 
+	//EIFR = (1 << INTF0);
+//}	 
+		//
 //----------------------------------------------------------------------------
 
 /*!\fn ISR(ADC_vect)	
@@ -78,7 +78,7 @@ ISR(ADC_vect)
 	static uint8_t prescaler = 0;
 	
 	
-	if(prescaler > 100) {
+	if(prescaler > 20) {
 		if(bufferDados_g.dadosRecebidosComSucesso == 'y') {
 			bufferDados_g.msgLCD4 = MSG_1;	
 			CarregaBufferTransmissao(&bufferDados_g, bufferTransmissao_g);

@@ -79,30 +79,17 @@ ISR(USART_RX_vect)
 //----------------------------------------------------------------------------
 
 ISR(TIMER2_OVF_vect)
-{
-	static uint8_t tempoRecep = 0;
-	
-	if (tempoRecep > 30) {		
-		if(bufferRX_g.erroCodeRecep != SEM_ERRO_RECEP) {
-			bufferRX_g.estadoBufferTrans = ERRO_COMUNICACAO;
-			TransmitiBuffer(&bufferRX_g);
-		}
-			
-		else if (bufferRX_g.dadosRecebidosComSucesso == 'y') {			
-			DescarregaDadosRecebidos();
-			
-			DirecaoCarro(&bufferRX_g);
-			AnguloServo(&bufferRX_g);
-			TransmitiBuffer(&bufferRX_g);
-			
-			printf("z");
-			bufferRX_g.dadosRecebidosComSucesso = 'n';
-		}
-					
-		tempoRecep = 0;
+{					
+	if (bufferRX_g.dadosRecebidosComSucesso == 'y') {
+		DescarregaDadosRecebidos();
+		
+		DirecaoCarro(&bufferRX_g);
+		AnguloServo(&bufferRX_g);
+		TransmitiBuffer(&bufferRX_g);
+		
+		bufferRX_g.dadosRecebidosComSucesso = 'n';
+		printf("z");
 	}
-	
-	tempoRecep++;
 }
 
 //----------------------------------------------------------------------------
@@ -116,25 +103,10 @@ int main()
 	/*Contador Timer 2*/
 	TIMSK2 = 0b00000001;
 	/*Prescaler do Timer2*/
-	TCCR2B = (1<<CS22) | (1<<CS21) | (1<<CS20);
+	TCCR2B = (1<<CS22) | (1<<CS20);	
 	
 	sei();	
-	while(1){
-		if(bufferRX_g.dadosRecebidosComSucesso == 'y') {
-			
-			DescarregaDadosRecebidos();
-			
-			DirecaoCarro(&bufferRX_g);
-			AnguloServo(&bufferRX_g);
-			TransmitiBuffer(&bufferRX_g);
-	
-			printf("z");
-			bufferRX_g.dadosRecebidosComSucesso = 'n';
-		}
-		
-		
-		
-	}		
+	while(1){}		
 } 
 
 //----------------------------------------------------------------------------
