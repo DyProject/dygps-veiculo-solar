@@ -12,6 +12,7 @@
 
 #include <avr/io.h>
 #include "globals_def.h"
+#include "joystick.h"
 
 //----------------------------------------------------------------------------
 
@@ -34,6 +35,16 @@ void LCD4_MSG_INICIAL();
 void CarregaBufferTransmissao(
 	BufferDados* bufferDados,
 	unsigned char* buff
+);
+
+uint8_t AjustaValoresDutyParaConfigCarroESQ(
+	JoyStick joy,
+	unsigned char direcao
+);
+
+uint8_t AjustaValoresDutyParaConfigCarroDIR(
+	JoyStick joy,
+	unsigned char direcao
 );
 
  //----------------------------------------------------------------------------

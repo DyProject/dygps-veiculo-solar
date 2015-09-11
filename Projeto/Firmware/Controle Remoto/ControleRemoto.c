@@ -76,9 +76,8 @@ ISR(ADC_vect)
 {
 	static uint8_t contador = 0;
 	static uint8_t prescaler = 0;
-	
-	
-	if(prescaler > 20) {
+		
+	if(prescaler > 10) {
 		if(bufferDados_g.dadosRecebidosComSucesso == 'y') {
 			bufferDados_g.msgLCD4 = MSG_1;	
 			CarregaBufferTransmissao(&bufferDados_g, bufferTransmissao_g);

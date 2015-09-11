@@ -9,13 +9,7 @@
 
 //---------------------------------------------------------------------------
 
-uint16_t pontoInicX_g = 522,
-		 limInfPontoInicX_g = 478,
-		 limSupPontoInicX_g = 542;	
-uint16_t pontoInicY_g = 498,
-		 limInfPontoInicY_g = 478,
-		 limSupPontoInicY_g = 542;
-		 
+	 
 uint8_t dutyAnteriorLadoEsq_g = 0;
 uint8_t dutyAnteriorLadoDir_g = 0;
 
@@ -57,16 +51,9 @@ unsigned char CalculaAnguloServoRight(
 void TankDrive(
 	JoyStick* joyStick
 ) 
-{	
-	//Ajuste do zero
+{				
 	int32_t eixoX = joyStick->valorEixoX;
 	int32_t eixoY = joyStick->valorEixoY;
-	
-	//TRACEprintf("\n[%ld, %ld] \n", eixoX, eixoY);
-	
-	//trace
-	//int32_t eixoX = ((int32_t)ValorLidoADEixoX()) - 510;
-	//int32_t eixoY = ((int32_t)ValorLidoADEixoY()) - 506;
 	
 	uint32_t hypotenuse = sqrt(((eixoX*eixoX) + (eixoY*eixoY)));
 	uint16_t angleDegrees = (uint16_t)((acos(fabs(eixoX)/hypotenuse))*(180/M_PI)); 
@@ -113,171 +100,116 @@ void TankDrive(
 
 //---------------------------------------------------------------------------
 
-uint16_t ValorLidoADEixoX(
+/*
+	Retorna o Valor do Eixo X ajustado no ponto inicial.
+	o AD le valores entre 0 e 1023. Esta função retorna valores entre -512 e +512
+*/
+int16_t ValorEixoX(
 	unsigned char adSelected
 )
 {
 	uint16_t adcX = ADC_Read(adSelected);
+	
+	int16_t valor;
 		
-	return adcX;	
+	if(!PontoXNaPosInic(adcX)) 
+		valor = (adcX - PONTO_INIC_X);
+	else
+		valor = 0;
+		
+	return valor;	
 }
 
 //---------------------------------------------------------------------------
 
-uint16_t ValorLidoADEixoY(
+int16_t ValorEixoY(
 	unsigned char adSelected
 )
 {
 	uint16_t adcY = ADC_Read(adSelected);
 	
-	return adcY;	
+	int16_t valor;
+	if(!PontoYNaPosInic(adcY)) 
+		valor = (adcY - PONTO_INIC_Y);
+	else
+		valor = 0;
+	
+	return valor;
 }
 
 //---------------------------------------------------------------------------
 
 uint8_t PontoXNaPosInic(
-	unsigned char adSelected
+	uint16_t valorEixoX
 )
 {
-	return ((ValorLidoADEixoX(adSelected) >= limInfPontoInicX_g ) && (ValorLidoADEixoX(adSelected) <= limSupPontoInicX_g));
+	return ((valorEixoX >= LIM_INF_PONTO_INIC_X ) && (valorEixoX <= LIM_SUP_PONTO_INIC_X));
 }
 
 //---------------------------------------------------------------------------
 
 uint8_t PontoYNaPosInic(
-	unsigned char adSelected
+	uint16_t valorEixoY
 )
 {
-	return ((ValorLidoADEixoY(adSelected) >= limInfPontoInicY_g ) && (ValorLidoADEixoY(adSelected) <= limSupPontoInicY_g));	
+	
+	return ((valorEixoY >= LIM_INF_PONTO_INIC_Y ) && (valorEixoY <= LIM_SUP_PONTO_INIC_Y));	
 }
 
 //---------------------------------------------------------------------------
 
 unsigned char DirecaoCarro(
-	unsigned char sentido
+	JoyStick joy
 )
 {
 	static TEstadoCarro estadoCarro_g = PARADO;
 		
-	unsigned char direcao = 'P';
+	unsigned char direcao;
+	
+	volatile uint8_t estaAndandoParaFrente = (((joy.valorEixoX != 0) && (joy.valorEixoY >= 0)) || (joy.valorEixoY > 0));
+	volatile uint8_t estaAndandoParaTras = (joy.valorEixoY < 0);
+	volatile uint8_t estaParado = (!estaAndandoParaFrente && !estaAndandoParaTras);
+	
 	switch(estadoCarro_g) {
 		case PARADO:
-			if((sentido == 'F') || (sentido == 'D') || (sentido == 'E')) {
+			if (estaAndandoParaFrente) {
 				direcao = 'F';
-				estadoCarro_g = ANDANDO_FRENTE;
-			}				
-			else if((sentido == 'T') || (sentido == 'R') || (sentido == 'L')) {
+				estadoCarro_g = ANDANDO_FRENTE;			
+			}
+			
+			else if (estaAndandoParaTras){
 				direcao = 'T';
 				estadoCarro_g = ANDANDO_TRAS;
-			}else direcao = 'P';
-			break;	
+			}
+			
+			else 
+				direcao = 'P';
+		break;	
 		
 		case ANDANDO_FRENTE:
-			if ((sentido == 'T') || (sentido == 'R') || (sentido == 'L') || (sentido == 'P')) {
+			if (estaParado || estaAndandoParaTras) {
 				direcao = 'P';
 				estadoCarro_g = PARADO;
-			}else direcao = 'F';	
-			break;			
+			}	
+			else
+				direcao = 'F';
+		break;			
 		
 		case ANDANDO_TRAS:
-			if ((sentido == 'F') || (sentido == 'D') || (sentido == 'E') || (sentido == 'P')) {
+			if (estaParado || estaAndandoParaFrente) {
 				direcao = 'P';
 				estadoCarro_g = PARADO;
-			}else direcao = 'T';	
-			break;		
+			}
+			
+			else
+				direcao = 'T';
+		break;		
 			
 		default:
 			direcao = 'P';
 	}
 	
 	return direcao;
-}
-
-//---------------------------------------------------------------------------
-
-unsigned char CalculaSentido(
-	uint16_t valorLidoADEixoX,
-	uint16_t valorLidoADEixoY
-)
-{
-	volatile unsigned char direcao = 'P';
-		
-	/*Andando Frente*/		
-	if((valorLidoADEixoY > limSupPontoInicY_g) && PontoXNaPosInic(AD_EIXO_X_DIR))
-		direcao = 'F';
-	
-	/*Andando Frente Direita*/
-	else if((valorLidoADEixoX > limSupPontoInicX_g) && 
-			((valorLidoADEixoY > limSupPontoInicY_g) || PontoYNaPosInic(AD_EIXO_Y_DIR)))
-		direcao = 'D';
-		
-	/*Andando Frente Esquerda*/	
-	else if((valorLidoADEixoX < limInfPontoInicX_g) && 
-			((valorLidoADEixoY > limSupPontoInicY_g) ||  PontoYNaPosInic(AD_EIXO_Y_DIR)))
-		direcao = 'E';	
-		
-	/*Andando Tras*/
-	else if((valorLidoADEixoY < limInfPontoInicY_g) && PontoXNaPosInic(AD_EIXO_X_DIR))
-		direcao = 'T';
-		
-	/*Andando Tras Direita*/
-	else if((valorLidoADEixoX > limSupPontoInicX_g) && (valorLidoADEixoY < limInfPontoInicY_g))
-		direcao = 'R';
-		
-	/*Andando Tras Esquerda*/	
-	else if((valorLidoADEixoX < limInfPontoInicX_g) && (valorLidoADEixoY < limInfPontoInicY_g))
-		direcao = 'L';	
-		
-	else 
-		direcao = 'P';
-		
-	return direcao;
-}
-
-//---------------------------------------------------------------------------
-
-uint8_t CalculaDutyCycleLadoDir(
-		uint16_t valorLidoADEixoX,
-		uint16_t valorLidoADEixoY,
-		unsigned char sentido
-)
-{
-	uint8_t duty = 0;
-	switch(sentido) {
-		case 'F'://Andando Frente
-		case 'T'://Andando Tras
-		
-			if(dutyAnteriorLadoDir_g < 75) {
-				uint8_t porcentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
-				duty = SoftStarterLadoDir(porcentoEixoY);	
-			}
-			else duty = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
-		
-			break;
-				
-		case 'E'://Andando Frente Esquerda
-		case 'L'://Andando Tras Esquerda
-			if(dutyAnteriorLadoDir_g < 75)
-				duty = SoftStarterLadoDir(100);
-			else duty = 100;
-			
-			break;
-		case 'R': //Andando Tras Direita
-		case 'D'://Andando Frente Direita
-			if(dutyAnteriorLadoDir_g < 75)
-				duty = SoftStarterLadoDir(100 - CalculaPorcentoPosicaoEixoX(valorLidoADEixoX));
-			else duty = (100 - CalculaPorcentoPosicaoEixoX(valorLidoADEixoX));
-			
-			
-			break;
-		case 'P'://Parado
-			duty = 0;
-			break;
-	}
-	
-	dutyAnteriorLadoDir_g = duty;
-		
-	return duty;
 }
 
 //---------------------------------------------------------------------------
@@ -289,13 +221,18 @@ uint8_t SoftStarterLadoEsq(
 	uint8_t incremento = 5;
 	uint8_t incrementoInicial = 15;
 	
-	if(dutyAnteriorLadoEsq_g < incrementoInicial )//Abaixo desse valor o carrinho não anda
+	if((dutyAnteriorLadoEsq_g < incrementoInicial) && (dutyAtual > 0))//Abaixo desse valor o carrinho não anda
 		dutyAtual = incrementoInicial; 
 	else if(dutyAnteriorLadoEsq_g < dutyAtual)
 		dutyAtual = dutyAnteriorLadoEsq_g + incremento;
-	else if(dutyAnteriorLadoEsq_g > dutyAtual)
+	else if((dutyAnteriorLadoEsq_g > dutyAtual) && (dutyAtual != 0))
 		dutyAtual = dutyAnteriorLadoEsq_g - incremento;
-		
+	
+	dutyAnteriorLadoEsq_g = dutyAtual;
+	
+	if(dutyAtual > 100)
+		dutyAtual = 100;
+	
 	return dutyAtual;
 }
 
@@ -308,134 +245,20 @@ uint8_t SoftStarterLadoDir(
 	uint8_t incremento = 5;
 	uint8_t incrementoInicial = 15;
 		
-	if((dutyAnteriorLadoDir_g < incrementoInicial))//Abaixo desse valor o carrinho não anda. 
+	if((dutyAnteriorLadoDir_g < incrementoInicial) && (dutyAtual > 0))//Abaixo desse valor o carrinho não anda. 
 		dutyAtual = incrementoInicial;
 	else if(dutyAnteriorLadoDir_g < dutyAtual)
 		dutyAtual = dutyAnteriorLadoDir_g + incremento;
-	else if(dutyAnteriorLadoDir_g > dutyAtual)
+	else if((dutyAnteriorLadoDir_g > dutyAtual) && (dutyAtual != 0))
 		dutyAtual =dutyAnteriorLadoDir_g - incremento;
+	
+	dutyAnteriorLadoDir_g = dutyAtual;
+	
+	if(dutyAtual > 100)
+		dutyAtual = 100;
 	
 	return dutyAtual;
 }
 
-//---------------------------------------------------------------------------
-
-uint8_t CalculaDutyCycleLadoEsq(
-		uint16_t valorLidoADEixoX,
-		uint16_t valorLidoADEixoY,
-		unsigned char sentido
-)
-{
-	uint8_t duty = 0;
-	
-	switch(sentido) {
-		case 'F'://Andando Frente
-		case 'T'://Andando Tras
-			//trace
-			
-			if(dutyAnteriorLadoEsq_g < 75) {
-				uint8_t porcentoEixoY = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
-				duty = SoftStarterLadoEsq(porcentoEixoY);	
-			}
-			else duty = CalculaPorcentoPosicaoEixoY(valorLidoADEixoY);
-					
-			//EndTrace
-			//duty = SoftStarterLadoEsq(CalculaPorcentoPosicaoEixoY(valorLidoADEixoY));
-			break;
-		case 'D'://Andando Frente Direita
-		case 'R'://Andando Tras Direita
-			if(dutyAnteriorLadoEsq_g < 75)
-				duty = SoftStarterLadoEsq(100);
-			else duty = 100;
-			break;
-		case 'E'://Andando Frente Esquerda
-		case 'L': //Andando Tras Esquerda
-			if(dutyAnteriorLadoEsq_g < 75)
-				duty = SoftStarterLadoEsq(100 - CalculaPorcentoPosicaoEixoX(valorLidoADEixoX));
-			else duty = (100 -CalculaPorcentoPosicaoEixoX(valorLidoADEixoX));
-			break;
-		case 'P'://Parado
-			duty = 0;
-			break;
-	}
-	
-	dutyAnteriorLadoEsq_g = duty;
-	
-	return duty;
-}
-
-//---------------------------------------------------------------------------
-
-uint8_t CalculaPorcentoPosicaoEixoY(
-	uint16_t valorLidoADEixoY
-) 
-{
-	/*Valores Empíricos*/
-	volatile uint16_t //posYFrente100PorCento = 1023,
-			 posYFrente75PorCento = 900,
-			 posYFrente50PorCento = 775,
-			 posYFrente25PorCento = 650,
-			 //posYTras100PorCento = 0,
-			 posYTras75PorCento = 300,
-			 posYTras50PorCento = 390,
-			 posYTras25PorCento = 480;
-			 //posY0PorCento = 522;		
-		 
-	uint8_t valorPorCentoEixoY; 
-	
-	if ((valorLidoADEixoY > posYFrente75PorCento) || (valorLidoADEixoY < posYTras75PorCento)) 
-		valorPorCentoEixoY = 100;
-				
-	else if((valorLidoADEixoY > posYFrente50PorCento) || (valorLidoADEixoY < posYTras50PorCento)) 
-		valorPorCentoEixoY = 75;
-		
-	else if((valorLidoADEixoY > posYFrente25PorCento) || (valorLidoADEixoY < posYTras25PorCento)) 
-		valorPorCentoEixoY = 50;
-	
-	else if(PontoYNaPosInic(AD_EIXO_Y_DIR))
-		valorPorCentoEixoY = 0;
-			
-	else  
-		valorPorCentoEixoY = 25;
-				
-	return valorPorCentoEixoY;
-}
-
-//---------------------------------------------------------------------------
-
-uint8_t CalculaPorcentoPosicaoEixoX(
-	uint16_t valorLidoADEixoX
-) 
-{
-	/*Valores Empíricos*/
-	uint16_t //posXFrente100PorCento = 1023,
-			 posXFrente75PorCento = 900,
-			 posXFrente50PorCento = 775,
-			 posXFrente25PorCento = 650,
-			 //posXTras100PorCento = 0,
-			 posXTras75PorCento = 300,
-			 posXTras50PorCento = 390,
-			 posXTras25PorCento = 480;
-			 //posX0PorCento = 498;
-		 
-	uint16_t valorPorCentoEixoX; 
-	
-	if ((valorLidoADEixoX > posXFrente75PorCento) ||  (valorLidoADEixoX < posXTras75PorCento) ) 
-		valorPorCentoEixoX = 100;
-				
-	else if((valorLidoADEixoX > posXFrente50PorCento) || (valorLidoADEixoX < posXTras50PorCento)) 
-		valorPorCentoEixoX = 75;
-		
-	else if((valorLidoADEixoX > posXFrente25PorCento) || (valorLidoADEixoX < posXTras25PorCento) ) 
-		valorPorCentoEixoX = 50;
-				
-	else if(PontoXNaPosInic(AD_EIXO_X_DIR))
-		valorPorCentoEixoX = 0;
-	
-	else 
-		valorPorCentoEixoX = 25;
-	
-	return valorPorCentoEixoX;
-}
 
 //---------------------------------------------------------------------------

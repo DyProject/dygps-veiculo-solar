@@ -3,7 +3,6 @@
 #include "globals_def.h"
 #include "LCD4b.h"
 #include "usart_def.h"
-#include "joystick.h"
 
 extern FILE stdoutUART;
 extern FILE stdoutLCD4;
@@ -14,6 +13,60 @@ extern FILE stdoutLCD4;
 volatile TEstadoCarro estadoCarro = PARADO;
 
 //----------------------------------------------------------------------------
+/*A atual configuração do carro não permite acionar um motor para tras e outro para frente. Necessário ajuste de hardware*/
+uint8_t AjustaValoresDutyParaConfigCarroESQ(
+	JoyStick joy,
+	unsigned char direcao
+)
+{
+	volatile int16_t dutyLE, dutyProv;
+
+	if(direcao == 'T')
+		dutyLE = fabs(joy.dutyLD);
+
+	else if (direcao == 'F') {
+		if(joy.dutyLE < 0)
+			dutyLE = 0;
+		else 
+			dutyLE = joy.dutyLE;
+	}
+
+	else
+		dutyLE = 0;
+
+	dutyProv = SoftStarterLadoEsq(dutyLE);
+
+	return dutyProv;	
+}
+
+//----------------------------------------------------------------------------
+
+uint8_t AjustaValoresDutyParaConfigCarroDIR(
+	JoyStick joy,
+	unsigned char direcao
+)
+{
+	volatile int8_t dutyLD, dutyProv;
+
+	if(direcao == 'T')
+		dutyLD = (int8_t)fabs(joy.dutyLE);
+
+	else if (direcao == 'F'){
+		if(joy.dutyLD < 0)
+			dutyLD = 0;
+		else
+			dutyLD = joy.dutyLD;
+	}
+
+	else
+		dutyLD = 0;
+
+	dutyProv = SoftStarterLadoDir(dutyLD);
+
+	return dutyProv;
+}
+
+//----------------------------------------------------------------------------
 
 void CarregaBufferTransmissao(
 	BufferDados* bufferDados,
@@ -21,30 +74,24 @@ void CarregaBufferTransmissao(
 )
 {
 	//Valores do angulo do servo
-	JoyStick joystick;
-	
-	if(!PontoXNaPosInic(AD_EIXO_X_SERVO))
-		joystick.valorEixoX = (((int32_t)ValorLidoADEixoX(AD_EIXO_X_SERVO))- 510);
-	else
-		joystick.valorEixoX = 0;
-	
-	if(!PontoYNaPosInic(AD_EIXO_Y_SERVO))
-		joystick.valorEixoY = (((int32_t)(ValorLidoADEixoY(AD_EIXO_Y_SERVO))) - 506);
-	else
-		joystick.valorEixoY = 0;
+	JoyStick joystickServo;
+	joystickServo.valorEixoX = (int32_t)ValorEixoX(AD_EIXO_X_SERVO);
+	joystickServo.valorEixoY = (int32_t)ValorEixoY(AD_EIXO_Y_SERVO);
+	TankDrive(&joystickServo);
 
-	TankDrive(&joystick);
-		
-	uint16_t valorLidoADEixoX = ValorLidoADEixoX(AD_EIXO_X_DIR);
-	uint16_t valorLidoADEixoY = ValorLidoADEixoY(AD_EIXO_Y_DIR);
-	unsigned char sentido = CalculaSentido(valorLidoADEixoX, valorLidoADEixoY);
+	//Valores do angulo do servo
+	JoyStick joystickDIR;
+	joystickDIR.valorEixoX = (int32_t)ValorEixoX(AD_EIXO_X_DIR);
+	joystickDIR.valorEixoY = (int32_t)ValorEixoY(AD_EIXO_Y_DIR);
+	TankDrive(&joystickDIR);
 	
-	*(buff + DIRECAO) = DirecaoCarro(sentido);
-	*(buff + DUTY_MOTOR_E)= CalculaDutyCycleLadoEsq(valorLidoADEixoX, valorLidoADEixoY,sentido);
-	*(buff + DUTY_MOTOR_D) = CalculaDutyCycleLadoDir(valorLidoADEixoX, valorLidoADEixoY,sentido);
-	*(buff + ANGULO_SERVO_E) = CalculaAnguloServoLeft(joystick.dutyLE);
-	*(buff + ANGULO_SERVO_D) = CalculaAnguloServoRight(joystick.dutyLD);;
-	*(buff + FONTE_ALIMENTACAO) = bufferDados->fonteAlimentacao; 
+	volatile unsigned char direcao = DirecaoCarro(joystickDIR);
+	*(buff + DIRECAO) = direcao;
+	*(buff + DUTY_MOTOR_E) = AjustaValoresDutyParaConfigCarroESQ(joystickDIR, direcao);
+	*(buff + DUTY_MOTOR_D) = AjustaValoresDutyParaConfigCarroDIR(joystickDIR, direcao);
+	*(buff + ANGULO_SERVO_E) = CalculaAnguloServoLeft(joystickServo.dutyLE);
+	*(buff + ANGULO_SERVO_D) = CalculaAnguloServoRight(joystickServo.dutyLD);;
+	*(buff + FONTE_ALIMENTACAO) = bufferDados->fonteAlimentacao;
 }
 
 //----------------------------------------------------------------------------

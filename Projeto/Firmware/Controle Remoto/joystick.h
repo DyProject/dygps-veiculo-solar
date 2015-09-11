@@ -11,11 +11,21 @@
 #define AD_EIXO_Y_SERVO		3
 
 //---------------------------------------------------------------------------
+
+#define PONTO_INIC_X 524
+#define LIM_INF_PONTO_INIC_X 520//478
+#define LIM_SUP_PONTO_INIC_X 528//542
+
+#define PONTO_INIC_Y 506
+#define LIM_INF_PONTO_INIC_Y 502//478
+#define LIM_SUP_PONTO_INIC_Y 510//542
+
+//---------------------------------------------------------------------------
 		
-uint16_t ValorLidoADEixoX(
+int16_t ValorEixoX(
 	unsigned char adSelected
 );
-uint16_t ValorLidoADEixoY(
+int16_t ValorEixoY(
 	unsigned char adSelected
 );
 
@@ -45,15 +55,10 @@ void TankDrive(
 );
 
 uint8_t PontoXNaPosInic(
-	unsigned char adSelected
+	uint16_t valorEixoY
 );
 uint8_t PontoYNaPosInic(
-	unsigned char adSelected
-);
-
-unsigned char CalculaSentido(
-	uint16_t valorLidoADEixoX,
-	uint16_t valorLidoADEixoY
+	uint16_t valorEixoY
 );
 
 uint8_t SoftStarterLadoEsq(
@@ -63,27 +68,8 @@ uint8_t SoftStarterLadoDir(
 	uint8_t
 );
 
-uint8_t CalculaDutyCycleLadoEsq(
-	uint16_t valorLidoADEixoX,
-	uint16_t valorLidoADEixoY,
-	unsigned char sentido
-);
-uint8_t CalculaDutyCycleLadoDir(
-	uint16_t valorLidoADEixoX,
-	uint16_t valorLidoADEixoY,
-	unsigned char sentido
-);
-
-uint8_t CalculaPorcentoPosicaoEixoY(
-	uint16_t valorLidoADEixoY
-);
-
-uint8_t CalculaPorcentoPosicaoEixoX(
-	uint16_t valorLidoADEixoY
-);
-
 unsigned char DirecaoCarro(
-	unsigned char sentido
+	JoyStick joy
 );
 
 //---------------------------------------------------------------------------
