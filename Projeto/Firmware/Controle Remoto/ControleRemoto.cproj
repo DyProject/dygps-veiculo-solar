@@ -55,8 +55,8 @@
     <com_atmel_avrdbg_tool_avrdragon>
       <ToolOptions>
         <InterfaceProperties>
-          <IspClock>125000</IspClock>
-          <DebugWireClockDiv>0</DebugWireClockDiv>
+          <IspClock>176330</IspClock>
+          <DebugWireClockDiv>2000</DebugWireClockDiv>
         </InterfaceProperties>
         <InterfaceName>debugWIRE</InterfaceName>
       </ToolOptions>

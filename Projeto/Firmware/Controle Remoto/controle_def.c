@@ -79,7 +79,7 @@ void CarregaBufferTransmissao(
 	joystickServo.valorEixoY = (int32_t)ValorEixoY(AD_EIXO_Y_SERVO);
 	TankDrive(&joystickServo);
 
-	//Valores do angulo do servo
+	//Valores do angulo da direção
 	JoyStick joystickDIR;
 	joystickDIR.valorEixoX = (int32_t)ValorEixoX(AD_EIXO_X_DIR);
 	joystickDIR.valorEixoY = (int32_t)ValorEixoY(AD_EIXO_Y_DIR);

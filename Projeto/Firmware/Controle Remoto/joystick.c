@@ -69,8 +69,12 @@ void TankDrive(
 	// And max of y or x is the movement
 	int16_t mov = fmax(fabs(eixoY),fabs(eixoX));
 	 
-	int16_t tcoeff = ((-100 + (angleDegrees*2.222222))); //(angleDegrees/90)*2*100
-	int16_t turn = ((tcoeff*0.01) * (fabs(fabs(eixoY) - fabs(eixoX))));
+	//int16_t tcoeff = ((-100 + (angleDegrees*2.222222))); //(angleDegrees/90)*2*100
+	
+	int16_t tcoeff = (100 * angleDegrees) / 90;
+	int16_t turn = (tcoeff / 100) * mov;
+	//int16_t tcoeff = angleDegrees/90;
+	//int16_t turn = ((tcoeff*0.01) * (fabs(fabs(eixoY) - fabs(eixoX))));
 
 	// First and third quadrant
 	mov = mov * 0.196; // converter em pwm = ValorLido/510 * 100

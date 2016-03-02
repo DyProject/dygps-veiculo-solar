@@ -78,22 +78,22 @@ ISR(ADC_vect)
 	static uint8_t prescaler = 0;
 		
 	if(prescaler > 10) {
-		if(bufferDados_g.dadosRecebidosComSucesso == 'y') {
+		//if(bufferDados_g.dadosRecebidosComSucesso == 'y') {
 			bufferDados_g.msgLCD4 = MSG_1;	
 			CarregaBufferTransmissao(&bufferDados_g, bufferTransmissao_g);
 			MostraDadosLCD(&bufferDados_g, bufferTransmissao_g);
 			TransmitiBuffer(bufferTransmissao_g);
 			bufferDados_g.dadosRecebidosComSucesso = 'n';
 			contador = 0;
-		}
-		else if(contador > 100) { //Timeout
-			bufferDados_g.msgLCD4 = MSG_INICIAL;	
-			CarregaBufferTransmissao(&bufferDados_g, bufferTransmissao_g);
-			TransmitiBuffer(bufferTransmissao_g);
-			bufferDados_g.estacomunicando = 'n';
-			MostraDadosLCD(&bufferDados_g, bufferTransmissao_g);
-			contador = 0;
-		}
+		//}
+		//else if(contador > 100) { //Timeout
+			//bufferDados_g.msgLCD4 = MSG_INICIAL;	
+			//CarregaBufferTransmissao(&bufferDados_g, bufferTransmissao_g);
+			//TransmitiBuffer(bufferTransmissao_g);
+			//bufferDados_g.estacomunicando = 'n';
+			//MostraDadosLCD(&bufferDados_g, bufferTransmissao_g);
+			//contador = 0;
+		//}
 		prescaler = 0;
 	}
 	prescaler++;
